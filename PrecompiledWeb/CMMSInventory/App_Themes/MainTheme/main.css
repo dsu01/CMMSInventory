@@ -1,0 +1,1137 @@
+﻿html,body
+{
+	margin:0px;
+	padding:0px;
+	border:0;
+	background: url(../../Image/BG_blue.png) #007866 repeat-x fixed;
+    /*height:100%; deleted on 3/17/2008*/
+}
+
+body {	
+	/*font-family:Verdana, Arial, Helvetica, sans-serif;
+	the follwing is useless in IE, works only in Mozila
+	font-size:.7em;*/
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;	
+	width:100%; 
+	margin:auto;
+	/*height: 100%; wrong*/
+}
+
+/* Div Areas */
+#fullheightcontainer
+{
+  margin-left:1%; 
+  margin-right:1%; 
+  margin-top:1%; 
+  margin-bottom:1%; 
+  position:relative;
+  width:98%; 
+  height:98%; 
+  min-height:98%;
+  /*overflow:hidden;this is bad, cannot scroll down this is very important, otherwise the content will be out of parent box*/
+}
+
+/* Note: the <form> element make the height 100% don't work, so need to add into form class */
+.formFullSize
+{
+	width:100%;
+	height:100%;
+}
+
+#wrapper
+{
+ 
+ height:100%;
+ background-color: white; /* in I.E leftNav still have short*/
+ 
+}
+
+#banner
+{
+  z-index:1; /*** Critical value for Moz/Opera Background Column colors fudge to work ***/
+  position:relative;
+  top:0px;
+  width:100%; /*** Set to Left Col (not if left sidebar fully intrudes into header or left sidebar is off)
++ Right Col (not if right sidebar fully intrudes into header or right sidebar is off) + Center Col + Both Inner
+Borders (not if any sidebar intrudes into header or footer, or Inner Borders are off) + Both External Borders
+(not if external borders are off) ***/
+  /***height:80px;  = Top Margin + One Outer Border + header to body divider depth +
+subheader1 height + any other subheader heights ***/
+ /* height: 77px; 
+  background: #aa0011 url(../Image/img_Header.gif) top left no-repeat;  */
+ background-color:#007866;
+border-bottom:solid 2px Yellow;
+}
+/*#outer
+{
+  z-index:1; /*** Critical value for Moz/Opera Background Column colors fudge to work ***/
+  /***position:relative;  IE needs this or the contents won't show outside the parent container. ***/
+ /*** margin-left:170px;  Critical left col dimension value = left col width ***/
+   /*** Critical left and right col/divider dimension value (moves inversly) = center col width ***/
+  /*** border-right:1px solid #000000; Sets the internal right side border. ***/
+   /***Sets the internal left side border. ***/
+  /*** background:#eef6f7;  Sets background of center col***/  
+   /*height:100%; otherwise the middle part in extending out*/
+/*   min-height:500px;
+  
+}
+*/
+#leftNav 
+{   
+  width:170px; /*** Critical left col/divider dimension value = Left Col Width + 1px + One Internal Border Width ***/
+  float : left; 
+  background-color:#97c9a9;	
+  height:900px;
+ min-height:630px;
+  display:inline;
+  position:relative; /*** IE needs this or the contents won't show
+outside the parent container. ***/
+  margin-left:-170px; /***!!!Important, otherwise all move to content. Critical left col/divider dimension value = left col width + one internal border width ***/
+  /*border:solid 1px #999999;*/
+  font-size: 20px;
+   
+}
+#center 
+{
+  /*font-family: Verdana, Arial, Helvetica, sans-serif; 
+  height: 100%;need it or shift down*/
+   /*** Set to = center col width ***/
+
+  display:inline;
+/* \*/
+  margin-left:-1px;
+  vertical-align:top;
+
+/* Hidden from IE-mac */
+ 
+}
+#fsFilter
+{
+	width:160px;
+	background-color:#f8f885;
+	padding: 3px;
+	}
+	
+#fsWelcome
+{
+	width:160px;
+	background-color:#97c9a9;
+	padding: 3px;
+	}
+
+#fsSupport
+{
+	width:160px;
+	background-color:#cfa0a0;
+	padding: 3px;
+	
+	}
+	
+.legendText
+{
+	font-weight:bold;
+	
+	}
+#warningscreen {
+background-color:#EEF6F7;
+
+width:480px;
+min-height:380px;
+
+font-size: 15px;
+}
+
+#warningscreen legend {
+	font-size: 13px;
+	font-weight: bold;
+	text-transform:uppercase;
+	color: #BA3516;
+	}
+
+#warningscreen form p {
+	font-size: 11px;
+	line-height: 120%;
+	padding-top:5px;
+	
+	font-weight: normal;
+	
+	}
+
+#warningscreen fieldset {
+	width:450px;
+	margin-left:10px;
+	margin-right:3px;
+	background-color: #EEF6F7;
+	padding:5px;
+	}
+ 
+ #divAutoComp
+ {
+ 	background-color: #999999;
+ 	color:White;
+ 	left: 0px; 
+ 	top: 0px; 
+ 	position: absolute; 
+ 	z-index: 1
+ 	}
+ /*Table, grid*/
+ td.loginbaseTL {
+	background: url(../../Image/client/crnr_topleft.png);/*top left corner*/
+	width: 23px;
+	height: 23px;
+}
+td.loginbaseTop {
+	background: url(../../Image/client/crnr_bkgdtop.png);/*top border line*/
+}
+td.loginbaseTR {
+	background: url(../../Image/client/crnr_topright.png);/*top right corner*/
+	width: 23px;
+}
+td.baseTL {
+	background: url(../../Image/client/crnr_topleft.png);/*top left corner*/
+	width: 23px;
+	height: 14px;
+}
+td.baseTop {
+	background: url(../../Image/client/crnr_bkgdtop.png);/*top border line*/
+
+}
+td.baseTR {
+	background: url(../../Image/client/crnr_topright.png);/*top right corner*/
+	width: 23px;
+}
+td.baseRSide {
+	background: url(../../Image/client/crnr_bkgdright.png);/*right border line*/
+}
+td.baseBR {
+	background: url(../../Image/client/crnr_bttmright.png);/*bottom right corner*/
+	width: 23px;
+}
+td.baseBTTM {
+	background: url(../../Image/client/crnr_bkgdbttm.png);/*bottom border line*/
+}
+td.baseBL {
+	background: url(../../Image/client/crnr_bttmleft.png);/*bottom left corner*/
+	height: 23px;
+	width: 23px;
+}
+td.baseLSide {
+	background: url(../../Image/client/crnr_bkgdleft.png);/*left border line*/
+}
+    table.lightGreyTop {
+	background-image: url(../../Image/login_bkgd2.jpg);
+}
+.QueryDataTable 
+{	width:98%;	
+ 	padding:5px;
+ 	border:solid 1px #A0A0D0;
+ 	background-color:White 		
+	
+}
+
+.ReportQueryTable 
+{	width:100%;	
+ 	padding:5px;
+ 	border:solid 1px #A0A0D0;
+ 	background-color:#eeeeee; 		
+	
+}
+
+.tblInsideTab
+{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	Font-Size: 100%;
+ 	
+	}
+.GridViewHeader
+{ 
+	 Font-Weight:bold;
+	 color:#000;
+	 Font-Size:.7em;
+	/*  Color:#4b4d4e; background-image: url(../../Images/bg_gridviewheader.jpg);*/
+
+	 text-align:center;
+	 background-color:#cccccc;
+	
+	/*  the following fix header scroll;
+	position:relative ; 
+   top:expression(this.offsetParent.scrollTop); 
+   z-index: 10;  */
+	}
+
+
+.GridViewHeader a
+{
+    text-decoration: none;
+   
+		 
+}
+
+.GridViewHeader a:hover
+{
+    text-decoration: underline;
+    background: white;
+    color:Green;
+}
+
+.GridViewText
+{
+	
+    font: .65em Verdana, sans-serif;
+		color: #000000;
+	
+		text-align:left;
+				
+}
+  table.sub 
+  {
+	background-image: url(../../Image/login_bkgd2.jpg);
+}
+
+ table.rightNav 
+  {
+  	width:186px;
+	/*background-image: url(../../Image/login_bkgd2.jpg);*/
+	background: url(../../Image/client/bkgd_form.png);
+	border:solid 1px #999;
+}
+table.rightNav td
+{
+	margin: 0 0 0 10px;
+	/*padding: 2px 15px 10px 18px;*/
+	color: #000;
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	width:170px;
+	/*background: url(../../Image/client/arrow4.gif) no-repeat 0 3px;*/
+	text-align:left;
+	}
+	table.rightNav td.redheading
+{
+	margin: 0 0 10px 0;
+	padding: 10px 10px 10px 10px;
+	font-size: .7em;
+	font-weight:bold;
+	text-align:center;
+	color: #BA3516;
+	border-bottom: 1px solid #999;
+}
+ /*end of table grid*/
+ 
+/*Text Area*/
+a {
+	text-decoration: none;	
+}
+a:hover {
+	text-decoration: underline;
+}
+fieldset
+{
+    font-size:.8em;
+	}
+.actionBtn
+{
+ 
+	margin: 0 0 0 5px;
+	padding: 2px 5px 5px 18px;
+	color: #000;
+	font-family: Verdana, sans-serif;
+	font-size: 95%;
+	
+	background: url(../../Image/client/arrow4.gif) no-repeat 0 3px;
+	text-align:left;
+	
+	
+	}
+	.nolineBtn
+{
+  
+	font-family: verdana;
+	font-weight: normal;
+	color: navy;
+	font-size: .9em;
+	border:solid 1px #999;	
+	
+	padding: 2px;
+	font-weight:bold;
+	background-color:White;
+	
+}
+.footer {
+	font-size: 10px;
+	color: #000000;
+	padding:5px;
+}	
+.heading2 {
+	color: #506c83;
+	font-weight: bold;
+	font-size: 14px;
+	text-align:center
+}
+	
+.redheading {
+	color: #BA3516;
+	font-weight: bold;
+	font-size: 13px;
+	text-align:center;
+	padding:4px;
+}
+.blueheading {
+	color: White;
+	font-weight: bold;
+	font-size: 12px;
+	text-align:left;
+	padding:3px;
+	background-image: url(../../Image/login_bkgd2.jpg);
+}	
+.leftLabel {		
+	
+		background-color:transparent;
+		background-image:none;
+		font-size:.7em;
+		color: #000000;
+		font-weight:bold;
+		padding:5px;
+		text-align:left;		
+	}
+
+.normalTextBox {
+	
+		background-color:transparent;
+		background-image:none;
+		font-size:.7em;
+		font-weight:normal;
+		padding: 2px;
+	}
+	/* for the customer pager style */
+div.pagination {
+			padding: 3px;
+			margin: 3px;
+			font-size: 10px;
+			text-align:center;
+		}
+		div.pagination a {
+			padding: 2px 5px 2px 5px;
+			margin: 2px;
+			border: 1px solid #AAAADD;
+			text-decoration: none; /* no underline */
+			color: #000099;
+		}
+		div.pagination a:hover, div.pagination a:active {
+			border: 1px solid #000099;
+			color: #000;
+		}
+		div.pagination span.current {
+			padding: 2px 5px 2px 5px;
+			margin: 2px;
+			border: 1px solid #999999;
+			font-weight: bold;
+			background-color: #999999;
+			color: #FFF;
+		}
+		div.pagination span.disabled {
+			padding: 2px 5px 2px 5px;
+			margin: 2px;
+			border: 1px solid #EEE;
+			color: #DDD;
+		}
+		/*end of custom pager style*/
+.reqMark
+{
+	color: Red;
+	font-size:10px;	
+	font-weight:600;
+	}
+.reqField
+{
+	background-color: #fadfdf;
+	}
+.errortext 
+{
+	font-size: 11px;
+	color:#FF0000;
+	/*color:Red;*/
+	}	
+.suggestedtext
+{
+	font-size: 11px;
+	color:#13b507;
+	}
+.footerTop
+{
+	border-top: #000366 1px solid;
+	font-weight:bold;
+	font-size: 11px;
+	text-align:center;
+	}
+.text7
+{
+	/*font-family: Arial, Geneva, Helvetica, sans-serif;*/ 
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: .7em;
+	text-indent: 0px;
+	
+	}
+	.text11fix
+{
+	/*font-family: Arial, Geneva, Helvetica, sans-serif;*/ 
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-indent: 0px;
+	font-weight:normal;
+	}
+.text14fix
+{
+	/*font-family: Arial, Geneva, Helvetica, sans-serif;*/ 
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	text-indent: 0px;
+	
+	}
+	.ListSearchExtenderPrompt
+{
+	font-style:italic;
+	color:Gray;
+	background-color:white;
+	font-size: 10px;
+}
+.submit {
+	background: url(../../Image/client/bkgd_form.png);
+	font-family: verdana;
+	font-weight: normal;
+	color: #000000;
+	font-size: .9em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #999;
+	padding: 2px;
+	
+}
+.submitGreen {
+	background: url(../../Image/client/bkgd_greenButtonform.png);
+	font-family: verdana;
+	font-weight: normal;
+	color: #000000;
+	font-size: .9em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #006600;
+	padding: 2px;
+}
+.submitBlue {
+	background: url(../../Image/client/bkgd_blueButtonform.png);
+	font-family: verdana;
+	font-weight: normal;
+	color: #000000;
+	font-size: .9em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #006699;
+	padding: 2px;
+}
+.submitYellow {
+	background: url(../../Image/client/bkgd_yellowButtonform.png);
+	font-family: verdana;
+	font-weight: normal;
+	color: #000000;
+	font-size: .9em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #666600;
+	padding: 2px;
+}
+.submitRed {
+	background: url(../../Image/client/bkgd_redButtonform.png);
+	font-family: verdana;
+	font-weight: normal;
+	color: #000000;
+	font-size: .9em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #663333;
+	padding: 2px;
+}
+.btnInvisible
+{
+	display:none
+	
+	}
+.btnPrint {
+	
+	background-color:#8ca2c6;
+	font-family: verdana;
+	font-weight: normal;
+	color: white;
+	font-size: .9em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #999;
+	padding: 2px;
+}
+.btnExportToPDF {
+	
+	background-color:#b36969;
+	font-family: verdana;
+	font-weight: normal;
+	color: white;
+	font-size: .9em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #999;
+	padding: 2px;
+}
+.btnExportToExcel {
+	
+	background-color:#5aa977;
+	font-family: verdana;
+	font-weight: normal;
+	color: white;
+	font-size: .9em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #999;
+	padding: 2px;
+}
+.btnNotify {
+	
+	background-color:#5cde42;
+	font-family: verdana;
+	font-weight: bold;
+	color: white;
+	font-size: .9em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #999;
+	padding: 2px;
+}
+.btnAbate {
+	
+	/*background-color:#fec004;*/
+	background-color:yellow;
+	font-family: verdana;
+	font-weight: bold;
+	color: black;
+	font-size: .9em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #999;
+	padding: 2px;
+}
+.btnFinish {
+	
+	background-color:#f30b2c;
+	font-family: verdana;
+	font-weight: bold;
+	color: black;
+	font-size: .9em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #999;
+	padding: 2px;
+}
+td {
+	vertical-align: top;
+}
+/*End Text Area*/
+
+/*Link Boxes*/
+dl {/*the box on left navigation and bottom image*/
+	width: 200px;
+	margin: 0 0 0 0;
+	padding: 0;
+	/*background: #ccc url(../../Image/client/box_bttm2.png) no-repeat bottom left;*/
+	font-size: .7em;
+	
+	/*add the light color and corner on bottom log out link*/
+}
+dt {/*the small box title and top image*/
+	margin: 0 0 10px 0;
+	padding: 10px 10px 10px 10px;
+	font-size: 100%;
+	font-weight:bold;
+	text-align:center;
+	color: #BA3516;
+	border-bottom: 1px solid #fff;
+	background: #999 url(../../Image/client/box_top2.png) no-repeat top left;
+}
+dd {/*the small box element*/
+	margin: 0 0 0 10px;
+	padding: 2px 15px 10px 18px;
+	color: #000;
+	font-family: Verdana, sans-serif;
+	font-size: 90%;
+	background: url(../../Image/client/arrow4.gif) no-repeat 0 3px;
+	text-align:left;
+}
+#grey dt {
+	background-color: #999;
+}
+#grey {
+	background-color: #ccc;
+}
+#grey a {
+	color: #000;
+	text-decoration: none;
+}
+#grey a:hover {
+	color: #FFF;
+	text-decoration: none;
+}
+
+#blue {
+	background-color: #bdcce6;
+}
+#blue a {
+	color: #000;
+	text-decoration: none;
+}
+#blue a:hover {
+	color: #FFF;
+	text-decoration: none;
+}
+#blue dt {
+	background-color: #8ca2c6;/*dark blue*/
+}
+#red {
+	background-color: #cfa0a0;
+}
+#red dt {
+	background-color: #b36969;
+}
+#green {
+	background-color: #97c9a9;
+}
+#green dt {
+	background-color: #5aa977;
+}
+
+
+
+.modalBackground
+{
+	background-color: Gray;
+	filter: alpha(opacity=60);
+	opacity: 0.6;
+}
+
+.modalPopup 
+{
+	width:150px;
+	background-color: #d3d3d3;
+	border-width: 1px;
+	border-style: solid;
+	border-color: Gray;
+	padding: 3px;
+	line-height:20px;
+	vertical-align:top;
+	
+}
+
+.newPageModalPopup 
+{
+	width:800px;
+	background-color: #d3d3d3;
+	border-width: 1px;
+	border-style: solid;
+	border-color: Gray;
+	padding: 3px;
+	line-height:20px;
+	vertical-align:top;
+	
+}
+
+.redTitle
+{
+	color: #f30b2c;
+	font-weight: bold;
+	font-size: 14px;
+	text-align:Left;
+	padding:4px;
+}
+
+.yellowTitle
+{
+	color: #f0b503;
+	font-weight: bold;
+	font-size: 14px;
+	text-align:Left;
+	padding:4px;
+}
+
+.greenTitle
+{
+	color: #33bb18;
+	font-weight: bold;
+	font-size: 14px;
+	text-align:Left;
+	padding:4px;
+}
+
+.sectiontitle
+{
+   padding: 6px 6px 6px 3px;
+   background-color: #8d2d23;
+   color: white;
+   font-size: 12px;
+   font-weight: bold;	
+   text-transform: uppercase;
+}
+.modal{background-color:Gray;filter:alpha(opacity=40);opacity:0.7;}
+.popup_Buttons
+{
+	margin:10px;
+}
+.popup_Titlebar {
+	
+	height: 29px;
+	
+	background-color: #fab845;
+}
+.TitlebarLeft 
+{
+	float:left;
+	padding-left:5px;
+	padding-top:5px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:12px;
+	color:#FFFFFF;
+}
+.TitlebarRight
+{	
+	background:url(../../Image/cross_icon_normal.png);
+	background-position:right;
+	background-repeat:no-repeat;
+	height:15px;
+	width:16px;
+	float:right;
+	cursor:pointer;
+	margin-right:5px;
+	margin-top:5px;
+}
+.hr
+{
+ color:#fab845;
+ 
+}
+.BoldedWONumber
+{
+	color: Red;
+	font-weight:bold;
+	font-size:110%;
+	}
+	
+.inventoryTopLeftTitle {
+    border-right: solid 1px #000;
+    border-bottom: solid 1px #000;    
+    margin: 0 0 10px 0;
+	padding: 10px 10px 10px 10px;
+	font-size: 20px;
+	font-weight:bold;
+	text-align:center;
+	color: #BA3516;
+	
+}
+.inventoryTopLeftCell {
+    border-right: solid 1px #000;
+    border-bottom: solid 1px #000;
+    font-weight:bold;
+     font-size:.8em;
+    
+}
+.inventoryTopRightCell {
+    border-left: solid 1px #000;
+    border-bottom: solid 1px #000;
+    font-weight:bold;
+    font-size:.8em;
+   
+}
+.inventoryTopRightCellBtm {
+   
+    border-bottom: solid 1px #000;
+    font-weight:bold;
+    font-size:.8em;
+   
+}
+.noBorderTextBox
+{
+	border:0;
+    margin-left:5px;
+    width:auto;
+   
+	}
+
+.noBorderShortTextBox
+{
+	border:0;
+    margin-left:5px;
+    width:100px;
+   
+	}
+	
+.noBorderTextBoxForPrint
+{
+	border:0;
+    margin-left:1px;
+    width:95px;
+   
+	}
+.noBorderShortTextBoxForPrint
+{
+	border:0;
+    margin-left:1px;
+    width:60px;
+   
+	}
+.noborderCommentForPrint
+{border:0;
+    margin-left:1px;
+    width:500px;
+   
+	}
+.tableLabel
+{
+	
+	font-size:.9em;
+		color: #000;
+		font-weight:bolder;
+		padding:3px;
+		text-align:left;	
+	
+	
+	}
+
+.tableLabelReq
+{
+	
+	font-size:.9em;
+		color: #BA3516;
+		font-weight:bolder;
+		padding:3px;
+		text-align:left;	
+	
+	
+	}
+	
+.componentLabel1
+{
+	font-size:.9em;
+	color:Fuchsia;
+	font-weight:bolder;
+	padding:3px;
+	text-align:left;	
+	}
+.componentLabel2
+{
+	font-size:.9em;
+	color: Lime;
+	font-weight:bolder;
+	padding:3px;
+	text-align:left;	
+	}
+.componentLabel3
+{
+	font-size:.9em;
+	color:Orange;
+	font-weight:bolder;
+	padding:3px;
+	text-align:left;	
+	}
+.componentLabel4
+{
+	font-size:.9em;
+	color:Blue;
+	font-weight:bolder;
+	padding:3px;
+	text-align:left;	
+	}
+.componentLabel5
+{
+	font-size:.9em;
+	color:Maroon;
+	font-weight:bolder;
+	padding:3px;
+	text-align:left;	
+	}
+.componentTable{
+border-collapse:collapse;
+border:1px solid #000;
+}
+.componentTable td{
+border:1px solid #000;
+}
+
+.txtEquipmentInput
+{
+ line-height: 120%;
+}
+#inputTable td
+{
+	border-bottom: solid 1px #000;
+	border-right: solid 1px #000;
+	border:0;
+    margin-left:5px;
+	}
+	
+.watermarked
+{
+	color:Gray;
+	}
+
+/* all menu links */
+#nav a, #subMenusContainer a{
+	text-decoration:none;
+	display:block;
+	padding:8px 24px 8px 12px;
+	background-color:#fff ;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+}
+
+/* Just main menu links --[for non-javascript users this applies to submenu links as well]*/
+#nav a{
+	margin:0;
+	float:left;	
+	background-color:#EFEFEF ;
+}
+
+/* Just sub menu links */
+#subMenusContainer a, #nav li li a{
+	text-align:left;
+}
+
+/* All menu links on hover or focus */
+#nav a:hover, #nav a:focus, #subMenusContainer a:hover, #subMenusContainer a:focus, #nav a.mainMenuParentBtnFocused, #subMenusContainer a.subMenuParentBtnFocused{
+	background-color:#F6C739 ;
+	color:#FFF;
+}
+
+/* All ULs and OLs */
+#nav, #nav ul, #nav ol, #subMenusContainer ul, #subMenusContainer ol { 
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	line-height: 1em;
+}
+
+/* All submenu OLs and ULs */
+#nav ol, #nav ul, #subMenusContainer ul, #subMenusContainer ol {	
+	/*border around submenu goes here*/	 
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	background:#fff;	
+	border:1px solid #CCCCCC;
+	left:0;
+}
+
+
+/* List items in main menu --[for non-javascript users this applies to submenus as well]  */
+#nav li { 
+	/*great place to use a background image as a divider*/
+	display:block;
+	list-style:none;
+	position:relative;
+	float:left;
+}
+
+#subMenusContainer li{
+	list-style: none;
+}
+
+/* main menu ul or ol elment */
+#nav{
+	display:block;
+	position: absolute;
+	list-style:none;
+	margin:-6px 0 0 -8px;
+	z-index:5;
+	text-align: center;
+	display:block;
+	font-size:smaller;
+	border-top:solid 2px Yellow;
+	border-right:solid 2px Yellow;
+	
+}
+
+#subMenusContainer{	display:block; 	position:absolute;	top:0;	left:0;	width:100%;	height:0;	overflow:visible;	z-index:1000000000; }
+
+
+/* --------------------------[ The below is just for non-javscript users ]--------------------------*/
+#nav li li{	float:none; }
+
+#nav li li a{ /* Just submenu links*/	
+	position:relative;
+	float:none;
+}
+
+#nav li ul { /* second-level lists */
+	position: absolute;
+	width: 10em;
+	margin-left: -1000em; /* using left instead of display to hide menus because display: none isn't read by screen readers */
+	margin-top:2.2em;
+	font-size: .8em;
+}
+
+/* third-and-above-level lists */
+#nav li ul ul { margin: -1em 0 0 -1000em; }
+#nav li:hover ul ul {	margin-left: -1000em; }
+
+ /* lists nested under hovered list items */
+#nav li:hover ul{	margin-left: 0; }
+#nav li li:hover ul {	margin-left: 10em; margin-top:-2.5em;}
+
+/* extra positioning rules for limited noscript keyboard accessibility */
+#nav li a:focus + ul {  margin-left: 0; margin-top:2.2em; }
+#nav li li a:focus + ul { left:0; margin-left: 1010em; margin-top:-2.2em;}
+#nav li li a:focus {left:0;  margin-left:1000em; width:10em;  margin-top:0;}
+#nav li li li a:focus {left:0; margin-left: 2010em; width: 10em;  margin-top:-1em;}
+#nav li:hover a:focus{ margin-left: 0; }
+#nav li li:hover a:focus + ul { margin-left: 10em; }
+	
+
+
+
+@media print
+{
+	
+	
+     .text7, .text11fix{font-size:7pt;}
+   .noBorderTextBoxForPrint{font-size:7pt;}
+    .noborderCommentForPrint{font-size:7pt;}
+   .noBorderShortTextBoxForPrint{font-size:7pt;}
+    .leftLabel{font-size:7pt; font-weight:bold; color:Black;}
+ 
+    .inventoryTopLeftTitle {
+    border-right: solid 1px #000;
+    border-bottom: solid 1px #000;    
+    margin: 0 0 5px 0;
+	padding: 3px 3px 3px 3px;
+	font-size: 12pt;
+	font-weight:bold;
+	text-align:center;
+	}
+	.inventoryTopLeftCell {
+    border-right: solid 1px #000;
+    border-bottom: solid 1px #000;
+    font-weight:bold;
+     font-size:7pt;
+    
+	}
+	.inventoryTopRightCell {
+		border-left: solid 1px #000;
+		border-bottom: solid 1px #000;
+		font-weight:bold;
+		font-size:7pt;
+	   
+	}
+	.inventoryTopRightCellBtm {
+   
+    border-bottom: solid 1px #000;
+    font-weight:bold;
+    font-size:7pt;
+   
+	}
+	
+	
+}

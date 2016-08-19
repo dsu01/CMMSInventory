@@ -1,0 +1,94 @@
+﻿
+
+
+
+
+body {
+  background: white;
+  color: black; 
+
+
+} 
+
+#menu {
+   display: none;
+   }
+#wrapper, #content {
+   width: auto;
+   margin: 0 5%;
+   padding-top: 1em;
+   
+   float: none !important;
+   color: black;
+   background: transparent none;
+   }
+   
+
+.img {
+   vertical-align: bottom;
+   }
+a {
+  color: inherit; 
+  text-decoration: none;
+}
+a:link, a:visited {
+  text-decoration: underline;
+}
+#content a:link:after, #content a:visited:after {
+   font-size: 85%;
+ content: " [" attr(href) "]"; 
+ text-decoration: none;
+   }
+   
+
+
+
+
+#main a[href^="/"]:after {
+ content: " [http://www.yoursite.com" attr(href) "]";
+}
+
+#content a[href^="javascript:"]:after {
+ content: " ";
+} 
+
+ 
+
+
+	
+     .text7, .text11fix{font-size:7pt;}
+   .noBorderTextBoxForPrint{font-size:7pt;}
+   .noBorderShortTextBoxForPrint{font-size:7pt;}
+    .leftLabel{font-size:7pt; font-weight:bold; color:Black;}
+  .noborderCommentForPrint{font-size:7pt;}
+    .inventoryTopLeftTitle {
+    border-right: solid 1px #000;
+    border-bottom: solid 1px #000;    
+    margin: 0 0 5px 0;
+	padding: 3px 3px 3px 3px;
+	font-size: 12pt;
+	font-weight:bold;
+	text-align:center;
+	}
+	.inventoryTopLeftCell {
+    border-right: solid 1px #000;
+    border-bottom: solid 1px #000;
+    font-weight:bold;
+     font-size:7pt;
+    
+	}
+	.inventoryTopRightCell {
+		border-left: solid 1px #000;
+		border-bottom: solid 1px #000;
+		font-weight:bold;
+		font-size:7pt;
+	   
+	}
+	.inventoryTopRightCellBtm {
+   
+    border-bottom: solid 1px #000;
+    font-weight:bold;
+    font-size:7pt;
+   
+	}
+

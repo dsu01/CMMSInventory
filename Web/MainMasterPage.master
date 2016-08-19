@@ -1,0 +1,111 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MainMasterPage.master.cs" Inherits="MainMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head id="Head1" runat="server">
+    <title>CMMS Inventory Page</title>
+   
+    <asp:ContentPlaceHolder id="headerPlaceHolder" runat="server" />   
+</head>
+<body>
+     <div id="fullheightcontainer">
+        <form id="form2" runat="server" class="formFullSize"> 
+            <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" />           
+   <table width="100%" border="0" cellpadding="0" cellspacing="" >
+                 <tr>
+                    <td class="baseTL"></td>
+                    <td class="baseTop"></td>
+                    <td class="baseTR"></td>
+                  </tr>
+                 <tr>
+                    <td class="baseLSide"></td>
+                    <td class="baseContent">
+                           <div id="wrapper">
+                                <div id="banner">
+                                   
+	                                  <table height="100%" cellspacing="0" cellpadding="0" width="100%" border="0">                      
+                                    <tr>
+                                        <td align="left" width="33%">
+                               
+                                            <div class="logo">
+                                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Default.aspx">
+                                                    <asp:Image ID="Image2" runat="server" SkinID="logo"/>                                        
+                                                </asp:HyperLink>
+                                            </div>
+                                        
+                                        </td>
+                                        <td class="appTitle"><br />
+                                            <%= ConfigurationManager.AppSettings["ApplicationTitle"].ToString()%>
+                                        </td>
+                                        <td align="right">
+                                          <div class="user">                   
+                                              <asp:Label ID="lbUserName" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                         
+                                         
+                                             <a href="http://orfweb.od.nih.gov/safety/Pages/default.aspx" target="_blank">
+                                             <asp:Image ID="Image3" runat="server" ImageUrl="~/Image/SafetyFirstLogo.jpg" BorderColor="Yellow" BorderWidth="1" AlternateText="Safety First" />
+                                             </a>&nbsp;&nbsp;
+                                                                                              
+                                           <ul id="nav">                                            
+                                    
+                                              <li><asp:HyperLink ID="hlHome" runat="server" NavigateUrl="~/Default.aspx" Text="Home"></asp:HyperLink>
+                                                
+                                              </li>
+                                                <li><asp:HyperLink ID="hlAddNew" runat="server" NavigateUrl="#" Text="Add New"></asp:HyperLink>
+                                                <ul>		
+                                                  <li><a href="~/Equipment/equipElectrical.aspx" id="A3" runat="server">New Electrical</a></li>
+                                                  <li><a id="A4" href="~/Equipment/equipMechanical.aspx" runat="server">New Mechanical</a></li>
+                                                  
+                                                </ul>
+                                                </li> 
+                                                
+                                                
+                                              <li><asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="#" Text="Forms"></asp:HyperLink> 
+                                                <ul>		
+                                                  <li><a href="~/Forms/frmElectrical.aspx" id="A2" runat="server" target="_blank">Electrical</a></li>
+                                                  <li><a id="A1" href="~/Forms/Equipment_Inventory_Card-Sample.pdf" runat="server" target="_blank">Mechanical</a></li>
+                                                  
+                                                </ul>
+                                              </li>	
+                                               <li><asp:HyperLink ID="hlLogout" runat="server" NavigateUrl="~/LogOut.aspx" Text="Log Out"></asp:HyperLink>  	
+                                                
+                                                </li> 	
+                                           </ul>
+                                     
+                                          </div>
+                                        </td> 
+                                    </tr>
+                                </table> 
+	                                    
+                                     
+                                    
+                                  </div>            
+                            </div>                                       
+                           </div> 
+                                
+                                     <div id="center">
+                                     
+                                        <asp:ContentPlaceHolder id="ContentPlaceHolderMain" runat="server" />
+                                     </div>
+                    </td>
+                    <td class="baseRSide"></td>
+                  </tr>
+                 <tr>
+    <td class="baseBL"></td>
+    <td class="baseBTTM"></td>
+    <td class="baseBR"></td>
+  </tr>
+                <tr><td align="center" colspan="3"> 
+                <div align="center" style="font-size: 11px; padding-top: 8px">
+                                Contact: <%= ConfigurationManager.AppSettings["POCNames"].ToString()%>  &nbsp;&nbsp;
+			                    Email: <A href='mailto:<%= ConfigurationManager.AppSettings["POCEmail"].ToString()%>?Subject=<%= ConfigurationManager.AppSettings["ApplicationTitle"].ToString()%> Version'><font color="white"><u><%= ConfigurationManager.AppSettings["POCNames"].ToString()%></u></font></A> &nbsp;
+			                   Tel: <%= ConfigurationManager.AppSettings["POCPhone"].ToString()%></div>
+                            <div align="center" style="font-size: 11px; padding-top: 8px">                                
+                                Copyright &copy;2015, OD/ORF. All Rights Reserved. </div>
+                </td></tr>
+             </table>                                   
+         </form>
+     </div>
+</body>
+</html>

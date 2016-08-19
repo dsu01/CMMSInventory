@@ -1,0 +1,63 @@
+<asp:Image alt="Work Request Application" runat="server" ImageUrl="~/Image/NIH_logo_new.png" SkinID="logo" />
+
+<asp:TextBox runat="server" CssClass="txtEquipmentInput" Width="90%"></asp:TextBox>
+<asp:TextBox runat="server" SkinID="ShortInputTextBox" CssClass="txtNormalTextBox" Width="20%"></asp:TextBox>
+
+<asp:TextBox runat="server" SkinID="LongTextBox" CssClass="txtNormalTextBox" Width="300"></asp:TextBox>
+<asp:TextBox runat="server" SkinID="ShortTextBox" CssClass="txtNormalTextBox" Width="100"></asp:TextBox>
+<asp:TextBox runat="server" SkinID="MaxTextBox" CssClass="txtNormalTextBox" Width="75%"></asp:TextBox>
+<asp:TextBox runat="server" SkinID="ReqTextBox" CssClass="reqField"></asp:TextBox>
+<asp:TextBox runat="server" SkinID="NoborderTextBox60" CssClass="noBorderTextBox" Width="60%" />
+
+<asp:TextBox runat="server" SkinID="NoborderTextBox" CssClass="noBorderTextBox" Width="80%" />
+<asp:TextBox runat="server" SkinID="NoborderShortTextBox" CssClass="noBorderShortTextBox" />
+<asp:TextBox runat="server" SkinID="NoborderTextBoxForPrint" CssClass="noBorderTextBoxForPrint" />
+<asp:TextBox runat="server" SkinID="NoborderShortTextBoxForPrint" CssClass="noBorderShortTextBoxForPrint" />
+<asp:TextBox runat="server" SkinID="NoborderCommentForPrint" CssClass="noborderCommentForPrint" />
+
+<asp:Button runat="server" SkinID="ActionButton" CssClass="actionBtn"  Width="100%"/>
+<asp:DropDownList runat="server" Padding="2px" CssClass = "text7" Width="100%" />
+<asp:DropDownList runat="server" Padding="2px" CssClass = "text11fix" Width="100%" SkinID="fixTextSizeDropDown"/>
+
+ <asp:DropDownList runat="server" SkinID="reqDropDown" Padding="2px"  BackColor="#ffffcc" Width="280px"/>
+<asp:DropDownList runat="server" SkinID="shortDropDown" Width="50px" />
+<asp:DropDownList runat="server" SkinID="midDropDown" Width="170px" />
+<asp:DropDownList runat="server" SkinID="longDropDown" Width="220px" />
+<asp:DropDownList runat="server" SkinID="fullWidthDropDown" Width="100%" />
+
+<asp:DropDownList runat="server" SkinID="fixLongDropDown" CssClass = "text11fix" Width="220px" />
+
+<asp:DropDownList runat="server" SkinID="exlongDropDown" Width="450px" />
+<asp:DropDownList runat="server" SkinID="QueryTableDropList" Width="100%" />
+<asp:DropDownList runat="server" SkinID="noCssDropDown" Padding="2px" Width="135px"/>
+<asp:DropDownList runat="server" SkinID="newWODropDown" Padding="2px" Width="85%" />
+<asp:TreeView runat="server">
+    
+          <SelectedNodeStyle Font-Underline="True" ForeColor="#aa0011" HorizontalPadding="0px"
+                VerticalPadding="0px" />
+          <NodeStyle HorizontalPadding="5px" 
+                NodeSpacing="0px" VerticalPadding="0px" />
+</asp:TreeView>
+<asp:GridView CssClass="GridView" runat="server" Width="100%"  SkinID="gvPaging" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="4" CellSpacing="1" AllowSorting="true" AllowPaging="true" GridLines="None" AutoGenerateColumns="False" emptydatatext="No data found." >
+   <SelectedRowStyle BackColor="#A0A0D0" Font-Bold="True" ForeColor="White" />
+   <HeaderStyle CssClass="GridViewHeader" />
+  <AlternatingRowStyle BackColor="#efefef" CssClass="GridViewText" />
+  <RowStyle CssClass="GridViewText" />
+ <PagerSettings  Mode="NumericFirstLast" 
+               FirstPageText="[First Page]" 
+               LastPageText="[Last Page]" 
+               NextPageText="[Next Page]" 
+               PreviousPageText="[Previous Page]" 
+                
+               PageButtonCount="5"> 
+                   </PagerSettings> 
+   <PagerStyle ForeColor="Black" HorizontalAlign="Right" Height="8" BackColor="#E0E0E0"  Font-Size="11px"  />           
+</asp:GridView>
+
+<asp:GridView CssClass="GridView" AllowSorting="true" SkinID="95widthGV" runat="server" Width="97%" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="4" CellSpacing="1" GridLines="none" AutoGenerateColumns="False" emptydatatext='<img src="Image/icon_nodata.gif" border="0" />' >
+   <SelectedRowStyle BackColor="#A0A0D0" Font-Bold="True" ForeColor="White" />
+   <HeaderStyle CssClass="GridViewHeader" />
+  <AlternatingRowStyle BackColor="#efefef" CssClass="GridViewText" />
+  <RowStyle CssClass="GridViewText" />
+                                                                          
+</asp:GridView>

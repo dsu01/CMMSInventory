@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Print Mechanical Facility</title>
+    <link rel="stylesheet" type="text/css" href="print.css" media="print"/>
+</head>
+<body>
+  <div id="wrapper">
+        <div id="content">
+            <table cellspacing="0" cellpadding="3" width="635" border="0">   
+            <tr style="height:30pt">
+                <td colspan="4" class="inventoryTopLeftTitle" width="420">Equipment Inventory Card</td>
+                <td class="inventoryTopRightCell" width="70" valign="baseline">Facility#:</td>
+                <td style="border-bottom: solid 1px #000;" width="130"> 
+                 <asp:Label ID="lbFacNum" runat="server" CssClass="text11fix"></asp:Label>        
+                </td>
+                
+            </tr>
+            <tr style="height:25pt">
+                <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">System:&nbsp;&nbsp;</font>
+                <asp:Label id="lbFacSystem" Runat="server" CssClass="text11fix">&nbsp;</asp:Label>
+                </td>
+                <td class="inventoryTopRightCell"><font color="#BA3516">Facility ID:</font></td>
+                <td class="inventoryTopRightCellBtm"><asp:Label id="lbFacFacilityID" Runat="server" CssClass="text11fix">&nbsp;</asp:Label>
+                </td> 
+            </tr>
+            <tr style="height:25pt">
+                <td colspan="4" class="inventoryTopLeftCell">Function:
+                <asp:Label id="lbFacFunction" CssClass="text11fix" Runat="server"  />
+               </td>
+                <td colspan="2" class="inventoryTopRightCell">AAALAC
+		        <asp:CheckBox ID="ckAAALAC" Runat="server" Enabled="False"></asp:CheckBox>
+		        &nbsp;BSL<asp:CheckBox ID="ckBSL" Runat="server" Enabled="False"></asp:CheckBox>&nbsp;TJC<asp:CheckBox ID="ckTJC" Runat="server" Enabled="False"></asp:CheckBox>
+                </td>
+            </tr>
+            <tr style="height:25pt">   
+                <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">Building:&nbsp;</font>
+                <asp:TextBox id="lbFacBuilding" Runat="server" SkinID="NoborderShortTextBoxForPrint" />
+                Floor:<asp:TextBox id="lbFacFloor" Runat="server" SkinID="NoborderShortTextBoxForPrint" />
+                <font color="#BA3516">Location:<asp:TextBox id="lbFacLocation" Runat="server" SkinID="NoborderTextBoxForPrint" /></font></td>
+                <td class="inventoryTopRightCell">WR#:</td>
+                <td class="inventoryTopRightCellBtm"><asp:TextBox id="lbWRNumber" Runat="server" SkinID="NoborderShortTextBoxForPrint" /></td>
+            </tr>
+           
+          </table>
+            <table cellspacing="0" cellpadding="5" width="612" border="0">   
+                <tr>
+                    <td colspan="6" align="right"><a href="#" onclick="window.print();">print</a></td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="center" style="border-bottom: solid 1px #000;border-right: solid 1px #000;" width="55%"><h2>Equipment Inventory Card</h2></td>
+                    <td colspan="2" style="border-bottom: solid 1px #000;" width="45%" valign="baseline"><b>Facility#:</b>                
+                    </td>
+                </tr>
+                 <tr>
+                    <td colspan="4" style="border-bottom: solid 1px #000;border-right: solid 1px #000;" ><font color="#BA3516"><b>System:</b></font>                    
+                    </td>
+                    <td colspan="2" style="border-bottom: solid 1px #000;"><font color="#BA3516"><b>Facility ID:</b></font>                   
+                    </td> 
+                </tr>
+                 <tr>
+                    <td colspan="4" style="border-bottom: solid 1px #000;border-right: solid 1px #000;" ><b>Function:</b></td>
+                    <td colspan="2" style="border-bottom: solid 1px #000;"><b>AAALAC</b>
+                    <input type="checkbox" />
+                    &nbsp;&nbsp;&nbsp;<b>BSL</b> <input type="checkbox" />&nbsp;&nbsp;&nbsp;<b>TJC</b> <input type="checkbox" /></td>
+                </tr>
+                <tr>     
+                    <td colspan="2" style="border-bottom: solid 1px #000;" width="40%"><font color="#BA3516"><b>Building:</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   </td>
+                   <td style="border-bottom: solid 1px #000;" >
+                    <b>Floor:</b>&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;" ><font color="#BA3516"><b>Location:</b></font></td>
+                    <td colspan="2" style="border-bottom: solid 1px #000;"><b>Work Request#:</b></td>
+                </tr>
+               
+              </table>
+   
+              <table id="inputTable" cellspacing="0" cellpadding="2" width="612"  border="0">    
+    <tr height="25">
+        <td width="100" style="border-bottom: solid 1px #000;border-right: solid 1px #000;">Equipment ID (Other)</td>
+        <td width="170" style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        <td width="75" style="border-bottom: solid 1px #000;border-right: solid 1px #000;">VOLTS</td>
+        <td width="231" style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        
+    </tr>
+     <tr height="25">
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">Type or Use</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">Manufacturer</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        
+    </tr>
+     <tr height="25">
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">AMP</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">KVA</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        
+    </tr>
+    <tr height="25">
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">Volts Primary</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">Volts Secondary</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        
+    </tr>
+    <tr height="25">
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">Ph</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">W</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        
+    </tr>
+     <tr height="25">
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">No. of CKTS.</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">CKTS Used</td>
+        <td style="border-bottom: solid 1px #000;border-right: solid 1px #000;">&nbsp;</td>
+        
+    </tr>
+  </table>
+
+                <table cellspacing="0" cellpadding="5" width="100%" border="0">
+  <tr>      
+       <td colspan="2"><br /><b>Comments:</b><br /><br /><br />
+    
+        </td>
+        
+    </tr>
+ 
+</table>
+        </div>
+        </div>
+</body>
+</html>
