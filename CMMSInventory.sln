@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NIH.CMMS.Inventory.BOL", "NIH.CMMS.Inventory.BOL\NIH.CMMS.Inventory.BOL.csproj", "{9813B0E0-EEE2-4C60-9310-89C95D2E5BBF}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NIH.CMMS.Inventory.BPL", "N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NIH.CMMS.Inventory.DAL", "NIH.CMMS.Inventory.DAL\NIH.CMMS.Inventory.DAL.csproj", "{D82C3D33-6A94-4587-B140-F0754E05FE20}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web(1)", "Web\", "{A069DBD9-1631-4D37-95C5-8131703C9C24}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "Web\", "{A069DBD9-1631-4D37-95C5-8131703C9C24}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
 		ProjectReferences = "{FA335B43-9D99-4C83-8CE7-DFBCB426AA6F}|NIH.CMMS.Inventory.BPL.dll;{9813B0E0-EEE2-4C60-9310-89C95D2E5BBF}|NIH.CMMS.Inventory.BOL.dll;{D82C3D33-6A94-4587-B140-F0754E05FE20}|NIH.CMMS.Inventory.DAL.dll;"
@@ -28,6 +28,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web(1)", "Web\", "{A069DBD9
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "4354"
+		SlnRelativePath = "Web\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject

@@ -32,6 +32,7 @@
         //var test = $(document).TestFunc1();
         //test.TestFunc2();
 
+
         function ToggleScan() {
             scanEnabled = !scanEnabled;
             var scanButton = document.getElementById('<%= ButtonScan.ClientID %>');
