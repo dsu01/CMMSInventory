@@ -9,29 +9,7 @@
 
     <script type="text/javascript">
         var scanEnabled = false;
-        <%--var scanButton = document.getElementById('<%= txtEquipmentID1.ClientID %>');
-        scanButton.onclick(ev) ( function () {
-            scanEnabled = !scanEnabled;
-            this.enabled = !this.enabled;
-        });--%>
-
-        //(function ($) {
-        //    $.fn.TestFunc1 = function (options) {
-
-        //        alert("TestFunc1");
-
-        //        self.TestFunc2 = function (s) {
-        //            alert("TestFunc2");
-        //        }
-
-        //        this.TestFunc2();
-        //        return this;
-        //    }
-        //})(jQuery);
-
-        //var test = $(document).TestFunc1();
-        //test.TestFunc2();
-
+        
 
         function ToggleScan() {
             scanEnabled = !scanEnabled;
@@ -56,7 +34,9 @@
                         },
                     onError: function (string) { alert('Error ' + string); }
                 });
-                    $('#InventoryCardTitle').focus();
+
+                document.getElementById('<%= txtBarcode.ClientID %>').value = '';
+                $('#InventoryCardTitle').focus();
                 }
                 else {
                     scanner.scannerDetection(false);
