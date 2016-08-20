@@ -9,7 +9,52 @@
 
     <script type="text/javascript">
         var scanEnabled = false;
-        
+        <%--var scanButton = document.getElementById('<%= txtEquipmentID1.ClientID %>');
+        scanButton.onclick(ev) ( function () {
+            scanEnabled = !scanEnabled;
+            this.enabled = !this.enabled;
+        });--%>
+
+        //(function ($) {
+        //    $.fn.TestFunc1 = function (options) {
+
+        //        alert("TestFunc1");
+
+        //        self.TestFunc2 = function (s) {
+        //            alert("TestFunc2");
+        //        }
+
+        //        this.TestFunc2();
+        //        return this;
+        //    }
+        //})(jQuery);
+
+        //var test = $(document).TestFunc1();
+        //test.TestFunc2();
+
+        var settings = {
+            timeBeforeScanTest: 200, // wait for the next character for upto 200ms
+            endChar: [13], // be sure the scan is complete if key 13 (enter) is detected
+            avgTimeByChar: 40, // it's not a barcode if a character takes longer than 40ms
+            ignoreIfFocusOn: 'input', // turn off scanner detection if an input has focus
+            onComplete: function(barcode, qty) {
+                var cid = document.getElementById('<%= txtBarcode.ClientID %>');
+                cid.value = barcode;
+            }, // main callback function
+            onKeyDetect: function(event) {
+                //console.log(event.which);
+                <%--var cid = document.getElementById('<%= txtBarcode.ClientID %>');
+                        cid.value += event.which;--%>
+                return false;
+            },
+            scanButtonKeyCode: 116, // the hardware scan button acts as key 116 (F5)
+            scanButtonLongPressThreshold: 5, // assume a long press if 5 or more events come in sequence
+            onScanButtonLongPressed: //showKeyPad, // callback for long pressing the scan button
+                function() {
+                    alert('onScanButtonLongPressed');
+                },
+            onError: function(string) { alert('Error ' + string); }
+        };
 
         function ToggleScan() {
             scanEnabled = !scanEnabled;
@@ -17,23 +62,7 @@
             scanButton.value = scanEnabled ? 'Done' : 'Scan';
 
             if (scanEnabled) {
-                scanner.scannerDetection({
-                    timeBeforeScanTest: 200, // wait for the next character for upto 200ms
-                    endChar: [13], // be sure the scan is complete if key 13 (enter) is detected
-                    avgTimeByChar: 40, // it's not a barcode if a character takes longer than 40ms
-                    ignoreIfFocusOn: 'input', // turn off scanner detection if an input has focus
-                    onComplete: function (barcode, qty) {
-                        var cid = document.getElementById('<%= txtBarcode.ClientID %>');
-                        cid.value = barcode;
-                    }, // main callback function
-                    scanButtonKeyCode: 116, // the hardware scan button acts as key 116 (F5)
-                    scanButtonLongPressThreshold: 5, // assume a long press if 5 or more events come in sequence
-                    onScanButtonLongPressed: //showKeyPad, // callback for long pressing the scan button
-                        function () {
-                            alert('onScanButtonLongPressed');
-                        },
-                    onError: function (string) { alert('Error ' + string); }
-                });
+                scanner.scannerDetection(settings);
 
                 document.getElementById('<%= txtBarcode.ClientID %>').value = '';
                 $('#InventoryCardTitle').focus();
@@ -44,24 +73,7 @@
                 }
             }
 
-            var scanner = $(document).scannerDetection({
-                timeBeforeScanTest: 200, // wait for the next character for upto 200ms
-                endChar: [13], // be sure the scan is complete if key 13 (enter) is detected
-                avgTimeByChar: 40, // it's not a barcode if a character takes longer than 40ms
-                ignoreIfFocusOn: 'input', // turn off scanner detection if an input has focus
-                onComplete: function (barcode, qty) {
-                    var cid = document.getElementById('<%= txtBarcode.ClientID %>');
-                        cid.value = barcode;
-                        //alert("onComplete");
-                    }, // main callback function
-                    scanButtonKeyCode: 116, // the hardware scan button acts as key 116 (F5)
-                    scanButtonLongPressThreshold: 5, // assume a long press if 5 or more events come in sequence
-                    onScanButtonLongPressed: //showKeyPad, // callback for long pressing the scan button
-                        function () {
-                            alert('onScanButtonLongPressed');
-                        },
-                    onError: function (string) { alert('Error ' + string); }
-            });
+            var scanner = $(document).scannerDetection(settings);
                     scanner.scannerDetection(false);
 
                     function checkEquipmentID1TextBox(inputCtrl) {
@@ -209,7 +221,7 @@
                         </td>
                         <td class="inventoryTopRightCell"><font color="#BA3516">Barcode:</font></td>
                         <td class="inventoryTopRightCellBtm">
-                            <asp:TextBox ID="txtBarcode" runat="server" MaxLength="20" TabIndex="2" />
+                            <asp:TextBox ID="txtBarcode" runat="server" MaxLength="50" TabIndex="2" AutoPostBack="False"/>
                         </td>
                         <td>
                             <%--<button id="buttonScan" >Scan</button>--%>

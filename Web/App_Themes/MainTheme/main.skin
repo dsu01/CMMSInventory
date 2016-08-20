@@ -31,8 +31,8 @@
 <asp:DropDownList runat="server" SkinID="QueryTableDropList" Width="100%" />
 <asp:DropDownList runat="server" SkinID="noCssDropDown" Padding="2px" Width="135px"/>
 <asp:DropDownList runat="server" SkinID="newWODropDown" Padding="2px" Width="85%" />
-<asp:TreeView runat="server">
-    
+<asp:TreeView SkinID="SearchTreeView"  Font-Names="Verdana" ForeColor="Black"
+      Font-Size="8pt" ExpandImageUrl="../../Image/group.gif"  CollapseImageUrl="../../Image/group.gif" runat="server">    
           <SelectedNodeStyle Font-Underline="True" ForeColor="#aa0011" HorizontalPadding="0px"
                 VerticalPadding="0px" />
           <NodeStyle HorizontalPadding="5px" 
