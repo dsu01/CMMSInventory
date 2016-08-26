@@ -51,9 +51,13 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         loginUsr = Utils.CheckSession(this);
         if (!Page.IsPostBack)
         {
-           
-            if (loginUsr.Role.ToLower() != "msadmin" && loginUsr.Role.ToLower() != "mssuper")
-            { btnFinish.Visible = false; }
+
+            //if (loginUsr.Role.ToLower() != "msadmin" && loginUsr.Role.ToLower() != "mssuper")
+            //{ btnFinish.Visible = false; }
+
+            if (loginUsr.Role.ToLower() == "msadmin" || loginUsr.Role.ToLower() == "mssuper")
+            { btnFinish.Visible = true; }
+            else { btnFinish.Visible = false; }
 
             Session["FacEquipmentList"] = null;
             Session["PageNumber"] = 0;//the first page is 0

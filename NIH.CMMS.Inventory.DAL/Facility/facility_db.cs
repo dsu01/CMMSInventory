@@ -361,6 +361,22 @@ namespace NIH.CMMS.Inventory.DAL.Facility
 
             return details;
         }
+
+        public static EquipmentDet GetInvEquipmentDetails(int ID)
+        {          
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@ID", ID));
+            DataSet ds = DBCommands.GetData("spn_Inv_GetInvEquipmentDetail", sqlParams);
+            EquipmentDet details = new EquipmentDet();
+            if (ds != null && ds.Tables[0] != null && ds.Tables[0].Rows.Count > 0)
+            {
+                //populate wr fieds  
+                PopulateEquipmentDet(ds.Tables[0].Rows[0], details, false);
+            }
+            else
+                details = null;
+            return details;
+        }
         public static List<EquipmentDet> GetEquipmentList(string parentFacID)
         {
             List<EquipmentDet> equipList = null;
@@ -386,6 +402,7 @@ namespace NIH.CMMS.Inventory.DAL.Facility
         {            
             if (!isFacility)
             {
+                details.ParentFacilityNum = row["ParentFacility#"].ToString();
                 details.EquipID = row["EquipmentID"].ToString();
                 if (row["Location"].ToString() != "")
                 { details.EquipLocation = row["Location"].ToString(); }
@@ -393,6 +410,7 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             }
 
             details.Key = (int)row["ID"];
+           
             if (row["TypeorUse"].ToString() != "")
             { details.TypeOrUse = row["TypeorUse"].ToString(); }
             if (row["Manufacturer"].ToString() != "")

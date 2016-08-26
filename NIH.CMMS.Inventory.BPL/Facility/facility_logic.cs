@@ -45,10 +45,17 @@ namespace NIH.CMMS.Inventory.BPL.Facility
             return facility_db.GetElectrialEquipDetails(facSystemID);          
 
         }
+
+        public static EquipmentDet GetInvEquipmentDetails(int ID)
+        {
+            return facility_db.GetInvEquipmentDetails(ID);
+        }
         public static List<EquipmentDet> GetEquipmentsList(string parentFacNum)
         {
-            return facility_db.GetEquipmentList(parentFacNum);
-           
+            if (!string.IsNullOrEmpty(parentFacNum))
+                return facility_db.GetEquipmentList(parentFacNum);
+            else
+                return null;          
 
         }
         

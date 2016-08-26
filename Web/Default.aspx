@@ -241,7 +241,7 @@
                                        </SelectParameters>
                               </asp:ObjectDataSource>
                               
-                              	<asp:gridview id="gvEquips" Visible="false" runat="server" AutoGenerateColumns="false"	DataSourceID="odsInventory">
+                              	<%--<asp:gridview id="gvEquips" Visible="false" runat="server" AutoGenerateColumns="false"	DataSourceID="odsInventory">
 				<Columns>
 				 <asp:TemplateField HeaderText="Facility#"  HeaderStyle-HorizontalAlign="Left" ItemStyle-Width="100" ItemStyle-HorizontalAlign="Left">
                     <ItemTemplate>
@@ -286,7 +286,7 @@
                                                                                                                                                                                                                
                   
 					</Columns>
-				</asp:gridview>
+				</asp:gridview>--%>
                                         </td>
                                     </tr>
                                 </table>

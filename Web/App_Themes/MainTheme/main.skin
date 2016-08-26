@@ -38,6 +38,30 @@
           <NodeStyle HorizontalPadding="5px" 
                 NodeSpacing="0px" VerticalPadding="0px" />
 </asp:TreeView>
+
+<asp:GridView CssClass="GridViewStyle" runat="server" SkinID="gvRegPagingSorting"  AllowSorting="true" AllowPaging="true" PageSize="10" GridLines="None" AutoGenerateColumns="False">
+   <RowStyle CssClass="RowStyle" Font-size="11px" />
+   <PagerStyle CssClass="PagerStyle"  Font-size="11px"/>
+   <HeaderStyle CssClass="HeaderStyle"  Font-size="11px"/>
+   <EditRowStyle CssClass="EditRowStyle" Font-size="11px" />
+   <AlternatingRowStyle CssClass="AltRowStyle" Font-size="11px" /> 
+   <SelectedRowStyle CssClass="SelectedRowStyle" />
+  <FooterStyle CssClass="FooterStyle" Font-size="11px" />
+  <pagersettings mode="Numeric" position="Bottom" PageButtonCount="10" />          
+
+  <emptydatarowstyle HorizontalAlign="left"/>
+  <emptydatatemplate>
+
+      <asp:image id="NoDataImage"
+        imageurl="~/Image/icon_nodata.gif"
+        alternatetext="No data found." 
+        runat="server"/>
+            
+    </emptydatatemplate>     
+                                          
+</asp:GridView>
+
+
 <asp:GridView CssClass="GridView" runat="server" Width="100%"  SkinID="gvPaging" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="4" CellSpacing="1" AllowSorting="true" AllowPaging="true" GridLines="None" AutoGenerateColumns="False" emptydatatext="No data found." >
    <SelectedRowStyle BackColor="#A0A0D0" Font-Bold="True" ForeColor="White" />
    <HeaderStyle CssClass="GridViewHeader" />

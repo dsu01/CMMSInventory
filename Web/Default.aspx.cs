@@ -119,8 +119,7 @@ public partial class _Default : System.Web.UI.Page
                 if (loginUsr.Role.ToLower() == "msadmin" || loginUsr.Role.ToLower() == "mssuper")
                 { hlAction.Visible = true; }
                 else
-                { hlAction.Visible = false; }
-           
+                { hlAction.Visible = false; }         
           
             
         }
@@ -162,8 +161,7 @@ public partial class _Default : System.Web.UI.Page
 
     protected void btnExportToExcel_OnClick(object sender, EventArgs e)
     {
-       // Utils.ExportToExcel("Facility Search " + DateTime.Now.ToShortDateString(), gvEquips);
-        Utils.ExportToExcel("Inventory Result", gvEquips);
+       //     Utils.ExportToExcel("Inventory Result", gvEquips);
     }
 
     #endregion
@@ -175,8 +173,9 @@ public partial class _Default : System.Web.UI.Page
         //string strTitle = " Active Trouble Calls Due In: " + drpDueHours.SelectedItem.Text;
         //if (drpWOGroup.SelectedIndex != 0)
         //{ strTitle += " For Group: " + drpWOGroup.SelectedItem.Text; }
-        Utils.ExportToPDF("Inventory Search " + DateTime.Now.ToShortDateString(), gvEquips, "Facility Search " + DateTime.Now.ToShortDateString());
-       // Utils.ExportToPDFlv("Search Result", ListView1);
+
+        //Utils.ExportToPDF("Inventory Search " + DateTime.Now.ToShortDateString(), gvEquips, "Facility Search " + DateTime.Now.ToShortDateString());
+        Utils.ExportToPDFlv("Search Result", ListView1);
     }
 
     #endregion

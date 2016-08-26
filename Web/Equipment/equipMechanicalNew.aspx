@@ -38,7 +38,7 @@
                         <td id="InventoryCardTitle" colspan="4" class="inventoryTopLeftTitle" width="50%">Equipment Inventory Card</td>
                         <td class="inventoryTopRightCell" width="15%" valign="baseline">Facility#:</td>
                         <td style="border-bottom: solid 1px #000;" width="35%" colspan="3">
-                            <font color="gray">&nbsp;<asp:Label ID="txtFacilityNum" runat="server" /></font>
+                            <font color="gray">&nbsp;<asp:Label ID="txtFacilityNum" runat="server" Text="WQ0008" /></font>
                         </td>
                     </tr>
                     <tr>
@@ -92,608 +92,337 @@
   <asp:Panel runat="server" ID="DetailInfoPanel" style="margin-top: 20px; size:1.2em">
     <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0">
         <ajaxToolkit:TabPanel runat="server" HeaderText="List Of Components" ID="TabPanel1">
-           <ContentTemplate>  
-
+           <ContentTemplate>                 
                      <table border="1" width="100%" cellpadding="1" cellspacing="1" style="font-size:smaller; text-align:left">
                          <tr>
-                            <td> <b>Comments</b></td>
-                          <td colspan="6">
-                            <textarea name="ctl00$ContentPlaceHolderMain$txtComments" rows="3" cols="55" id="ctl00_ContentPlaceHolderMain_txtComments" tabindex="36" class="txtEquipmentInput" style="width:90%;">Test comment information here.Test comment information here.Test comment information here.Test comment information here.Test comment information here.Test comment information here.Test comment information here.</textarea>
-                          
-                        </td>
-                         </tr> 
-                                            <tr style="background-color:#cccccc">   
-                                               <th align="left"><a id="ctl00_ContentPlaceHolderMain_ListView1_lnkFacility" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$ListView1$lnkFacility','')">Comonent#</a></th> 
-                                                 <th align="left"><a id="ctl00_ContentPlaceHolderMain_ListView1_lnkName" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$ListView1$lnkName','')">Equipment ID</a></th> 
-                                                 <th align="left"><a id="ctl00_ContentPlaceHolderMain_ListView1_LinkButton1" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$ListView1$LinkButton1','')">Location</a></th> 
-                                                 <th align="left"><a id="ctl00_ContentPlaceHolderMain_ListView1_LinkButton2" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$ListView1$LinkButton2','')">Type of Use</a></th> 
-                                                 <th align="left"><a id="ctl00_ContentPlaceHolderMain_ListView1_LinkButton3" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$ListView1$LinkButton3','')">Model#</a></th> 
-                                                 <th align="left"><a id="ctl00_ContentPlaceHolderMain_ListView1_LinkButton4" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$ListView1$LinkButton4','')">Serial#</a></th> 
-                                                 <th align="left"><a id="ctl00_ContentPlaceHolderMain_ListView1_LinkButton5" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$ListView1$LinkButton5','')">Size</a></th> 
-                                              
-	
-                                            </tr> 
-                                             
-                                          <tr> 
-                                           <td width="5%">
-                                                                                             
-                                                 <a id="ctl00_ContentPlaceHolderMain_ListView1_ctrl0_hlFacNum" href="Equipment/equipMechanical.aspx?ParentFacilitySysID=9">1</a>  
-                                              
-                                               
-                                               
-                                           </td> 
-                                           <td width="5%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl0_lblFacID">asdasd069055125212asd</span></td>   
-                                           <td width="20%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl0_lblFacFunction">dasdasdasd069055125212</span></td> 
-                                           <td width="20%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl0_lblFacSystem">Air Handling Unit</span></td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl0_lblBuilding">13</span></td>  
-                                           <td width="15%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl0_lblLocation">sadasda</span></td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl0_lblTotalEquipments">19</span></td>  
-                                         
-                                          </tr> 
-                                     
-                                      <tr style="background-color:#EFEFEF"> 
-                                            <td width="10%">
-                                                                                             
-                                                 <a id="ctl00_ContentPlaceHolderMain_ListView1_ctrl1_hlFacNum" href="Equipment/equipMechanical.aspx?ParentFacilitySysID=10">2</a>  
-                                              
-                                               
-                                               
-                                           </td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl1_lblFacID">addada</span></td>   
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl1_lblFacFunction">Test function</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl1_lblFacSystem">Air Handling Unit</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl1_lblBuilding">13</span></td>  
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl1_lblLocation">dasd</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl1_lblTotalEquipments">5</span></td>  
-                                         
-                                          </tr> 
-                                     
-                                          <tr> 
-                                           <td width="10%">
-                                                                                             
-                                                 <a id="ctl00_ContentPlaceHolderMain_ListView1_ctrl2_hlFacNum" href="Equipment/equipElectrical.aspx?ParentFacilitySysID=12">3</a>  
-                                              
-                                               
-                                               
-                                           </td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl2_lblFacID">Test equip id</span></td>   
-                                           <td width="20%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl2_lblFacFunction">Test function</span></td> 
-                                           <td width="20%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl2_lblFacSystem">Control Panel</span></td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl2_lblBuilding">13</span></td>  
-                                           <td width="15%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl2_lblLocation">Test Location</span></td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl2_lblTotalEquipments">0</span></td>  
-                                          
-                                          </tr> 
-                                     
-                                      <tr style="background-color:#EFEFEF"> 
-                                            <td width="10%">
-                                                                                             
-                                                 <a id="ctl00_ContentPlaceHolderMain_ListView1_ctrl3_hlFacNum" href="Equipment/equipElectrical.aspx?ParentFacilitySysID=13">4</a>  
-                                              
-                                               
-                                               
-                                           </td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl3_lblFacID">yyyy</span></td>   
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl3_lblFacFunction">Test function sfsdf sfsdf sfsdfsdf</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl3_lblFacSystem">Control Panel</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl3_lblBuilding">13</span></td>  
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl3_lblLocation">Test Location</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl3_lblTotalEquipments">0</span></td>  
-                                          
-                                          </tr> 
-                                     
-                                          <tr> 
-                                           <td width="10%">
-                                                                                             
-                                                 <a id="ctl00_ContentPlaceHolderMain_ListView1_ctrl4_hlFacNum" href="Equipment/equipElectrical.aspx?ParentFacilitySysID=14">5</a>  
-                                              
-                                               
-                                               
-                                           </td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl4_lblFacID">Test FacilityID if not</span></td>   
-                                           <td width="20%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl4_lblFacFunction">Test function</span></td> 
-                                           <td width="20%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl4_lblFacSystem">Emergency Light</span></td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl4_lblBuilding">13</span></td>  
-                                           <td width="15%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl4_lblLocation">Test Location</span></td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl4_lblTotalEquipments">0</span></td>  
-                                         
-                                          </tr> 
-                                     
-                                      <tr style="background-color:#EFEFEF"> 
-                                            <td width="10%">
-                                                                                             
-                                                 <a id="ctl00_ContentPlaceHolderMain_ListView1_ctrl5_hlFacNum" href="Equipment/equipMechanical.aspx?ParentFacilitySysID=16">6</a>  
-                                              
-                                               
-                                               
-                                           </td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl5_lblFacID">dfsf</span></td>   
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl5_lblFacFunction">fsf</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl5_lblFacSystem">Air Dryer</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl5_lblBuilding">13</span></td>  
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl5_lblLocation">sdfs</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl5_lblTotalEquipments">0</span></td>  
-                                         
-                                          </tr> 
-                                     
-                                          <tr> 
-                                           <td width="10%">
-                                                                                             
-                                                 <a id="ctl00_ContentPlaceHolderMain_ListView1_ctrl6_hlFacNum" href="Equipment/equipMechanical.aspx?ParentFacilitySysID=17">7</a>  
-                                              
-                                               
-                                               
-                                           </td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl6_lblFacID">sdfsdf</span></td>   
-                                           <td width="20%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl6_lblFacFunction">dfsdf</span></td> 
-                                           <td width="20%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl6_lblFacSystem">Air Dryer</span></td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl6_lblBuilding">13</span></td>  
-                                           <td width="15%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl6_lblLocation">dfsd</span></td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl6_lblTotalEquipments">0</span></td>  
-                                        
-                                          </tr> 
-                                     
-                                      <tr style="background-color:#EFEFEF"> 
-                                            <td width="10%">
-                                                                                             
-                                                 <a id="ctl00_ContentPlaceHolderMain_ListView1_ctrl7_hlFacNum" href="Equipment/equipMechanical.aspx?ParentFacilitySysID=18">8</a>  
-                                              
-                                               
-                                               
-                                           </td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl7_lblFacID">sdfsdf</span></td>   
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl7_lblFacFunction">sdds</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl7_lblFacSystem">Air Dryer</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl7_lblBuilding">13</span></td>  
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl7_lblLocation">sdfsd</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl7_lblTotalEquipments">0</span></td>  
-                                          
-                                          </tr> 
-                                     
-                                          <tr> 
-                                           <td width="10%">
-                                                                                             
-                                                 <a id="ctl00_ContentPlaceHolderMain_ListView1_ctrl8_hlFacNum" href="Equipment/equipElectrical.aspx?ParentFacilitySysID=19">9</a>  
-                                              
-                                               
-                                               
-                                           </td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl8_lblFacID">sfsfsdf</span></td>   
-                                           <td width="20%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl8_lblFacFunction">sfsdfsdf</span></td> 
-                                           <td width="20%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl8_lblFacSystem">Control Panel</span></td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl8_lblBuilding">13</span></td>  
-                                           <td width="15%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl8_lblLocation">sfdsfsdf</span></td> 
-                                           <td width="10%"><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl8_lblTotalEquipments">0</span></td>  
-                                          
-                                          </tr> 
-                                     
-                                      <tr style="background-color:#EFEFEF"> 
-                                            <td width="10%">
-                                                                                             
-                                                 <a id="ctl00_ContentPlaceHolderMain_ListView1_ctrl9_hlFacNum" href="Equipment/equipMechanical.aspx?ParentFacilitySysID=6">10</a>  
-                                              
-                                               
-                                               
-                                           </td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl9_lblFacID">Test</span></td>   
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl9_lblFacFunction">Test function</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl9_lblFacSystem">Air Dryer</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl9_lblBuilding">13</span></td>  
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl9_lblLocation">Test Location</span></td> 
-                                           <td><span id="ctl00_ContentPlaceHolderMain_ListView1_ctrl9_lblTotalEquipments">10</span></td>  
-                                          
-                                          </tr> 
-                                     
-                                        </table> 
+                            <td colspan="2">
+                                <br />
+                                <b>Comments</b><br />
+                                <asp:TextBox ID="txtComments" runat="server" MaxLength="255" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="36"></asp:TextBox>
+                                <br />
+                            </td>
+
+                        </tr>
+                        <tr>
+			                <td colspan="2" align="left">			     
+				                 <asp:GridView ID="gv_Components" SkinID="gvRegPagingSorting" runat="server" DataSourceID="odsComponents" DataKeyNames="Key" OnRowDataBound="gv_Components_OnRowDataBound"> 	               
+	                                 <Columns>   
+                                            <asp:TemplateField HeaderText="View/Edit" ItemStyle-Width="30">	                                                        
+                                                    <ItemTemplate> 
+                                                        <asp:LinkButton CommandName="Editing" CommandArgument='<%# Eval("Key").ToString()%>' ID="btnEditAgency" Text="<img src='../Image/btn_edit.gif' alt='Edit' />"  runat="server" CausesValidation="false"></asp:LinkButton>
+                                                    </ItemTemplate> 								
+                                                </asp:TemplateField> 
+                                                 <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30">                                                                    
+                                                    <ItemTemplate> 
+                                                        <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnDeleteAgency" Text="<img src='../Image/btn_delete.png' alt='Delete' />"  runat="server" OnClientClick="return confirm('OK to Delete?');" CausesValidation="false"></asp:LinkButton>
+                                                    </ItemTemplate> 								
+                                                </asp:TemplateField>   
+                                         <asp:TemplateField HeaderText="Equipment Serial#"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="200" SortExpression="EquipSequenceNum">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblEquipmentSerialNo" runat="server" Text='<%# Server.HtmlEncode(Eval("EquipSequenceNum").ToString()) %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>              	    
+	                                     <asp:TemplateField HeaderText="EquipmentID"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="200" SortExpression="EquipID">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblEquipmentID" runat="server" Text='<%# Server.HtmlEncode((string)Eval("EquipID"))%>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>   
+                                                               	    
+                                              <asp:TemplateField HeaderText="Location"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="EquipLocation">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblLocation" runat="server" Text='<%# Server.HtmlEncode((string)Eval("EquipLocation"))%>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>  
+                                                   <asp:TemplateField HeaderText="TypeorUse" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="TypeorUse">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblTypeorUse" runat="server" Text='<%# Server.HtmlEncode((string)Eval("TypeorUse"))%>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>  
+                        
+	                                 </Columns>
+                                </asp:GridView> 
+                                 <asp:ObjectDataSource ID="odsComponents" runat="server" SelectMethod="GetEquipmentsList" TypeName="NIH.CMMS.Inventory.BPL.Facility.facility_logic">
+                                    <SelectParameters>
+                                      <asp:ControlParameter Type="String" Name="parentFacNum" ControlID="txtFacilityNum" /> 
+                                    </SelectParameters>
+                                 </asp:ObjectDataSource>
+                 
+               
+                       
+			                </td>
+		                </tr>
+                     </table> 
                                        
                 </ContentTemplate>  
         </ajaxToolkit:TabPanel>
-           <ajaxToolkit:TabPanel runat="server" HeaderText="Edit Existing Component" ID="TabPanel3">
+         
+          <ajaxToolkit:TabPanel runat="server" HeaderText="Component Information" ID="TabPanel2">
               <ContentTemplate>  
-                   
-                      <table id="inputTable" cellspacing="0" cellpadding="0" width="80%" border="1" style="font-size: .8em">
+                   <table style="font-size: 9pt; width: 100%">
+                        <tr>
+                            <td align="right">
+                                <a href='../printFacility.aspx?FacilityNumber=<%= txtFacilityNum.Text %>' target="_blank">
+                                    <img src="../Image/btn_print.gif" border="0" alt="print" /></a>
+                                &nbsp;&nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                   <br />
+                   <table>
+                       <tr>
+                           <td>
+                               <table id="inputTable" cellspacing="0" cellpadding="0" width="80%" border="1" style="font-size: .8em">
                 <tr bgcolor="#ffffcc" height="18">
-                    <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_Label1" class="tableLabel"></span></td>
+                    <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">                    
+                        <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />
+                    </td>
                     <td width="75%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <span id="ctl00_ContentPlaceHolderMain_lbComponent1" class="componentLabel1">Component Information</span></td>
                     </tr>
                 <tr>
-                    <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbEquipment" class="tableLabel">1.Equipment ID *</span></td>
-                    <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtEquipmentID1" value="Test Info" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtEquipmentID1" tabindex="11" class="noBorderTextBox" style="width:80%;" />
+                    <td width="25%">
+                        <asp:Label ID="lbEquipment" CssClass="tableLabel" runat="server" Text="1.Equipment ID *"></asp:Label>
                     </td>
-                      </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbLocation" class="tableLabel">2.Location</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtLocation1" value="Test Info"  type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtLocation1" tabindex="12" class="noBorderTextBox" style="width:80%;" />
+                    <td>
+                        <asp:TextBox ID="txtEquipmentID" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="8" />
                     </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbTypeUse" class="tableLabel">3.Type or Use</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtTypeUse1" value="Test Info"  type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtTypeUse1" tabindex="13" class="noBorderTextBox" style="width:80%;" />
+                </tr>
+                 <tr>
+                    <td>
+                        <asp:Label ID="lbLocation" CssClass="tableLabel" runat="server" Text="2.Location"></asp:Label>
                     </td>
-                      </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbManufacturer" class="tableLabel">4.Manufacturer</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtManufacturer1" value="Test Info"  type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtManufacturer1" tabindex="14" class="noBorderTextBox" style="width:80%;" />
+                    <td>
+                        <asp:TextBox ID="txtComLocation" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="9" />
                     </td>
-                        </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbModelNum" class="tableLabel">5.Model No.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtModelNum1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtModelNum1" tabindex="15" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbSerialNum" class="tableLabel">6.Serial No.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtSerialNum1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtSerialNum1" tabindex="16" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbSize" class="tableLabel">7.Size</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtSize1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtSize1" tabindex="17" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbInstalledDate" class="tableLabel">8.Date Installed</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtInstalledDate1" type="text" id="ctl00_ContentPlaceHolderMain_txtInstalledDate1" tabindex="18" class="noBorderTextBox" style="width:80%;" />
-
-                        <span id="ctl00_ContentPlaceHolderMain_cvInstalledDate1" class="errortext" style="color:Red;display:none;">Invalid Date format.</span>
-                    </td>
-                   </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbCapacity" class="tableLabel">9.Capacity</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtCapacity1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtCapacity1" tabindex="19" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbCapacityHT" class="tableLabel">10.Capacity(H/T)</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtCapacityHT1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtCapacityHT1" tabindex="20" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbFuel" class="tableLabel">11.Fual or Refri</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtFuel1" type="text" id="ctl00_ContentPlaceHolderMain_txtFuel1" tabindex="21" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbMotorManu" class="tableLabel">12.Motor Mfg'r</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtMotorManu1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtMotorManu1" tabindex="22" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbHP" class="tableLabel">13. H.P.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtHP1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtHP1" tabindex="23" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbMotorType" class="tableLabel">14.Type</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtMotorType1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtMotorType1" tabindex="24" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbMotorSerialNum" class="tableLabel">15.Serial No.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtMotorSerialNum1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtMotorSerialNum1" tabindex="25" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                   </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbMotorInstalledDate" class="tableLabel">16.Motor Installed</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtMotorInstalledDate1" type="text" id="ctl00_ContentPlaceHolderMain_txtMotorInstalledDate1" tabindex="26" class="noBorderTextBox" style="width:80%;" />
-                        <span id="ctl00_ContentPlaceHolderMain_CompareValidator5" class="errortext" style="color:Red;display:none;">Invalid Date format.</span>
-                    </td>
-                   
                 </tr>
                 <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbMotorModel" class="tableLabel">17.Model</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtMotorModel1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtMotorModel1" tabindex="27" class="noBorderTextBox" style="width:80%;" />
+                    <td>
+                        <asp:Label ID="lbTypeUse" CssClass="tableLabel" runat="server" Text="3.Type or Use"></asp:Label>
                     </td>
-                      </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbFrame" class="tableLabel">18.Frame</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtFrame1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtFrame1" tabindex="28" class="noBorderTextBox" style="width:80%;" />
+                    <td>
+                        <asp:TextBox ID="txtTypeUse" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="10" />
                     </td>
-                      </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbRPM" class="tableLabel">19.R.P.M.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtRPM1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtRPM1" tabindex="29" class="noBorderTextBox" style="width:80%;" />
+                </tr>
+                 <tr>
+                    <td>
+                        <asp:Label ID="lbManufacturer" CssClass="tableLabel" runat="server" Text="4.Manufacturer"></asp:Label>
                     </td>
-                   </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbVoltage" class="tableLabel">20.Voltage</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtVoltage1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtVoltage1" tabindex="30" class="noBorderTextBox" style="width:80%;" />
+                    <td>
+                        <asp:TextBox ID="txtManufacturer" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="11" />
                     </td>
-                      </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbAmperes" class="tableLabel">21.Amperes</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtAmperes1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtAmperes1" tabindex="31" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbPhaseCycle" class="tableLabel">22.Phase-Cycle</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtPhaseCycle1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtPhaseCycle1" tabindex="32" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbBSLClass" class="tableLabel">23.BSL Class.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtBSLClass1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtBSLClass1" tabindex="33" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                   </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbTJC" class="tableLabel">24.TJC Value</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtTJC1" type="text" id="ctl00_ContentPlaceHolderMain_txtTJC1" tabindex="34" class="noBorderTextBox" style="width:80%;" />
-                        <span id="ctl00_ContentPlaceHolderMain_valTJC1" class="errortext" style="color:Red;display:none;">Must be an integer.</span>
-                    </td>
-                   
                 </tr>
                 <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbPMSchedule" class="tableLabel">25.PM Schedule</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtPMSchedule1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtPMSchedule1" tabindex="35" class="noBorderTextBox" style="width:80%;" />
+                    <td>
+                        <asp:Label ID="lbModelNum" CssClass="tableLabel" runat="server" Text="5.Model No."></asp:Label>
                     </td>
-                   </tr>
+                    <td>
+                        <asp:TextBox ID="txtModelNum" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="12" />
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        <asp:Label ID="lbSerialNum" CssClass="tableLabel" runat="server" Text="6.Serial No."></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtSerialNum" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        <asp:Label ID="lbSize" CssClass="tableLabel" runat="server" Text="7.Size"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtSize" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="11" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lbInstalledDate" CssClass="tableLabel" runat="server" Text="8.Date Installed"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtInstalledDate" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="12" />
+                    
+                        <asp:CompareValidator ID="cvInstalledDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        <asp:Label ID="lbCapacity" CssClass="tableLabel" runat="server" Text="9.Capacity"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtCapacity" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbCapacityHT" CssClass="tableLabel" runat="server" Text="10.Capacity(H/T)"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtCapacityHT" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbFuel" CssClass="tableLabel" runat="server" Text="11.Fual or Refri"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtFuel" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        <asp:Label ID="lbMotorManu" CssClass="tableLabel" runat="server" Text="12.Motor Mfg'r"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtMotorManu" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbHP" CssClass="tableLabel" runat="server" Text="13. H.P."></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtHP" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbMotorType" CssClass="tableLabel" runat="server" Text="14.Type"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtMotorType" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lbMotorSerialNum" CssClass="tableLabel" runat="server" Text="15.Serial No."></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtMotorSerialNum" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbMotorInstalledDate" CssClass="tableLabel" runat="server" Text="16.Motor Installe"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtMotorInstalledDate" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    <asp:CompareValidator ID="CompareValidator5" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtMotorInstalledDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                   
+                         </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbMotorModel" CssClass="tableLabel" runat="server" Text="17.Model"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtMotorModel" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        <asp:Label ID="lbFrame" CssClass="tableLabel" runat="server" Text="18.Frame"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtFrame" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbRPM" CssClass="tableLabel" runat="server" Text="19.R.P.M."></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtRPM" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    
+                         </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbVoltage" CssClass="tableLabel" runat="server" Text="20.Voltage"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtVoltage" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbAmperes" CssClass="tableLabel" runat="server" Text="21.Amperes"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtAmperes" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbPhaseCycle" CssClass="tableLabel" runat="server" Text="22.Phase-Cycle"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtPhaseCycle" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    
+                         </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbBSLClass" CssClass="tableLabel" runat="server" Text="23.BSL Class."></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
+                   <tr>
+                    <td>
+                        <asp:Label ID="lbTJC" CssClass="tableLabel" runat="server" Text="24.TJC Value"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtTJC" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                     <asp:RangeValidator ID="valTJC" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC"></asp:RangeValidator>
+                   
+                         </td>
+                </tr>
+               <tr>
+                    <td>
+                        <asp:Label ID="lbPMSchedule" CssClass="tableLabel" runat="server" Text="25.PM Schedule"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                    </td>
+                </tr>
                 <tr>
                     <td colspan="2" style="font-size: 10px; font-style: italic;">*If no Equipment ID provided, it will be a single inventory.
                  
                     </td>
                 </tr>
               <tr>  
-                            <td align="center"><br/><asp:Button ID="Button1" runat="server" Text="Save Info" BackColor="#00CCFF" /></td>  
+                            <td align="center">
+                                 <asp:Button ID="btnFinish" runat="server" Text="Save New Component Information" CssClass="submitGreen" TabIndex="37"
+                            OnClick="btnFinish_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
+       <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
+           OnClick="btnCancel_Click" OnClientClick="javascript: $('#dialogCancel').dialog('open'); return false;" />
+                               </td>  
                           
                         </tr>
 
             </table>
+                           </td>
+                           <td>Attachments
+                               Equipment documents
+                           </td>
+                       </tr>
+                   </table>
+                   
                 </ContentTemplate>  
         </ajaxToolkit:TabPanel>
-          <ajaxToolkit:TabPanel runat="server" HeaderText="Add New Component" ID="TabPanel2">
+          <ajaxToolkit:TabPanel runat="server" HeaderText="Facility Attachments" ID="TabPanel3">
               <ContentTemplate>  
-                  
-                   <table id="inputTable" cellspacing="0" cellpadding="0" width="80%" border="1" style="font-size: .8em">
-                <tr bgcolor="#ffffcc" height="18">
-                    <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_Label1" class="tableLabel"></span></td>
-                    <td width="75%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbComponent1" class="componentLabel1">Component Information</span></td>
-                    </tr>
-                <tr>
-                    <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbEquipment" class="tableLabel">1.Equipment ID *</span></td>
-                    <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtEquipmentID1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtEquipmentID1" tabindex="11" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                      </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbLocation" class="tableLabel">2.Location</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtLocation1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtLocation1" tabindex="12" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbTypeUse" class="tableLabel">3.Type or Use</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtTypeUse1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtTypeUse1" tabindex="13" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                      </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbManufacturer" class="tableLabel">4.Manufacturer</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtManufacturer1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtManufacturer1" tabindex="14" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                        </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbModelNum" class="tableLabel">5.Model No.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtModelNum1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtModelNum1" tabindex="15" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbSerialNum" class="tableLabel">6.Serial No.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtSerialNum1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtSerialNum1" tabindex="16" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbSize" class="tableLabel">7.Size</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtSize1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtSize1" tabindex="17" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbInstalledDate" class="tableLabel">8.Date Installed</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtInstalledDate1" type="text" id="ctl00_ContentPlaceHolderMain_txtInstalledDate1" tabindex="18" class="noBorderTextBox" style="width:80%;" />
-
-                        <span id="ctl00_ContentPlaceHolderMain_cvInstalledDate1" class="errortext" style="color:Red;display:none;">Invalid Date format.</span>
-                    </td>
-                   </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbCapacity" class="tableLabel">9.Capacity</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtCapacity1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtCapacity1" tabindex="19" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbCapacityHT" class="tableLabel">10.Capacity(H/T)</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtCapacityHT1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtCapacityHT1" tabindex="20" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbFuel" class="tableLabel">11.Fual or Refri</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtFuel1" type="text" id="ctl00_ContentPlaceHolderMain_txtFuel1" tabindex="21" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbMotorManu" class="tableLabel">12.Motor Mfg'r</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtMotorManu1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtMotorManu1" tabindex="22" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                     </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbHP" class="tableLabel">13. H.P.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtHP1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtHP1" tabindex="23" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbMotorType" class="tableLabel">14.Type</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtMotorType1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtMotorType1" tabindex="24" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbMotorSerialNum" class="tableLabel">15.Serial No.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtMotorSerialNum1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtMotorSerialNum1" tabindex="25" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                   </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbMotorInstalledDate" class="tableLabel">16.Motor Installed</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtMotorInstalledDate1" type="text" id="ctl00_ContentPlaceHolderMain_txtMotorInstalledDate1" tabindex="26" class="noBorderTextBox" style="width:80%;" />
-                        <span id="ctl00_ContentPlaceHolderMain_CompareValidator5" class="errortext" style="color:Red;display:none;">Invalid Date format.</span>
-                    </td>
                    
-                </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbMotorModel" class="tableLabel">17.Model</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtMotorModel1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtMotorModel1" tabindex="27" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                      </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbFrame" class="tableLabel">18.Frame</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtFrame1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtFrame1" tabindex="28" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                      </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbRPM" class="tableLabel">19.R.P.M.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtRPM1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtRPM1" tabindex="29" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                   </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbVoltage" class="tableLabel">20.Voltage</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtVoltage1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtVoltage1" tabindex="30" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                      </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbAmperes" class="tableLabel">21.Amperes</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtAmperes1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtAmperes1" tabindex="31" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbPhaseCycle" class="tableLabel">22.Phase-Cycle</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtPhaseCycle1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtPhaseCycle1" tabindex="32" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                    </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbBSLClass" class="tableLabel">23.BSL Class.</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtBSLClass1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtBSLClass1" tabindex="33" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                   </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbTJC" class="tableLabel">24.TJC Value</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtTJC1" type="text" id="ctl00_ContentPlaceHolderMain_txtTJC1" tabindex="34" class="noBorderTextBox" style="width:80%;" />
-                        <span id="ctl00_ContentPlaceHolderMain_valTJC1" class="errortext" style="color:Red;display:none;">Must be an integer.</span>
-                    </td>
-                   
-                </tr>
-                <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbPMSchedule" class="tableLabel">25.PM Schedule</span></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <input name="ctl00$ContentPlaceHolderMain$txtPMSchedule1" type="text" maxlength="50" id="ctl00_ContentPlaceHolderMain_txtPMSchedule1" tabindex="35" class="noBorderTextBox" style="width:80%;" />
-                    </td>
-                   </tr>
-                <tr>
-                    <td colspan="2" style="font-size: 10px; font-style: italic;">*If no Equipment ID provided, it will be a single inventory.
-                 
-                    </td>
-                </tr>
-              <tr>  
-                            <td align="center"><br/><asp:Button ID="Button2" runat="server" Text="Save New Component Information" BackColor="#00CCFF" /></td>  
-                          
-                        </tr>
-
-            </table>
+                      <table>
+                       <tr>
+                           <td></td>
+                           <td>Attachments
+                               Facility documents
+                           </td>
+                       </tr>
+                   </table>
                 </ContentTemplate>  
         </ajaxToolkit:TabPanel>
          <ajaxToolkit:TabPanel runat="server" HeaderText="View All and Print" ID="TabPanel4">
