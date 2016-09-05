@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
-/// <summary>
-/// Summary description for SearchCriteria
-/// </summary>
-namespace NIH.CMMS.Inventory.Web
+namespace NIH.CMMS.Inventory.BOL.Common
 {
-    /// <summary>
-    /// Summary description for SearchCriteria
-    /// </summary>
     public class SearchCriteria
     {
         public const string SESSION_INSTANCE_KEY = "SearchReportSearchCriteria";
@@ -62,11 +57,11 @@ namespace NIH.CMMS.Inventory.Web
         }
 
         //all public fields added for crosspagepostback
-        public string systemIds = string.Empty;
-        public string componentIds = string.Empty;
-        public string buildingIds = string.Empty;
-        public string typeIds = string.Empty;
-        public int flagAssigned = -1;
+        public string systemIds;
+        public string componentIds;
+        public string buildingIds;
+        public string typeIds;
+        public int flagAssigned = 1; //default is 1 un-assigned
         private SearchCriteria() { }
     }
 

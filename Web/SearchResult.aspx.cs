@@ -8,9 +8,12 @@ using System.Data;
 using NIH.CMMS.Inventory.BPL.LookUp;
 using NIH.CMMS.Inventory.Web;
 using NIH.CMMS.Inventory.BOL.People;
+using NIH.CMMS.Inventory.BPL.Facility;
+using NIH.CMMS.Inventory.BOL.Common;
 
 public partial class SearchResult : System.Web.UI.Page
 {
+    protected LoginUser loginUsr;
     #region ViewState
     public string SortDirection
     {
@@ -29,7 +32,7 @@ public partial class SearchResult : System.Web.UI.Page
         get
         {
             if (ViewState["SortExpression"] == null)
-                ViewState["SortExpression"] = "NPRDist";
+                ViewState["SortExpression"] = "ID";
 
             return (string)ViewState["SortExpression"];
         }
@@ -49,6 +52,8 @@ public partial class SearchResult : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        loginUsr = Utils.CheckSession(this);
+
         RunReport();
     }
 
@@ -64,7 +69,7 @@ public partial class SearchResult : System.Web.UI.Page
     {
         gvFacilitys.AllowPaging = false;
         GetOrder(DTSearchDetail);
-        Utils.ExportToPDF("InventoryReport", gvFacilitys);
+        Utils.ExportToPDF("InventoryReport", gvFacilitys, "Inventory Report");
     }
 
     private void RunReport()
@@ -72,21 +77,33 @@ public partial class SearchResult : System.Web.UI.Page
         if (SearchCriteria.Instance != null)
         {
             SearchCriteria crit = SearchCriteria.Instance;
-            DataSet ds = facility_logic.RptGetCustomReport(crit, this);
-
-            if (!String.IsNullOrEmpty(Request.QueryString["Source"]))
+            lblExiCrit.Text = "";
+            switch (crit.flagAssigned)
             {
-                lbModifySearch.CommandArgument = "Standard";
-                lbModifySearch.Text = "<< Go Back";
+                case 2:
+                    lblExiCrit.Text += " Assigned Facilities ";
+                    break;
+                case 3:
+                    lblExiCrit.Text += " Assinged and Un-Assigned Facilities ";
+                    break;
+                default:
+                    lblExiCrit.Text += " Un-Assigned Facilities ";
+                    break;
             }
-            else
-            {
-                lbModifySearch.CommandArgument = "Custom";
-                lbModifySearch.Text = "Modify Search >>";
-            }
-
+            if (!string.IsNullOrEmpty(crit.buildingIds))
+                 lblExiCrit.Text += "&nbsp;, Buildings: " + crit.buildingIds;
+            if (!string.IsNullOrEmpty(crit.componentIds))
+                 lblExiCrit.Text += "&nbsp;, Components: " + crit.componentIds;
+            if (!string.IsNullOrEmpty(crit.systemIds))
+                 lblExiCrit.Text += "&nbsp;, Systems: " + crit.systemIds;
+            if (!string.IsNullOrEmpty(crit.typeIds))
+                 lblExiCrit.Text += "&nbsp;, Types: " + crit.typeIds;
+                         
+                 
+            DataSet ds = facility_logic.GetFacilitySearchResult(crit);
+                
             lbModifySearch.Visible = true;
-            pnlResults.Visible = true;
+            pnlResults.Visible = true;       
             trExportandPrintButtons.Visible = true;
             if (ds != null)
             {
@@ -102,7 +119,7 @@ public partial class SearchResult : System.Web.UI.Page
                 lblValidationError.Text = "No result found.";
                 pnlResults.Visible = false;
                 trExportandPrintButtons.Visible = false;
-                lblTotalNumberOfSearches.Text = "";
+                lblTotalNumberOfResult.Text = "";
             }
 
         }
@@ -119,7 +136,7 @@ public partial class SearchResult : System.Web.UI.Page
 
         //gvSearchQueryResults.HeaderRow.Cells[3].Text += "<br/>range: ";
 
-        lblTotalNumberOfResult.Text = "Total # of Searches: " + dv.Count.ToString();
+        lblTotalNumberOfResult.Text = "Total # of Facilities: " + dv.Count.ToString();
     }
 
     #region protected void gvSearchQueryResults_OnSorting(object sender, GridViewSortEventArgs e)
@@ -140,6 +157,50 @@ public partial class SearchResult : System.Web.UI.Page
 
         GetOrder(DTSearchDetail);
 
+    }
+
+    protected void gvFacilitys_OnRowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            // Display the e-mail address in italics.
+            Label lbFacGroup = (Label)e.Row.FindControl("lblHidFacilityGrp");
+            Label lbFacSystemID = (Label)e.Row.FindControl("lblHidFacilityID");
+           
+            HyperLink hlFacNum = (HyperLink)e.Row.FindControl("hlFacNum");
+
+            if (lbFacGroup != null && hlFacNum != null && lbFacSystemID != null)
+            {
+                if (lbFacGroup.Text.StartsWith("Electrical"))
+                {
+
+                    hlFacNum.NavigateUrl = "~/Equipment/equipElectrical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
+                }
+                else
+                {
+
+                    hlFacNum.NavigateUrl = "~/Equipment/equipMechanicalNew.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
+                }
+            }
+
+            //NIHRole = "msSuper" and "msAdmin" can upate facility (can see save current page info button)
+            //NIHRole only "msAdmin" can assign number, change status, 
+            //no, only status for facility now. status for every equipment, inactive use different color 
+            Control actionHeader = gvFacilitys.FindControl("colAction");
+            if (actionHeader != null)
+                if (loginUsr.Role.ToLower() == "msadmin" || loginUsr.Role.ToLower() == "mssuper")
+                { actionHeader.Visible = true; }
+                else
+                { actionHeader.Visible = false; }
+
+
+            HyperLink hlAction = (HyperLink)e.Row.FindControl("hlAction");
+            if (hlAction != null)
+                if (loginUsr.Role.ToLower() == "msadmin" || loginUsr.Role.ToLower() == "mssuper")
+                { hlAction.Visible = true; }
+                else
+                { hlAction.Visible = false; }
+        }
     }
 
     protected void lbModifySearch_OnClick(object sender, EventArgs e)

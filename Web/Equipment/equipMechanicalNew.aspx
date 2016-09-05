@@ -38,7 +38,7 @@
                         <td id="InventoryCardTitle" colspan="4" class="inventoryTopLeftTitle" width="50%">Equipment Inventory Card</td>
                         <td class="inventoryTopRightCell" width="15%" valign="baseline">Facility#:</td>
                         <td style="border-bottom: solid 1px #000;" width="35%" colspan="3">
-                            <font color="gray">&nbsp;<asp:Label ID="txtFacilityNum" runat="server" Text="WQ0008" /></font>
+                            <font color="gray">&nbsp;<asp:Label ID="txtFacilityNum" runat="server" /></font>
                         </td>
                     </tr>
                     <tr>
@@ -53,15 +53,14 @@
                             <asp:TextBox ID="txtFacilityID" runat="server" MaxLength="50" TabIndex="2"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rqvFacilityID" runat="server" ControlToValidate="txtFacilityID" Display="Dynamic" ErrorMessage="Facility ID is required"></asp:RequiredFieldValidator>
                         </td>
-                        <td class="inventoryTopRightCell"><font color="#BA3516">Barcode:</font></td>
+                      <%--  <td class="inventoryTopRightCell"><font color="#BA3516">Barcode:</font></td>
                         <td class="inventoryTopRightCellBtm">
                             <asp:TextBox ID="txtBarcode" runat="server" MaxLength="50" TabIndex="2" AutoPostBack="False"/>
                         </td>
-                        <td>
-                            <%--<button id="buttonScan" >Scan</button>--%>
+<%--                        <td>                          
                             <asp:Button ID="ButtonScan" runat="server" Enabled="true" UseSubmitBehavior="false" CausesValidation="false"
                                 Text="Scan" CssClass="submitYellow" OnClientClick="javascript:ToggleScan() ; return false;" />&nbsp;&nbsp;
-                        </td>
+                        </td>--%>
                     </tr>
                     <tr>
                         <td colspan="4" class="inventoryTopLeftCell">Function:
@@ -83,13 +82,15 @@
                             <asp:TextBox ID="txtWRNum" runat="server" MaxLength="50" TabIndex="10"></asp:TextBox></td>
                     </tr>
                     <tr>  
-                            <td><asp:Button ID="Button4" runat="server" Text="Add New" BackColor="#00CCFF" /></td>  
-                            <td><asp:Button ID="Button3" runat="server" Text="Save Change" BackColor="#00CCFF" /></td>  
+                            <td><asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" /></td>  
+                            <td><asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
+           OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');"  /></td>  
+
                         </tr>
                 </table>
             </asp:Panel>
 
-  <asp:Panel runat="server" ID="DetailInfoPanel" style="margin-top: 20px; size:1.2em">
+  <asp:Panel runat="server" ID="DetailInfoPanel" style="margin-top: 20px; font-size:1.2em">
     <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0">
         <ajaxToolkit:TabPanel runat="server" HeaderText="List Of Components" ID="TabPanel1">
            <ContentTemplate>                 
@@ -97,7 +98,7 @@
                          <tr>
                             <td colspan="2">
                                 <br />
-                                <b>Comments</b><br />
+                                <b>Comments:</b><br />
                                 <asp:TextBox ID="txtComments" runat="server" MaxLength="255" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="36"></asp:TextBox>
                                 <br />
                             </td>
@@ -105,7 +106,7 @@
                         </tr>
                         <tr>
 			                <td colspan="2" align="left">			     
-				                 <asp:GridView ID="gv_Components" SkinID="gvRegPagingSorting" runat="server" DataSourceID="odsComponents" DataKeyNames="Key" OnRowDataBound="gv_Components_OnRowDataBound"> 	               
+				                 <asp:GridView ID="gv_Components" SkinID="gvRegPagingSorting" runat="server" DataSourceID="odsComponents" DataKeyNames="Key" OnRowDataBound="gv_Components_OnRowDataBound" OnRowCommand="gv_Components_onRowCommand"> 	               
 	                                 <Columns>   
                                             <asp:TemplateField HeaderText="View/Edit" ItemStyle-Width="30">	                                                        
                                                     <ItemTemplate> 
@@ -117,6 +118,7 @@
                                                         <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnDeleteAgency" Text="<img src='../Image/btn_delete.png' alt='Delete' />"  runat="server" OnClientClick="return confirm('OK to Delete?');" CausesValidation="false"></asp:LinkButton>
                                                     </ItemTemplate> 								
                                                 </asp:TemplateField>   
+                                        
                                          <asp:TemplateField HeaderText="Equipment Serial#"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="200" SortExpression="EquipSequenceNum">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEquipmentSerialNo" runat="server" Text='<%# Server.HtmlEncode(Eval("EquipSequenceNum").ToString()) %>' />
@@ -138,6 +140,27 @@
                                                 <asp:Label ID="lblTypeorUse" runat="server" Text='<%# Server.HtmlEncode((string)Eval("TypeorUse"))%>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>  
+
+                                         <asp:TemplateField HeaderText="Model"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="ModelNo">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblModel" runat="server" Text='<%# Server.HtmlEncode((string)Eval("ModelNo"))%>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>  
+                                                   <asp:TemplateField HeaderText="Serial" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="SerialNo">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblSerial" runat="server" Text='<%# Server.HtmlEncode((string)Eval("SerialNo"))%>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="Manufacturer"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="Manufacturer">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblManufacturer" runat="server" Text='<%# Server.HtmlEncode((string)Eval("Manufacturer"))%>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>  
+                                                   <asp:TemplateField HeaderText="Size" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="Size">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblSize" runat="server" Text='<%# Server.HtmlEncode((string)Eval("Size"))%>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                         
 	                                 </Columns>
                                 </asp:GridView> 
@@ -158,33 +181,32 @@
          
           <ajaxToolkit:TabPanel runat="server" HeaderText="Component Information" ID="TabPanel2">
               <ContentTemplate>  
-                   <table style="font-size: 9pt; width: 100%">
+                  <%-- <table style="font-size: 9pt; width: 100%">
                         <tr>
-                            <td align="right">
-                                <a href='../printFacility.aspx?FacilityNumber=<%= txtFacilityNum.Text %>' target="_blank">
+                            <td>
+                                &nbsp;&nbsp; <a href='../printFacility.aspx?FacilityNumber=<%= txtFacilityNum.Text %>' target="_blank">
                                     <img src="../Image/btn_print.gif" border="0" alt="print" /></a>
                                 &nbsp;&nbsp;
                             </td>
                         </tr>
                     </table>
-                   <br />
-                   <table>
+                   <br />--%>
+                   <table width="100%">
                        <tr>
-                           <td>
-                               <table id="inputTable" cellspacing="0" cellpadding="0" width="80%" border="1" style="font-size: .8em">
-                <tr bgcolor="#ffffcc" height="18">
-                    <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">                    
-                        <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />
-                    </td>
-                    <td width="75%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <span id="ctl00_ContentPlaceHolderMain_lbComponent1" class="componentLabel1">Component Information</span></td>
-                    </tr>
+                           <td width="70%">
+                               <table id="inputTable" cellspacing="2" cellpadding="3">
+                                    <tr bgcolor="#ffffcc">
+                                        <td colspan="2">                    
+                                            <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />
+                                      
+                                           <b> Component Information</b></td>
+                                      </tr>
                 <tr>
                     <td width="25%">
                         <asp:Label ID="lbEquipment" CssClass="tableLabel" runat="server" Text="1.Equipment ID *"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtEquipmentID" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="8" />
+                        <asp:TextBox ID="txtEquipmentID" MaxLength="50" runat="server" TabIndex="8" />
                     </td>
                 </tr>
                  <tr>
@@ -192,7 +214,7 @@
                         <asp:Label ID="lbLocation" CssClass="tableLabel" runat="server" Text="2.Location"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtComLocation" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="9" />
+                        <asp:TextBox ID="txtComLocation" MaxLength="50" runat="server" TabIndex="9" />
                     </td>
                 </tr>
                 <tr>
@@ -200,7 +222,7 @@
                         <asp:Label ID="lbTypeUse" CssClass="tableLabel" runat="server" Text="3.Type or Use"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtTypeUse" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="10" />
+                        <asp:TextBox ID="txtTypeUse" MaxLength="50" runat="server" TabIndex="10" />
                     </td>
                 </tr>
                  <tr>
@@ -208,7 +230,7 @@
                         <asp:Label ID="lbManufacturer" CssClass="tableLabel" runat="server" Text="4.Manufacturer"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtManufacturer" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="11" />
+                        <asp:TextBox ID="txtManufacturer" MaxLength="50" runat="server" TabIndex="11" />
                     </td>
                 </tr>
                 <tr>
@@ -216,7 +238,7 @@
                         <asp:Label ID="lbModelNum" CssClass="tableLabel" runat="server" Text="5.Model No."></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtModelNum" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="12" />
+                        <asp:TextBox ID="txtModelNum" MaxLength="50" runat="server" TabIndex="12" />
                     </td>
                 </tr>
                  <tr>
@@ -224,7 +246,7 @@
                         <asp:Label ID="lbSerialNum" CssClass="tableLabel" runat="server" Text="6.Serial No."></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtSerialNum" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtSerialNum" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                  <tr>
@@ -232,7 +254,7 @@
                         <asp:Label ID="lbSize" CssClass="tableLabel" runat="server" Text="7.Size"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtSize" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="11" />
+                        <asp:TextBox ID="txtSize" MaxLength="50" runat="server" TabIndex="11" />
                     </td>
                 </tr>
                 <tr>
@@ -240,7 +262,7 @@
                         <asp:Label ID="lbInstalledDate" CssClass="tableLabel" runat="server" Text="8.Date Installed"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtInstalledDate" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="12" />
+                        <asp:TextBox ID="txtInstalledDate" MaxLength="50" runat="server" TabIndex="12" />
                     
                         <asp:CompareValidator ID="cvInstalledDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
@@ -250,7 +272,7 @@
                         <asp:Label ID="lbCapacity" CssClass="tableLabel" runat="server" Text="9.Capacity"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtCapacity" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtCapacity" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                <tr>
@@ -258,7 +280,7 @@
                         <asp:Label ID="lbCapacityHT" CssClass="tableLabel" runat="server" Text="10.Capacity(H/T)"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtCapacityHT" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtCapacityHT" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                <tr>
@@ -266,7 +288,7 @@
                         <asp:Label ID="lbFuel" CssClass="tableLabel" runat="server" Text="11.Fual or Refri"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtFuel" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtFuel" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                  <tr>
@@ -274,7 +296,7 @@
                         <asp:Label ID="lbMotorManu" CssClass="tableLabel" runat="server" Text="12.Motor Mfg'r"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtMotorManu" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtMotorManu" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                <tr>
@@ -282,7 +304,7 @@
                         <asp:Label ID="lbHP" CssClass="tableLabel" runat="server" Text="13. H.P."></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtHP" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtHP" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                <tr>
@@ -290,7 +312,7 @@
                         <asp:Label ID="lbMotorType" CssClass="tableLabel" runat="server" Text="14.Type"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtMotorType" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtMotorType" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                 <tr>
@@ -298,7 +320,7 @@
                         <asp:Label ID="lbMotorSerialNum" CssClass="tableLabel" runat="server" Text="15.Serial No."></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtMotorSerialNum" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtMotorSerialNum" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                <tr>
@@ -306,7 +328,7 @@
                         <asp:Label ID="lbMotorInstalledDate" CssClass="tableLabel" runat="server" Text="16.Motor Installe"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtMotorInstalledDate" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtMotorInstalledDate" MaxLength="50" runat="server" TabIndex="13" />
                     <asp:CompareValidator ID="CompareValidator5" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtMotorInstalledDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                    
                          </td>
@@ -316,7 +338,7 @@
                         <asp:Label ID="lbMotorModel" CssClass="tableLabel" runat="server" Text="17.Model"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtMotorModel" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtMotorModel" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                  <tr>
@@ -324,7 +346,7 @@
                         <asp:Label ID="lbFrame" CssClass="tableLabel" runat="server" Text="18.Frame"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtFrame" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtFrame" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                <tr>
@@ -332,7 +354,7 @@
                         <asp:Label ID="lbRPM" CssClass="tableLabel" runat="server" Text="19.R.P.M."></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtRPM" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtRPM" MaxLength="50" runat="server" TabIndex="13" />
                     
                          </td>
                 </tr>
@@ -341,7 +363,7 @@
                         <asp:Label ID="lbVoltage" CssClass="tableLabel" runat="server" Text="20.Voltage"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtVoltage" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtVoltage" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                <tr>
@@ -349,7 +371,7 @@
                         <asp:Label ID="lbAmperes" CssClass="tableLabel" runat="server" Text="21.Amperes"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtAmperes" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtAmperes" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                <tr>
@@ -357,7 +379,7 @@
                         <asp:Label ID="lbPhaseCycle" CssClass="tableLabel" runat="server" Text="22.Phase-Cycle"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtPhaseCycle" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtPhaseCycle" MaxLength="50" runat="server" TabIndex="13" />
                     
                          </td>
                 </tr>
@@ -366,7 +388,7 @@
                         <asp:Label ID="lbBSLClass" CssClass="tableLabel" runat="server" Text="23.BSL Class."></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                    <tr>
@@ -374,7 +396,7 @@
                         <asp:Label ID="lbTJC" CssClass="tableLabel" runat="server" Text="24.TJC Value"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtTJC" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtTJC" MaxLength="50" runat="server" TabIndex="13" />
                      <asp:RangeValidator ID="valTJC" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC"></asp:RangeValidator>
                    
                          </td>
@@ -384,7 +406,7 @@
                         <asp:Label ID="lbPMSchedule" CssClass="tableLabel" runat="server" Text="25.PM Schedule"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                 <tr>
@@ -393,19 +415,98 @@
                     </td>
                 </tr>
               <tr>  
-                            <td align="center">
-                                 <asp:Button ID="btnFinish" runat="server" Text="Save New Component Information" CssClass="submitGreen" TabIndex="37"
+                            <td align="center" colspan="2">
+                                 <asp:Button ID="btnFinish" runat="server" Text="Save Component Information" CssClass="submitGreen" TabIndex="37"
                             OnClick="btnFinish_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
-           OnClick="btnCancel_Click" OnClientClick="javascript: $('#dialogCancel').dialog('open'); return false;" />
+           OnClick="btnCancel_Click" OnClientClick="return confirm('OK to Cancel?');" />&nbsp;&nbsp;&nbsp;&nbsp;  <asp:Button ID="btnAddNewComponent" runat="server" Text="Add Another Component" CssClass="submitGreen" TabIndex="37"
+                            OnClick="btnAddComponent_Click" />
                                </td>  
                           
                         </tr>
 
             </table>
                            </td>
-                           <td>Attachments
-                               Equipment documents
+                           <td width="30%">
+                      <table width="100%">
+                       <tr>
+                           <td></td>
+                           <td><p><b>Attachments </b>For Equipment # <asp:TextBox runat="server" ID="txtHidEquipAttID" Visible="false" Text="-1" ></asp:TextBox></p>
+                               <table width="100%" class="stepTable">
+				             <tr>
+					          <td class="notes" colspan="2">Attach any related documents, e.g., photos and written statements. Acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD, .WAV, .MP3 and .PPT(X).  Enter a Title in order to save the attachment.</td>
+					      </tr>				      
+				        
+                        
+                          <tr><td colspan="2"><br /><b>New Attachment</b>
+					          </td>        														
+				          </tr>
+		                <tr>
+                                <td colspan="2"><asp:Label runat="server" ID="Label1" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
+                            </tr>
+				              <tr>
+				                <td >Title of Attachment&nbsp;<span class="requiredMark">*</span></td> 
+    				            
+				                <td><asp:TextBox ID="TextBox2" runat="server" MaxLength="100" SkinID="longText" />
+				                    
+				                 </td>
+				              </tr>
+				               <tr>
+					             <td >Upload File&nbsp;<span class="requiredMark">*</span></td> 
+    					 
+                                 <td class="text7"><asp:FileUpload ID="FileUpload1" runat="server" Width="350px" />&nbsp;(Max size 10MB)
+                                    <br /><asp:Label runat="server" ID="Label2" Text="Existing File: " Visible="false" CssClass="errortext"></asp:Label><asp:Label runat="server" ID="Label3" Visible="false" CssClass="text7"></asp:Label>
+                                    </td>
+				              </tr>
+    				            <tr><td colspan="2" class="errortext" align="left" style="font-size:xx-small; font-style:italic">* In order to save your Attachment, you must enter Title and upload a File.</td></tr>
+    				            <tr><td colspan="2"><hr /></td></tr>
+                  <tr>
+                        <td colspan="2"><asp:Button ID="Button1" runat="server" Text="Save Attachment" SkinID="AddAnotherButton"> </asp:Button> 
+				          <asp:Label ID="Label4" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label> <br />
+                        </td>
+                    </tr>
+		                 <asp:Panel ID="Panel1" runat="server">								           
+                            <tr>
+				                <td class="leftLabel" colspan="2"><br />Existing Attachment(s): (Click the <img src='../App_Image/delete.gif' align='bottom' border='0' alt='Delete' /> to remove)
+				         <br /></td>
+				            </tr>
+				            <tr>
+				                    <td colspan="2">
+				                        <br />
+                                      <asp:GridView ID="GridView1" SkinID="VerticalLineGV" runat="server" AutoGenerateColumns="false"  GridLines="None"
+                                        OnRowCommand="gvExtAttachment_onRowCommand"> 
+                                        <Columns>              
+                                                                                  	    
+                                            <asp:TemplateField HeaderText="Update" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">	                                                        
+                                                    <ItemTemplate> 
+                                                        <asp:LinkButton CommandName="Editing" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnEditAttachment" Text="<img src='../App_Image/edit.gif' alt='Edit' />"  runat="server"></asp:LinkButton>
+                                                    </ItemTemplate> 								
+                                                </asp:TemplateField> 
+                                                 <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">  
+                                                    <ItemTemplate> 
+                                                        <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnDeleteAttachment" Text="<img src='../App_Image/delete.gif' alt='Delete' />"  runat="server" OnClientClick="return confirm('OK to Delete?');" ></asp:LinkButton>
+                                                    </ItemTemplate> 								
+                                                </asp:TemplateField> 
+                                                   <asp:BoundField HeaderText = "Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />                                                  
+                                                 <asp:TemplateField HeaderText="Name of File"  HeaderStyle-HorizontalAlign="left">  
+                                                    <ItemTemplate> 
+                                                        <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server" NavigateUrl='<%# "~/Attachments/Incident/" + (string)Eval("FileLocation")%>' Text='<%# (string)Eval("OriginalFileName") %>' ></asp:HyperLink>
+                                                    </ItemTemplate> 								
+                                                </asp:TemplateField>  
+                                                 <asp:BoundField HeaderText = "Created On" DataField="CreatedOn" />  
+                                                                                                
+                                         </Columns>
+                                    </asp:GridView>
+				                </td>
+			                </tr>
+      		            </asp:Panel> 
+      		         
+                     </table>
+                           </td>
+                       </tr>
+                   </table>
+
+
                            </td>
                        </tr>
                    </table>
@@ -418,8 +519,77 @@
                       <table>
                        <tr>
                            <td></td>
-                           <td>Attachments
-                               Facility documents
+                           <td><p><b>Attachments </b>For Equipment  <asp:TextBox runat="server" ID="txtHidFacAttID" Visible="false" Text="-1" ></asp:TextBox></p>
+                               <table width="100%" class="stepTable">
+				             <tr>
+					          <td class="notes" colspan="2">Attach any related documents, e.g., photos and written statements. Acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD, .WAV, .MP3 and .PPT(X).  Enter a Title in order to save the attachment.</td>
+					      </tr>				      
+				        
+                        
+                          <tr><td colspan="2"><br /><b>New Attachment</b>
+					          </td>        														
+				          </tr>
+		                <tr>
+                                <td colspan="2"><asp:Label runat="server" ID="lblValidationError" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
+                            </tr>
+				              <tr>
+				                <td >Title of Attachment&nbsp;<span class="requiredMark">*</span></td> 
+    				            
+				                <td><asp:TextBox ID="txtEleAttTitle" runat="server" MaxLength="100" SkinID="longText" />
+				                    
+				                 </td>
+				              </tr>
+				               <tr>
+					             <td >Upload File&nbsp;<span class="requiredMark">*</span></td> 
+    					 
+                                 <td class="text7"><asp:FileUpload ID="fuEleFileUpload" runat="server" Width="350px" />&nbsp;(Max size 10MB)
+                                    <br /><asp:Label runat="server" ID="lbHidExistFile" Text="Existing File: " Visible="false" CssClass="errortext"></asp:Label><asp:Label runat="server" ID="txtHidAttFileName" Visible="false" CssClass="text7"></asp:Label>
+                                    </td>
+				              </tr>
+    				            <tr><td colspan="2" class="errortext" align="left" style="font-size:xx-small; font-style:italic">* In order to save your Attachment, you must enter Title and upload a File.</td></tr>
+    				            <tr><td colspan="2"><hr /></td></tr>
+                  <tr>
+                        <td colspan="2"><asp:Button ID="btnAddAnother" runat="server" Text="Save Attachment" SkinID="AddAnotherButton"> </asp:Button> 
+				          <asp:Label ID="lbAddAttachmentError" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label> <br />
+                        </td>
+                    </tr>
+		                 <asp:Panel ID="pnlExtAttachment" runat="server">								           
+                            <tr>
+				                <td class="leftLabel" colspan="2"><br />Existing Attachment(s): (Click the <img src='../App_Image/delete.gif' align='bottom' border='0' alt='Delete' /> to remove)
+				         <br /></td>
+				            </tr>
+				            <tr>
+				                    <td colspan="2">
+				                        <br />
+                                      <asp:GridView ID="gvExtAttachment" SkinID="VerticalLineGV" runat="server" AutoGenerateColumns="false"  GridLines="None"
+                                        OnRowCommand="gvExtAttachment_onRowCommand"> 
+                                        <Columns>              
+                                                                                  	    
+                                            <asp:TemplateField HeaderText="Update" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">	                                                        
+                                                    <ItemTemplate> 
+                                                        <asp:LinkButton CommandName="Editing" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnEditAttachment" Text="<img src='../App_Image/edit.gif' alt='Edit' />"  runat="server"></asp:LinkButton>
+                                                    </ItemTemplate> 								
+                                                </asp:TemplateField> 
+                                                 <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">  
+                                                    <ItemTemplate> 
+                                                        <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnDeleteAttachment" Text="<img src='../App_Image/delete.gif' alt='Delete' />"  runat="server" OnClientClick="return confirm('OK to Delete?');" ></asp:LinkButton>
+                                                    </ItemTemplate> 								
+                                                </asp:TemplateField> 
+                                                   <asp:BoundField HeaderText = "Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />                                                  
+                                                 <asp:TemplateField HeaderText="Name of File"  HeaderStyle-HorizontalAlign="left">  
+                                                    <ItemTemplate> 
+                                                        <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server" NavigateUrl='<%# "~/Attachments/Incident/" + (string)Eval("FileLocation")%>' Text='<%# (string)Eval("OriginalFileName") %>' ></asp:HyperLink>
+                                                    </ItemTemplate> 								
+                                                </asp:TemplateField>  
+                                                 <asp:BoundField HeaderText = "Created On" DataField="CreatedOn" />  
+                                                                                                
+                                         </Columns>
+                                    </asp:GridView>
+				                </td>
+			                </tr>
+      		            </asp:Panel> 
+      		         
+                     </table>
                            </td>
                        </tr>
                    </table>

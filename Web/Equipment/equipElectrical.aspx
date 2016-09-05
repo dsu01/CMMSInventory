@@ -32,24 +32,24 @@
             });
         });
 
-        $(document).scannerDetection({
-            timeBeforeScanTest: 200, // wait for the next character for upto 200ms
-            endChar: [13], // be sure the scan is complete if key 13 (enter) is detected
-            avgTimeByChar: 40, // it's not a barcode if a character takes longer than 40ms
-            ignoreIfFocusOn: 'input', // turn off scanner detection if an input has focus
-            onComplete: function(barcode, qty) {
-                alert('Scanned...');
-            }, // main callback function
-            scanButtonKeyCode: 116, // the hardware scan button acts as key 116 (F5)
-            scanButtonLongPressThreshold: 5, // assume a long press if 5 or more events come in sequence
-            onScanButtonLongPressed: showKeyPad, // callback for long pressing the scan button
-            onError: function (string) { alert('Error ' + string); }
-        });
+        //$(document).scannerDetection({
+        //    timeBeforeScanTest: 200, // wait for the next character for upto 200ms
+        //    endChar: [13], // be sure the scan is complete if key 13 (enter) is detected
+        //    avgTimeByChar: 40, // it's not a barcode if a character takes longer than 40ms
+        //    ignoreIfFocusOn: 'input', // turn off scanner detection if an input has focus
+        //    onComplete: function(barcode, qty) {
+        //        alert('Scanned...');
+        //    }, // main callback function
+        //    scanButtonKeyCode: 116, // the hardware scan button acts as key 116 (F5)
+        //    scanButtonLongPressThreshold: 5, // assume a long press if 5 or more events come in sequence
+        //    onScanButtonLongPressed: showKeyPad, // callback for long pressing the scan button
+        //    onError: function (string) { alert('Error ' + string); }
+        //});
 
         //     $('#<%=txtTypeOrUse.ClientID%>').autocomplete({
         //          source: ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"]
         //          });
-        // }); 
+         }); 
 
     </script>
 </asp:Content>
@@ -115,72 +115,72 @@
                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbEquipmentID" CssClass="tableLabel" runat="server" Text="Equipment ID (Other)"></asp:Label></td>
                     <td width="35%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtEquipmentID" runat="server" MaxLength="50" SkinID="NoborderTextBox" TabIndex="11" />
+                        <asp:TextBox ID="txtEquipmentID" runat="server" MaxLength="50" TabIndex="11" />
                     </td>
                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbVolts" CssClass="tableLabel" runat="server" Text="VOLTS"></asp:Label></td>
                     <td width="35%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtVolts" runat="server" MaxLength="20" SkinID="NoborderTextBox" TabIndex="17" /></td>
+                        <asp:TextBox ID="txtVolts" runat="server" MaxLength="20" TabIndex="17" /></td>
 
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbTypeOrUse" CssClass="tableLabel" runat="server" Text="Type or Use"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtTypeOrUse" runat="server" MaxLength="50" SkinID="NoborderTextBox" TabIndex="12" />
+                        <asp:TextBox ID="txtTypeOrUse" runat="server" MaxLength="50" TabIndex="12" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbManufacturer" CssClass="tableLabel" runat="server" Text="Manufacturer"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtManufacturer" runat="server" MaxLength="50" SkinID="NoborderTextBox" TabIndex="18" /></td>
+                        <asp:TextBox ID="txtManufacturer" runat="server" MaxLength="50" TabIndex="18" /></td>
 
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbAMP" CssClass="tableLabel" runat="server" Text="AMP"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtAMP" runat="server" MaxLength="20" SkinID="NoborderTextBox" TabIndex="13" />
+                        <asp:TextBox ID="txtAMP" runat="server" MaxLength="20" TabIndex="13" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbKVA" CssClass="tableLabel" runat="server" Text="KVA"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtKVA" runat="server" MaxLength="20" SkinID="NoborderTextBox" TabIndex="19" /></td>
+                        <asp:TextBox ID="txtKVA" runat="server" MaxLength="20" TabIndex="19" /></td>
 
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbVoltsPrimary" CssClass="tableLabel" runat="server" Text="Volts Primary"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtVoltsPrimary" runat="server" MaxLength="20" SkinID="NoborderTextBox" TabIndex="14" />
+                        <asp:TextBox ID="txtVoltsPrimary" runat="server" MaxLength="20" TabIndex="14" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbVoltsSecondary" CssClass="tableLabel" runat="server" Text="Volts Secondary"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtVoltsSecondary" runat="server" MaxLength="20" SkinID="NoborderTextBox" TabIndex="20" /></td>
+                        <asp:TextBox ID="txtVoltsSecondary" runat="server" MaxLength="20" TabIndex="20" /></td>
 
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="Label1" CssClass="tableLabel" runat="server" Text="Ph"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtPH" runat="server" MaxLength="6" SkinID="NoborderTextBox" TabIndex="15" />
+                        <asp:TextBox ID="txtPH" runat="server" MaxLength="6" TabIndex="15" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="Label3" CssClass="tableLabel" runat="server" Text="W"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtW" runat="server" MaxLength="6" SkinID="NoborderTextBox" TabIndex="21" /></td>
+                        <asp:TextBox ID="txtW" runat="server" MaxLength="6" TabIndex="21" /></td>
 
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="Label4" CssClass="tableLabel" runat="server" Text="No. of CKTS."></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtCKTSNum" runat="server" MaxLength="6" SkinID="NoborderTextBox" TabIndex="16" />
+                        <asp:TextBox ID="txtCKTSNum" runat="server" MaxLength="6" TabIndex="16" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="Label5" CssClass="tableLabel" runat="server" Text="CKTS Used"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtCKTSUsed" runat="server" MaxLength="6" SkinID="NoborderTextBox" TabIndex="22" /></td>
+                        <asp:TextBox ID="txtCKTSUsed" runat="server" MaxLength="6" TabIndex="22" /></td>
 
                 </tr>
             </table>

@@ -269,129 +269,129 @@
                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbEquipment" CssClass="tableLabel" runat="server" Text="1.Equipment ID *"></asp:Label></td>
                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtEquipmentID1" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="11" />
+                        <asp:TextBox ID="txtEquipmentID1" MaxLength="50" runat="server" TabIndex="11" />
                     </td>
                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtEquipmentID2" MaxLength="50" runat="server" SkinID="NoborderTextBox" /></td>
+                        <asp:TextBox ID="txtEquipmentID2" MaxLength="50" runat="server" /></td>
                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtEquipmentID3" MaxLength="50" runat="server" SkinID="NoborderTextBox" /></td>
+                        <asp:TextBox ID="txtEquipmentID3" MaxLength="50" runat="server" /></td>
                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtEquipmentID4" MaxLength="50" runat="server" SkinID="NoborderTextBox" /></td>
+                        <asp:TextBox ID="txtEquipmentID4" MaxLength="50" runat="server" /></td>
                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtEquipmentID5" MaxLength="50" runat="server" SkinID="NoborderTextBox" /></td>
+                        <asp:TextBox ID="txtEquipmentID5" MaxLength="50" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbLocation" CssClass="tableLabel" runat="server" Text="2.Location"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtLocation1" MaxLength="50" runat="server" SkinID="NoborderTextBox" TabIndex="12" />
+                        <asp:TextBox ID="txtLocation1" MaxLength="50" runat="server" TabIndex="12" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtLocation2" MaxLength="50" runat="server" SkinID="NoborderTextBox" /></td>
+                        <asp:TextBox ID="txtLocation2" MaxLength="50" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtLocation3" MaxLength="50" runat="server" SkinID="NoborderTextBox" /></td>
+                        <asp:TextBox ID="txtLocation3" MaxLength="50" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtLocation4" MaxLength="50" runat="server" SkinID="NoborderTextBox" /></td>
+                        <asp:TextBox ID="txtLocation4" MaxLength="50" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtLocation5" MaxLength="50" runat="server" SkinID="NoborderTextBox" /></td>
+                        <asp:TextBox ID="txtLocation5" MaxLength="50" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbTypeUse" CssClass="tableLabel" runat="server" Text="3.Type or Use"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtTypeUse1" runat="server" TabIndex="13" />
+                        <asp:TextBox MaxLength="50" ID="txtTypeUse1" runat="server" TabIndex="13" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtTypeUse2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtTypeUse2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtTypeUse3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtTypeUse3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtTypeUse4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtTypeUse4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtTypeUse5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtTypeUse5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbManufacturer" CssClass="tableLabel" runat="server" Text="4.Manufacturer"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtManufacturer1" runat="server" TabIndex="14" />
+                        <asp:TextBox MaxLength="50" ID="txtManufacturer1" runat="server" TabIndex="14" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtManufacturer2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtManufacturer2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtManufacturer3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtManufacturer3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtManufacturer4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtManufacturer4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtManufacturer5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtManufacturer5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbModelNum" CssClass="tableLabel" runat="server" Text="5.Model No."></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtModelNum1" runat="server" TabIndex="15" />
+                        <asp:TextBox MaxLength="50" ID="txtModelNum1" runat="server" TabIndex="15" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtModelNum2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtModelNum2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtModelNum3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtModelNum3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtModelNum4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtModelNum4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtModelNum5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtModelNum5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbSerialNum" CssClass="tableLabel" runat="server" Text="6.Serial No."></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtSerialNum1" runat="server" TabIndex="16" />
+                        <asp:TextBox MaxLength="50" ID="txtSerialNum1" runat="server" TabIndex="16" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtSerialNum2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtSerialNum2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtSerialNum3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtSerialNum3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtSerialNum4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtSerialNum4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtSerialNum5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtSerialNum5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbSize" CssClass="tableLabel" runat="server" Text="7.Size"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtSize1" runat="server" TabIndex="17" />
+                        <asp:TextBox MaxLength="50" ID="txtSize1" runat="server" TabIndex="17" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtSize2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtSize2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtSize3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtSize3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtSize4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtSize4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtSize5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtSize5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbInstalledDate" CssClass="tableLabel" runat="server" Text="8.Date Installed"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtInstalledDate1" runat="server" TabIndex="18" />
+                        <asp:TextBox ID="txtInstalledDate1" runat="server" TabIndex="18" />
 
                         <asp:CompareValidator ID="cvInstalledDate1" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate1" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtInstalledDate2" runat="server" />
+                        <asp:TextBox ID="txtInstalledDate2" runat="server" />
                         <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate2" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtInstalledDate3" runat="server" />
+                        <asp:TextBox ID="txtInstalledDate3" runat="server" />
                         <asp:CompareValidator ID="CompareValidator2" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate3" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtInstalledDate4" runat="server" />
+                        <asp:TextBox ID="txtInstalledDate4" runat="server" />
                         <asp:CompareValidator ID="CompareValidator3" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate4" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtInstalledDate5" runat="server" />
+                        <asp:TextBox ID="txtInstalledDate5" runat="server" />
                         <asp:CompareValidator ID="CompareValidator4" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate5" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                 </tr>
@@ -399,128 +399,128 @@
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbCapacity" CssClass="tableLabel" runat="server" Text="9.Capacity"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtCapacity1" runat="server" TabIndex="19" />
+                        <asp:TextBox MaxLength="50" ID="txtCapacity1" runat="server" TabIndex="19" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtCapacity2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtCapacity2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtCapacity3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtCapacity3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtCapacity4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtCapacity4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtCapacity5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtCapacity5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbCapacityHT" CssClass="tableLabel" runat="server" Text="10.Capacity(H/T)"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtCapacityHT1" runat="server" TabIndex="20" />
+                        <asp:TextBox MaxLength="50" ID="txtCapacityHT1" runat="server" TabIndex="20" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtCapacityHT2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtCapacityHT2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtCapacityHT3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtCapacityHT3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtCapacityHT4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtCapacityHT4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtCapacityHT5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtCapacityHT5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbFuel" CssClass="tableLabel" runat="server" Text="11.Fual or Refri"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtFuel1" runat="server" TabIndex="21" />
+                        <asp:TextBox ID="txtFuel1" runat="server" TabIndex="21" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtFuel2" runat="server" /></td>
+                        <asp:TextBox ID="txtFuel2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtFuel3" runat="server" /></td>
+                        <asp:TextBox ID="txtFuel3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtFuel4" runat="server" /></td>
+                        <asp:TextBox ID="txtFuel4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtFuel5" runat="server" /></td>
+                        <asp:TextBox ID="txtFuel5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbMotorManu" CssClass="tableLabel" runat="server" Text="12.Motor Mfg'r"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorManu1" runat="server" TabIndex="22" />
+                        <asp:TextBox MaxLength="50" ID="txtMotorManu1" runat="server" TabIndex="22" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorManu2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorManu2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorManu3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorManu3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorManu4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorManu4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorManu5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorManu5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbHP" CssClass="tableLabel" runat="server" Text="13. H.P."></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtHP1" runat="server" TabIndex="23" />
+                        <asp:TextBox MaxLength="50" ID="txtHP1" runat="server" TabIndex="23" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtHP2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtHP2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtHP3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtHP3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtHP4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtHP4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtHP5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtHP5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbMotorType" CssClass="tableLabel" runat="server" Text="14.Type"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorType1" runat="server" TabIndex="24" />
+                        <asp:TextBox MaxLength="50" ID="txtMotorType1" runat="server" TabIndex="24" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorType2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorType2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorType3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorType3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorType4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorType4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorType5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorType5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbMotorSerialNum" CssClass="tableLabel" runat="server" Text="15.Serial No."></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorSerialNum1" runat="server" TabIndex="25" />
+                        <asp:TextBox MaxLength="50" ID="txtMotorSerialNum1" runat="server" TabIndex="25" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorSerialNum2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorSerialNum2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorSerialNum3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorSerialNum3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorSerialNum4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorSerialNum4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorSerialNum5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorSerialNum5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbMotorInstalledDate" CssClass="tableLabel" runat="server" Text="16.Motor Installed"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtMotorInstalledDate1" runat="server" TabIndex="26" />
+                        <asp:TextBox ID="txtMotorInstalledDate1" runat="server" TabIndex="26" />
                         <asp:CompareValidator ID="CompareValidator5" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtMotorInstalledDate1" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtMotorInstalledDate2" runat="server" />
+                        <asp:TextBox ID="txtMotorInstalledDate2" runat="server" />
                         <asp:CompareValidator ID="CompareValidator6" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtMotorInstalledDate2" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtMotorInstalledDate3" runat="server" />
+                        <asp:TextBox ID="txtMotorInstalledDate3" runat="server" />
                         <asp:CompareValidator ID="CompareValidator7" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtMotorInstalledDate3" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtMotorInstalledDate4" runat="server" />
+                        <asp:TextBox ID="txtMotorInstalledDate4" runat="server" />
                         <asp:CompareValidator ID="CompareValidator8" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtMotorInstalledDate4" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtMotorInstalledDate5" runat="server" />
+                        <asp:TextBox ID="txtMotorInstalledDate5" runat="server" />
                         <asp:CompareValidator ID="CompareValidator9" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtMotorInstalledDate5" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                 </tr>
@@ -528,128 +528,128 @@
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbMotorModel" CssClass="tableLabel" runat="server" Text="17.Model"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorModel1" runat="server" TabIndex="27" />
+                        <asp:TextBox MaxLength="50" ID="txtMotorModel1" runat="server" TabIndex="27" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorModel2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorModel2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorModel3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorModel3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorModel4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorModel4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtMotorModel5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtMotorModel5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbFrame" CssClass="tableLabel" runat="server" Text="18.Frame"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtFrame1" runat="server" TabIndex="28" />
+                        <asp:TextBox MaxLength="50" ID="txtFrame1" runat="server" TabIndex="28" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtFrame2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtFrame2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtFrame3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtFrame3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtFrame4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtFrame4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtFrame5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtFrame5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbRPM" CssClass="tableLabel" runat="server" Text="19.R.P.M."></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtRPM1" runat="server" TabIndex="29" />
+                        <asp:TextBox MaxLength="50" ID="txtRPM1" runat="server" TabIndex="29" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtRPM2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtRPM2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtRPM3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtRPM3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtRPM4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtRPM4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtRPM5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtRPM5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbVoltage" CssClass="tableLabel" runat="server" Text="20.Voltage"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtVoltage1" runat="server" TabIndex="30" />
+                        <asp:TextBox MaxLength="50" ID="txtVoltage1" runat="server" TabIndex="30" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtVoltage2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtVoltage2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtVoltage3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtVoltage3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtVoltage4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtVoltage4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtVoltage5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtVoltage5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbAmperes" CssClass="tableLabel" runat="server" Text="21.Amperes"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtAmperes1" runat="server" TabIndex="31" />
+                        <asp:TextBox MaxLength="50" ID="txtAmperes1" runat="server" TabIndex="31" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtAmperes2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtAmperes2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtAmperes3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtAmperes3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtAmperes4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtAmperes4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtAmperes5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtAmperes5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbPhaseCycle" CssClass="tableLabel" runat="server" Text="22.Phase-Cycle"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtPhaseCycle1" runat="server" TabIndex="32" />
+                        <asp:TextBox MaxLength="50" ID="txtPhaseCycle1" runat="server" TabIndex="32" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtPhaseCycle2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtPhaseCycle2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtPhaseCycle3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtPhaseCycle3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtPhaseCycle4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtPhaseCycle4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtPhaseCycle5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtPhaseCycle5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbBSLClass" CssClass="tableLabel" runat="server" Text="23.BSL Class."></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtBSLClass1" runat="server" TabIndex="33" />
+                        <asp:TextBox MaxLength="50" ID="txtBSLClass1" runat="server" TabIndex="33" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtBSLClass2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtBSLClass2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtBSLClass3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtBSLClass3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtBSLClass4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtBSLClass4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtBSLClass5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtBSLClass5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbTJC" CssClass="tableLabel" runat="server" Text="24.TJC Value"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtTJC1" runat="server" TabIndex="34" />
+                        <asp:TextBox ID="txtTJC1" runat="server" TabIndex="34" />
                         <asp:RangeValidator ID="valTJC1" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC1"></asp:RangeValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtTJC2" runat="server" />
+                        <asp:TextBox ID="txtTJC2" runat="server" />
                         <asp:RangeValidator ID="valTJC2" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC2"></asp:RangeValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtTJC3" runat="server" />
+                        <asp:TextBox ID="txtTJC3" runat="server" />
                         <asp:RangeValidator ID="valTJC3" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC3"></asp:RangeValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtTJC4" runat="server" />
+                        <asp:TextBox ID="txtTJC4" runat="server" />
                         <asp:RangeValidator ID="valTJC4" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC4"></asp:RangeValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" ID="txtTJC5" runat="server" />
+                        <asp:TextBox ID="txtTJC5" runat="server" />
                         <asp:RangeValidator ID="valTJC5" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC5"></asp:RangeValidator>
                     </td>
                 </tr>
@@ -657,16 +657,16 @@
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbPMSchedule" CssClass="tableLabel" runat="server" Text="25.PM Schedule"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtPMSchedule1" runat="server" TabIndex="35" />
+                        <asp:TextBox MaxLength="50" ID="txtPMSchedule1" runat="server" TabIndex="35" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtPMSchedule2" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtPMSchedule2" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtPMSchedule3" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtPMSchedule3" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtPMSchedule4" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtPMSchedule4" runat="server" /></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox SkinID="NoborderTextBox" MaxLength="50" ID="txtPMSchedule5" runat="server" /></td>
+                        <asp:TextBox MaxLength="50" ID="txtPMSchedule5" runat="server" /></td>
                 </tr>
                 <tr>
                     <td colspan="6" style="font-size: 10px; font-style: italic;">*If no Equipment ID provided, it will be a single inventory.

@@ -40,6 +40,20 @@ namespace NIH.CMMS.Inventory.BPL.Facility
 
         }
 
+        public static FacilityDet GetFacilityDetailsByWRNum(string wrNum)
+        {
+
+            FacilityDet details = facility_db.GetFacilityDetailsByWRNum(wrNum);
+            //todo: add isEletrical?
+            if (details != null)
+            {
+                //get event sessions
+                details.FacEquipments = GetEquipmentsList(details.FacNum);
+            }
+            return details;
+
+        }
+
         public static FacilityDet GetElectrialEquipDetails(int facSystemID)
         {
             return facility_db.GetElectrialEquipDetails(facSystemID);          
@@ -79,10 +93,19 @@ namespace NIH.CMMS.Inventory.BPL.Facility
         {
             return facility_db.UpdateFacilityAdmin(details);
         }
-       
+        public static ValidationResult DeactivateInvEquipment(int ID, string uname)
+        {
+            return facility_db.DeactivateInvEquipment(ID, uname);
+        }
+
         public static DataSet GetFacilityList(string system, string group, string building, string facNo, string wrnum, string status)
         {
             return facility_db.GetFacilityList(system, group,building,facNo, wrnum, status);
+        }
+
+        public static DataSet GetFacilitySearchResult(SearchCriteria crit)
+        {
+            return facility_db.GetFacilitySearchResult(crit);
         }
     }
 }

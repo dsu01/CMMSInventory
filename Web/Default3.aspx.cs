@@ -8,6 +8,7 @@ using System.Data;
 using NIH.CMMS.Inventory.BPL.LookUp;
 using NIH.CMMS.Inventory.Web;
 using NIH.CMMS.Inventory.BOL.People;
+using NIH.CMMS.Inventory.BOL.Common;
 
 public partial class Default3 : System.Web.UI.Page
 {
@@ -31,51 +32,35 @@ public partial class Default3 : System.Web.UI.Page
             DataSet dtComponent = GeneralLookUp.GetMechanicalSystemList();
             ckbxlstComponent.DataSource = dtComponent;
             ckbxlstComponent.DataBind();
-            
+
+            DataSet dtType = GeneralLookUp.GetTypeList();
+            ckbxlstType.DataSource = dtType;
+            ckbxlstType.DataBind();
+
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
 
-            //Type Electrical and Mechanical
-            //Facility Assigned
+          
             #endregion
 
             #region Show Previous Search Values
             if (!SearchCriteria.KeepAlive) SearchCriteria.Instance = null;
-            else SearchCustomCriteria.KeepAlive = false;
+            else SearchCriteria.KeepAlive = false;
 
-            if (SearchCustomCriteria.Instance != null)
+            if (SearchCriteria.Instance != null)
             {
-                SearchCustomCriteria crit = SearchCustomCriteria.Instance;
-
-                if (pnlDistrict.Visible && crit.distcode != "")
-                {
-                    drplstDistricts.SelectedValue = crit.distcode;
-                    GetListByDistrict(crit.distcode);
-                }
-                drplstOffice.SelectedIndex = drplstOffice.Items.IndexOf(drplstOffice.Items.FindByValue(crit.intOfficeId.ToString()));
-                ddlOfficers.SelectedValue = crit.officerIds;
-                ddlStatus.SelectedValue = crit.statusIds;
-            }
-            else
-            {
-                rdlAbortedFL.SelectedIndex = rdlAbortedFL.Items.IndexOf(rdlAbortedFL.Items.FindByValue("-1"));
-                rdlDamagedFL.SelectedIndex = rdlDamagedFL.Items.IndexOf(rdlDamagedFL.Items.FindByValue("-1"));
-                rdlSeizedFL.SelectedIndex = rdlSeizedFL.Items.IndexOf(rdlSeizedFL.Items.FindByValue("-1"));
-                rblRestained.SelectedIndex = rblRestained.Items.IndexOf(rblRestained.Items.FindByValue("-1"));
-
-                rblJudgeContacted.SelectedIndex = rblJudgeContacted.Items.IndexOf(rblJudgeContacted.Items.FindByValue("-1"));
-                rblRestained.SelectedIndex = rblRestained.Items.IndexOf(rblRestained.Items.FindByValue("-1"));
-                rblIncident.SelectedIndex = rblIncident.Items.IndexOf(rblIncident.Items.FindByValue("-1"));
-                rblAttachments.SelectedIndex = rblAttachments.Items.IndexOf(rblAttachments.Items.FindByValue("-1"));
-                rblVideotaped.SelectedIndex = rblVideotaped.Items.IndexOf(rblVideotaped.Items.FindByValue("-1"));
-                rblThirdParties.SelectedIndex = rblThirdParties.Items.IndexOf(rblThirdParties.Items.FindByValue("-1"));
-                rblPersonCooperative.SelectedIndex = rblPersonCooperative.Items.IndexOf(rblPersonCooperative.Items.FindByValue("-1"));
-                rblOtherAgencies.SelectedIndex = rblOtherAgencies.Items.IndexOf(rblOtherAgencies.Items.FindByValue("-1"));
-                // rblCircumstance.SelectedIndex = rblCircumstance.Items.IndexOf(rblCircumstance.Items.FindByValue(""));
-                rdlTeamMemberFL.SelectedIndex = rdlTeamMemberFL.Items.IndexOf(rdlTeamMemberFL.Items.FindByValue("-1"));
-
-            }
+                SearchCriteria crit = SearchCriteria.Instance;
+                if (crit.buildingIds != null)
+                    Utils.CheckCheckboxListFromListString(drplstBuilding, crit.buildingIds);
+                if (crit.systemIds != null)
+                    Utils.CheckCheckboxListFromListString(drplstSystem, crit.systemIds);
+                if (crit.componentIds != null)
+                    Utils.CheckCheckboxListFromListString(ckbxlstComponent, crit.componentIds);
+                if (crit.typeIds != null)
+                    Utils.CheckCheckboxListFromListString(ckbxlstType, crit.typeIds);
+                radioSelect.SelectedValue = crit.flagAssigned.ToString();
+            }          
 
             #endregion
         }
@@ -87,12 +72,11 @@ public partial class Default3 : System.Web.UI.Page
         {
             SearchCriteria crit = SearchCriteria.NewInstance;
 
-            if (pnlDistrict.Visible) crit.distcode = drplstDistricts.SelectedValue;
-            else crit.distcode = currentUser.DistrictCode;
-            crit.intOfficeId = Convert.ToInt32(drplstOffice.SelectedValue);
-            crit.officerIds = ddlOfficers.SelectedValue;
-            crit.statusIds = ddlStatus.SelectedValue;
-
+            crit.buildingIds = Utils.GetListStringFromCheckboxList(drplstBuilding);
+            crit.typeIds = Utils.GetListStringFromCheckboxList(ckbxlstType);
+            crit.componentIds = Utils.GetListStringFromCheckboxList(ckbxlstComponent);
+            crit.systemIds = Utils.GetListStringFromCheckboxList(drplstSystem);
+            crit.flagAssigned = Convert.ToInt32(radioSelect.SelectedValue);
             Response.Redirect("SearchResult.aspx");
         }
            
@@ -100,11 +84,26 @@ public partial class Default3 : System.Web.UI.Page
 
     protected void btnReset_Click(object sender, EventArgs e)
     {
-        rblTrainedCPR.SelectedValue = "-1";
-        rblTrainedFirstAid.SelectedValue = "-1";
+        Utils.UnCheckTypeCollection(drplstBuilding);
+        Utils.UnCheckTypeCollection(drplstBuilding);
+        Utils.UnCheckTypeCollection(drplstBuilding);
+        Utils.UnCheckTypeCollection(drplstBuilding);
+        radioSelect.SelectedValue = "1"; //default unassigned
         SearchCriteria.Instance = null;
     }
 
-
-    
+    protected void btnSearchByFacNum_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
+        {
+            Response.Redirect("equipMechanicalNew.aspx?facnum=" + txtFacilityNum.Text.Trim());
+        }
+    }
+    protected void btnSearchByWRNum_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(txtWRNum.Text.Trim()))
+        {
+            Response.Redirect("equipMechanicalNew.aspx?wrnum=" + txtWRNum.Text.Trim());
+        }
+    }
 }

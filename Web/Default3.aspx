@@ -22,7 +22,8 @@
                                                     TargetControlID="txtFacilityNum" 
                                                     WatermarkText="e.g. 03475 or T00005" 
                                                     WatermarkCssClass="watermarked" /> 
-                                                 <asp:imagebutton id="imgbtnFacNumSearch" runat="server" AlternateText="Find By Facility Number" ImageUrl="~/Image/btn_find.jpg" CausesValidation="false"></asp:imagebutton>
+                                                 <asp:imagebutton id="imgbtnFacNumSearch" runat="server" AlternateText="Find By Facility Number" ImageUrl="~/Image/btn_find.jpg" CausesValidation="false" OnClick="btnSearchByFacNum_Click"></asp:imagebutton>
+                                                
                                                 </td>    
                                    
                                             <td class="leftLabel">NIH Work Request#:</td>
@@ -32,7 +33,7 @@
                                                     TargetControlID="txtWRNum" 
                                                     WatermarkText="e.g. HQC70354" 
                                                     WatermarkCssClass="watermarked" /> 
-                                                 <asp:imagebutton id="imgbtnWRSearch" runat="server" AlternateText="Find By WR number" ImageUrl="~/Image/btn_find.jpg" CausesValidation="false"></asp:imagebutton>
+                                                 <asp:imagebutton id="imgbtnWRSearch" runat="server" AlternateText="Find By WR number" ImageUrl="~/Image/btn_find.jpg" CausesValidation="false" OnClick="btnSearchByWRNum_Click"></asp:imagebutton>
                                                 </td>                           
                                         </tr>                                         
                                     </table> 
@@ -77,8 +78,7 @@
                                      <tr>
                                        <td class="leftLabel">Type:</td>
                                             <td align="left" class="text7">                                            
-                                             <asp:CheckBox ID="ckbxElectrical" runat="server" Text="Electrical"  Checked="true"/>
-                                             &nbsp;&nbsp;<asp:CheckBox ID="ckbxMechanical" runat="server" Text="Mechanical" Checked="true" />
+                                             <asp:CheckBoxList ID="ckbxlstType" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemGroup" />
                                        </td>
                                      </tr>
                                     <tr>   

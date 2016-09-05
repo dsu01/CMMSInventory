@@ -8,7 +8,7 @@
              </Triggers> 
        <ContentTemplate> 
             <table width="100%" border="0" cellspacing="0" cellpadding="0">             
-                 <asp:Panel ID="pnlResult" runat="server">
+                
                    <tr>
                         <td class="redheading">Search Result</td>
                    </tr>
@@ -16,10 +16,10 @@
                         <td>
                             <table style="width:98%;">
                                 <tr>
-                                    <td>
-                                        <asp:LinkButton ID="lbModifySearch" CommandName="KeepAlive" runat="server" Visible="false"
+                                    <td class="leftLabel">
+                                        Current Criteria: <asp:Label ID="lblExiCrit" runat="server"></asp:Label>&nbsp;&nbsp;<asp:LinkButton ID="lbModifySearch" CommandName="KeepAlive" runat="server" Visible="false" Text="Modify Criteria >>"
                                             CssClass="GridViewButtons" SkinID="HyperLinkButton2" OnClick="lbModifySearch_OnClick"></asp:LinkButton>
-                                        current criteria:
+                                        
                                     </td>
                                     <td align="right">
                                         <table id="trExportandPrintButtons" runat="server" visible="false">
@@ -46,41 +46,43 @@
                           <asp:Panel ID="pnlResults" runat="server">
                           <asp:Label ID="lblTotalNumberOfResult" runat="server" CssClass="rptTotal" />
                         	<asp:gridview id="gvFacilitys" SkinID="gvRegPagingSorting" runat="server" AutoGenerateColumns="false" OnSorting="gvFacilitys_OnSorting"
-                                            OnPageIndexChanging="gvFacilitys_OnPageIndexChanging">
+                                            OnPageIndexChanging="gvFacilitys_OnPageIndexChanging" OnRowDataBound="gvFacilitys_OnRowDataBound">
                                     <PagerSettings Mode="NumericFirstLast" Position="Bottom" PageButtonCount="10" />
                                             <PagerStyle ForeColor="Black" HorizontalAlign="Right" Height="8" BackColor="#E0E0E0"
                                                 Font-Size="11px" Font-Underline="true" Font-Bold="true" />
 				                <Columns>
 				                 <asp:TemplateField HeaderText="Facility#"  HeaderStyle-HorizontalAlign="Left" ItemStyle-Width="100" ItemStyle-HorizontalAlign="Left">
                                     <ItemTemplate>
-                     
-                                        <asp:Label id="lblFacilityNum" runat="server" text='<%# Eval("Facility#") %>' />
+                                         <asp:HyperLink ID="hlFacNum" runat="Server" Text='<%# Eval("Facility#") %>'  /> 
+                                        
+                                               <asp:Label runat="server" Visible="false" ID="lblHidFacilityGrp" Text='<%#Eval("FacilityGroup")%>'></asp:Label>
+                                               <asp:Label runat="server" Visible="false" ID="lblHidFacilityID" Text='<%#Eval("ID")%>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField> 
 				
-				                <asp:TemplateField HeaderText="Facility ID" ItemStyle-HorizontalAlign="Center">
+				                <asp:TemplateField HeaderText="Facility ID" ItemStyle-HorizontalAlign="Center" SortExpression="FacilityID">
 					                <ItemTemplate>
 					
 						                <asp:Label id="lblFacilityID" runat="server" text='<%# Eval("FacilityID") %>' />
 					                </ItemTemplate>				
 				                </asp:TemplateField>
-				                <asp:TemplateField HeaderText="Facility Function" ItemStyle-HorizontalAlign="Center">
+				                <asp:TemplateField HeaderText="Facility Function" ItemStyle-HorizontalAlign="Center" SortExpression="FacilityFunction">
 					                <ItemTemplate>
 						                <asp:Label id="lblFacFunction" runat="server" text='<%# Eval("FacilityFunction") %>' />
 					                </ItemTemplate>					
 				                </asp:TemplateField>
-				                 <asp:TemplateField HeaderText="Facility System" ItemStyle-HorizontalAlign="Center">
+				                 <asp:TemplateField HeaderText="Facility System" ItemStyle-HorizontalAlign="Center" SortExpression="FacilitySystem">
 					                <ItemTemplate>
 						                <asp:Label ID="lblFacSystem" runat="server" Text='<%# Eval("FacilitySystem") %>' />
 						
 					                </ItemTemplate>												
 	                            </asp:TemplateField>
-				                <asp:TemplateField HeaderText="Building" ItemStyle-HorizontalAlign="Center">
+				                <asp:TemplateField HeaderText="Building" ItemStyle-HorizontalAlign="Center" SortExpression="Building">
 					                <ItemTemplate>
 						                <asp:Label id="lblBuilding" runat="server" text='<%# Eval("Building") %>' />
 					                </ItemTemplate>					
 				                </asp:TemplateField>																		
-				                <asp:TemplateField HeaderText="Location" ItemStyle-HorizontalAlign="Center">
+				                <asp:TemplateField HeaderText="Location" ItemStyle-HorizontalAlign="Center" SortExpression="Location">
 					                <ItemTemplate>
 						                <asp:Label id="lblLocation" runat="server" text='<%# Eval("Location") %>' />
 					                </ItemTemplate>					
@@ -90,9 +92,13 @@
 						                <asp:Label id="lblNumEquip" runat="server" text='<%# Eval("TotalEquipments") %>' />
 					                </ItemTemplate>					
 				                </asp:TemplateField>
-					
-                                                                                                                                                                                                               
-                  
+					             <asp:TemplateField HeaderText="# of Equipments" ItemStyle-HorizontalAlign="Center">
+					                <ItemTemplate>
+                                            <asp:Hyperlink id="hlAction" runat="server" Text='Action'                                    
+                                                    NavigateUrl='<%# String.Format("Admin/AdminAction.aspx?FacId={0}", Eval("ID")) %>'>
+                                                </asp:Hyperlink>                                                                                                                                                                      
+                                     </ItemTemplate>					
+				                </asp:TemplateField>
 					                </Columns>
 				                </asp:gridview>
                                </asp:Panel>

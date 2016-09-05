@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.IO;
 using iTextSharp.text.pdf;
 using NIH.CMMS.Inventory.BOL.People;
+using System.Collections;
 
 namespace NIH.CMMS.Inventory.Web
 {
@@ -472,11 +473,501 @@ namespace NIH.CMMS.Inventory.Web
             return retUser;
         }
         #endregion
+
+        #region "Collection"
+        /// <summary>
+        /// Use this function to get the selected sub type collection
+        /// </summary>
+        /// <param name="cblst">The subtype checkboxlist of a location type.</param>
+        public static CategoryCollection GetSubTypeCollection(CheckBoxList cblst)
+        {
+            CategoryCollection catColSubType = new CategoryCollection();
+            for (int i = 0; i < cblst.Items.Count; i++)
+            {
+                if (cblst.Items[i].Selected)
+                {
+                    //add them into collection
+                    catColSubType.Add(new Category(int.Parse(cblst.Items[i].Value), cblst.Items[i].Text));
+
+                }
+            }
+
+            if (catColSubType.Count > 0)
+            { return catColSubType; }
+            else
+            { return null; }
+
+        }
+
+        /// <summary>
+        /// Check user selected sub types for a checkbox list.
+        /// </summary>
+        /// <param name="cblst">The checkboxlist.</param>
+        public static bool CheckSubTypeCollection(CheckBoxList cblst, CategoryCollection catColSubType)
+        {
+            bool blOtherText = false;
+
+            if (catColSubType != null && cblst.Items.Count > 0)
+            {
+                //uncheck previous values first (it may have old value when selecting other people)  
+                for (int i = 0; i < cblst.Items.Count; i++)
+                {
+                    cblst.Items[i].Selected = false;
+                }
+
+                foreach (Category cat in catColSubType)
+                {
+                    if (cblst.Items.FindByValue(cat.Key.ToString()) != null)
+                        cblst.Items.FindByValue(cat.Key.ToString()).Selected = true;
+                    if (cat.Description.ToUpper() == ApplicationConstants.FORM_TXT_OTHER.ToUpper())
+                        blOtherText = true;
+                }
+            }
+
+            return blOtherText;
+        }
+
+        public static bool OtherOptionSelected(CheckBoxList cblst)
+        {
+            bool blOther = false;
+
+            //uncheck previous values first (it may have old value when selecting other people)  
+            for (int i = 0; i < cblst.Items.Count; i++)
+            {
+                if (cblst.Items[i].Selected && cblst.Items[i].Text.ToUpper() == ApplicationConstants.FORM_TXT_OTHER.ToUpper())
+                    return true;
+            }
+
+            return blOther;
+        }
+
+        public static void CheckCheckboxListFromListString(ListControl cblst, string strValues)
+        {
+
+            if (!string.IsNullOrEmpty(strValues) && cblst.Items.Count > 0)
+            {
+                //uncheck previous values first (it may have old value when selecting other people)  
+                for (int i = 0; i < cblst.Items.Count; i++)
+                {
+                    cblst.Items[i].Selected = false;
+                }
+
+                char[] splitter = { ',' };
+                string[] strList = strValues.Split(splitter);
+
+                for (int x = 0; x < strList.Length; x++)
+                {
+                    System.Web.UI.WebControls.ListItem lstItem = cblst.Items.FindByValue(strList[x]);
+                    if (lstItem != null)
+                    {
+                        cblst.Items.FindByValue(strList[x].ToString()).Selected = true;
+                    }
+                }
+            }
+            else
+            {
+                foreach (System.Web.UI.WebControls.ListItem item in cblst.Items)
+                {
+                    item.Selected = false;
+                }
+            }
+
+
+        }
+
+        /// <summary>
+        /// Uns the check type collection.
+        /// </summary>
+        /// <param name="cblst">The CBLST.</param>
+        public static void UnCheckTypeCollection(CheckBoxList cblst)
+        {
+
+            if (cblst.Items.Count > 0)
+            {
+
+
+                for (int i = 0; i < cblst.Items.Count; i++)
+                {
+                    cblst.Items[i].Selected = false;
+
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Populates the category collection with values from the DataSet.
+        /// </summary>
+        /// <param name="ds">The dataset.</param>
+        /// <returns><see cref="CategoryCollection"/></returns>
+        public static CategoryCollection PopulateCatCollection(DataSet ds)
+        {
+            CategoryCollection catCollection = null;
+            if (ds != null)
+            {
+                if ((ds.Tables.Count > 0) && (ds.Tables[0].Rows.Count > 0))
+                {
+                    catCollection = new CategoryCollection();
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        catCollection.Add(new Category((int)row[0], (string)row[1]));
+                    }
+                }
+            }
+            return catCollection;
+        }
+
+      
+        public static String GetStringKeyListFromDataSet(DataSet ds)
+        {
+            String value = null;
+
+            if ((ds.Tables.Count > 0) && (ds.Tables[0].Rows.Count > 0))
+            {
+                value = "";
+                //loop through the collection
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    value += row[0].ToString() + ",";
+                }
+
+                //chop of extra comma
+                if (value.Length > 0)
+                {
+                    value = value.Substring(0, value.Length - 1);
+                }
+            }
+
+            return value;
+        }
+
+        public static Dictionary<string, string> PopulateDictionary(DataSet ds)
+        {
+            Dictionary<string, string> dicCollection = null;
+            if (ds != null)
+            {
+                if ((ds.Tables.Count > 0) && (ds.Tables[0].Rows.Count > 0))
+                {
+                    dicCollection = new Dictionary<string, string>();
+
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        dicCollection.Add((string)row[0], (string)row[1]);
+                    }
+                }
+            }
+            return dicCollection;
+        }
+
+        /// <summary>
+        /// Populates the cat collection from string.
+        /// </summary>
+        /// <param name="strInput">The STR input.</param>
+        /// <returns></returns>
+        public static CategoryCollection PopulateCatCollectionFromString(string strInput)
+        {
+
+            CategoryCollection catCollection = null;
+            if (strInput != string.Empty)
+            {
+                catCollection = new CategoryCollection();
+
+                string strCurrent = "";
+                int intKey = -1;
+                string strDesc = "";
+                char[] splitter = { ';' };
+
+                string[] strValues = strInput.Split(splitter);
+
+                for (int x = 0; x < strValues.Length; x++)
+                {
+                    strCurrent = strValues[x];
+                    int pos = strCurrent.IndexOf(",");
+                    intKey = Convert.ToInt32(strCurrent.Substring(0, pos));
+                    strDesc = strCurrent.Substring(pos + 1, strCurrent.Length - pos - 1);
+                    catCollection.Add(new Category(intKey, strDesc));
+                }
+            }
+            return catCollection;
+        }
+
+        /// <summary>
+        /// Gets a comma delimited string value of category collection
+        /// </summary>
+        /// <param name="catCollection">The category collection.</param>
+        /// <returns><c>String</c>Comma delimited list of values</returns>
+        public static String GetCatCollectionString(CategoryCollection catCollection)
+        {
+            String value = null;
+
+            if ((catCollection != null) && (catCollection.Count > 0))
+            {
+                value = "";
+                //loop through the collection
+                foreach (Category category in catCollection)
+                {
+                    value += category.Key + ",";
+                }
+
+                //chop of extra comma
+                if (value.Length > 0)
+                {
+                    value = value.Substring(0, value.Length - 1);
+                }
+                else
+                {
+                    value = null;
+                }
+            }
+
+            return value;
+        }
+
+        public static String GetDictionaryCollectionString(Dictionary<string, string> dicCollection)
+        {
+            String value = null;
+
+            if ((dicCollection != null) && (dicCollection.Count > 0))
+            {
+                value = "";
+                //loop through the collection
+                foreach (KeyValuePair<string, string> pair in dicCollection)
+                {
+                    value += pair.Key + ",";
+                }
+
+                //chop of extra comma
+                if (value.Length > 0)
+                {
+                    value = value.Substring(0, value.Length - 1);
+                }
+                else
+                {
+                    value = null;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Gets the list string from checkbox list.
+        /// </summary>
+        /// <param name="cblst">The CBLST.</param>
+        /// <returns></returns>
+        public static String GetListStringFromCheckboxList(ListControl cblst)
+        {
+            String value = string.Empty; ;
+            if (cblst.Visible && cblst.Enabled && cblst.Items.Count > 0)
+            {
+                for (int i = 0; i < cblst.Items.Count; i++)
+                {
+                    if (cblst.Items[i].Selected)
+                    {
+                        //add them into string
+                        value += int.Parse(cblst.Items[i].Value) + ",";
+
+                    }
+                }
+                //chop of extra comma
+                if (value.Length > 0)
+                {
+                    value = value.Substring(0, value.Length - 1);
+                }
+                else
+                {
+                    value = string.Empty;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Gets the list string descs from checkbox list.
+        /// </summary>
+        /// <param name="cblst">The CBLST.</param>
+        /// <returns></returns>
+        public static String GetListStringDescFromListControl(ListControl cblst)
+        {
+            String value = string.Empty;
+            if (cblst.Visible && cblst.Enabled && cblst.Items.Count > 0)
+            {
+                for (int i = 0; i < cblst.Items.Count; i++)
+                {
+                    if (cblst.Items[i].Selected)
+                    {
+                        //add them into string
+                        value += cblst.Items[i].Text + ", ";
+
+                    }
+                }
+                //chop of extra comma
+                if (value.Length > 0)
+                {
+                    value = value.Substring(0, value.Length - 2);
+                }
+                else
+                {
+                    value = string.Empty;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Gets the list string descs from checkbox list.
+        /// </summary>
+        /// <param name="cblst">The CBLST.</param>
+        /// <returns></returns>
+        public static String GetListStringDescFromListControl(ListControl cblst, string strValues)
+        {
+            strValues = "||" + strValues.Replace(",", "||") + "||";
+            String value = string.Empty;
+            if (cblst.Items.Count > 0)
+            {
+                for (int i = 0; i < cblst.Items.Count; i++)
+                {
+                    if (strValues.Contains("||" + cblst.Items[i].Value + "||"))
+                    {
+                        //add them into string
+                        value += cblst.Items[i].Text + ", ";
+                    }
+                }
+                //chop of extra comma
+                if (value.Length > 0)
+                {
+                    value = value.Substring(0, value.Length - 2);
+                }
+                else
+                {
+                    value = string.Empty;
+                }
+            }
+
+            return value;
+        }
+
+
+        /// <summary>
+        /// Gets the cat collection description string. (for example, name1,name2)
+        /// </summary>
+        /// <param name="catCollection">The cat collection.</param>
+        /// <returns></returns>
+        public static String GetCatCollectionDescString(CategoryCollection catCollection)
+        {
+            String value = String.Empty;
+
+            if ((catCollection != null) && (catCollection.Count > 0))
+            {
+                value = "";
+                //loop through the collection
+                foreach (Category category in catCollection)
+                {
+                    value += category.Description + ", ";
+                }
+
+                //chop of extra comma
+                if (value.Length > 0)
+                {
+                    value = value.Substring(0, value.Length - 2);
+                }
+                else
+                {
+                    value = String.Empty;
+                }
+            }
+
+            return value;
+        }
+
+
+        #endregion
         static Utils()
         {
             //
             // TODO: Add constructor logic here
             //
+        }
+    }
+
+    public class CategoryCollection : CollectionBase
+    {
+        public CategoryCollection()
+        {
+        }
+
+        public Category Item(int index)
+        {
+            return (Category)List[index];
+        }
+
+        public int Add(Category details)
+        {
+            return List.Add(details);
+        }
+
+    }
+
+    public class Category : NameValue
+    {
+        ArrayList _subCategory;
+
+        public Category(int key, string description)
+            : base(key, description)
+        {
+        }
+
+        public ArrayList SubCategory
+        {
+            get { return _subCategory; }
+            set
+            {
+                _subCategory = value;
+            }
+        }
+
+        public bool hasSubCategories()
+        {
+            return ((_subCategory != null) || (_subCategory.Count == 0)) ? false : true;
+        }
+    }
+
+    public class NameValue
+    {
+
+        int _key;
+        string _description;
+
+        public NameValue()
+        {
+        }
+
+        public NameValue(int key, string description)
+        {
+            _key = key;
+            _description = description;
+        }
+
+        public int Key
+        {
+            get { return _key; }
+            set
+            {
+                _key = value;
+            }
+        }
+
+        public string Description
+        {
+            get { return _description; }
+            set
+            {
+                _description = value;
+            }
         }
     }
 }

@@ -25,6 +25,10 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
             { btnFinish.Visible = true; }
             else { btnFinish.Visible = false; }
 
+            int facID = 0;
+            string facNum = string.Empty;
+            string wrNum = string.Empty;
+
             DataSet dtSystem = GeneralLookUp.GetMechanicalSystemList();
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
@@ -34,22 +38,55 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
 
             //load existing facility info if facility id is there
             if (Request.QueryString["ParentFacilitySysID"] != null && !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"].ToString()))
-            {
-                int facID = 0;
+            {               
                 bool result = Int32.TryParse(Request.QueryString["ParentFacilitySysID"].ToString(), out facID);
                 if (result)
                 {
                     Session["ParentFacilitySysID"] = Request.QueryString["ParentFacilitySysID"].ToString();
-                    LoadFacilityInfo(facID);
+                    btnSaveFacility.Text = "Update Facility";
+                    LoadFacilityInfoByID(facID);
                 }
                 else
                 {
                     Response.Redirect("~/Default.aspx");
                 }
-
-            }           
-
+                btnSaveFacility.Text = "Update Facility Information";
+            }
+            else if (Request.QueryString["facnum"] != null && !string.IsNullOrEmpty(Request.QueryString["facnum"].ToString()))
+            {
+                facNum= Request.QueryString["facnum"].ToString();
+                txtFacilityNum.Text = Request.QueryString["facnum"].ToString();
+                LoadFacilityInfoByFacNum(facNum);
+            }
+            else if (Request.QueryString["wrnum"] != null && !string.IsNullOrEmpty(Request.QueryString["wrnum"].ToString()))
+            {
+                wrNum = Request.QueryString["wrnum"].ToString();
+                LoadFacilityInfoByWRNum(wrNum);
+            }
+                //if no facility info, then bottom nothing
+            if (string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
+            {
+                btnSaveFacility.Text = "Add New Facility";
+                DetailInfoPanel.Visible = false;
+            }               
+            else
+                DetailInfoPanel.Visible = true;
         }
+    }
+    protected void btnSaveFacility_Click(object sender, EventArgs e)
+    {
+
+        int facID = SaveFacilityDetails(false);
+        if (facID > 0)
+        {
+            //show system generated fac num
+        }
+
+
+    }
+    protected void btnCancelFacility_Click(object sender, EventArgs e)
+    {
+        // Response.Redirect("~/Default.aspx");
     }
     protected void btnFinish_Click(object sender, EventArgs e)
     {
@@ -58,20 +95,55 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
         Utils.ShowPopUpMsg(vr.Reason, this.Page);
                   
     }
+
+    
+   protected void btnAddComponent_Click(object sender, EventArgs e)
+    {
+        txtEquipmentID.Text = string.Empty;
+        //clear all existing info
+        ClearEquipmentDetails();
+
+    }
     protected void btnCancel_Click(object sender, EventArgs e)
     {
        // Response.Redirect("~/Default.aspx");
     }
 
-    private void LoadFacilityInfo(int facID)
+    private void LoadFacilityInfoByFacNum(string facNum)
+    {
+        if (!string.IsNullOrEmpty(facNum))
+        {
+            FacilityDet detail = facility_logic.GetFacilityDetailsByFacNum(facNum);
+            LoadFacilityDetail(detail);
+        }
+    }
+
+    private void LoadFacilityInfoByWRNum(string wrNum)
+    {
+        if (!string.IsNullOrEmpty(wrNum))
+        {
+            FacilityDet detail = facility_logic.GetFacilityDetailsByWRNum(wrNum);
+            LoadFacilityDetail(detail);
+        }
+    }
+
+    private void LoadFacilityInfoByID(int facID)
+    {
+        if (facID > 0)
+        {
+            FacilityDet detail = facility_logic.GetFacilityDetails(facID);
+            LoadFacilityDetail(detail);
+        }
+
+    }
+
+    private void LoadFacilityDetail(FacilityDet existingFac)
     {
         //When load five quipments on this page:
         //if session facnum is not null, then get faclity detail (include equipments if exist any)
 
         //Facility# is set by tom, at first it is = factemp 
-        if (facID > 0)
-        {
-            FacilityDet existingFac = facility_logic.GetFacilityDetails(facID);
+     
             if (existingFac != null)
             {
                 #region "Load facility detail"
@@ -95,98 +167,103 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
                 //disable the save button if not in active status
                 if (existingFac.Status.ToLower() != "active")
                 {
-                    //contentPanel.Enabled = false;
+
+                    //disable all buttons
                     //btnFinish.Visible = false;
                 }
-                #endregion
-            }
 
-            if (existingFac != null && existingFac.FacEquipments == null)
-            {
-                #region "Load from facility table only"
-                //txtEquipmentID1.Text = details.EquipID;
-                //location is not in facility
-                txtLocation.Text = existingFac.EquipLocation;
-                txtTypeUse.Text = existingFac.TypeOrUse;
-                txtManufacturer.Text = existingFac.Manufacturer;
-                txtModelNum.Text = existingFac.ModelNo;
-                txtSerialNum.Text = existingFac.SerialNo;
-                txtSize.Text = existingFac.Size;
+                if (existingFac.FacEquipments != null)
+                {
 
-                if (existingFac.InstalledDate != DateTime.MinValue)
-                    txtInstalledDate.Text = existingFac.InstalledDate.ToShortDateString();
-                if (existingFac.MotorInstalledDate != DateTime.MinValue)
-                    txtMotorInstalledDate.Text = existingFac.MotorInstalledDate.ToShortDateString();
+                    EquipmentDet details = existingFac.FacEquipments[0];
+                    if (details != null)
+                    {
+                        #region "Load the first equipment"
+                        hidEquipmentSysID.Value = details.Key.ToString();
+                        txtEquipmentID.Text = details.EquipID;
+                        //location is not in facility
+                        txtLocation.Text = details.EquipLocation;
+                        txtTypeUse.Text = details.TypeOrUse;
+                        txtManufacturer.Text = details.Manufacturer;
+                        txtModelNum.Text = details.ModelNo;
+                        txtSerialNum.Text = details.SerialNo;
+                        txtSize.Text = details.Size;
 
-                txtCapacity.Text = existingFac.Capacity;
-                txtCapacityHT.Text = existingFac.CapacityHeadTest;
-                txtFuel.Text = existingFac.FuelRefrigeration;
-                txtMotorManu.Text = existingFac.MotorManufacturer;
-                txtHP.Text = existingFac.HP;
-                txtMotorType.Text = existingFac.MotorType;
+                        if (details.InstalledDate != DateTime.MinValue)
+                            txtInstalledDate.Text = details.InstalledDate.ToShortDateString();
+                        if (details.MotorInstalledDate != DateTime.MinValue)
+                            txtMotorInstalledDate.Text = details.MotorInstalledDate.ToShortDateString();
 
-                txtMotorSerialNum.Text = existingFac.MotorSerialNo;
+                        txtCapacity.Text = details.Capacity;
+                        txtCapacityHT.Text = details.CapacityHeadTest;
+                        txtFuel.Text = details.FuelRefrigeration;
+                        txtMotorManu.Text = details.MotorManufacturer;
+                        txtHP.Text = details.HP;
+                        txtMotorType.Text = details.MotorType;
 
-                txtMotorModel.Text = existingFac.MotorModel;
-                txtFrame.Text = existingFac.Frame;
-                txtRPM.Text = existingFac.RPM;
-                txtVoltage.Text = existingFac.Voltage;
-                txtAmperes.Text = existingFac.Amperes;
-                txtPhaseCycle.Text = existingFac.PhaseCycle;
-                txtBSLClass.Text = existingFac.BslClassification;
+                        txtMotorSerialNum.Text = details.MotorSerialNo;
 
-                if (existingFac.TJCValue > 0)
-                { txtTJC.Text = existingFac.TJCValue.ToString(); }
-                txtPMSchedule.Text = existingFac.PMSchedule;
+                        txtMotorModel.Text = details.MotorModel;
+                        txtFrame.Text = details.Frame;
+                        txtRPM.Text = details.RPM;
+                        txtVoltage.Text = details.Voltage;
+                        txtAmperes.Text = details.Amperes;
+                        txtPhaseCycle.Text = details.PhaseCycle;
+                        txtBSLClass.Text = details.BslClassification;
+
+                        if (details.TJCValue > 0)
+                        { txtTJC.Text = details.TJCValue.ToString(); }
+                        txtPMSchedule.Text = details.PMSchedule;
+                        #endregion
+                    }
+                }
+                else
+                {
+                    #region "Load from facility table only"
+                    //txtEquipmentID1.Text = details.EquipID;
+                    //location is not in facility
+                    txtLocation.Text = existingFac.EquipLocation;
+                    txtTypeUse.Text = existingFac.TypeOrUse;
+                    txtManufacturer.Text = existingFac.Manufacturer;
+                    txtModelNum.Text = existingFac.ModelNo;
+                    txtSerialNum.Text = existingFac.SerialNo;
+                    txtSize.Text = existingFac.Size;
+
+                    if (existingFac.InstalledDate != DateTime.MinValue)
+                        txtInstalledDate.Text = existingFac.InstalledDate.ToShortDateString();
+                    if (existingFac.MotorInstalledDate != DateTime.MinValue)
+                        txtMotorInstalledDate.Text = existingFac.MotorInstalledDate.ToShortDateString();
+
+                    txtCapacity.Text = existingFac.Capacity;
+                    txtCapacityHT.Text = existingFac.CapacityHeadTest;
+                    txtFuel.Text = existingFac.FuelRefrigeration;
+                    txtMotorManu.Text = existingFac.MotorManufacturer;
+                    txtHP.Text = existingFac.HP;
+                    txtMotorType.Text = existingFac.MotorType;
+
+                    txtMotorSerialNum.Text = existingFac.MotorSerialNo;
+
+                    txtMotorModel.Text = existingFac.MotorModel;
+                    txtFrame.Text = existingFac.Frame;
+                    txtRPM.Text = existingFac.RPM;
+                    txtVoltage.Text = existingFac.Voltage;
+                    txtAmperes.Text = existingFac.Amperes;
+                    txtPhaseCycle.Text = existingFac.PhaseCycle;
+                    txtBSLClass.Text = existingFac.BslClassification;
+
+                    if (existingFac.TJCValue > 0)
+                    { txtTJC.Text = existingFac.TJCValue.ToString(); }
+                    txtPMSchedule.Text = existingFac.PMSchedule;
+                    #endregion
+                }
                 #endregion
             }
             else
             {
-                           
-                EquipmentDet details = existingFac.FacEquipments[0];
-                if (details != null)
-                {
-                    #region "Load the first equipment"
-                    hidEquipmentSysID.Value = details.Key.ToString();
-                    txtEquipmentID.Text = details.EquipID;
-                    //location is not in facility
-                    txtLocation.Text = details.EquipLocation;
-                    txtTypeUse.Text = details.TypeOrUse;
-                    txtManufacturer.Text = details.Manufacturer;
-                    txtModelNum.Text = details.ModelNo;
-                    txtSerialNum.Text = details.SerialNo;
-                    txtSize.Text = details.Size;
-
-                    if (details.InstalledDate != DateTime.MinValue)
-                        txtInstalledDate.Text = details.InstalledDate.ToShortDateString();
-                    if (details.MotorInstalledDate != DateTime.MinValue)
-                        txtMotorInstalledDate.Text = details.MotorInstalledDate.ToShortDateString();
-
-                    txtCapacity.Text = details.Capacity;
-                    txtCapacityHT.Text = details.CapacityHeadTest;
-                    txtFuel.Text = details.FuelRefrigeration;
-                    txtMotorManu.Text = details.MotorManufacturer;
-                    txtHP.Text = details.HP;
-                    txtMotorType.Text = details.MotorType;
-
-                    txtMotorSerialNum.Text = details.MotorSerialNo;
-
-                    txtMotorModel.Text = details.MotorModel;
-                    txtFrame.Text = details.Frame;
-                    txtRPM.Text = details.RPM;
-                    txtVoltage.Text = details.Voltage;
-                    txtAmperes.Text = details.Amperes;
-                    txtPhaseCycle.Text = details.PhaseCycle;
-                    txtBSLClass.Text = details.BslClassification;
-
-                    if (details.TJCValue > 0)
-                    { txtTJC.Text = details.TJCValue.ToString(); }
-                    txtPMSchedule.Text = details.PMSchedule;
-                    #endregion
-                }
-               
+                DetailInfoPanel.Visible = false;
             }
-        }
+           
+        
 
 
     }
@@ -230,6 +307,8 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
         if (details.TJCValue > 0)
         { txtTJC.Text = details.TJCValue.ToString(); }
         txtPMSchedule.Text = details.PMSchedule;
+
+        
         #endregion
 
 
@@ -244,10 +323,10 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
            
             details.ParentFacilityNum = Session["ParentFacilityNum"].ToString();
          //   details.EquipSequenceNum = PageNumber * 5 + seqNo;
-            LoginUser loginUsr = (LoginUser)Session[ApplicationConstants.SESSION_USEROBJLOGINDET];
             if (loginUsr != null)
                 details.UserName = loginUsr.LaborName;
-
+            else
+            { loginUsr = (LoginUser)Session[ApplicationConstants.SESSION_USEROBJLOGINDET]; }
             if (!string.IsNullOrEmpty(txtEquipmentID.Text.Trim()))
             {
                 //??? how to update existing equipment? use hiddenID fields for those 
@@ -312,82 +391,91 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
             details.FacNum = Session["ParentFacilityNum"].ToString();
 
         }
-    
-            //if @Building is null or @System is null or @FacilityLocation is null or @FacilityID is null
-            if (string.IsNullOrEmpty(drplstBuilding.SelectedValue) || string.IsNullOrEmpty(drplstSystem.SelectedValue) || string.IsNullOrEmpty(txtFacilityID.Text.Trim()) || string.IsNullOrEmpty(txtLocation.Text.Trim()))
-            {
-                Utils.ShowPopUpMsg("Facility ID, System, Building and Location are required.", this);
-                details.Key = -1;
-            }
+
+        //if @Building is null or @System is null or @FacilityLocation is null or @FacilityID is null
+        if (string.IsNullOrEmpty(drplstBuilding.SelectedValue) || string.IsNullOrEmpty(drplstSystem.SelectedValue) || string.IsNullOrEmpty(txtFacilityID.Text.Trim()) || string.IsNullOrEmpty(txtLocation.Text.Trim()))
+        {
+            Utils.ShowPopUpMsg("Facility ID, System, Building and Location are required.", this);
+            details.Key = -1;
+        }
+        else
+        {
+            details.FacSystem = drplstSystem.SelectedValue;
+            details.FacFunction = txtFunction.Text.Trim();
+            details.FacBuilding = drplstBuilding.SelectedValue;
+            details.FacFloor = txtFloor.Text.Trim();
+            details.FacLocation = txtLocation.Text.Trim();
+            details.FacID = txtFacilityID.Text.Trim();
+            details.WRNumber = txtWRNum.Text.Trim();
+            details.YsnAaalac = ckAAALAC.Checked ? 1 : 0;
+            details.YsnBsl = ckBSL.Checked ? 1 : 0;
+            details.YsnTJC = ckTJC.Checked ? 1 : 0;
+            details.Comment = txtComments.Text.Trim();
+            if (loginUsr == null)
+                loginUsr = (LoginUser)Session[ApplicationConstants.SESSION_USEROBJLOGINDET];
             else
+                details.UserName = loginUsr.LaborName;
+            ValidationResult vr = facility_logic.UpdateFacility(details, false);
+            if (details.Key > 0 && vr.Success)
             {
-                details.FacSystem = drplstSystem.SelectedValue;
-                details.FacFunction = txtFunction.Text.Trim();
-                details.FacBuilding = drplstBuilding.SelectedValue;
-                details.FacFloor = txtFloor.Text.Trim();
-                details.FacLocation = txtLocation.Text.Trim();
-                details.FacID = txtFacilityID.Text.Trim();
-                details.WRNumber = txtWRNum.Text.Trim();
-                details.YsnAaalac = ckAAALAC.Checked ? 1 : 0;
-                details.YsnBsl = ckBSL.Checked ? 1 : 0;
-                details.YsnTJC = ckTJC.Checked ? 1 : 0;
-                details.Comment = txtComments.Text.Trim();
-                LoginUser loginUsr = (LoginUser)Session[ApplicationConstants.SESSION_USEROBJLOGINDET];
-                if (loginUsr != null)
-                    details.UserName = loginUsr.LaborName;
-                ValidationResult vr = null;
-                if (hasFullInfo)
-                {
-                    #region save new and save a one facility
-                    details.EquipID = string.Empty;
-                    details.TypeOrUse = txtTypeUse.Text.Trim();
-                    details.Manufacturer = txtManufacturer.Text.Trim();
-                    details.ModelNo = txtModelNum.Text.Trim();
-                    details.SerialNo = txtSerialNum.Text.Trim();
-                    details.Size = txtSize.Text.Trim();
-                    if (!string.IsNullOrEmpty(txtInstalledDate.Text.Trim()))
-                        details.InstalledDate = Convert.ToDateTime(txtInstalledDate.Text.Trim());
-                    details.Capacity = txtCapacity.Text.Trim();
-                    details.CapacityHeadTest = txtCapacityHT.Text.Trim();
-                    details.FuelRefrigeration = txtFuel.Text.Trim();
-                    details.MotorManufacturer = txtMotorManu.Text.Trim();
-                    details.HP = txtHP.Text.Trim();
-                    details.MotorType = txtMotorType.Text.Trim();
-
-                    details.MotorSerialNo = txtMotorSerialNum.Text.Trim();
-                    if (!string.IsNullOrEmpty(txtMotorInstalledDate.Text.Trim()))
-                        details.MotorInstalledDate = Convert.ToDateTime(txtMotorInstalledDate.Text.Trim());
-                    details.MotorModel = txtMotorModel.Text.Trim();
-                    details.Frame = txtFrame.Text.Trim();
-                    details.RPM = txtRPM.Text.Trim();
-                    details.Voltage = txtVoltage.Text.Trim();
-                    details.Amperes = txtAmperes.Text.Trim();
-                    details.PhaseCycle = txtPhaseCycle.Text.Trim();
-                    details.BslClassification = txtBSLClass.Text.Trim();
-                    if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
-                        details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
-                    details.PMSchedule = txtPMSchedule.Text.Trim();
-
-                    vr = facility_logic.UpdateFacility(details, true);
-                    #endregion
-                }
-                else
-                {
-                    #region save as parent
-                    details.EquipID = "-1";
-                    vr = facility_logic.UpdateFacility(details, false);
-                    #endregion
-                }
-
-                if (details.Key > 0 && vr.Success)
-                {
-                    Session["ParentFacilityNum"] = details.FacNum;
-                    Session["ParentFacilitySysID"] = details.Key.ToString();
-                }
-                else { Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page); }
+                Session["ParentFacilityNum"] = details.FacNum;
+                txtFacilityNum.Text = details.FacNum;
+                Session["ParentFacilitySysID"] = details.Key.ToString();
+                txtFacilityID.Text = details.Key.ToString();
             }
+            else { Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page); }
+            //if (hasFullInfo)
+            //    {
+            //        #region save new and save a one facility
+            //        details.EquipID = string.Empty;
+            //        details.TypeOrUse = txtTypeUse.Text.Trim();
+            //        details.Manufacturer = txtManufacturer.Text.Trim();
+            //        details.ModelNo = txtModelNum.Text.Trim();
+            //        details.SerialNo = txtSerialNum.Text.Trim();
+            //        details.Size = txtSize.Text.Trim();
+            //        if (!string.IsNullOrEmpty(txtInstalledDate.Text.Trim()))
+            //            details.InstalledDate = Convert.ToDateTime(txtInstalledDate.Text.Trim());
+            //        details.Capacity = txtCapacity.Text.Trim();
+            //        details.CapacityHeadTest = txtCapacityHT.Text.Trim();
+            //        details.FuelRefrigeration = txtFuel.Text.Trim();
+            //        details.MotorManufacturer = txtMotorManu.Text.Trim();
+            //        details.HP = txtHP.Text.Trim();
+            //        details.MotorType = txtMotorType.Text.Trim();
 
+            //        details.MotorSerialNo = txtMotorSerialNum.Text.Trim();
+            //        if (!string.IsNullOrEmpty(txtMotorInstalledDate.Text.Trim()))
+            //            details.MotorInstalledDate = Convert.ToDateTime(txtMotorInstalledDate.Text.Trim());
+            //        details.MotorModel = txtMotorModel.Text.Trim();
+            //        details.Frame = txtFrame.Text.Trim();
+            //        details.RPM = txtRPM.Text.Trim();
+            //        details.Voltage = txtVoltage.Text.Trim();
+            //        details.Amperes = txtAmperes.Text.Trim();
+            //        details.PhaseCycle = txtPhaseCycle.Text.Trim();
+            //        details.BslClassification = txtBSLClass.Text.Trim();
+            //        if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
+            //            details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
+            //        details.PMSchedule = txtPMSchedule.Text.Trim();
 
+            //        vr = facility_logic.UpdateFacility(details, true);
+            //        #endregion
+            //    }
+            //    else
+            //    {
+            //        #region save as parent
+            //        details.EquipID = "-1";
+            //        vr = facility_logic.UpdateFacility(details, false);
+            //        #endregion
+            //    }
+
+            //    if (details.Key > 0 && vr.Success)
+            //    {
+            //        Session["ParentFacilityNum"] = details.FacNum;
+            //        Session["ParentFacilitySysID"] = details.Key.ToString();
+            //    }
+            //    else { Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page); }
+            //}
+
+        }
       
 
         return details.Key;
@@ -442,4 +530,139 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
             //    imgIsInfoWebUser.Visible = false;
         }
     }
+    protected void gv_Components_onRowCommand(object sender, GridViewCommandEventArgs e)
+    {
+
+        if (e.CommandName == "Deleting")
+        {
+            int Id = Convert.ToInt32(e.CommandArgument.ToString());
+            ValidationResult vr = facility_logic.DeactivateInvEquipment(Id, loginUsr.LaborName);
+
+            if (vr.Success)
+            {
+                //repopulate the list
+                gv_Components.DataBind();
+
+            }
+        }
+        else if (e.CommandName == "Editing")
+        {
+            int Id = Convert.ToInt32(e.CommandArgument.ToString());
+            //switch tab to component detail and show component info
+            TabContainer1.ActiveTabIndex = 1;       
+           
+            LoadEquipmentDetail(Id);
+          
+        }
+    }
+
+    #region " Attachment/Photos Section -- event handling "
+
+    /// <summary>
+    /// Handles the onRowCommand event of the gvExtAttachment control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
+    protected void gvExtAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        //IncidentAttachments incAtt = IncAttachmentLogic.GetAttachmentDetails(Convert.ToInt32(e.CommandArgument.ToString()));
+
+        //if (incAtt != null)
+        //{
+        //    if (e.CommandName == "Editing")
+        //    {
+        //        #region "show existing attachment information"
+        //        txtHidAttID.Text = incAtt.Key.ToString();
+        //        rlElePoliceRpt.SelectedValue = incAtt.ReportFiled.ToString();
+        //        // drplstEleAttaCatagory.SelectedValue = incAtt.FileType;
+        //        //fuEleFileUpload.FileName is readonly;
+        //        txtEleAttTitle.Text = incAtt.Title;
+        //        txtHidAttFileName.Visible = true;
+        //        lbHidExistFile.Visible = true;
+        //        txtHidAttFileName.Text = incAtt.OriginalFileName;
+        //        #endregion
+        //    }
+        //    else // if command == delete
+        //    {
+        //        #region "Delete attachment using attachment object"
+        //        String result = IncAttachmentLogic.DeleteAttachmentDetails(incAtt);
+
+        //        if (result == ApplicationConstants.NO_ERROR_USP_EXECUTION)
+        //        {
+        //            //Physically delete the file
+        //            //File.Delete(PATH + incAtt.FileLocation);
+        //            //repopulate the existing initiator list
+        //            ShowExtAttachment();
+        //            //clean up the values if there is any
+        //            //drplstEleAttaCatagory.SelectedIndex = 0;
+        //            ClearFields();
+
+        //        }
+        //        else
+        //        {
+        //            //handle error
+        //            WebUtils.ShowPopUpMsg("Cannot delete attachment.", this.Page);
+        //        }
+        //        #endregion
+        //    }
+        //}
+        //else
+        //{
+        //    //handle error
+        //    WebUtils.ShowPopUpMsg("Error. No attachment found.", this.Page);
+        //}
+
+        //if (ModalExtender != null) ModalExtender.Show();
+    }
+
+    /// <summary>
+    /// Handles the Click event of the btnAddAnother control, add another attachment
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    public void btnAddAnother_Click(object sender, EventArgs e)
+    {
+        //// Get the name of the file to upload.
+        //String fileName = fuEleFileUpload.FileName;
+        //String fileTitle = txtEleAttTitle.Text.Trim();
+
+        ////since filename is readonly, so retrieve it from hidden value
+        ////or use fu1.Attributes["FileName"] = ful.FullName;
+        //if (txtHidAttID.Text != "-1" && fileName == "")
+        //{ fileName = txtHidAttFileName.Text; }
+
+        //if (fileName != "" & fileTitle != "")
+        //{
+        //    SaveData(this.INCID);
+        //    ShowExtAttachment();
+        //    ClearFields();
+        //}
+        //else
+        //{
+        //    lbAddAttachmentError.Visible = true;
+        //    lbAddAttachmentError.Text = "Please select an Attachment before attempting to add another.";
+        //}
+
+        //if (ModalExtender != null) ModalExtender.Show();
+    }
+
+    //sirs-1163 allow to delete
+    //protected void gvExtAttachment_RowDataBound(object sender, GridViewRowEventArgs e)
+    //{
+    //    if (e.Row.RowType == DataControlRowType.DataRow)
+    //    {
+    //        if (ViewState["ApprovedDate"] != null)
+    //        {
+    //            DateTime dtApproved = (DateTime)ViewState["ApprovedDate"];
+    //            DateTime dtCreated = Convert.ToDateTime(e.Row.Cells[4].Text);
+
+    //            if (dtApproved >= dtCreated)
+    //            {
+    //                ((LinkButton)e.Row.FindControl("btnEditAttachment")).Visible = false;
+    //                //((LinkButton)e.Row.FindControl("btnDeleteAttachment")).Visible = false;
+    //            }
+    //        }
+    //    }
+    //}
+    #endregion
 }
