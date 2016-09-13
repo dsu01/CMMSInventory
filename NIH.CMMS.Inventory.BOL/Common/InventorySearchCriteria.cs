@@ -60,7 +60,9 @@ namespace NIH.CMMS.Inventory.BOL.Common
         public string systemIds;
         public string componentIds;
         public string buildingIds;
-        public string typeIds;
+        public string typeId;
+        public string facnum;
+        public string wrnum;
         public int flagAssigned = 1; //default is 1 un-assigned
         private SearchCriteria() { }
     }

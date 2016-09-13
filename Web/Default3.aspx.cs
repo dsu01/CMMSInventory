@@ -23,25 +23,18 @@ public partial class Default3 : System.Web.UI.Page
             { Response.Redirect("~/Login.aspx"); }
 
             #region Load checkbox list values
-            //Type or Use: call the .GeneralLookUp.GetEletricalTypeOrUse();
-            DataSet dtSystem = GeneralLookUp.GetSystemList();
-            //get the first 64 system, then use see More ... to get the rest 60-120
-            drplstSystem.DataSource = dtSystem;
-            drplstSystem.DataBind();
-
-            DataSet dtComponent = GeneralLookUp.GetMechanicalSystemList();
-            ckbxlstComponent.DataSource = dtComponent;
-            ckbxlstComponent.DataBind();
-
             DataSet dtType = GeneralLookUp.GetTypeList();
-            ckbxlstType.DataSource = dtType;
-            ckbxlstType.DataBind();
-
-            DataSet dtBuilding = GeneralLookUp.GetBuildingList();
+            rblstType.DataSource = dtType;
+            rblstType.DataBind();        
+                  
+            DataSet dtBuilding = GeneralLookUp.GetSearchBuildingList();
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
-
-          
+            ListItem item = new ListItem();
+            item.Text = "All";
+            item.Value = "-1";
+            drplstBuilding.Items.Add(item);
+            lbSelectedBuildingValue.Text = "None";
             #endregion
 
             #region Show Previous Search Values
@@ -51,20 +44,95 @@ public partial class Default3 : System.Web.UI.Page
             if (SearchCriteria.Instance != null)
             {
                 SearchCriteria crit = SearchCriteria.Instance;
-                if (crit.buildingIds != null)
-                    Utils.CheckCheckboxListFromListString(drplstBuilding, crit.buildingIds);
-                if (crit.systemIds != null)
+                if (!string.IsNullOrEmpty(crit.facnum))
+                    txtFacilityNum.Text = crit.facnum;
+                else if (!string.IsNullOrEmpty(crit.wrnum))
+                    txtWRNum.Text = crit.wrnum;
+                else
+                {
+                     if (crit.buildingIds != null)
+                        Utils.CheckCheckboxListFromListString(drplstBuilding, crit.buildingIds);
+                    if (crit.systemIds != null)
                     Utils.CheckCheckboxListFromListString(drplstSystem, crit.systemIds);
-                if (crit.componentIds != null)
-                    Utils.CheckCheckboxListFromListString(ckbxlstComponent, crit.componentIds);
-                if (crit.typeIds != null)
-                    Utils.CheckCheckboxListFromListString(ckbxlstType, crit.typeIds);
-                radioSelect.SelectedValue = crit.flagAssigned.ToString();
+                     if (crit.componentIds != null)
+                    //Utils.CheckCheckboxListFromListString(ckbxlstComponent, crit.componentIds);
+                    if (!string.IsNullOrEmpty(crit.typeId))
+                    rblstType.SelectedValue = crit.typeId;
+                    radioSelect.SelectedValue = crit.flagAssigned.ToString();
+                }
             }          
 
             #endregion
         }
 
+    }
+
+    protected void drplstSystem_SelectedIndexChanged(object sender, EventArgs e)
+    {       
+        for (int i = 0; i < drplstSystem.Items.Count; i++)
+        {
+            if (drplstSystem.Items[i].Selected)
+            {
+                //if select anything below displayed/brandished, then show additional factors
+                if (drplstSystem.Items[i].Value == "-1")
+                {
+                    //uncheck all other checkboxes
+                    break;
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+    }
+
+    protected void rblstType_SelectedIndexChanged(object sender, EventArgs e)
+    {        
+        if (!string.IsNullOrEmpty(rblstType.SelectedValue))
+        {
+            pnlSelection.Visible = true;
+            //filter the other two checkboxes list depends on this value
+            //if Systemgroup contains System, then it is system,
+            //only system can be qualified as parent
+            //otherwise if Equipment
+            DataSet resList = GeneralLookUp.GetListByType(rblstType.SelectedValue);
+            if (resList != null)
+            {
+                drplstSystem.DataSource = resList;
+                drplstSystem.DataBind();
+                ListItem item = new ListItem();
+                item.Text = "All";
+                item.Value = "-1";
+                drplstSystem.Items.Add(item);
+                lbSelectedSystemValue.Text = "None";
+                //if (rblstType.SelectedValue.ToLower().Contains("system"))
+                //{
+                //    //DataSet dtSystem = GeneralLookUp.GetSystemList(rblstType.SelectedValue);
+                //    ////get the first 64 system, then use see More ... to get the rest 60-120
+                //    drplstSystem.DataSource = resList;
+                //    drplstSystem.DataBind();
+                //    ListItem item = new ListItem();
+                //    item.Text = "All";
+                //    item.Value = "-1";
+                //    drplstBuilding.Items.Add(item);
+                //    lbSelectedSystemValue.Text = "None";
+                //}
+                ////DataView two
+                //else
+                //{
+                //    //DataSet dtComponent = GeneralLookUp.GetEquipmentList();
+                //    ckbxlstComponent.DataSource = resList;
+                //    ckbxlstComponent.DataBind();
+                //    ListItem item = new ListItem();
+                //    item.Text = "All";
+                //    item.Value = "-1";
+                //    drplstBuilding.Items.Add(item);
+                //    lbSelectedEquipmentValue.Text = "None";
+                //}
+            }        
+        } 
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
@@ -72,11 +140,14 @@ public partial class Default3 : System.Web.UI.Page
         {
             SearchCriteria crit = SearchCriteria.NewInstance;
 
-            crit.buildingIds = Utils.GetListStringFromCheckboxList(drplstBuilding);
-            crit.typeIds = Utils.GetListStringFromCheckboxList(ckbxlstType);
-            crit.componentIds = Utils.GetListStringFromCheckboxList(ckbxlstComponent);
+            crit.buildingIds = Utils.GetCatCollectionString(Utils.GetSubTypeCollection(drplstBuilding));
+            if (!string.IsNullOrEmpty(rblstType.SelectedValue))
+                crit.typeId = rblstType.SelectedValue;
+            //crit.componentIds = Utils.GetListStringFromCheckboxList(ckbxlstComponent);
             crit.systemIds = Utils.GetListStringFromCheckboxList(drplstSystem);
             crit.flagAssigned = Convert.ToInt32(radioSelect.SelectedValue);
+            crit.facnum = string.Empty;
+            crit.wrnum = string.Empty;
             Response.Redirect("SearchResult.aspx");
         }
            
@@ -96,14 +167,24 @@ public partial class Default3 : System.Web.UI.Page
     {
         if (!string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
         {
-            Response.Redirect("equipMechanicalNew.aspx?facnum=" + txtFacilityNum.Text.Trim());
+            SearchCriteria crit = SearchCriteria.NewInstance;
+
+            if (!string.IsNullOrEmpty(txtFacilityNum.Text))
+                crit.facnum = txtFacilityNum.Text.Trim();          
+            Response.Redirect("SearchResult.aspx");
+           // Response.Redirect("equipMechanicalNew.aspx?facnum=" + txtFacilityNum.Text.Trim());
         }
     }
     protected void btnSearchByWRNum_Click(object sender, EventArgs e)
     {
         if (!string.IsNullOrEmpty(txtWRNum.Text.Trim()))
         {
-            Response.Redirect("equipMechanicalNew.aspx?wrnum=" + txtWRNum.Text.Trim());
+            SearchCriteria crit = SearchCriteria.NewInstance;
+
+            if (!string.IsNullOrEmpty(txtWRNum.Text))
+                crit.wrnum = txtWRNum.Text.Trim();
+            Response.Redirect("SearchResult.aspx");
+            // Response.Redirect("equipMechanicalNew.aspx?facnum=" + txtFacilityNum.Text.Trim());
         }
     }
 }

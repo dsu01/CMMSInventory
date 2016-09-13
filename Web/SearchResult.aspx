@@ -18,7 +18,7 @@
                                 <tr>
                                     <td class="leftLabel">
                                         Current Criteria: <asp:Label ID="lblExiCrit" runat="server"></asp:Label>&nbsp;&nbsp;<asp:LinkButton ID="lbModifySearch" CommandName="KeepAlive" runat="server" Visible="false" Text="Modify Criteria >>"
-                                            CssClass="GridViewButtons" SkinID="HyperLinkButton2" OnClick="lbModifySearch_OnClick"></asp:LinkButton>
+                                            CssClass="GridViewButtons" OnClick="lbModifySearch_OnClick"></asp:LinkButton>
                                         
                                     </td>
                                     <td align="right">
@@ -45,8 +45,8 @@
                        <td>
                           <asp:Panel ID="pnlResults" runat="server">
                           <asp:Label ID="lblTotalNumberOfResult" runat="server" CssClass="rptTotal" />
-                        	<asp:gridview id="gvFacilitys" SkinID="gvRegPagingSorting" runat="server" AutoGenerateColumns="false" OnSorting="gvFacilitys_OnSorting"
-                                            OnPageIndexChanging="gvFacilitys_OnPageIndexChanging" OnRowDataBound="gvFacilitys_OnRowDataBound">
+                        	<asp:gridview id="gvFacilitys" SkinID="gvRegPagingSorting" DataKeyNames="ID" runat="server" AutoGenerateColumns="false" OnSorting="gvFacilitys_OnSorting"
+                                            OnPageIndexChanging="gvFacilitys_OnPageIndexChanging" OnRowDataBound="gvFacilitys_OnRowDataBound" OnRowCreated="gvFacilitys_onRowCreated">
                                     <PagerSettings Mode="NumericFirstLast" Position="Bottom" PageButtonCount="10" />
                                             <PagerStyle ForeColor="Black" HorizontalAlign="Right" Height="8" BackColor="#E0E0E0"
                                                 Font-Size="11px" Font-Underline="true" Font-Bold="true" />
@@ -59,7 +59,27 @@
                                                <asp:Label runat="server" Visible="false" ID="lblHidFacilityID" Text='<%#Eval("ID")%>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField> 
-				
+				                  <asp:TemplateField HeaderText="# of Equipments" ItemStyle-HorizontalAlign="Center">
+					                <ItemTemplate>
+						                <asp:Label id="lblNumEquip" runat="server" text='<%# Eval("TotalEquipments") %>' />
+
+                                         <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/btn_edit.gif" Width="16" height="16" />
+                                            <ajaxToolkit:PopupControlExtender 
+                                                ID="PopupControlExtender1" 
+                                                runat="server" 
+                                                DynamicServiceMethod="GetDynamicContent"
+                                                DynamicContextKey='<%# Eval("Facility#") %>'
+                                                DynamicControlID="Panel1"
+                                                TargetControlID="Image1"
+                                                PopupControlID="Panel1"
+                                                Position="Left"                                               
+                                                OffsetX="-450"
+                                                OffsetY="15">
+                                            </ajaxToolkit:PopupControlExtender>
+                                                        
+					                </ItemTemplate>					
+				                </asp:TemplateField>
+                                     
 				                <asp:TemplateField HeaderText="Facility ID" ItemStyle-HorizontalAlign="Center" SortExpression="FacilityID">
 					                <ItemTemplate>
 					
@@ -87,12 +107,8 @@
 						                <asp:Label id="lblLocation" runat="server" text='<%# Eval("Location") %>' />
 					                </ItemTemplate>					
 				                </asp:TemplateField>
-				                <asp:TemplateField HeaderText="# of Equipments" ItemStyle-HorizontalAlign="Center">
-					                <ItemTemplate>
-						                <asp:Label id="lblNumEquip" runat="server" text='<%# Eval("TotalEquipments") %>' />
-					                </ItemTemplate>					
-				                </asp:TemplateField>
-					             <asp:TemplateField HeaderText="# of Equipments" ItemStyle-HorizontalAlign="Center">
+				              
+					             <asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="Center">
 					                <ItemTemplate>
                                             <asp:Hyperlink id="hlAction" runat="server" Text='Action'                                    
                                                     NavigateUrl='<%# String.Format("Admin/AdminAction.aspx?FacId={0}", Eval("ID")) %>'>
@@ -101,6 +117,8 @@
 				                </asp:TemplateField>
 					                </Columns>
 				                </asp:gridview>
+                                <asp:Panel ID="Panel1" runat="server" Width="550" Height="200"
+                        Style="display: none;overflow: scroll;"></asp:Panel>
                                </asp:Panel>
                        </td>
                     </tr>

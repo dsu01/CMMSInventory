@@ -11,7 +11,7 @@ using NIH.CMMS.Inventory.BPL.Facility;
 using NIH.CMMS.Inventory.BOL.People;
 using System.Data;
 using NIH.CMMS.Inventory.BPL.LookUp;
-
+using System.IO;
 public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
 {
     protected LoginUser loginUsr;
@@ -557,13 +557,143 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
     }
 
     #region " Attachment/Photos Section -- event handling "
+    public bool SaveData(int incidentId)
+    {
+        bool savres = false;
 
+        // Get the name of the file to upload.      
+        String fileName = Server.HtmlEncode(fuFacFileUpload.FileName);
+
+        // Get the extension of the uploaded file.
+        string extension = System.IO.Path.GetExtension(fileName).ToLower();
+
+        String fileTitle = txtFacAttTitle.Text.Trim();
+       
+        //since filename is readonly, so retrieve it from hidden value
+        //or use fu1.Attributes["FileName"] = ful.FullName;
+        if (txtHidFacAttID.Text != "-1" && fileName == "")
+        { fileName = txtHidFacAttFileName.Text; }
+
+        //both file name and Title are reqried
+        if (fileName != "" & fileTitle != "")
+        {
+            #region "Create Attachement Oject and Save."
+
+            // Specify the path on the server to save the uploaded file to.
+            Attachment attDetail = new Attachment();
+            if (txtHidFacAttID.Text != "-1")
+            {
+                //if it is an update, need to delete old one and insert new one
+                //attDetail = facility_logic.GetAttachmentDetails(Convert.ToInt32(txtHidFacAttID.Text));
+            }
+            else { attDetail = new Attachment(); }
+            if (attDetail != null)
+            {
+                //common things to update
+                attDetail.CreatedBy = loginUsr.LaborName;
+                attDetail.InvFacID = txtFacilityID.Text.Trim();
+                attDetail.Title = fileTitle;
+                attDetail.UpdatedBy = Page.User.Identity.Name;
+               
+                if (txtHidFacAttID.Text != "-1" && fuFacFileUpload.FileName == string.Empty)
+                {
+                    //if only update the Title, no need to save file          
+
+                }
+                else
+                {
+                    //if it is new attachment or Update to a new attachment
+                    Stream fs = fuFacFileUpload.PostedFile.InputStream;
+                    BinaryReader br = new BinaryReader(fs);
+                    Byte[] bytes = br.ReadBytes((Int32)fs.Length);
+
+                    attDetail.FileData = bytes;
+                    attDetail.FileName = fileName;
+
+                    #region "Save File"
+                    //if (!Utils.IsAllowedExtension(extension))
+                    //{
+                    //    lblValidationError.Visible = true;
+                    //    lblValidationError.Text = "Attachments acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD and .PPT(X). Please check your file extension.";
+                    //    return false;
+                    //}
+                    //else if (fuFacFileUpload.PostedFile.ContentLength > 10485760)
+                    //{
+                    //    lblValidationError.Visible = true;
+                    //    lblValidationError.Text = "Attachments cannot be greater than 10MB. Please upload another attachment and try again.";
+                    //    return false;
+                    //}
+                    //else
+                    //{
+                        //if (txtHidFacAttID.Text != "-1")
+                        //{
+                        //    //if it is an update to Title and File, need to delete old one and insert new one
+                        //    //System.IO.File.Delete(savePath + attDetail.FileLocation);
+                        //}
+                        //try
+                        //{
+                        //    fuEleFileUpload.SaveAs(savePath);
+                        //}
+                        //catch // if upload file failed.
+                        //{
+                        //    //Utils.ShowPopUpMsg("Error Occurred!", this);
+                        //    lblValidationError.Visible = true;
+                        //    lblValidationError.Text = "Error Occurred!";
+                        //    //if file deleted and it is an update, need to delete that database record also
+                        //    if (txtHidAttID.Text != "-1")
+                        //    { IncAttachmentLogic.DeleteAttachmentDetails(attDetail); }
+                        //    return false;
+
+                        //}
+                    //}
+
+                    #endregion
+                }
+
+                // Call the SaveAs method to save the uploaded file to the specified path. 
+                //if the file fize is greater than 10MB throw an error.
+                ValidationResult res = facility_logic.UpdateFacAttachment(attDetail);
+                if (res.Success)
+                {//show successs msg
+                    // Utils.ShowPopUpMsg("Attachment saved!", this);
+                    lblFacValidationError.Visible = true;
+                    savres = true;
+                    lblFacValidationError.Text = "Attachment saved.";
+                }
+                else
+                {
+                    //Utils.ShowPopUpMsg("Error Occurred!", this);
+                    lblFacValidationError.Visible = true;
+                    lblFacValidationError.Text = "Error Occurred.";
+                }
+            }
+            else
+            {
+                //attDetail is null
+                lblFacValidationError.Visible = true;
+                lblFacValidationError.Text = "Error Occurred.";
+            }
+            #endregion
+        }
+        else if (fileName != "" && fileTitle == "")
+        {
+            lblFacValidationError.Visible = true;
+            lblFacValidationError.Text = "Please enter attachment title.";
+        }
+        else if (fileName == "" && fileTitle != "")
+        {     //if no file name or title
+            lblFacValidationError.Visible = true;
+            lblFacValidationError.Text = "Please upload a file.";
+        }
+      
+        return savres;
+    }
     /// <summary>
     /// Handles the onRowCommand event of the gvExtAttachment control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
-    protected void gvExtAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
+    protected void gvExtFacAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
     {
         //IncidentAttachments incAtt = IncAttachmentLogic.GetAttachmentDetails(Convert.ToInt32(e.CommandArgument.ToString()));
 

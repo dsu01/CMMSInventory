@@ -58,29 +58,55 @@
                                 
                                 <div class="cbb">
                                  <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
-                                     <tr>
-                                        <td class="leftLabel" width ="20%">System:</td>
-                                        <td class="text7"> <asp:CheckBoxList ID="drplstSystem" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemTitle" DataValueField="SystemTitle">
-                                    </asp:CheckBoxList></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="leftLabel">Component (change by Parent--system??)</td>
-                                        <td align="left" class="text7">                                   
-                                            <asp:CheckBoxList ID="ckbxlstComponent" runat="server" DataTextField="SystemTitle"  DataValueField="SystemAbbreviation" RepeatDirection="Horizontal" RepeatColumns="8" />
-                                         </td>
-                                    </tr>
-                                     <tr>
-                                         <td class="leftLabel">Building</td>
-                                        <td align="left" class="text7">                                   
-                                            <asp:CheckBoxList ID="drplstBuilding" runat="server" DataTextField="Building" RepeatDirection="Horizontal" RepeatColumns="8" DataValueField="Building" />
-                                         </td>                                            
-                                    </tr>
-                                     <tr>
+                                      <tr>
                                        <td class="leftLabel">Type:</td>
                                             <td align="left" class="text7">                                            
-                                             <asp:CheckBoxList ID="ckbxlstType" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemGroup" />
+                                             <asp:RadioButtonList ID="rblstType" runat="server" RepeatDirection="Horizontal" DataTextField="SystemGroup" OnSelectedIndexChanged="rblstType_SelectedIndexChanged" AutoPostBack="true" />
                                        </td>
                                      </tr>
+                                     <asp:Panel ID="pnlSelection" runat="server" Visible="false">
+                                     <tr>
+                                         <td></td>
+                                         <td class="errortext">seleted values: <asp:Label ID="lbSelectedSystemValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>
+                                         </td>
+                                     </tr>
+                                     <tr>
+                                        <td class="leftLabel" width ="20%">Selection:</td>
+                                        <td class="text7"> 
+                                            <asp:Panel ID="pnlSystem" runat="server" style="max-height:250px;" ScrollBars="Auto">
+                                                 <asp:CheckBoxList ID="drplstSystem" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemTitle" DataValueField="ID">
+                                             </asp:CheckBoxList>
+                                            </asp:Panel>      
+                                        </td>
+                                    </tr>
+                                 <%--  <tr>
+                                         <td></td>
+                                         <td class="errortext">seletec equipment values: <asp:Label ID="lbSelectedEquipmentValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>
+                                         </td>
+                                     </tr>
+                                    <tr>
+                                        <td class="leftLabel">Equipment:</td>
+                                        <td align="left" class="text7">        
+                                             <asp:Panel ID="pnlEquipment" runat="server" style="max-height:150px;" ScrollBars="Auto">                           
+                                            <asp:CheckBoxList ID="ckbxlstComponent" runat="server" DataTextField="SystemTitle"  DataValueField="ID" RepeatDirection="Horizontal" RepeatColumns="8" />
+                                         </asp:Panel>     
+                                       </td>
+                                    </tr>--%>
+                                     </asp:Panel>
+                                      <tr>
+                                         <td></td>
+                                         <td class="errortext">seleted building values: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>
+                                         </td>
+                                     </tr>
+                                     <tr>
+                                         <td class="leftLabel">Building</td>
+                                        <td align="left" class="text7">    
+                                             <asp:Panel ID="pnlBuilding" runat="server" style="max-height:150px;" ScrollBars="Auto">                                                          
+                                            <asp:CheckBoxList ID="drplstBuilding" runat="server" DataTextField="Building" RepeatDirection="Horizontal" RepeatColumns="8" DataValueField="ID" />
+                                            </asp:Panel>     
+                                         </td>                                            
+                                    </tr>
+                                   
                                     <tr>   
 						                   
                                             <td class="leftLabel">Facility# assigned?</td>
