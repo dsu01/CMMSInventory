@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AttachmentLogic.cs" />
     <Compile Include="Common\LookupCollection.cs" />
     <Compile Include="Facility\facility_logic.cs" />
     <Compile Include="LookUp\GeneralLookUp.cs" />
