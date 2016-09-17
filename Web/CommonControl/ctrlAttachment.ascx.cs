@@ -39,7 +39,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
                 : -1;
         }
     }
-    
+
     /// <summary>
     /// Show existing attachment in the list.
     /// </summary>
@@ -69,7 +69,6 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         return true;
     }
 
-
     #region " Attachment/Photos Section -- event handling "
     public bool SaveData()
     {
@@ -80,117 +79,113 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         var attachmentTitle = txtAttTitle.Text.Trim();
 
         //both file name and Title are reqried
-        if (fileName != "" & attachmentTitle != "")
+        //if (txtHidAttID.Text != "-1")
+        //{
+        //    //if it is an update, need to delete old one and insert new one
+        //    //attDetail = facility_logic.GetAttachmentDetails(Convert.ToInt32(txtHidFacAttID.Text));
+        //}
+        //else { attDetail = new Attachment(); }
+
+        var attachment = new Attachment()
         {
-            //if (txtHidAttID.Text != "-1")
+            InvEquipSysID = this.ParentEquipmentID,
+            IsActive = true,
+            Title = txtAttTitle.Text,
+            CreatedOn = DateTime.Now,
+            CreatedBy = Page.User.Identity.Name,
+            UpdatedBy = Page.User.Identity.Name,
+        };
+        if (attachment.InvEquipSysID >= 0)
+        {
+            //common things to update
+            //attDetail.InvFacID = txtFacilityID.Text.Trim();
+
+            //if (txtHidAttID.Text != "-1" && attachmentFileUpload.FileName == string.Empty)
             //{
-            //    //if it is an update, need to delete old one and insert new one
-            //    //attDetail = facility_logic.GetAttachmentDetails(Convert.ToInt32(txtHidFacAttID.Text));
+            //    //if only update the Title, no need to save file          
+
             //}
-            //else { attDetail = new Attachment(); }
-
-            var attachment = new Attachment() { InvEquipSysID = this.ParentEquipmentID };
-            if (attachment.InvEquipSysID >= 0)
+            //else
             {
-                //common things to update
-                //attDetail.CreatedBy = loginUsr.LaborName;
-                //attDetail.InvFacID = txtFacilityID.Text.Trim();
-                //attDetail.Title = attachmentTitle;
-                //attDetail.UpdatedBy = Page.User.Identity.Name;
+                //if it is new attachment or Update to a new attachment
+                var fs = attachmentFileUpload.PostedFile.InputStream;
+                var br = new BinaryReader(fs);
+                Byte[] bytes = br.ReadBytes((Int32)fs.Length);
 
-                //if (txtHidAttID.Text != "-1" && attachmentFileUpload.FileName == string.Empty)
+                attachment.FileData = bytes;
+                attachment.FileName = fileName;
+
+                //if (!Utils.IsAllowedExtension(extension))
                 //{
-                //    //if only update the Title, no need to save file          
-
+                //    lblValidationError.Visible = true;
+                //    lblValidationError.Text = "Attachments acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD and .PPT(X). Please check your file extension.";
+                //    return false;
                 //}
-                //else
+
+                // .FileType
+
+                if (attachmentFileUpload.PostedFile.ContentLength > 10485760)
                 {
-                    //if it is new attachment or Update to a new attachment
-                    var fs = attachmentFileUpload.PostedFile.InputStream;
-                    var br = new BinaryReader(fs);
-                    Byte[] bytes = br.ReadBytes((Int32)fs.Length);
-
-                    attachment.FileData = bytes;
-                    attachment.FileName = fileName;
-
-                    //if (!Utils.IsAllowedExtension(extension))
+                    lblValidationError.Visible = true;
+                    lblValidationError.Text =
+                        "Attachments cannot be greater than 10MB. Please upload another attachment and try again.";
+                    return false;
+                }
+                else
+                {
+                    //if (txtHidFacAttID.Text != "-1")
                     //{
-                    //    lblValidationError.Visible = true;
-                    //    lblValidationError.Text = "Attachments acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD and .PPT(X). Please check your file extension.";
-                    //    return false;
+                    //    //if it is an update to Title and File, need to delete old one and insert new one
+                    //    //System.IO.File.Delete(savePath + attDetail.FileLocation);
                     //}
-                    if (attachmentFileUpload.PostedFile.ContentLength > 10485760)
-                    {
-                        lblValidationError.Visible = true;
-                        lblValidationError.Text =
-                            "Attachments cannot be greater than 10MB. Please upload another attachment and try again.";
-                        return false;
-                    }
-                    else
-                    {
-                        //if (txtHidFacAttID.Text != "-1")
-                        //{
-                        //    //if it is an update to Title and File, need to delete old one and insert new one
-                        //    //System.IO.File.Delete(savePath + attDetail.FileLocation);
-                        //}
 
-                        //try
-                        //{
-                        //    fuEleFileUpload.SaveAs(savePath);
-                        //}
-                        //catch // if upload file failed.
-                        //{
-                        //    //Utils.ShowPopUpMsg("Error Occurred!", this);
-                        //    lblValidationError.Visible = true;
-                        //    lblValidationError.Text = "Error Occurred!";
-                        //    //if file deleted and it is an update, need to delete that database record also
-                        //    if (txtHidAttID.Text != "-1")
-                        //    { IncAttachmentLogic.DeleteAttachmentDetails(attDetail); }
-                        //    return false;
+                    //try
+                    //{
+                    //    fuEleFileUpload.SaveAs(savePath);
+                    //}
+                    //catch // if upload file failed.
+                    //{
+                    //    //Utils.ShowPopUpMsg("Error Occurred!", this);
+                    //    lblValidationError.Visible = true;
+                    //    lblValidationError.Text = "Error Occurred!";
+                    //    //if file deleted and it is an update, need to delete that database record also
+                    //    if (txtHidAttID.Text != "-1")
+                    //    { IncAttachmentLogic.DeleteAttachmentDetails(attDetail); }
+                    //    return false;
 
-                        //}
-                        //}
-                    }
+                    //}
+                    //}
+                }
 
-                    // Call the SaveAs method to save the uploaded file to the specified path. 
-                    //if the file fize is greater than 10MB throw an error.
-                    var res = AttachmentLogic.UpdateAttachmentDetails(attachment);
-                    if (res.Success)
-                    {
-                        //show successs msg
-                        // Utils.ShowPopUpMsg("Attachment saved!", this);
-                        lblValidationError.Visible = true;
-                        saved = true;
-                        lblValidationError.Text = "Attachment saved.";
-                    }
-                    else
-                    {
-                        //Utils.ShowPopUpMsg("Error Occurred!", this);
-                        lblValidationError.Visible = true;
-                        lblValidationError.Text = "Error Occurred.";
-                    }
+                // Call the SaveAs method to save the uploaded file to the specified path. 
+                //if the file fize is greater than 10MB throw an error.
+                var result = AttachmentLogic.UpdateAttachmentDetails(attachment);
+                //if (result.Success)
+                if (attachment.InvFacSysID > 0)
+                {
+                    Utils.ShowPopUpMsg("Attachment saved!", this.Page);
+                    lblValidationError.Visible = true;
+                    saved = true;
+                    lblValidationError.Text = "Attachment saved.";
+                }
+                else
+                {
+                    //Utils.ShowPopUpMsg("Error Occurred!", this);
+                    lblValidationError.Visible = true;
+                    lblValidationError.Text = "Error Occurred.";
                 }
             }
-            else
-            {
-                //attDetail is null
-                lblValidationError.Visible = true;
-                lblValidationError.Text = "Error Occurred.";
-            }
         }
-        else if (fileName != "" && attachmentTitle == "")
+        else
         {
+            //attDetail is null
             lblValidationError.Visible = true;
-            lblValidationError.Text = "Please enter attachment title.";
-        }
-        else if (fileName == "" && attachmentTitle != "")
-        {     //if no file name or title
-            lblValidationError.Visible = true;
-            lblValidationError.Text = "Please upload a file.";
+            lblValidationError.Text = "Error Occurred.";
         }
 
         return saved;
     }
+
     /// <summary>
     /// Handles the onRowCommand event of the gvExtAttachment control.
     /// </summary>
@@ -263,9 +258,11 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
             return;
         }
 
-        SaveData();
-        ShowAttachments();
-        ClearFields();
+        if (SaveData())
+        {
+            ShowAttachments();
+            ClearFields();
+        }
 
         if (ModalExtender != null) ModalExtender.Show();
     }

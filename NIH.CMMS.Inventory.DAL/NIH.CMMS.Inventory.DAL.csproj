@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\CreateAttachmentTable08212016.sql" />
+    <Content Include="Scripts\spn_inv_updateEquipmentAttachment.sql" />
     <Content Include="Scripts\updatedSps.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
