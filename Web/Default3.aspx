@@ -49,7 +49,8 @@
                  </tr> 
 
                  <tr>
-                     <td class="redheading"><br />Inventory Advanced Search </td>
+                     <td class="redheading"><br />Inventory Advanced Search 
+                     </td>
                  </tr>  
                  <asp:Panel ID="pnlAdvanceSearch" runat="server">
                             <%-- <tr>
@@ -73,7 +74,7 @@
                                      <asp:Panel ID="pnlSelection" runat="server" Visible="false">
                                     <tr>
                                          <td></td>
-                                         <td style="color:darkgreen; font-size:.8em;">(seleted values: <asp:Label ID="lbSelectedSystemValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>)
+                                         <td style="color:darkgreen; font-size:.8em;">(current seleted values: <asp:Label ID="lbSelectedSystemValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>)
                                          </td>
                                      </tr>
                                      <tr>
@@ -101,7 +102,7 @@
                                      </asp:Panel>
                                       <tr>
                                          <td></td>
-                                         <td style="color:darkgreen; font-size:.8em;">(seleted building values: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>)
+                                         <td style="color:darkgreen; font-size:.8em;">(current seleted building: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>)
                                          </td>                                            
                                     </tr>
                                      <tr>

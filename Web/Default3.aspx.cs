@@ -51,13 +51,27 @@ public partial class Default3 : System.Web.UI.Page
                 else
                 {
                 if (crit.buildingIds != null)
+                {
+                    //show current selection
+                    lbSelectedBuildingValue.Text = crit.buildingDescs; 
                     Utils.CheckCheckboxListFromListString(drplstBuilding, crit.buildingIds);
-                if (crit.systemIds != null)
-                    Utils.CheckCheckboxListFromListString(drplstSystem, crit.systemIds);
-                if (crit.componentIds != null)
+                }
+                    
+                
+                    
+               // if (crit.componentIds != null)
                     //Utils.CheckCheckboxListFromListString(ckbxlstComponent, crit.componentIds);
-                    if (!string.IsNullOrEmpty(crit.typeId))
-                    rblstType.SelectedValue = crit.typeId;
+               if (!string.IsNullOrEmpty(crit.typeId))
+               {
+                   rblstType.SelectedValue = crit.typeId;
+                   ShowSelection(crit.typeId); 
+                   if (crit.systemIds != null)
+                   {
+                       lbSelectedSystemValue.Text = crit.systemDescs;
+                       Utils.CheckCheckboxListFromListString(drplstSystem, crit.systemIds);
+                   }
+               }
+                    
                 radioSelect.SelectedValue = crit.flagAssigned.ToString();
             }          
             }          
@@ -72,12 +86,19 @@ public partial class Default3 : System.Web.UI.Page
     {        
         if (!string.IsNullOrEmpty(rblstType.SelectedValue))
         {
+
+            ShowSelection(rblstType.SelectedValue);        
+        } 
+    }
+
+    private void ShowSelection(string val)
+    { 
             pnlSelection.Visible = true;
             //filter the other two checkboxes list depends on this value
             //if Systemgroup contains System, then it is system,
             //only system can be qualified as parent
             //otherwise if Equipment
-            DataSet resList = GeneralLookUp.GetListByType(rblstType.SelectedValue);
+            DataSet resList = GeneralLookUp.GetListByType(val);
             if (resList != null)
             {
                 drplstSystem.DataSource = resList;
@@ -111,9 +132,9 @@ public partial class Default3 : System.Web.UI.Page
                 //    drplstBuilding.Items.Add(item);
                 //    lbSelectedEquipmentValue.Text = "None";
                 //}
-            }        
-        } 
+            }
     }
+
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         if (Page.IsValid)
@@ -121,13 +142,17 @@ public partial class Default3 : System.Web.UI.Page
             SearchCriteria crit = SearchCriteria.NewInstance;
 
             crit.buildingIds = Utils.GetCatCollectionString(Utils.GetSubTypeCollection(drplstBuilding));
+            crit.buildingDescs = Utils.GetListStringFromCheckboxList(drplstBuilding);       
             if (!string.IsNullOrEmpty(rblstType.SelectedValue))
                 crit.typeId = rblstType.SelectedValue;
             //crit.componentIds = Utils.GetListStringFromCheckboxList(ckbxlstComponent);
-            crit.systemIds = Utils.GetListStringFromCheckboxList(drplstSystem);
+           
+            crit.systemIds = Utils.GetCatCollectionString(Utils.GetSubTypeCollection(drplstSystem));
+            crit.systemDescs = Utils.GetListStringFromCheckboxList(drplstSystem);            
             crit.flagAssigned = Convert.ToInt32(radioSelect.SelectedValue);
             crit.facnum = string.Empty;
             crit.wrnum = string.Empty;
+            HttpContext.Current.Session["SearchReportSearchCriteria"] = crit;
             Response.Redirect("SearchResult.aspx");
         }
            
@@ -149,7 +174,8 @@ public partial class Default3 : System.Web.UI.Page
             SearchCriteria crit = SearchCriteria.NewInstance;
 
             if (!string.IsNullOrEmpty(txtFacilityNum.Text))
-                crit.facnum = txtFacilityNum.Text.Trim();          
+                crit.facnum = txtFacilityNum.Text.Trim();
+            HttpContext.Current.Session["SearchReportSearchCriteria"] = crit;
             Response.Redirect("SearchResult.aspx");
            // Response.Redirect("equipMechanicalNew.aspx?facnum=" + txtFacilityNum.Text.Trim());
         }
@@ -162,6 +188,7 @@ public partial class Default3 : System.Web.UI.Page
 
             if (!string.IsNullOrEmpty(txtWRNum.Text))
                 crit.wrnum = txtWRNum.Text.Trim();
+            HttpContext.Current.Session["SearchReportSearchCriteria"] = crit;
             Response.Redirect("SearchResult.aspx");
             // Response.Redirect("equipMechanicalNew.aspx?facnum=" + txtFacilityNum.Text.Trim());
         }

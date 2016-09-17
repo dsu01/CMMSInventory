@@ -44,7 +44,7 @@
                    <tr>
                        <td>
                           <asp:Panel ID="pnlResults" runat="server">
-                          <asp:Label ID="lblTotalNumberOfResult" runat="server" CssClass="rptTotal" />
+                          <asp:Label ID="lblTotalNumberOfResult" runat="server" CssClass="leftLabel" /><br />
                         	<asp:gridview id="gvFacilitys" SkinID="gvRegPagingSorting" DataKeyNames="ID" runat="server" AutoGenerateColumns="false" OnSorting="gvFacilitys_OnSorting"
                                             OnPageIndexChanging="gvFacilitys_OnPageIndexChanging" OnRowDataBound="gvFacilitys_OnRowDataBound" OnRowCreated="gvFacilitys_onRowCreated">
                                     <PagerSettings Mode="NumericFirstLast" Position="Bottom" PageButtonCount="10" />

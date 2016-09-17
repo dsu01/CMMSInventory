@@ -686,9 +686,9 @@ namespace NIH.CMMS.Inventory.DAL.Facility
         {
             //get data from database
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@SystemIds", (string.IsNullOrEmpty(crit.systemIds) ? System.DBNull.Value : (Object)crit.systemIds)));
+            sqlParams.Add(new SqlParameter("@SystemIds", (string.IsNullOrEmpty(crit.systemDescs) ? System.DBNull.Value : (Object)crit.systemDescs)));
             sqlParams.Add(new SqlParameter("@TypeId", (string.IsNullOrEmpty(crit.typeId) ? System.DBNull.Value : (Object)crit.typeId)));
-            sqlParams.Add(new SqlParameter("@BuildingIds", (string.IsNullOrEmpty(crit.buildingIds) ? System.DBNull.Value : (Object)crit.buildingIds)));
+            sqlParams.Add(new SqlParameter("@BuildingIds", (string.IsNullOrEmpty(crit.buildingDescs) ? System.DBNull.Value : (Object)crit.buildingDescs)));
             sqlParams.Add(new SqlParameter("@FacilityNo", (string.IsNullOrEmpty(crit.facnum) ? System.DBNull.Value : (Object)crit.facnum)));
             sqlParams.Add(new SqlParameter("@WorkRequest", (string.IsNullOrEmpty(crit.wrnum) ? System.DBNull.Value : (Object)crit.wrnum)));
             // sqlParams.Add(new SqlParameter("@ComponentIds", (string.IsNullOrEmpty(crit.componentIds) ? System.DBNull.Value : (Object)crit.componentIds)));

@@ -100,17 +100,26 @@ public partial class SearchResult : System.Web.UI.Page
             }
                 if (!string.IsNullOrEmpty(crit.typeId))
                     lblExiCrit.Text += "&nbsp;, Type: " + crit.typeId;
-            if (!string.IsNullOrEmpty(crit.componentIds))
-                 lblExiCrit.Text += "&nbsp;, Components: " + crit.componentIds;
-            if (!string.IsNullOrEmpty(crit.systemIds))
-                 lblExiCrit.Text += "&nbsp;, Systems: " + crit.systemIds;
-                if (!string.IsNullOrEmpty(crit.buildingIds))
+                if (!string.IsNullOrEmpty(crit.systemIds))
                 {
-                    if (crit.buildingIds == "-1")
-                        lblExiCrit.Text += "&nbsp;, Buildings: All ";
-                    else
-                        lblExiCrit.Text += "&nbsp;, Buildings: " + crit.buildingIds;
+
+                    lblExiCrit.Text += "&nbsp;, Selction: " + crit.systemDescs;
                 }
+                else
+                    lblExiCrit.Text += "&nbsp;, Selection: All ";
+            //if (!string.IsNullOrEmpty(crit.componentIds))
+            //     lblExiCrit.Text += "&nbsp;, Components: " + crit.componentIds;
+         
+            //if (!string.IsNullOrEmpty(crit.systemIds))
+            //     lblExiCrit.Text += "&nbsp;, Systems: " + crit.systemIds;
+                if (!string.IsNullOrEmpty(crit.buildingDescs))
+                {
+
+                    lblExiCrit.Text += "&nbsp;, Buildings: " + crit.buildingDescs;
+                }
+                else
+                    lblExiCrit.Text += "&nbsp;, Buildings: All ";
+               
                      
             }
                  

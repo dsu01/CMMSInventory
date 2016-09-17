@@ -771,9 +771,15 @@ namespace NIH.CMMS.Inventory.Web
                 {
                     if (cblst.Items[i].Selected)
                     {
-                        //add them into string
+                        if (cblst.Items[i].Text.ToLower() == "all")
+                        {
+                            return string.Empty;
+                        }
+                        else
+                            //add them into collection
+                             value += cblst.Items[i].Text + ",";
                         //value += int.Parse(cblst.Items[i].Value) + ",";
-                        value += cblst.Items[i].Text + ",";
+                       
 
                     }
                 }

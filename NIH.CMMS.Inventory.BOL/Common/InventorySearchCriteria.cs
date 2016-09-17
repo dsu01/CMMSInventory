@@ -16,9 +16,10 @@ namespace NIH.CMMS.Inventory.BOL.Common
         {
             get
             {
-                if (instance == null && SearchCriteria.KeepAlive && System.Web.HttpContext.Current.Session[SESSION_INSTANCE_KEY] != null)
-                    instance = (SearchCriteria)HttpContext.Current.Session[SESSION_INSTANCE_KEY];
-                if (instance == null) KeepAlive = false;
+              //  if (instance == null && SearchCriteria.KeepAlive && System.Web.HttpContext.Current.Session[SESSION_INSTANCE_KEY] != null)
+                if (System.Web.HttpContext.Current.Session[SESSION_INSTANCE_KEY] != null)   
+                instance = (SearchCriteria)HttpContext.Current.Session[SESSION_INSTANCE_KEY];
+                //if (instance == null) KeepAlive = false;
                 return instance;
             }
             set
@@ -58,8 +59,10 @@ namespace NIH.CMMS.Inventory.BOL.Common
 
         //all public fields added for crosspagepostback
         public string systemIds;
+        public string systemDescs;
         public string componentIds;
         public string buildingIds;
+        public string buildingDescs;
         public string typeId;
         public string facnum;
         public string wrnum;
