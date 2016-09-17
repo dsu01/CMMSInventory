@@ -67,14 +67,14 @@
                                      <asp:Panel ID="pnlSelection" runat="server" Visible="false">
                                      <tr>
                                          <td></td>
-                                         <td class="errortext">seleted values: <asp:Label ID="lbSelectedSystemValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>
+                                         <td style="color:darkgreen; font-size:.8em;">(seleted values: <asp:Label ID="lbSelectedSystemValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>)
                                          </td>
                                      </tr>
                                      <tr>
                                         <td class="leftLabel" width ="20%">Selection:</td>
                                         <td class="text7"> 
                                             <asp:Panel ID="pnlSystem" runat="server" style="max-height:250px;" ScrollBars="Auto">
-                                                 <asp:CheckBoxList ID="drplstSystem" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemTitle" DataValueField="ID">
+                                                 <asp:CheckBoxList ID="drplstSystem" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemTitle" DataValueField="ID" OnSelectedIndexChanged="cklstSystemSelectedIndexChangd" AutoPostBack="true">
                                              </asp:CheckBoxList>
                                             </asp:Panel>      
                                         </td>
@@ -95,14 +95,14 @@
                                      </asp:Panel>
                                       <tr>
                                          <td></td>
-                                         <td class="errortext">seleted building values: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>
+                                         <td style="color:darkgreen; font-size:.8em;">(seleted building values: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>)
                                          </td>
                                      </tr>
                                      <tr>
                                          <td class="leftLabel">Building</td>
                                         <td align="left" class="text7">    
                                              <asp:Panel ID="pnlBuilding" runat="server" style="max-height:150px;" ScrollBars="Auto">                                                          
-                                            <asp:CheckBoxList ID="drplstBuilding" runat="server" DataTextField="Building" RepeatDirection="Horizontal" RepeatColumns="8" DataValueField="ID" />
+                                            <asp:CheckBoxList ID="drplstBuilding" runat="server" DataTextField="Building" RepeatDirection="Horizontal" RepeatColumns="8" DataValueField="ID" OnSelectedIndexChanged="cklstBuildingSelectedIndexChangd" AutoPostBack="true" />
                                             </asp:Panel>     
                                          </td>                                            
                                     </tr>
@@ -125,7 +125,7 @@
                              <tr>
                                 <td colspan="4" align="center" class="text7"><br /> 
                                     <asp:Button runat="server" ID="btnSearch" CssClass="submitGreen" Text="Search Inventory" UseSubmitBehavior="false" OnClick="btnSearch_Click">
-                                            </asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button runat="server" ID="btnReset" CssClass="submitRed" Text="Reset Criteria" UseSubmitBehavior="false" OnClick="btnReset_Click">
+                                            </asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button runat="server" ID="btnReset" CssClass="submitRed" Text="Reset Criteria" UseSubmitBehavior="false" OnClick="btnReset_Click" >
                                             </asp:Button>
                                               &nbsp;&nbsp;&nbsp;&nbsp;
                                      <asp:Label ID="test" runat="server"></asp:Label>

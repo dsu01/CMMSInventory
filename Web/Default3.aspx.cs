@@ -27,12 +27,12 @@ public partial class Default3 : System.Web.UI.Page
             rblstType.DataSource = dtType;
             rblstType.DataBind();        
                   
-            DataSet dtBuilding = GeneralLookUp.GetSearchBuildingList();
+            DataSet dtBuilding = GeneralLookUp.GetSearchBuildingList(); 
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
             ListItem item = new ListItem();
             item.Text = "All";
-            item.Value = "-1";
+            item.Value = "-1";            
             drplstBuilding.Items.Add(item);
             lbSelectedBuildingValue.Text = "None";
             #endregion
@@ -187,4 +187,63 @@ public partial class Default3 : System.Web.UI.Page
             // Response.Redirect("equipMechanicalNew.aspx?facnum=" + txtFacilityNum.Text.Trim());
         }
     }
+
+    protected void cklstSystemSelectedIndexChangd(object sender, EventArgs e)
+    {
+        lbSelectedSystemValue.Text = string.Empty;
+        //implement logic for user selection
+        for (int i = 0; i < drplstSystem.Items.Count; i++)
+        {
+
+            if (drplstSystem.Items[i].Selected)
+            {
+                if (drplstSystem.Items[i].Text.ToLower() == "all")
+                {
+                    //check all 
+                    CheckAll(drplstSystem);
+                    lbSelectedSystemValue.Text = "All";
+                    return;
+                }
+                else
+                    lbSelectedSystemValue.Text += drplstSystem.Items[i].Text + "; ";
+            }
+        }
+
+        //remove the ;
+        if (lbSelectedSystemValue.Text.Length > 1)
+            lbSelectedSystemValue.Text = lbSelectedSystemValue.Text.Substring(0, lbSelectedSystemValue.Text.Length - 2);
+    }
+
+    protected void cklstBuildingSelectedIndexChangd(object sender, EventArgs e)
+    {
+        lbSelectedBuildingValue.Text = string.Empty;
+        //implement logic for user selection
+        for (int i = 0; i < drplstBuilding.Items.Count; i++)
+        {
+            if (drplstBuilding.Items[i].Selected)
+            {
+                if (drplstBuilding.Items[i].Text.ToLower() == "all")
+                {
+                    //check all 
+                    CheckAll(drplstBuilding);
+                    lbSelectedBuildingValue.Text = "All";
+                    return;
+                }
+                else             
+                    lbSelectedBuildingValue.Text += drplstBuilding.Items[i].Text + "; ";
+            }
+        }
+        //remove the ;
+        if (lbSelectedBuildingValue.Text.Length > 1)
+            lbSelectedBuildingValue.Text = lbSelectedBuildingValue.Text.Substring(0, lbSelectedBuildingValue.Text.Length - 2);
+    }
+
+    private void CheckAll(CheckBoxList lst)
+    {
+        for (int i = 0; i < lst.Items.Count; i++)
+        {
+            lst.Items[i].Selected = true;
+        }       
+    }
+
 }
