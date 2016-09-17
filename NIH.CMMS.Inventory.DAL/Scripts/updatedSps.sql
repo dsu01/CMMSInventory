@@ -35,6 +35,40 @@ GO
 
 SET QUOTED_IDENTIFIER OFF
 GO
+ALTER PROCEDURE [dbo].[spn_Inv_Search_GetFacilityList]
+(
+		@SystemIds varchar(max),	-- from spn_Inv_GetSystem_Search, separated by ,
+		@TypeId varchar(max), -- from spn_Inv_GetTypeList
+		@BuildingIds varchar (max),	 -- from spn_Inv_GetBuildingList
+		--@ComponentIds varchar(max),
+		@FacilityNo varchar(50),
+		@WorkRequest varchar(50),		
+		@Status varchar(10)
+	)
+AS
+ 
+
+
+select InvFacility.ID,InvFacility.Facility#Temp, InvFacility.Facility#, InvFacility.FacilityFunction, InvFacility.FacilityGroup, 
+InvFacility.FacilitySystem, InvFacility.FacilityID, InvFacility.Building, InvFacility.[location], InvFacility.[ElectricalOther], 
+COUNT(invequipment.id) as TotalEquipments, InvFacility.WorkRequest#, InvFacility.Floor, InvFacility.Status
+
+from dbo.InvFacility 
+left join dbo.InvEquipment on InvFacility.Facility# = InvEquipment.parentfacility#
+where 1=1
+And ((@TypeId is null) or (InvFacility.FacilityGroup like @TypeId + '%'))
+And ((@SystemIds is null) or (InvFacility.FacilitySystem IN (SELECT distinct systemtitle FROM dbo.InvFacilitySystem)))
+And ((@BuildingIds is null) or (InvFacility.Building IN (SELECT distinct building FROM dbo.InvBuilding)))
+--And ((@SystemIds is null) or (InvFacility.FacilitySystem IN (SELECT [Value] FROM dbo.fn_DelimSepStr(@SystemIds,','))))	
+
+And ((@facilityNo is null) or (InvFacility.Facility# like '%' + @FacilityNo + '%') or (InvFacility.Facility#Temp like '%' + @FacilityNo + '%'))
+And ((@Status='3') or (((@Status='1') and (InvFacility.Facility# like 'T%')) or ((@Status='2') and (InvFacility.Facility# not like 'T%'))))
+
+And ((@WorkRequest is null) or (InvFacility.WorkRequest# like '%' + @WorkRequest+'%'))
+AND (InvFacility.Facility# is not null)
+group by InvFacility.ID,InvFacility.Facility#Temp,InvFacility.Facility#, InvFacility.FacilityFunction, InvFacility.FacilityGroup, InvFacility.FacilitySystem, 
+InvFacility.FacilityID, InvFacility.Building, InvFacility.[location], InvFacility.WorkRequest#, InvFacility.WorkRequest#, InvFacility.Floor, InvFacility.Status,InvFacility.[ElectricalOther]
+order by InvFacility.Facility# asc
 
 
 
