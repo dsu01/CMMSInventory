@@ -44,22 +44,23 @@ namespace NIH.CMMS.Inventory.BPL.Common
 
         public static ValidationResult UpdateAttachmentDetails(Attachment details)
         {
-            //String result = ApplicationConstants.NO_ERROR_USP_EXECUTION;
+            //var result = ApplicationConstants.NO_ERROR_USP_EXECUTION;
+            ValidationResult result = new ValidationResult(true, "Success");
 
-            //try
-            //{
+            try
+            {
+                //insert/update 
+                result = Attachment_db.UpdateAttachmentDetails(details);
 
-            //    //insert/update 
-            //    result = Attachment_db.UpdateAttachmentDetails(details);
+            }
+            catch (Exception e)
+            {
+                result = new ValidationResult(false, e.ToString());
+            }
 
-            //}
-            //catch (Exception e)
-            //{
-            //    result = e.Message;
-            //}
-
-            return null;
+            return result;
         }
+
         private static Attachment PopulateAttachmentDetails(DataRow row)
         {
             Attachment details = new Attachment();

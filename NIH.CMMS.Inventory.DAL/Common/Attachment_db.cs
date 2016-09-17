@@ -32,30 +32,50 @@ namespace NIH.CMMS.Inventory.DAL.Common
 
         public static ValidationResult UpdateAttachmentDetails(Attachment details)
         {
-        
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
-            SqlParameter paramID = DBCommands.ParameterMaker("@Att_SysID", SqlDbType.Int, 10, ParameterDirection.InputOutput, details.Key);
-            sqlParams.Add(paramID);
-            //sqlParams.Add(new SqlParameter("@Att_Source", details.Source));
-            //sqlParams.Add(new SqlParameter("@Att_SourceID", details.SourceID));
-            //sqlParams.Add(new SqlParameter("@Att_Desc", (string.IsNullOrEmpty(details.Description)) ? System.DBNull.Value : (Object)details.Description));
-            //sqlParams.Add(new SqlParameter("@Att_Title", details.Title));
-            //sqlParams.Add(new SqlParameter("@Att_Dist_Code", (string.IsNullOrEmpty(details.DistrictCode)) ? System.DBNull.Value : (Object)details.DistrictCode));
-            //sqlParams.Add(new SqlParameter("@Att_FilePath", details.FileLocation));
-            //sqlParams.Add(new SqlParameter("@Att_IsPublic", details.IsPublic));
-            //sqlParams.Add(new SqlParameter("@Att_Updated_By", details.UpdatedByUserID));
+            int attachmentID = -1;
 
-            //Assign new location id value otherwise throw exception error
-            //if (DBCommands.ExecuteNonQuery("usp_search_common_UpdateAttachmentDetails", sqlParams))
-            //{
-            //    details.Key = (int)paramID.Value;
-            //}
-            //else
-            //{
-            //   // throw new Exception(ApplicationConstants.DB_ERROR + result);
-            //}
+            var sqlParams = new List<SqlParameter>();
+
+            sqlParams.Add(new SqlParameter("@invEquipmentID", details.InvEquipSysID));
+            sqlParams.Add(new SqlParameter("@FileName", details.FileName));
+            sqlParams.Add(new SqlParameter("@ContentType", details.FileType));
+            sqlParams.Add(new SqlParameter("@Data", details.FileData));
+            sqlParams.Add(new SqlParameter("@CreatedOn", details.CreatedOn));
+            sqlParams.Add(new SqlParameter("@CreatedBy", details.CreatedBy));
+            sqlParams.Add(new SqlParameter("@IsActive", details.IsActive));
+            sqlParams.Add(new SqlParameter("@Title", details.Title));
+
+            SqlParameter outID = new SqlParameter("@ID", SqlDbType.Int);
+            outID.Direction = ParameterDirection.Output;
+            sqlParams.Add(outID);
+            SqlParameter outResult = new SqlParameter("@Res", SqlDbType.Int);
+            outResult.Direction = ParameterDirection.Output;
+            sqlParams.Add(outResult);
+
+            using (SqlConnection dbConn = DBConnection.GetDBConnection())
+            {
+                using (SqlCommand dbCommand = DBCommands.GetCommandObject("spn_inv_updateEquipmentAttachment", dbConn, sqlParams.ToArray()))
+                {
+                    dbConn.Open();
+                    try
+                    {
+                        dbCommand.ExecuteNonQuery();
+                        if (dbCommand.Parameters["@Res"].Value.ToString() == "0")
+                        {
+                            if (dbCommand.Parameters["@ID"].Value != DBNull.Value)
+                                details.InvFacSysID = (int)dbCommand.Parameters["@ID"].Value;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw;
+                    }
+                    finally { dbConn.Close(); }
+                }
+            }
 
             return null;
         }
     }
 }
+

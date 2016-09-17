@@ -14,7 +14,6 @@
                     <td class="notes" colspan="2">Attach any related documents, e.g., photos and written statements. Acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD, .WAV, .MP3 and .PPT(X).  Enter a Title in order to save the attachment.</td>
                 </tr>
 
-
                 <tr>
                     <td colspan="2">
                         <br />
@@ -23,21 +22,20 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <asp:Label runat="server" ID="lblFacValidationError" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
+                        <asp:Label runat="server" ID="lblValidationError" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
                 </tr>
                 <tr>
                     <td>Title of Attachment&nbsp;<span class="requiredMark">*</span></td>
 
                     <td>
                         <asp:TextBox ID="txtAttTitle" runat="server" MaxLength="100" SkinID="longText" />
-
                     </td>
                 </tr>
                 <tr>
                     <td>Upload File&nbsp;<span class="requiredMark">*</span></td>
 
                     <td class="text7">
-                        <asp:FileUpload ID="fuFileUpload" runat="server" Width="350px" />&nbsp;(Max size 10MB)
+                        <asp:FileUpload ID="attachmentFileUpload" runat="server" Width="350px" />&nbsp;(Max size 10MB)
                                     <br />
                         <asp:Label runat="server" ID="lbHidExistFile" Text="Existing File: " Visible="false" CssClass="errortext"></asp:Label><asp:Label runat="server" ID="txtHidFacFileName" Visible="false" CssClass="text7"></asp:Label>
                     </td>
@@ -52,7 +50,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <asp:Button ID="btnSaveAttachment" runat="server" Text="Save Attachment"  OnClick="btnSaveAttachment_OnClick"/>
+                        <asp:Button ID="btnSaveAttachment" runat="server" Text="Save Attachment" OnClick="btnSaveAttachment_OnClick" />
                         <asp:Label ID="lbAddAttachmentError" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label>
                         <br />
                     </td>

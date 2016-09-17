@@ -26,6 +26,8 @@ namespace NIH.CMMS.Inventory.BOL.Common
         public string Title = "";
         public Byte[] FileData;
 
+        public bool IsActive;
+
         public Attachment()
         {
         }
