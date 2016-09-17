@@ -105,7 +105,13 @@ public partial class SearchResult : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(crit.systemIds))
                     lblExiCrit.Text += "&nbsp;, Systems: " + crit.systemIds;
                 if (!string.IsNullOrEmpty(crit.buildingIds))
-                     lblExiCrit.Text += "&nbsp;, Buildings: " + crit.buildingIds;
+                {
+                    if (crit.buildingIds == "-1")
+                        lblExiCrit.Text += "&nbsp;, Buildings: All ";
+                    else
+                        lblExiCrit.Text += "&nbsp;, Buildings: " + crit.buildingIds;
+                }
+                     
             }
 
             DataSet ds = facility_logic.GetFacilitySearchResult(crit);

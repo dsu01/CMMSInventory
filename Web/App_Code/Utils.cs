@@ -486,8 +486,13 @@ namespace NIH.CMMS.Inventory.Web
             {
                 if (cblst.Items[i].Selected)
                 {
-                    //add them into collection
-                    catColSubType.Add(new Category(int.Parse(cblst.Items[i].Value), cblst.Items[i].Text));
+                    if (cblst.Items[i].Text.ToLower() == "all")
+                    {
+                        return null;
+                    }
+                    else
+                        //add them into collection
+                        catColSubType.Add(new Category(int.Parse(cblst.Items[i].Value), cblst.Items[i].Text));
 
                 }
             }

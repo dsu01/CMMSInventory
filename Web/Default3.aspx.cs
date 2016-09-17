@@ -67,26 +67,6 @@ public partial class Default3 : System.Web.UI.Page
 
     }
 
-    protected void drplstSystem_SelectedIndexChanged(object sender, EventArgs e)
-    {       
-        for (int i = 0; i < drplstSystem.Items.Count; i++)
-        {
-            if (drplstSystem.Items[i].Selected)
-            {
-                //if select anything below displayed/brandished, then show additional factors
-                if (drplstSystem.Items[i].Value == "-1")
-                {
-                    //uncheck all other checkboxes
-                    break;
-                }
-                else
-                {
-
-                }
-            }
-        }
-
-    }
 
     protected void rblstType_SelectedIndexChanged(object sender, EventArgs e)
     {        
@@ -156,9 +136,8 @@ public partial class Default3 : System.Web.UI.Page
     protected void btnReset_Click(object sender, EventArgs e)
     {
         Utils.UnCheckTypeCollection(drplstBuilding);
-        Utils.UnCheckTypeCollection(drplstBuilding);
-        Utils.UnCheckTypeCollection(drplstBuilding);
-        Utils.UnCheckTypeCollection(drplstBuilding);
+        Utils.UnCheckTypeCollection(drplstSystem);
+        rblstType.SelectedIndex = -1;
         radioSelect.SelectedValue = "1"; //default unassigned
         SearchCriteria.Instance = null;
     }
@@ -233,6 +212,7 @@ public partial class Default3 : System.Web.UI.Page
                     lbSelectedBuildingValue.Text += drplstBuilding.Items[i].Text + "; ";
             }
         }
+
         //remove the ;
         if (lbSelectedBuildingValue.Text.Length > 1)
             lbSelectedBuildingValue.Text = lbSelectedBuildingValue.Text.Substring(0, lbSelectedBuildingValue.Text.Length - 2);
