@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Attachment_db.cs" />
     <Compile Include="Common\LookupCollection_db.cs" />
     <Compile Include="Facility\facility_db.cs" />
     <Compile Include="People\LoginUser_db.cs" />

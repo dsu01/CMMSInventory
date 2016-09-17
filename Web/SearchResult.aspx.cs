@@ -86,28 +86,34 @@ public partial class SearchResult : System.Web.UI.Page
                 lblExiCrit.Text += "&nbsp;, Work Request#: " + crit.wrnum;
             else
             { 
-                switch (crit.flagAssigned)
-                {
-                    case 2:
+            switch (crit.flagAssigned)
+            {
+                case 2:
                         lblExiCrit.Text += " Assigned Facilities";
-                        break;
-                    case 3:
+                    break;
+                case 3:
                         lblExiCrit.Text += " Assinged and Un-Assigned Facilities";
-                        break;
-                    default:
+                    break;
+                default:
                         lblExiCrit.Text += " Un-Assigned Facilities";
-                        break;
-                }
+                    break;
+            }
                 if (!string.IsNullOrEmpty(crit.typeId))
                     lblExiCrit.Text += "&nbsp;, Type: " + crit.typeId;
-                if (!string.IsNullOrEmpty(crit.componentIds))
-                    lblExiCrit.Text += "&nbsp;, Components: " + crit.componentIds;
-                if (!string.IsNullOrEmpty(crit.systemIds))
-                    lblExiCrit.Text += "&nbsp;, Systems: " + crit.systemIds;
+            if (!string.IsNullOrEmpty(crit.componentIds))
+                 lblExiCrit.Text += "&nbsp;, Components: " + crit.componentIds;
+            if (!string.IsNullOrEmpty(crit.systemIds))
+                 lblExiCrit.Text += "&nbsp;, Systems: " + crit.systemIds;
                 if (!string.IsNullOrEmpty(crit.buildingIds))
-                     lblExiCrit.Text += "&nbsp;, Buildings: " + crit.buildingIds;
+                {
+                    if (crit.buildingIds == "-1")
+                        lblExiCrit.Text += "&nbsp;, Buildings: All ";
+                    else
+                        lblExiCrit.Text += "&nbsp;, Buildings: " + crit.buildingIds;
+                }
+                     
             }
-
+                 
             DataSet ds = facility_logic.GetFacilitySearchResult(crit);
                 
             lbModifySearch.Visible = true;

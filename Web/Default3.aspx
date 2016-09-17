@@ -13,7 +13,7 @@
                     <td width="100%" valign="top">
                         <asp:UpdatePanel runat="server" ID="udpPnlQuickSearch" UpdateMode="Conditional">
                             <ContentTemplate> 
-                                <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#d3d3d3">                            
+                        <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#d3d3d3">                            
                             <tr>
                                 <td width="100%">
                                 <div class="cbb">                                
@@ -63,68 +63,68 @@
                                 <div class="cbb">
                                     <asp:UpdatePanel runat="server" ID="udpPnlAdvanceSearch" UpdateMode="Conditional">
                                         <ContentTemplate> 
-                                             <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
-                                                  <tr>
-                                                   <td class="leftLabel">Type:</td>
-                                                        <td align="left" class="text7">                                            
-                                                         <asp:RadioButtonList ID="rblstType" runat="server" RepeatDirection="Horizontal" DataTextField="SystemGroup" OnSelectedIndexChanged="rblstType_SelectedIndexChanged" AutoPostBack="true" />
-                                                   </td>
-                                                 </tr>
-                                                 <asp:Panel ID="pnlSelection" runat="server" Visible="false">
-                                                 <tr>
-                                                     <td></td>
-                                                     <td class="errortext">seleted values: <asp:Label ID="lbSelectedSystemValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>
-                                                     </td>
-                                                 </tr>
-                                                 <tr>
-                                                    <td class="leftLabel" width ="20%">Selection:</td>
-                                                    <td class="text7"> 
-                                                        <asp:Panel ID="pnlSystem" runat="server" style="max-height:250px;" ScrollBars="Auto">
-                                                             <asp:CheckBoxList ID="drplstSystem" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemTitle" DataValueField="ID">
-                                                         </asp:CheckBoxList>
-                                                        </asp:Panel>      
-                                                    </td>
-                                                </tr>
-                                             <%--  <tr>
-                                                     <td></td>
-                                                     <td class="errortext">seletec equipment values: <asp:Label ID="lbSelectedEquipmentValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>
-                                                     </td>
-                                                 </tr>
-                                                <tr>
-                                                    <td class="leftLabel">Equipment:</td>
-                                                    <td align="left" class="text7">        
-                                                         <asp:Panel ID="pnlEquipment" runat="server" style="max-height:150px;" ScrollBars="Auto">                           
-                                                        <asp:CheckBoxList ID="ckbxlstComponent" runat="server" DataTextField="SystemTitle"  DataValueField="ID" RepeatDirection="Horizontal" RepeatColumns="8" />
-                                                     </asp:Panel>     
-                                                   </td>
-                                                </tr>--%>
-                                                 </asp:Panel>
-                                                  <tr>
-                                                     <td></td>
-                                                     <td class="errortext">seleted building values: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>
-                                                     </td>
-                                                 </tr>
-                                                 <tr>
-                                                     <td class="leftLabel">Building</td>
-                                                    <td align="left" class="text7">    
-                                                         <asp:Panel ID="pnlBuilding" runat="server" style="max-height:150px;" ScrollBars="Auto">                                                          
-                                                        <asp:CheckBoxList ID="drplstBuilding" runat="server" DataTextField="Building" RepeatDirection="Horizontal" RepeatColumns="8" DataValueField="ID" />
-                                                        </asp:Panel>     
-                                                     </td>                                            
-                                                </tr>
+                                 <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
+                                     <tr>
+                                       <td class="leftLabel">Type:</td>
+                                            <td align="left" class="text7">                                            
+                                             <asp:RadioButtonList ID="rblstType" runat="server" RepeatDirection="Horizontal" DataTextField="SystemGroup" OnSelectedIndexChanged="rblstType_SelectedIndexChanged" AutoPostBack="true" />
+                                       </td>
+                                    </tr>
+                                     <asp:Panel ID="pnlSelection" runat="server" Visible="false">
+                                    <tr>
+                                         <td></td>
+                                         <td style="color:darkgreen; font-size:.8em;">(seleted values: <asp:Label ID="lbSelectedSystemValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>)
+                                         </td>
+                                     </tr>
+                                     <tr>
+                                        <td class="leftLabel" width ="20%">Selection:</td>
+                                        <td class="text7"> 
+                                            <asp:Panel ID="pnlSystem" runat="server" style="max-height:250px;" ScrollBars="Auto">
+                                                 <asp:CheckBoxList ID="drplstSystem" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemTitle" DataValueField="ID" OnSelectedIndexChanged="cklstSystemSelectedIndexChangd" AutoPostBack="true">
+                                             </asp:CheckBoxList>
+                                            </asp:Panel>      
+                                        </td>
+                                    </tr>
+                                 <%--  <tr>
+                                         <td></td>
+                                         <td class="errortext">seletec equipment values: <asp:Label ID="lbSelectedEquipmentValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>
+                                         </td>
+                                    </tr>
+                                     <tr>
+                                        <td class="leftLabel">Equipment:</td>
+                                        <td align="left" class="text7">                                   
+                                             <asp:Panel ID="pnlEquipment" runat="server" style="max-height:150px;" ScrollBars="Auto">                           
+                                            <asp:CheckBoxList ID="ckbxlstComponent" runat="server" DataTextField="SystemTitle"  DataValueField="ID" RepeatDirection="Horizontal" RepeatColumns="8" />
+                                         </asp:Panel>     
+                                       </td>
+                                    </tr>--%>
+                                     </asp:Panel>
+                                      <tr>
+                                         <td></td>
+                                         <td style="color:darkgreen; font-size:.8em;">(seleted building values: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>)
+                                         </td>                                            
+                                    </tr>
+                                     <tr>
+                                         <td class="leftLabel">Building</td>
+                                            <td align="left" class="text7">                                            
+                                             <asp:Panel ID="pnlBuilding" runat="server" style="max-height:150px;" ScrollBars="Auto">                                                          
+                                            <asp:CheckBoxList ID="drplstBuilding" runat="server" DataTextField="Building" RepeatDirection="Horizontal" RepeatColumns="8" DataValueField="ID" OnSelectedIndexChanged="cklstBuildingSelectedIndexChangd" AutoPostBack="true" />
+                                            </asp:Panel>     
+                                       </td>
+                                     </tr>
                                    
-                                                <tr>   
+                                    <tr>   
 						                   
-                                                        <td class="leftLabel">Facility# assigned?</td>
-                                                        <td align="left" class="text7">
-                                                            <asp:RadioButtonList ID="radioSelect" runat="server" RepeatDirection="Horizontal">
-						                                    <asp:ListItem Text="Un-Assigned" Value="1" Selected="True" />
-						                                    <asp:ListItem Text="Assigned" Value="2" />
-						                                    <asp:ListItem Text="All" Value="3" />
-						                                 </asp:RadioButtonList>
-						                                </td>
-    						                       </tr>                                  
-                                        </table>
+                                            <td class="leftLabel">Facility# assigned?</td>
+                                            <td align="left" class="text7">
+                                                <asp:RadioButtonList ID="radioSelect" runat="server" RepeatDirection="Horizontal">
+						                        <asp:ListItem Text="Un-Assigned" Value="1" Selected="True" />
+						                        <asp:ListItem Text="Assigned" Value="2" />
+						                        <asp:ListItem Text="All" Value="3" />
+						                     </asp:RadioButtonList>
+						                    </td>
+    						           </tr>                                  
+                            </table>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                  </div>
@@ -133,7 +133,7 @@
                              <tr>
                                 <td colspan="4" align="center" class="text7"><br /> 
                                     <asp:Button runat="server" ID="btnSearch" CssClass="submitGreen" Text="Search Inventory" UseSubmitBehavior="false" OnClick="btnSearch_Click">
-                                            </asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button runat="server" ID="btnReset" CssClass="submitRed" Text="Reset Criteria" UseSubmitBehavior="false" OnClick="btnReset_Click">
+                                            </asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button runat="server" ID="btnReset" CssClass="submitRed" Text="Reset Criteria" UseSubmitBehavior="false" OnClick="btnReset_Click" >
                                             </asp:Button>
                                               &nbsp;&nbsp;&nbsp;&nbsp;
                                      <asp:Label ID="test" runat="server"></asp:Label>

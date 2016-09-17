@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MainMasterPage.master" AutoEventWireup="true" CodeFile="equipElectrical.aspx.cs" Inherits="Equipment_equipElectrical" %>
 
+<%@ Register Src="/CommonControl/ctrlAttachment.ascx" TagName="mngAttachment" TagPrefix="ctrlAtt" %>
 <asp:Content ID="headerContent" ContentPlaceHolderID="headerPlaceHolder" runat="server">
     <link href="../CSS/jquery-ui-1.8.12.custom.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../JS/jquery-1.5.1.min.js"></script>
@@ -9,7 +10,7 @@
 
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
-            alert('$(document).ready');
+            //alert('$(document).ready');
             $('#<%=txtTypeOrUse.ClientID%>').autocomplete({
                 source: function (request, response) {
                     $.ajax({
@@ -49,7 +50,7 @@
         //     $('#<%=txtTypeOrUse.ClientID%>').autocomplete({
         //          source: ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"]
         //          });
-         }); 
+        //}); 
 
     </script>
 </asp:Content>
@@ -214,6 +215,23 @@
                     </td>
                 </tr>
             </table>
+
+            <%--<asp:HiddenField ID="attachmentClick" runat="server" />--%>
+            
+            <asp:Button ID="attachmentClick" runat="server" />
+
+            <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="attachmentClick"
+                BehaviorID="psrAtt" PopupControlID="Panel2" BackgroundCssClass="modal" DropShadow="true" OkControlID="CloseButton" />
+
+            <asp:Panel ID="Panel2" runat="server" Style="width: 500px; background: white; border: 2px black solid; display: none; text-align: left;">
+                <ctrlAtt:mngAttachment ID="mngAttachment" runat="server" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
+                <br />
+                <br />
+                <div align="center">
+                    <asp:Button ID="CloseButton" runat="server" Text="Close" />
+                </div>
+                <br />
+            </asp:Panel>
         </asp:Panel>
     </div>
 </asp:Content>
