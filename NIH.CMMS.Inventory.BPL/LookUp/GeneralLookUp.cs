@@ -31,6 +31,13 @@ namespace NIH.CMMS.Inventory.BPL.LookUp
             //get data from 
             return DBCommands.GetData("spn_Inv_GetSystem_Search", null);
         }
+        public static DataSet GetListByType(string type)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            SqlParameter sptype = new SqlParameter("@SystemGroup", type);
+            sqlParams.Add(sptype);
+            return DBCommands.GetData("spn_Inv_GetListByType_Search", sqlParams);
+        }
         public static DataSet GetEletricalSystemList()
         {
             //get data from 
@@ -58,7 +65,11 @@ namespace NIH.CMMS.Inventory.BPL.LookUp
             //get data from 
             return DBCommands.GetData("spn_Inv_GetSystemEquipmentList_Mechanical", null);
         }
-
+        public static DataSet GetSearchBuildingList()
+        {
+            //get data from 
+            return DBCommands.GetData("spn_Inv_GetBuildingList_Search", null);
+        }
         public static DataSet GetBuildingList()
         {
             //get data from 

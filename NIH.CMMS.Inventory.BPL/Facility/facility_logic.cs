@@ -79,6 +79,11 @@ namespace NIH.CMMS.Inventory.BPL.Facility
             return facility_db.UpdateFacilityDetails(details, fullInfo);
         }
 
+        public static ValidationResult UpdateFacAttachment(Attachment details)
+        {
+            return facility_db.UpdateFacAttachment(details);
+        }
+
         public static ValidationResult UpdateEquipment(EquipmentDet details)
         {
             return facility_db.UpdateEquipmentDetails(details);

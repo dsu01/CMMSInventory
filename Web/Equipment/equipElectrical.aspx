@@ -183,6 +183,16 @@
                         <asp:TextBox ID="txtCKTSUsed" runat="server" MaxLength="6" TabIndex="22" /></td>
 
                 </tr>
+
+                  <tr>
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:Label ID="Label2" CssClass="tableLabel" runat="server" Text="Attachments"></asp:Label></td>
+                    <td colspan="3">
+                        user control
+                    </td>
+                    
+
+                </tr>
             </table>
 
             <table cellspacing="0" cellpadding="5" width="100%" border="0">

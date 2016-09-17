@@ -650,6 +650,24 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             return vr;
         }
 
+        public static ValidationResult UpdateFacAttachment(Attachment det)
+        {
+            //update/insert data into database
+            String result = "";
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            sqlParams.Add(new SqlParameter("@ID", det.Key));
+            sqlParams.Add(new SqlParameter("@InvFacilityID", det.InvFacID));
+            sqlParams.Add(new SqlParameter("@FileName", det.FileName));
+            sqlParams.Add(new SqlParameter("@ContentType", det.FileType));
+            sqlParams.Add(new SqlParameter("@Title", det.Title));
+            sqlParams.Add(new SqlParameter("@Data", det.FileData));
+           // cmd.Parameters.Add("@Data", SqlDbType.Binary).Value = bytes;
+            sqlParams.Add(new SqlParameter("@CreatedBy", String.IsNullOrEmpty(det.CreatedBy) ? DBNull.Value : (Object)det.CreatedBy));
+            ValidationResult vr = DBCommands.ExecuteNonQueryWithResReturn("spn_Inv_UpdateFacAttachment", sqlParams);
+
+            return vr;
+        }
         public static DataSet GetFacilityList(string system, string group, string building, string facNo, string wrnum, string status)
         {
             //get data from database
@@ -669,9 +687,11 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             //get data from database
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             sqlParams.Add(new SqlParameter("@SystemIds", (string.IsNullOrEmpty(crit.systemIds) ? System.DBNull.Value : (Object)crit.systemIds)));
-            sqlParams.Add(new SqlParameter("@TypeIds", (string.IsNullOrEmpty(crit.typeIds) ? System.DBNull.Value : (Object)crit.typeIds)));
+            sqlParams.Add(new SqlParameter("@TypeId", (string.IsNullOrEmpty(crit.typeId) ? System.DBNull.Value : (Object)crit.typeId)));
             sqlParams.Add(new SqlParameter("@BuildingIds", (string.IsNullOrEmpty(crit.buildingIds) ? System.DBNull.Value : (Object)crit.buildingIds)));
-            sqlParams.Add(new SqlParameter("@ComponentIds", (string.IsNullOrEmpty(crit.componentIds) ? System.DBNull.Value : (Object)crit.componentIds)));
+            sqlParams.Add(new SqlParameter("@FacilityNo", (string.IsNullOrEmpty(crit.facnum) ? System.DBNull.Value : (Object)crit.facnum)));
+            sqlParams.Add(new SqlParameter("@WorkRequest", (string.IsNullOrEmpty(crit.wrnum) ? System.DBNull.Value : (Object)crit.wrnum)));
+            // sqlParams.Add(new SqlParameter("@ComponentIds", (string.IsNullOrEmpty(crit.componentIds) ? System.DBNull.Value : (Object)crit.componentIds)));
             sqlParams.Add(new SqlParameter("@Status", (string.IsNullOrEmpty(crit.flagAssigned.ToString()) ? System.DBNull.Value : (Object)crit.flagAssigned.ToString())));
             return DBCommands.GetData("spn_Inv_Search_GetFacilityList", sqlParams);
         }

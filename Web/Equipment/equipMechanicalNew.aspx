@@ -474,7 +474,7 @@
 				                    <td colspan="2">
 				                        <br />
                                       <asp:GridView ID="GridView1" SkinID="VerticalLineGV" runat="server" AutoGenerateColumns="false"  GridLines="None"
-                                        OnRowCommand="gvExtAttachment_onRowCommand"> 
+                                        OnRowCommand="gvExtFacAttachment_onRowCommand"> 
                                         <Columns>              
                                                                                   	    
                                             <asp:TemplateField HeaderText="Update" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">	                                                        
@@ -519,7 +519,7 @@
                       <table>
                        <tr>
                            <td></td>
-                           <td><p><b>Attachments </b>For Equipment  <asp:TextBox runat="server" ID="txtHidFacAttID" Visible="false" Text="-1" ></asp:TextBox></p>
+                           <td><p><b>Facility Attachments </b> <asp:TextBox runat="server" ID="txtHidFacAttID" Visible="false" Text="-1" ></asp:TextBox></p>
                                <table width="100%" class="stepTable">
 				             <tr>
 					          <td class="notes" colspan="2">Attach any related documents, e.g., photos and written statements. Acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD, .WAV, .MP3 and .PPT(X).  Enter a Title in order to save the attachment.</td>
@@ -530,49 +530,49 @@
 					          </td>        														
 				          </tr>
 		                <tr>
-                                <td colspan="2"><asp:Label runat="server" ID="lblValidationError" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
+                                <td colspan="2"><asp:Label runat="server" ID="lblFacValidationError" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
                             </tr>
 				              <tr>
 				                <td >Title of Attachment&nbsp;<span class="requiredMark">*</span></td> 
     				            
-				                <td><asp:TextBox ID="txtEleAttTitle" runat="server" MaxLength="100" SkinID="longText" />
+				                <td><asp:TextBox ID="txtFacAttTitle" runat="server" MaxLength="100" SkinID="longText" />
 				                    
 				                 </td>
 				              </tr>
 				               <tr>
 					             <td >Upload File&nbsp;<span class="requiredMark">*</span></td> 
     					 
-                                 <td class="text7"><asp:FileUpload ID="fuEleFileUpload" runat="server" Width="350px" />&nbsp;(Max size 10MB)
-                                    <br /><asp:Label runat="server" ID="lbHidExistFile" Text="Existing File: " Visible="false" CssClass="errortext"></asp:Label><asp:Label runat="server" ID="txtHidAttFileName" Visible="false" CssClass="text7"></asp:Label>
+                                 <td class="text7"><asp:FileUpload ID="fuFacFileUpload" runat="server" Width="350px" />&nbsp;(Max size 10MB)
+                                    <br /><asp:Label runat="server" ID="lbHidExistFacFile" Text="Existing File: " Visible="false" CssClass="errortext"></asp:Label><asp:Label runat="server" ID="txtHidFacAttFileName" Visible="false" CssClass="text7"></asp:Label>
                                     </td>
 				              </tr>
     				            <tr><td colspan="2" class="errortext" align="left" style="font-size:xx-small; font-style:italic">* In order to save your Attachment, you must enter Title and upload a File.</td></tr>
     				            <tr><td colspan="2"><hr /></td></tr>
                   <tr>
-                        <td colspan="2"><asp:Button ID="btnAddAnother" runat="server" Text="Save Attachment" SkinID="AddAnotherButton"> </asp:Button> 
-				          <asp:Label ID="lbAddAttachmentError" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label> <br />
+                        <td colspan="2"><asp:Button ID="btnAddAnotherFacAtt" runat="server" Text="Save Attachment"> </asp:Button> 
+				          <asp:Label ID="lbAddFacAttachmentError" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label> <br />
                         </td>
                     </tr>
-		                 <asp:Panel ID="pnlExtAttachment" runat="server">								           
+		                 <asp:Panel ID="pnlExtFAcAttachment" runat="server">								           
                             <tr>
-				                <td class="leftLabel" colspan="2"><br />Existing Attachment(s): (Click the <img src='../App_Image/delete.gif' align='bottom' border='0' alt='Delete' /> to remove)
+				                <td class="leftLabel" colspan="2"><br />Existing Facility Attachment(s): (Click the <img src='../App_Image/delete.gif' align='bottom' border='0' alt='Delete' /> to remove)
 				         <br /></td>
 				            </tr>
 				            <tr>
 				                    <td colspan="2">
 				                        <br />
-                                      <asp:GridView ID="gvExtAttachment" SkinID="VerticalLineGV" runat="server" AutoGenerateColumns="false"  GridLines="None"
-                                        OnRowCommand="gvExtAttachment_onRowCommand"> 
+                                      <asp:GridView ID="gvExtFacAttachment" SkinID="VerticalLineGV" runat="server" AutoGenerateColumns="false"  GridLines="None"
+                                        OnRowCommand="gvExtFacAttachment_onRowCommand"> 
                                         <Columns>              
                                                                                   	    
                                             <asp:TemplateField HeaderText="Update" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">	                                                        
                                                     <ItemTemplate> 
-                                                        <asp:LinkButton CommandName="Editing" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnEditAttachment" Text="<img src='../App_Image/edit.gif' alt='Edit' />"  runat="server"></asp:LinkButton>
+                                                        <asp:LinkButton CommandName="Editing" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnEditFacAttachment" Text="<img src='../Image/edit.gif' alt='Edit' />"  runat="server"></asp:LinkButton>
                                                     </ItemTemplate> 								
                                                 </asp:TemplateField> 
                                                  <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">  
                                                     <ItemTemplate> 
-                                                        <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnDeleteAttachment" Text="<img src='../App_Image/delete.gif' alt='Delete' />"  runat="server" OnClientClick="return confirm('OK to Delete?');" ></asp:LinkButton>
+                                                        <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnDeleteFacAttachment" Text="<img src='../Image/delete.gif' alt='Delete' />"  runat="server" OnClientClick="return confirm('OK to Delete?');" ></asp:LinkButton>
                                                     </ItemTemplate> 								
                                                 </asp:TemplateField> 
                                                    <asp:BoundField HeaderText = "Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />                                                  

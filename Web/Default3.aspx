@@ -11,7 +11,9 @@
                 </tr>
                 <tr>
                     <td width="100%" valign="top">
-                        <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#d3d3d3">                            
+                        <asp:UpdatePanel runat="server" ID="udpPnlQuickSearch" UpdateMode="Conditional">
+                            <ContentTemplate> 
+                                <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#d3d3d3">                            
                             <tr>
                                 <td width="100%">
                                 <div class="cbb">                                
@@ -41,6 +43,8 @@
                                 </td> 
                              </tr> 
                         </table>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                      </td>
                  </tr> 
 
@@ -57,42 +61,72 @@
                                 <td width="100%">
                                 
                                 <div class="cbb">
-                                 <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
-                                     <tr>
-                                        <td class="leftLabel" width ="20%">System:</td>
-                                        <td class="text7"> <asp:CheckBoxList ID="drplstSystem" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemTitle" DataValueField="SystemTitle">
-                                    </asp:CheckBoxList></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="leftLabel">Component (change by Parent--system??)</td>
-                                        <td align="left" class="text7">                                   
-                                            <asp:CheckBoxList ID="ckbxlstComponent" runat="server" DataTextField="SystemTitle"  DataValueField="SystemAbbreviation" RepeatDirection="Horizontal" RepeatColumns="8" />
-                                         </td>
-                                    </tr>
-                                     <tr>
-                                         <td class="leftLabel">Building</td>
-                                        <td align="left" class="text7">                                   
-                                            <asp:CheckBoxList ID="drplstBuilding" runat="server" DataTextField="Building" RepeatDirection="Horizontal" RepeatColumns="8" DataValueField="Building" />
-                                         </td>                                            
-                                    </tr>
-                                     <tr>
-                                       <td class="leftLabel">Type:</td>
-                                            <td align="left" class="text7">                                            
-                                             <asp:CheckBoxList ID="ckbxlstType" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemGroup" />
-                                       </td>
-                                     </tr>
-                                    <tr>   
+                                    <asp:UpdatePanel runat="server" ID="udpPnlAdvanceSearch" UpdateMode="Conditional">
+                                        <ContentTemplate> 
+                                             <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
+                                                  <tr>
+                                                   <td class="leftLabel">Type:</td>
+                                                        <td align="left" class="text7">                                            
+                                                         <asp:RadioButtonList ID="rblstType" runat="server" RepeatDirection="Horizontal" DataTextField="SystemGroup" OnSelectedIndexChanged="rblstType_SelectedIndexChanged" AutoPostBack="true" />
+                                                   </td>
+                                                 </tr>
+                                                 <asp:Panel ID="pnlSelection" runat="server" Visible="false">
+                                                 <tr>
+                                                     <td></td>
+                                                     <td class="errortext">seleted values: <asp:Label ID="lbSelectedSystemValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>
+                                                     </td>
+                                                 </tr>
+                                                 <tr>
+                                                    <td class="leftLabel" width ="20%">Selection:</td>
+                                                    <td class="text7"> 
+                                                        <asp:Panel ID="pnlSystem" runat="server" style="max-height:250px;" ScrollBars="Auto">
+                                                             <asp:CheckBoxList ID="drplstSystem" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemTitle" DataValueField="ID">
+                                                         </asp:CheckBoxList>
+                                                        </asp:Panel>      
+                                                    </td>
+                                                </tr>
+                                             <%--  <tr>
+                                                     <td></td>
+                                                     <td class="errortext">seletec equipment values: <asp:Label ID="lbSelectedEquipmentValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>
+                                                     </td>
+                                                 </tr>
+                                                <tr>
+                                                    <td class="leftLabel">Equipment:</td>
+                                                    <td align="left" class="text7">        
+                                                         <asp:Panel ID="pnlEquipment" runat="server" style="max-height:150px;" ScrollBars="Auto">                           
+                                                        <asp:CheckBoxList ID="ckbxlstComponent" runat="server" DataTextField="SystemTitle"  DataValueField="ID" RepeatDirection="Horizontal" RepeatColumns="8" />
+                                                     </asp:Panel>     
+                                                   </td>
+                                                </tr>--%>
+                                                 </asp:Panel>
+                                                  <tr>
+                                                     <td></td>
+                                                     <td class="errortext">seleted building values: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>
+                                                     </td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="leftLabel">Building</td>
+                                                    <td align="left" class="text7">    
+                                                         <asp:Panel ID="pnlBuilding" runat="server" style="max-height:150px;" ScrollBars="Auto">                                                          
+                                                        <asp:CheckBoxList ID="drplstBuilding" runat="server" DataTextField="Building" RepeatDirection="Horizontal" RepeatColumns="8" DataValueField="ID" />
+                                                        </asp:Panel>     
+                                                     </td>                                            
+                                                </tr>
+                                   
+                                                <tr>   
 						                   
-                                            <td class="leftLabel">Facility# assigned?</td>
-                                            <td align="left" class="text7">
-                                                <asp:RadioButtonList ID="radioSelect" runat="server" RepeatDirection="Horizontal">
-						                        <asp:ListItem Text="Un-Assigned" Value="1" Selected="True" />
-						                        <asp:ListItem Text="Assigned" Value="2" />
-						                        <asp:ListItem Text="All" Value="3" />
-						                     </asp:RadioButtonList>
-						                    </td>
-    						           </tr>                                  
-                            </table>
+                                                        <td class="leftLabel">Facility# assigned?</td>
+                                                        <td align="left" class="text7">
+                                                            <asp:RadioButtonList ID="radioSelect" runat="server" RepeatDirection="Horizontal">
+						                                    <asp:ListItem Text="Un-Assigned" Value="1" Selected="True" />
+						                                    <asp:ListItem Text="Assigned" Value="2" />
+						                                    <asp:ListItem Text="All" Value="3" />
+						                                 </asp:RadioButtonList>
+						                                </td>
+    						                       </tr>                                  
+                                        </table>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                  </div>
                                 </td>
                             </tr>
@@ -108,7 +142,7 @@
                              </tr>
                              <tr>
                                 <td colspan="4" align="center">  
-                                <asp:UpdateProgress ID="UpdateProgress1" AssociatedUpdatePanelID="udpPnlDefault" runat="server">
+                                <asp:UpdateProgress ID="UpdateProgress1" AssociatedUpdatePanelID="udpPnlAdvanceSearch" runat="server">
                                    <ProgressTemplate>
                                      <img src="Image/indicator.gif" alt="Please wait..." />&nbsp;Please wait...                                      
 

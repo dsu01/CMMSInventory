@@ -767,7 +767,8 @@ namespace NIH.CMMS.Inventory.Web
                     if (cblst.Items[i].Selected)
                     {
                         //add them into string
-                        value += int.Parse(cblst.Items[i].Value) + ",";
+                        //value += int.Parse(cblst.Items[i].Value) + ",";
+                        value += cblst.Items[i].Text + ",";
 
                     }
                 }
