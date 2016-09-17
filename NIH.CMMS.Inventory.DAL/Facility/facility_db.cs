@@ -566,7 +566,7 @@ namespace NIH.CMMS.Inventory.DAL.Facility
 
         public static ValidationResult UpdateElectrialEquipment(FacilityDet details)
         {
-            //update/insert data into database
+            //update/insert data into database, this is updating invFacility table
             String result = "";
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             SqlParameter paramID = DBCommands.ParameterMaker("@ID", SqlDbType.Int, 10, ParameterDirection.InputOutput, details.Key);

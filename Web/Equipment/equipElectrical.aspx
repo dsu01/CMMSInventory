@@ -111,7 +111,7 @@
                 </tr>
 
             </table>
-            <table id="inputTable" cellspacing="0" cellpadding="0" width="100%" border="0" style="font-size: .75em">
+            <table id="inputTable" cellspacing="0" cellpadding="2" width="100%" border="0" style="font-size: .75em">
                 <tr>
                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbEquipmentID" CssClass="tableLabel" runat="server" Text="Equipment ID (Other)"></asp:Label></td>
@@ -186,29 +186,29 @@
                 </tr>
 
                   <tr>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                    <td>
                         <asp:Label ID="Label2" CssClass="tableLabel" runat="server" Text="Attachments"></asp:Label></td>
-                    <td colspan="3">
+                    <td colspan="4">
                         user control
                     </td>
                     
 
                 </tr>
-            </table>
-
-            <table cellspacing="0" cellpadding="5" width="100%" border="0">
+            
                 <tr>
-                    <td colspan="2">
+                    <td >
                         <br />
-                        <b>Comments</b><br />
+                       <b> Comments</b>
+                    </td>
+                    <td colspan="4">
                         <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="23"></asp:TextBox>
                         <br />
                     </td>
 
                 </tr>
                 <tr>
-                    <td width="70%" align="center" class="text7"></td>
-                    <td width="30%" class="text7">
+                    <td align="center"></td>
+                    <td colspan="4">
                         <asp:Button ID="btnFinish" runat="server" Text="Save" CssClass="submitGreen" OnClick="btnFinish_Click" TabIndex="24" />
                         &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
                         <asp:HiddenField ID="hidFacSystemID" runat="server" Value="-1" />

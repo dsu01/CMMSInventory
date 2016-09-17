@@ -54,10 +54,11 @@
                                               </li>
                                                 <li><asp:HyperLink ID="hlAddNew" runat="server" NavigateUrl="#" Text="Add New"></asp:HyperLink>
                                                 <ul>		
-                                                  <li><a href="~/Equipment/equipElectrical.aspx" id="A3" runat="server">New System Electrical</a></li>
-                                                  <li><a id="A4" href="~/Equipment/equipMechanical.aspx" runat="server">Old Mechanical</a></li>
-                                                     <li><a id="A5" href="~/Equipment/equipMechanicalNew.aspx" runat="server">New Equipment Mechanical</a></li>
-                                                     <li><a id="A6" href="~/Equipment/systemMechanical.aspx" runat="server">New System Mechanical</a></li>
+                                                  <li><a href="~/Equipment/equipElectrical.aspx" id="A3" runat="server">Add Electrical</a></li>                                                   
+                                                     <li><a id="A6" href="~/Equipment/systemMechanical.aspx" runat="server">Add Mechanical System</a></li>
+                                                    <li><a id="A5" href="~/Equipment/equipMechanicalNew.aspx" runat="server">Add Mechanical Equipment</a></li>
+                                                    <li><a id="A4" href="~/Equipment/equipMechanical.aspx" runat="server">Old Mechanical</a></li>
+                                                    
                                                 </ul>
                                                 </li> 
                                                 
