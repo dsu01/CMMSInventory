@@ -67,6 +67,10 @@
       <Name>NIH.CMMS.Inventory.BOL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\CreateAttachmentTable08212016.sql" />
+    <Content Include="Scripts\updatedSps.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -32,7 +32,6 @@ namespace NIH.CMMS.Inventory.DAL.Common
 
         public static ValidationResult UpdateAttachmentDetails(Attachment details)
         {
-        
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             SqlParameter paramID = DBCommands.ParameterMaker("@Att_SysID", SqlDbType.Int, 10, ParameterDirection.InputOutput, details.Key);
             sqlParams.Add(paramID);
