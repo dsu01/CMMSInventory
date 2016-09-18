@@ -8,38 +8,38 @@ namespace NIH.CMMS.Inventory.BPL.Common
 {
     public class AttachmentLogic
     {
-        public static AttachmentCollection GetAllRptAttachments(int source, int sourceID)
-        {
-            AttachmentCollection seaAttCol = null;
-            DataSet ds = Attachment_db.GetAttachmentDetails(source, sourceID, -1);
+        //public static AttachmentCollection GetAllRptAttachments(int source, int sourceID)
+        //{
+        //    AttachmentCollection seaAttCol = null;
+        //    DataSet ds = Attachment_db.GetAttachment(source, sourceID, -1);
 
-            if (ds != null)
-            {
-                seaAttCol = new AttachmentCollection();
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    seaAttCol.Add(PopulateAttachmentDetails(row));
-                }
-            }
-            return seaAttCol;
-        }
+        //    if (ds != null)
+        //    {
+        //        seaAttCol = new AttachmentCollection();
+        //        foreach (DataRow row in ds.Tables[0].Rows)
+        //        {
+        //            seaAttCol.Add(PopulateAttachmentDetails(row));
+        //        }
+        //    }
+        //    return seaAttCol;
+        //}
 
-        public static Attachment GetAttachmentDetails(int source, int sourceID, int attID)
-        {
-            Attachment details = null;
-            DataSet ds = Attachment_db.GetAttachmentDetails(source, sourceID, attID);
+        //public static Attachment GetAttachmentDetails(int source, int sourceID, int attID)
+        //{
+        //    Attachment details = null;
+        //    DataSet ds = Attachment_db.GetAttachment(source, sourceID, attID);
 
-            if (ds != null)
-            {
-                details = PopulateAttachmentDetails(ds.Tables[0].Rows[0]);
+        //    if (ds != null)
+        //    {
+        //        details = PopulateAttachmentDetails(ds.Tables[0].Rows[0]);
 
-            }
-            return details;
-        }
+        //    }
+        //    return details;
+        //}
 
         public static ValidationResult DeleteAttachmentDetails(int attID)
         {
-            return Attachment_db.DeleteAttachmentDetails(attID);
+            return Attachment_db.DeleteAttachment(attID);
         }
 
         public static ValidationResult UpdateAttachmentDetails(Attachment details)
@@ -50,7 +50,7 @@ namespace NIH.CMMS.Inventory.BPL.Common
             try
             {
                 //insert/update 
-                result = Attachment_db.UpdateAttachmentDetails(details);
+                result = Attachment_db.UpdateAttachment(details);
 
             }
             catch (Exception e)

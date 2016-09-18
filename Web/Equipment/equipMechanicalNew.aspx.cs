@@ -584,7 +584,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
             if (txtHidFacAttID.Text != "-1")
             {
                 //if it is an update, need to delete old one and insert new one
-                //attDetail = facility_logic.GetAttachmentDetails(Convert.ToInt32(txtHidFacAttID.Text));
+                //attDetail = facility_logic.GetAttachment(Convert.ToInt32(txtHidFacAttID.Text));
             }
             else { attDetail = new Attachment(); }
             if (attDetail != null)
@@ -641,7 +641,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
                         //    lblValidationError.Text = "Error Occurred!";
                         //    //if file deleted and it is an update, need to delete that database record also
                         //    if (txtHidAttID.Text != "-1")
-                        //    { IncAttachmentLogic.DeleteAttachmentDetails(attDetail); }
+                        //    { IncAttachmentLogic.DeleteAttachment(attDetail); }
                         //    return false;
 
                         //}
@@ -695,7 +695,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
     /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
     protected void gvExtFacAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
     {
-        //IncidentAttachments incAtt = IncAttachmentLogic.GetAttachmentDetails(Convert.ToInt32(e.CommandArgument.ToString()));
+        //IncidentAttachments incAtt = IncAttachmentLogic.GetAttachment(Convert.ToInt32(e.CommandArgument.ToString()));
 
         //if (incAtt != null)
         //{
@@ -715,7 +715,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
         //    else // if command == delete
         //    {
         //        #region "Delete attachment using attachment object"
-        //        String result = IncAttachmentLogic.DeleteAttachmentDetails(incAtt);
+        //        String result = IncAttachmentLogic.DeleteAttachment(incAtt);
 
         //        if (result == ApplicationConstants.NO_ERROR_USP_EXECUTION)
         //        {

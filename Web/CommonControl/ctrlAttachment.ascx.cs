@@ -45,26 +45,10 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
     /// </summary>
     /// <param name="incidentId">The incident id.</param>
     /// <returns></returns>
-    public bool LoadData(int source, int sourceId)
+    public bool LoadData()
     {
-        //txtHidSource.Text = source.ToString();
-        //txtHidSourceID.Text = sourceId.ToString();
-
         ClearFields();
 
-        if (source == 1)
-        {
-            //Get Search Report Detail using the ID     
-
-        }
-        else if (source == 2)
-        {
-
-        }
-        else
-        {
-
-        }
 
         return true;
     }
@@ -82,7 +66,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         //if (txtHidAttID.Text != "-1")
         //{
         //    //if it is an update, need to delete old one and insert new one
-        //    //attDetail = facility_logic.GetAttachmentDetails(Convert.ToInt32(txtHidFacAttID.Text));
+        //    //attDetail = facility_logic.GetAttachment(Convert.ToInt32(txtHidFacAttID.Text));
         //}
         //else { attDetail = new Attachment(); }
 
@@ -150,7 +134,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
                     //    lblValidationError.Text = "Error Occurred!";
                     //    //if file deleted and it is an update, need to delete that database record also
                     //    if (txtHidAttID.Text != "-1")
-                    //    { IncAttachmentLogic.DeleteAttachmentDetails(attDetail); }
+                    //    { IncAttachmentLogic.DeleteAttachment(attDetail); }
                     //    return false;
 
                     //}
@@ -193,7 +177,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
     /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
     protected void gvExtAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
     {
-        //IncidentAttachments incAtt = IncAttachmentLogic.GetAttachmentDetails(Convert.ToInt32(e.CommandArgument.ToString()));
+        //IncidentAttachments incAtt = IncAttachmentLogic.GetAttachment(Convert.ToInt32(e.CommandArgument.ToString()));
 
         //if (incAtt != null)
         //{
@@ -213,7 +197,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         //    else // if command == delete
         //    {
         //        #region "Delete attachment using attachment object"
-        //        String result = IncAttachmentLogic.DeleteAttachmentDetails(incAtt);
+        //        String result = IncAttachmentLogic.DeleteAttachment(incAtt);
 
         //        if (result == ApplicationConstants.NO_ERROR_USP_EXECUTION)
         //        {

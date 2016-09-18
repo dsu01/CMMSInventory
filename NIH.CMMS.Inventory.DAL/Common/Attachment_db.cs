@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection;
 using NIH.CMMS.Inventory.DAL.Utility;
 using NIH.CMMS.Inventory.BOL.Common;
 
@@ -9,19 +10,35 @@ namespace NIH.CMMS.Inventory.DAL.Common
 {
     public class Attachment_db
     {
-        public static DataSet GetAttachmentDetails(int source, int sourceID, int attID)
+        public static List<Attachment> GetEquipmentAttachmentList(int equipmentSysID)
         {
+            List<Attachment> list = null;
+            var sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@equipmentSysId", equipmentSysID));
+            DataSet ds = DBCommands.GetData("spn_Inv_GetEquipmentAttachmentList", sqlParams);
 
-            //get data from database
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@Rpt_Source", (source <= 0 ? DBNull.Value : (object)source)));
-            sqlParams.Add(new SqlParameter("@Rpt_SourceID", (sourceID <= 0 ? DBNull.Value : (object)sourceID)));
-            sqlParams.Add(new SqlParameter("@Att_SysID", (attID <= 0 ? DBNull.Value : (object)attID)));
-            return DBCommands.GetData("usp_common_GetAttachmentDetails", sqlParams);
+            if (ds != null && ds.Tables[0] != null && ds.Tables[0].Rows.Count > 0)
+            {
+                list = new List<Attachment>();
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    var attachment = new Attachment();
+                    attachment.InvEquipSysID = equipmentSysID;
+                    //list.Add(PopulateEquipmentDet(row, attachment, false));
+                }
+            }
 
+            return list;
         }
 
-        public static ValidationResult DeleteAttachmentDetails(int attID)
+        public static DataSet GetAttachment(int attachmentSysID)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@Att_SysID", (attachmentSysID <= 0 ? DBNull.Value : (object)attachmentSysID)));
+            return DBCommands.GetData("usp_common_GetAttachmentDetails", sqlParams);
+        }
+
+        public static ValidationResult DeleteAttachment(int attID)
         {
             //get data from database
             List<SqlParameter> sqlParams = new List<SqlParameter>();
@@ -30,20 +47,19 @@ namespace NIH.CMMS.Inventory.DAL.Common
 
         }
 
-        public static ValidationResult UpdateAttachmentDetails(Attachment details)
+        public static ValidationResult UpdateAttachment(Attachment attachment)
         {
             int attachmentID = -1;
 
             var sqlParams = new List<SqlParameter>();
-
-            sqlParams.Add(new SqlParameter("@invEquipmentID", details.InvEquipSysID));
-            sqlParams.Add(new SqlParameter("@FileName", details.FileName));
-            sqlParams.Add(new SqlParameter("@ContentType", details.FileType));
-            sqlParams.Add(new SqlParameter("@Data", details.FileData));
-            sqlParams.Add(new SqlParameter("@CreatedOn", details.CreatedOn));
-            sqlParams.Add(new SqlParameter("@CreatedBy", details.CreatedBy));
-            sqlParams.Add(new SqlParameter("@IsActive", details.IsActive));
-            sqlParams.Add(new SqlParameter("@Title", details.Title));
+            sqlParams.Add(new SqlParameter("@invEquipmentSysID", attachment.InvEquipSysID));
+            sqlParams.Add(new SqlParameter("@FileName", attachment.FileName));
+            sqlParams.Add(new SqlParameter("@ContentType", attachment.FileType));
+            sqlParams.Add(new SqlParameter("@Data", attachment.FileData));
+            sqlParams.Add(new SqlParameter("@CreatedOn", attachment.CreatedOn));
+            sqlParams.Add(new SqlParameter("@CreatedBy", attachment.CreatedBy));
+            sqlParams.Add(new SqlParameter("@IsActive", attachment.IsActive));
+            sqlParams.Add(new SqlParameter("@Title", attachment.Title));
 
             SqlParameter outID = new SqlParameter("@ID", SqlDbType.Int);
             outID.Direction = ParameterDirection.Output;
@@ -63,7 +79,7 @@ namespace NIH.CMMS.Inventory.DAL.Common
                         if (dbCommand.Parameters["@Res"].Value.ToString() == "0")
                         {
                             if (dbCommand.Parameters["@ID"].Value != DBNull.Value)
-                                details.InvFacSysID = (int)dbCommand.Parameters["@ID"].Value;
+                                attachment.InvFacSysID = (int)dbCommand.Parameters["@ID"].Value;
                         }
                     }
                     catch (Exception ex)
@@ -78,4 +94,3 @@ namespace NIH.CMMS.Inventory.DAL.Common
         }
     }
 }
-
