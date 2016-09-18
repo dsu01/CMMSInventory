@@ -143,9 +143,9 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
                 // Call the SaveAs method to save the uploaded file to the specified path. 
                 //if the file fize is greater than 10MB throw an error.
-                var result = AttachmentLogic.UpdateAttachmentDetails(attachment);
+                var result = AttachmentLogic.UpdateAttachment(attachment);
                 //if (result.Success)
-                if (attachment.InvFacSysID > 0)
+                if (attachment.InvAttachmentSysID > 0)
                 {
                     Utils.ShowPopUpMsg("Attachment saved!", this.Page);
                     lblValidationError.Visible = true;

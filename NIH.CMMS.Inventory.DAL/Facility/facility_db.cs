@@ -656,7 +656,6 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             String result = "";
             List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-            sqlParams.Add(new SqlParameter("@ID", det.Key));
             sqlParams.Add(new SqlParameter("@InvFacilityID", det.InvFacID));
             sqlParams.Add(new SqlParameter("@FileName", det.FileName));
             sqlParams.Add(new SqlParameter("@ContentType", det.FileType));

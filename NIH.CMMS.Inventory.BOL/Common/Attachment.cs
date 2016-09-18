@@ -8,16 +8,15 @@ namespace NIH.CMMS.Inventory.BOL.Common
     [Serializable]
     public class Attachment 
     {
-        public int Key;
-
         public string CreatedBy = "";
         public DateTime CreatedOn = DateTime.MinValue;
 
         public string UpdatedBy = "";
         public DateTime UpdatedOn = DateTime.MinValue;
 
+        // TODO - TBD
         public string InvFacID = "";
-        public int InvFacSysID;
+        public int InvAttachmentSysID;
         public string InvEquipID = string.Empty;
         public int InvEquipSysID;
 

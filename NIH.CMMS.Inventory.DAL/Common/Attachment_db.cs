@@ -10,41 +10,26 @@ namespace NIH.CMMS.Inventory.DAL.Common
 {
     public class Attachment_db
     {
-        public static List<Attachment> GetEquipmentAttachmentList(int equipmentSysID)
+        public static DataSet GetEquipmentAttachmentList(int equipmentSysID)
         {
             List<Attachment> list = null;
             var sqlParams = new List<SqlParameter>();
             sqlParams.Add(new SqlParameter("@equipmentSysId", equipmentSysID));
-            DataSet ds = DBCommands.GetData("spn_Inv_GetEquipmentAttachmentList", sqlParams);
-
-            if (ds != null && ds.Tables[0] != null && ds.Tables[0].Rows.Count > 0)
-            {
-                list = new List<Attachment>();
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    var attachment = new Attachment();
-                    attachment.InvEquipSysID = equipmentSysID;
-                    //list.Add(PopulateEquipmentDet(row, attachment, false));
-                }
-            }
-
-            return list;
+            return DBCommands.GetData("spn_Inv_GetEquipmentAttachmentList", sqlParams);
         }
 
         public static DataSet GetAttachment(int attachmentSysID)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@Att_SysID", (attachmentSysID <= 0 ? DBNull.Value : (object)attachmentSysID)));
-            return DBCommands.GetData("usp_common_GetAttachmentDetails", sqlParams);
+            sqlParams.Add(new SqlParameter("@equipmentSysId", attachmentSysID));
+            return DBCommands.GetData("spn_Inv_GetEquipmentAttachmentList", sqlParams);
         }
 
-        public static ValidationResult DeleteAttachment(int attID)
+        public static ValidationResult DeleteAttachment(int attachmentSysId)
         {
-            //get data from database
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@Att_SysID", attID));
-            return DBCommands.ExecuteNonQueryWithResReturn("usp_common_DeleteAttachmentDetails", sqlParams);
-
+            var sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@attachmentSysId", attachmentSysId));
+            return DBCommands.ExecuteNonQueryWithResReturn("spn_inv_deleteEquipmentAttachment", sqlParams);
         }
 
         public static ValidationResult UpdateAttachment(Attachment attachment)
@@ -79,7 +64,7 @@ namespace NIH.CMMS.Inventory.DAL.Common
                         if (dbCommand.Parameters["@Res"].Value.ToString() == "0")
                         {
                             if (dbCommand.Parameters["@ID"].Value != DBNull.Value)
-                                attachment.InvFacSysID = (int)dbCommand.Parameters["@ID"].Value;
+                                attachment.InvAttachmentSysID = (int)dbCommand.Parameters["@ID"].Value;
                         }
                     }
                     catch (Exception ex)
