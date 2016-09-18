@@ -59,7 +59,7 @@
                                                <asp:Label runat="server" Visible="false" ID="lblHidFacilityID" Text='<%#Eval("ID")%>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField> 
-				                  <asp:TemplateField HeaderText="# of Equipments" ItemStyle-HorizontalAlign="Center">
+				                  <asp:TemplateField HeaderText="# of Equipments" ItemStyle-Width="120" ItemStyle-HorizontalAlign="Center">
 					                <ItemTemplate>
 						                <asp:Label id="lblNumEquip" runat="server" text='<%# Eval("TotalEquipments") %>' />
 

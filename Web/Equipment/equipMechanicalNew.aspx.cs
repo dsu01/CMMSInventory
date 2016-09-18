@@ -85,12 +85,14 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
         int facID = SaveFacilityDetails(true);
         if (facID > 0)
         {
+            lbUpdateFacilityMsg.Text = "Information Saved.";
             //show component panel if not there yet
             if (!DetailInfoPanel.Visible)
                 DetailInfoPanel.Visible = true;
             btnSaveFacility.Text = "Update Facility";
         }
-
+        else
+            lbUpdateFacilityMsg.Text = "Information Cannot Be Saved.";
 
     }
     protected void btnCancelFacility_Click(object sender, EventArgs e)
@@ -104,6 +106,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
         if (vr.Success)
         {
             ClearEquipmentDetails();
+            gv_Components.DataBind();
             Utils.ShowPopUpMsg("Component Saved!", this.Page);
         }          
         else
@@ -290,7 +293,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
         hidEquipmentSysID.Value = details.Key.ToString();
         txtEquipmentID.Text = details.EquipID;
         //location is not in facility
-        txtLocation.Text = details.EquipLocation;
+        txtComLocation.Text = details.EquipLocation;
         txtTypeUse.Text = details.TypeOrUse;
         txtManufacturer.Text = details.Manufacturer;
         txtModelNum.Text = details.ModelNo;
@@ -352,7 +355,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
                 details.Key = Convert.ToInt32(hidEquipmentSysID.Value);
                 details.EquipID = txtEquipmentID.Text.Trim();
                 //location is not in facility
-                details.EquipLocation = txtLocation.Text.Trim();
+                details.EquipLocation = txtComLocation.Text.Trim();
                 details.TypeOrUse = txtTypeUse.Text.Trim();
                 details.Manufacturer = txtManufacturer.Text.Trim();
                 details.ModelNo = txtModelNum.Text.Trim();
@@ -504,7 +507,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
         #region delete Equipment One"
         hidEquipmentSysID.Value = "-1";
         txtEquipmentID.Text = string.Empty;
-        txtLocation.Text = string.Empty;
+        txtComLocation.Text = string.Empty;
         txtTypeUse.Text = string.Empty;
         txtManufacturer.Text = string.Empty;
         txtModelNum.Text = string.Empty;

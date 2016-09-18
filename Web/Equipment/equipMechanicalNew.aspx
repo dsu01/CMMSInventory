@@ -91,7 +91,9 @@
 
                         </tr>
                     <tr>  
-                            <td><asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" /></td>  
+                            <td><asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
+                                <asp:Label ID="lbUpdateFacilityMsg" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label>
+                            </td>  
                             <td><asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
            OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');"  /></td>  
 
@@ -120,12 +122,12 @@
                                                     </ItemTemplate> 								
                                                 </asp:TemplateField>   
                                         
-                                         <asp:TemplateField HeaderText="Equipment Serial#"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="200" SortExpression="EquipSequenceNum">
+                                         <asp:TemplateField HeaderText="Seq#"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="50" SortExpression="EquipSequenceNum">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblEquipmentSerialNo" runat="server" Text='<%# Server.HtmlEncode(Eval("EquipSequenceNum").ToString()) %>' />
+                                                <asp:Label ID="lblEquipSequenceNum" runat="server" Text='<%# Server.HtmlEncode(Eval("EquipSequenceNum").ToString()) %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>              	    
-	                                     <asp:TemplateField HeaderText="EquipmentID"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="200" SortExpression="EquipID">
+	                                     <asp:TemplateField HeaderText="Equip. ID"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="200" SortExpression="EquipID">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEquipmentID" runat="server" Text='<%# Server.HtmlEncode((string)Eval("EquipID"))%>' />
                                             </ItemTemplate>
@@ -141,7 +143,11 @@
                                                 <asp:Label ID="lblTypeorUse" runat="server" Text='<%# Server.HtmlEncode((string)Eval("TypeorUse"))%>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>  
-
+                                                    <asp:TemplateField HeaderText="Manufacturer" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="Manufacturer">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblManufacturer" runat="server" Text='<%# Server.HtmlEncode((string)Eval("Manufacturer"))%>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>  
                                          <asp:TemplateField HeaderText="Model"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="ModelNo">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblModel" runat="server" Text='<%# Server.HtmlEncode((string)Eval("ModelNo"))%>' />
@@ -152,9 +158,9 @@
                                                 <asp:Label ID="lblSerial" runat="server" Text='<%# Server.HtmlEncode((string)Eval("SerialNo"))%>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="Manufacturer"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="Manufacturer">
+                                          <asp:TemplateField HeaderText="Capacity"  ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="Capacity">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblManufacturer" runat="server" Text='<%# Server.HtmlEncode((string)Eval("Manufacturer"))%>' />
+                                                <asp:Label ID="lblCapacity" runat="server" Text='<%# Server.HtmlEncode((string)Eval("Capacity"))%>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>  
                                                    <asp:TemplateField HeaderText="Size" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="Size">
@@ -196,21 +202,27 @@
                        <tr>
                            <td width="70%">
                                <table id="inputTable" cellspacing="2" cellpadding="3">
-                                    <tr bgcolor="#ffffcc">
+                                    <tr>
                                         <td colspan="2">                    
                                             <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />
                                       
                                            <b> Add/Update Component</b></td>
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;  <asp:Button ID="btnAddNewComponent" runat="server" Text="Add Another Component" CssClass="submitGreen" TabIndex="37"
+                            OnClick="btnAddComponent_Click" /></td>
                                       </tr>
-                <tr>
+                 <tr>
+                    <td colspan="2" style="font-size: 10px; font-style: italic;">*Equipment ID is required.
+                 
+                    </td>
+                </tr>
+                                   <tr>
                     <td width="25%">
                         <asp:Label ID="lbEquipment" CssClass="tableLabel" runat="server" Text="1.Equipment ID *"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtEquipmentID" MaxLength="50" runat="server" TabIndex="8" />
                     </td>
-                </tr>
-                 <tr>
+               
                     <td>
                         <asp:Label ID="lbLocation" CssClass="tableLabel" runat="server" Text="2.Location"></asp:Label>
                     </td>
@@ -225,8 +237,7 @@
                     <td>
                         <asp:TextBox ID="txtTypeUse" MaxLength="50" runat="server" TabIndex="10" />
                     </td>
-                </tr>
-                 <tr>
+               
                     <td>
                         <asp:Label ID="lbManufacturer" CssClass="tableLabel" runat="server" Text="4.Manufacturer"></asp:Label>
                     </td>
@@ -241,8 +252,7 @@
                     <td>
                         <asp:TextBox ID="txtModelNum" MaxLength="50" runat="server" TabIndex="12" />
                     </td>
-                </tr>
-                 <tr>
+             
                     <td>
                         <asp:Label ID="lbSerialNum" CssClass="tableLabel" runat="server" Text="6.Serial No."></asp:Label>
                     </td>
@@ -257,8 +267,7 @@
                     <td>
                         <asp:TextBox ID="txtSize" MaxLength="50" runat="server" TabIndex="11" />
                     </td>
-                </tr>
-                <tr>
+               
                     <td>
                         <asp:Label ID="lbInstalledDate" CssClass="tableLabel" runat="server" Text="8.Date Installed"></asp:Label>
                     </td>
@@ -275,8 +284,7 @@
                     <td>
                         <asp:TextBox ID="txtCapacity" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
-               <tr>
+             
                     <td>
                         <asp:Label ID="lbCapacityHT" CssClass="tableLabel" runat="server" Text="10.Capacity(H/T)"></asp:Label>
                     </td>
@@ -291,8 +299,7 @@
                     <td>
                         <asp:TextBox ID="txtFuel" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
-                 <tr>
+               
                     <td>
                         <asp:Label ID="lbMotorManu" CssClass="tableLabel" runat="server" Text="12.Motor Mfg'r"></asp:Label>
                     </td>
@@ -307,8 +314,7 @@
                     <td>
                         <asp:TextBox ID="txtHP" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
-               <tr>
+               
                     <td>
                         <asp:Label ID="lbMotorType" CssClass="tableLabel" runat="server" Text="14.Type"></asp:Label>
                     </td>
@@ -323,8 +329,7 @@
                     <td>
                         <asp:TextBox ID="txtMotorSerialNum" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
-               <tr>
+              
                     <td>
                         <asp:Label ID="lbMotorInstalledDate" CssClass="tableLabel" runat="server" Text="16.Motor Installe"></asp:Label>
                     </td>
@@ -341,8 +346,7 @@
                     <td>
                         <asp:TextBox ID="txtMotorModel" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
-                 <tr>
+               
                     <td>
                         <asp:Label ID="lbFrame" CssClass="tableLabel" runat="server" Text="18.Frame"></asp:Label>
                     </td>
@@ -358,8 +362,7 @@
                         <asp:TextBox ID="txtRPM" MaxLength="50" runat="server" TabIndex="13" />
                     
                          </td>
-                </tr>
-               <tr>
+                
                     <td>
                         <asp:Label ID="lbVoltage" CssClass="tableLabel" runat="server" Text="20.Voltage"></asp:Label>
                     </td>
@@ -374,8 +377,7 @@
                     <td>
                         <asp:TextBox ID="txtAmperes" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
-               <tr>
+               
                     <td>
                         <asp:Label ID="lbPhaseCycle" CssClass="tableLabel" runat="server" Text="22.Phase-Cycle"></asp:Label>
                     </td>
@@ -391,8 +393,7 @@
                     <td>
                         <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
-                   <tr>
+               
                     <td>
                         <asp:Label ID="lbTJC" CssClass="tableLabel" runat="server" Text="24.TJC Value"></asp:Label>
                     </td>
@@ -410,18 +411,13 @@
                         <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="2" style="font-size: 10px; font-style: italic;">*If no Equipment ID provided, it will be a single inventory.
-                 
-                    </td>
-                </tr>
+               
               <tr>  
                             <td align="center" colspan="2">
                                  <asp:Button ID="btnFinish" runat="server" Text="Save Component Information" CssClass="submitGreen" TabIndex="37"
                             OnClick="btnFinish_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
-           OnClick="btnCancel_Click" OnClientClick="return confirm('OK to Cancel?');" />&nbsp;&nbsp;&nbsp;&nbsp;  <asp:Button ID="btnAddNewComponent" runat="server" Text="Add Another Component" CssClass="submitGreen" TabIndex="37"
-                            OnClick="btnAddComponent_Click" />
+           OnClick="btnCancel_Click" OnClientClick="return confirm('OK to Cancel?');" />
                                </td>  
                           
                         </tr>
