@@ -28,7 +28,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
             int facID = 0;
             string facNum = string.Empty;
             string wrNum = string.Empty;
-
+            int equipID = 0;
             DataSet dtSystem = GeneralLookUp.GetMechanicalSystemList();
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
@@ -43,7 +43,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
                 if (result)
                 {
                     Session["ParentFacilitySysID"] = Request.QueryString["ParentFacilitySysID"].ToString();
-                    btnSaveFacility.Text = "Update Facility";
+                   
                     LoadFacilityInfoByID(facID);
                 }
                 else
@@ -63,7 +63,22 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
                 wrNum = Request.QueryString["wrnum"].ToString();
                 LoadFacilityInfoByWRNum(wrNum);
             }
-                //if no facility info, then bottom nothing
+            else if (Request.QueryString["equipID"] != null && !string.IsNullOrEmpty(Request.QueryString["equipID"].ToString()))
+            {             
+
+                bool result = Int32.TryParse(Request.QueryString["equipID"].ToString(), out equipID);
+                if (result)
+                {
+                    TabContainer1.ActiveTabIndex = 1;
+                    LoadEquipmentDetail(equipID, true);
+                }
+                else
+                {
+                    Response.Redirect("~/Default.aspx");
+                }
+                btnSaveFacility.Text = "Update Facility Information";
+            }
+            //if no facility info, then bottom nothing
             if (string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
             {
                 btnSaveFacility.Text = "Add New Facility";
@@ -97,7 +112,12 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
     }
     protected void btnCancelFacility_Click(object sender, EventArgs e)
     {
-         Response.Redirect("~/Default.aspx");
+         Response.Redirect("~/SearchResult.aspx");
+    }
+
+    protected void btnGoBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/SearchResult.aspx");
     }
     protected void btnFinish_Click(object sender, EventArgs e)
     {
@@ -286,7 +306,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
 
     }
 
-    private void LoadEquipmentDetail(int id)
+    private void LoadEquipmentDetail(int id, bool loadFacInfo)
     {
         EquipmentDet details = facility_logic.GetInvEquipmentDetails(id);
         #region "Load the first equipment"
@@ -326,7 +346,8 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
         { txtTJC.Text = details.TJCValue.ToString(); }
         txtPMSchedule.Text = details.PMSchedule;
 
-        
+        if (loadFacInfo)
+            LoadFacilityInfoByFacNum(details.ParentFacilityNum);
         #endregion
 
 
@@ -569,7 +590,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
             //switch tab to component detail and show component info
             TabContainer1.ActiveTabIndex = 1;       
            
-            LoadEquipmentDetail(Id);
+            LoadEquipmentDetail(Id, false);
           
         }
     }

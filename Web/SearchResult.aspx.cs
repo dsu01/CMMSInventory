@@ -198,8 +198,8 @@ public partial class SearchResult : System.Web.UI.Page
             // Programmatically reference the Image control
             Image i = (Image)e.Row.Cells[1].FindControl("Image1");
 
-            HyperLink hlFacNum = (HyperLink)e.Row.FindControl("hlFacNum");
-            List<EquipmentDet> eqList = facility_logic.GetEquipmentsList(hlFacNum.Text);
+            string strFacNum = ((GridView)sender).DataKeys[e.Row.RowIndex].Value.ToString();
+            List<EquipmentDet> eqList = facility_logic.GetEquipmentsList(strFacNum);
             if (eqList != null)
             {
                 // Add the clie nt-side attributes (onmouseover & onmouseout)
@@ -275,18 +275,21 @@ public partial class SearchResult : System.Web.UI.Page
        
         if (eqList != null)
         {
-            sTemp.Append("<table class='popupTableView' style='width:532px;height:100%;'>");
+            sTemp.Append("<table class='popupTableView' style='width:532px;height:100%;background-color:darkgray'>");
             
-            sTemp.Append("<tr><td colspan='2' align='center'><b>Actions List:</b></td></tr>");
+            sTemp.Append("<tr><td colspan='2' align='center'><b>Equipments List:</b></td></tr>");
             foreach (EquipmentDet det in eqList)
             {
-                sTemp.Append("<tr><td width='100px' align='right'><b>Action:</b></td><td align='left'>" + det.EquipID + "</td></tr>");
-                sTemp.Append("<tr><td width='100px' align='right'><b>Taken By:</b></td><td align='left'>" + det.EquipID + "</td></tr>");
-                sTemp.Append("<tr><td width='100px' align='right'><b>Taken On:</b></td><td align='left'>" +
-                    det.InstalledDate.ToShortDateString() + " " + det.SerialNo +
+                sTemp.Append("<tr><td width='20%' class='leftLabel' align='right'><b>Equipment ID:</b></td><td align='left' class='text7'><a href='Equipment/equipMechanicalNew.aspx?equipID=" + det.Key + "'>" + det.EquipID + "</a></td></tr>");
+                sTemp.Append("<tr><td class='leftLabel' align='right'><b>Location:</b></td><td align='left' class='text7'>" + det.EquipLocation+ "</td></tr>");
+                sTemp.Append("<tr><td class='leftLabel' align='right'><b>Type or Use:</b></td><td align='left' class='text7'>" + det.TypeOrUse + "</td></tr>");
+                sTemp.Append("<tr><td class='leftLabel' align='right'><b>Manufacturer and Model:</b></td><td align='left' class='text7'>" + det.Manufacturer + " " + det.ModelNo + "</td></tr>");
+                sTemp.Append("<tr><td class='leftLabel' align='right'><b>SerialNo:</b></td><td align='left' class='text7'>" + det.SerialNo + "</td></tr>");
+                sTemp.Append("<tr><td class='leftLabel' align='right'><b>InstallDate:</b></td><td align='left' class='text7'>" +
+                    det.InstalledDate.ToShortDateString() +
                     "</td></tr>");
-                sTemp.Append("<tr><td width='100px' align='right'><b>Comments:</b></td><td align='left'>" + det.EquipID + "</td></tr>");
-                sTemp.Append("<tr><td colspan='2'>&nbsp;</td></tr>");
+              
+                sTemp.Append("<tr><td colspan='2'><hr /></td></tr>");
             }
 
             sTemp.Append("<tr><td colspan='2'>&nbsp;</td></tr>");

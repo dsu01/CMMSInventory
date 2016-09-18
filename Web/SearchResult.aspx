@@ -45,7 +45,7 @@
                        <td>
                           <asp:Panel ID="pnlResults" runat="server">
                           <asp:Label ID="lblTotalNumberOfResult" runat="server" CssClass="leftLabel" /><br />
-                        	<asp:gridview id="gvFacilitys" SkinID="gvRegPagingSorting" DataKeyNames="ID" runat="server" AutoGenerateColumns="false" OnSorting="gvFacilitys_OnSorting"
+                        	<asp:gridview id="gvFacilitys" SkinID="gvRegPagingSorting" DataKeyNames="Facility#" runat="server" AutoGenerateColumns="false" OnSorting="gvFacilitys_OnSorting"
                                             OnPageIndexChanging="gvFacilitys_OnPageIndexChanging" OnRowDataBound="gvFacilitys_OnRowDataBound" OnRowCreated="gvFacilitys_onRowCreated">
                                     <PagerSettings Mode="NumericFirstLast" Position="Bottom" PageButtonCount="10" />
                                             <PagerStyle ForeColor="Black" HorizontalAlign="Right" Height="8" BackColor="#E0E0E0"
@@ -62,19 +62,19 @@
 				                  <asp:TemplateField HeaderText="# of Equipments" ItemStyle-Width="120" ItemStyle-HorizontalAlign="Center">
 					                <ItemTemplate>
 						                <asp:Label id="lblNumEquip" runat="server" text='<%# Eval("TotalEquipments") %>' />
-
+                                        
                                          <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/btn_edit.gif" Width="16" height="16" />
                                             <ajaxToolkit:PopupControlExtender 
                                                 ID="PopupControlExtender1" 
-                                                runat="server" 
+                                                runat="server" SkinID=""
                                                 DynamicServiceMethod="GetDynamicContent"
                                                 DynamicContextKey='<%# Eval("Facility#") %>'
                                                 DynamicControlID="Panel1"
                                                 TargetControlID="Image1"
                                                 PopupControlID="Panel1"
-                                                Position="Left"                                               
-                                                OffsetX="-450"
-                                                OffsetY="15">
+                                                Position="Right"                                               
+                                                OffsetX="-150"
+                                                OffsetY="25">
                                             </ajaxToolkit:PopupControlExtender>
                                                         
 					                </ItemTemplate>					

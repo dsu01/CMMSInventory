@@ -95,13 +95,16 @@
                                 <asp:Label ID="lbUpdateFacilityMsg" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label>
                             </td>  
                             <td><asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
-           OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');"  /></td>  
+           OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');"  />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button2" runat="server" Text="Go Back to List" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
+           OnClick="btnGoBack_Click"  />
+                            </td>  
 
                         </tr>
                 </table>
             </asp:Panel>
 
-  <asp:Panel runat="server" ID="DetailInfoPanel" style="margin-top: 20px; font-size:1.2em">
+  <asp:Panel runat="server" ID="DetailInfoPanel" style="margin-top: 20px; font-size:1.2em; ">
     <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0">
         <ajaxToolkit:TabPanel runat="server" HeaderText="List Of Components" ID="TabPanel1">
            <ContentTemplate>                 
