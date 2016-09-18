@@ -75,24 +75,39 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
     }
     protected void btnSaveFacility_Click(object sender, EventArgs e)
     {
-
-        int facID = SaveFacilityDetails(false);
+        if (string.IsNullOrEmpty(txtFacilityNum.Text))
+        {
+            //if first time, after saving the tab should be 1
+            TabContainer1.ActiveTabIndex = 1;
+        }
+        else
+            TabContainer1.ActiveTabIndex = 0;
+        int facID = SaveFacilityDetails(true);
         if (facID > 0)
         {
-            //show system generated fac num
+            //show component panel if not there yet
+            if (!DetailInfoPanel.Visible)
+                DetailInfoPanel.Visible = true;
+            btnSaveFacility.Text = "Update Facility";
         }
 
 
     }
     protected void btnCancelFacility_Click(object sender, EventArgs e)
     {
-        // Response.Redirect("~/Default.aspx");
+         Response.Redirect("~/Default.aspx");
     }
     protected void btnFinish_Click(object sender, EventArgs e)
     {
        
         ValidationResult vr = SaveEquipmentDetails();
-        Utils.ShowPopUpMsg(vr.Reason, this.Page);
+        if (vr.Success)
+        {
+            ClearEquipmentDetails();
+            Utils.ShowPopUpMsg("Component Saved!", this.Page);
+        }          
+        else
+            Utils.ShowPopUpMsg(vr.Reason, this.Page);
                   
     }
 

@@ -189,7 +189,9 @@
                     <td>
                         <asp:Label ID="Label2" CssClass="tableLabel" runat="server" Text="Attachments"></asp:Label></td>
                     <td colspan="4">
-                        user control
+                        Attachment List:
+                        <br />
+                         <asp:Button ID="attachmentClick" runat="server" Text="Add New Attachment" />
                     </td>
                     
 
@@ -218,7 +220,6 @@
 
             <%--<asp:HiddenField ID="attachmentClick" runat="server" />--%>
             
-            <asp:Button ID="attachmentClick" runat="server" />
 
             <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="attachmentClick"
                 BehaviorID="psrAtt" PopupControlID="Panel2" BackgroundCssClass="modal" DropShadow="true" OkControlID="CloseButton" />

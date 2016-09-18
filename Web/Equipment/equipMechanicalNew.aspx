@@ -81,6 +81,15 @@
                         <td class="inventoryTopRightCellBtm">
                             <asp:TextBox ID="txtWRNum" runat="server" MaxLength="50" TabIndex="10"></asp:TextBox></td>
                     </tr>
+                       <tr>
+                            <td class="inventoryTopRightCell" colspan="8">Comments:
+                          
+                              
+                                <asp:TextBox ID="txtComments" runat="server" MaxLength="255" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="36"></asp:TextBox>
+                               
+                            </td>
+
+                        </tr>
                     <tr>  
                             <td><asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" /></td>  
                             <td><asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
@@ -95,15 +104,7 @@
         <ajaxToolkit:TabPanel runat="server" HeaderText="List Of Components" ID="TabPanel1">
            <ContentTemplate>                 
                      <table border="1" width="100%" cellpadding="1" cellspacing="1" style="font-size:smaller; text-align:left">
-                         <tr>
-                            <td colspan="2">
-                                <br />
-                                <b>Comments:</b><br />
-                                <asp:TextBox ID="txtComments" runat="server" MaxLength="255" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="36"></asp:TextBox>
-                                <br />
-                            </td>
-
-                        </tr>
+                      
                         <tr>
 			                <td colspan="2" align="left">			     
 				                 <asp:GridView ID="gv_Components" SkinID="gvRegPagingSorting" runat="server" DataSourceID="odsComponents" DataKeyNames="Key" OnRowDataBound="gv_Components_OnRowDataBound" OnRowCommand="gv_Components_onRowCommand"> 	               
@@ -199,7 +200,7 @@
                                         <td colspan="2">                    
                                             <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />
                                       
-                                           <b> Component Information</b></td>
+                                           <b> Add/Update Component</b></td>
                                       </tr>
                 <tr>
                     <td width="25%">

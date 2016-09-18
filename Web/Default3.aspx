@@ -80,7 +80,7 @@
                                      <tr>
                                         <td class="leftLabel" width ="20%">Selection:</td>
                                         <td class="text7"> 
-                                            <asp:Panel ID="pnlSystem" runat="server" style="max-height:250px;" ScrollBars="Auto">
+                                            <asp:Panel ID="pnlSystem" runat="server" style="max-height:50px; width: 90%" ScrollBars="Auto">
                                                  <asp:CheckBoxList ID="drplstSystem" runat="server" RepeatDirection="Horizontal" RepeatColumns="8" DataTextField="SystemTitle" DataValueField="ID" OnSelectedIndexChanged="cklstSystemSelectedIndexChangd" AutoPostBack="true">
                                              </asp:CheckBoxList>
                                             </asp:Panel>      
