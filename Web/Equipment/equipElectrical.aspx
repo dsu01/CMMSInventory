@@ -73,10 +73,8 @@
                     <td style="border-bottom: solid 1px #000;" width="25%">
                         <font color="gray">&nbsp;<asp:Label ID="txtFacilityNum" runat="server"></asp:Label></font>
                     </td>
-
                 </tr>
                 <tr>
-
                     <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">System:&nbsp;&nbsp;</font>
                         <asp:DropDownList ID="drplstSystem" runat="server" SkinID="midDropDown" DataTextField="SystemTitle" DataValueField="SystemTitle" AppendDataBoundItems="true" TabIndex="1">
                             <asp:ListItem Value="">--</asp:ListItem>
@@ -91,7 +89,7 @@
                 </tr>
                 <tr>
                     <td colspan="4" class="inventoryTopLeftCell">Function:
-        <asp:TextBox ID="txtFunction" runat="server" SkinID="MaxTextBox" MaxLength="50" TabIndex="3"></asp:TextBox></td>
+                        <asp:TextBox ID="txtFunction" runat="server" SkinID="MaxTextBox" MaxLength="50" TabIndex="3"></asp:TextBox></td>
                     <td colspan="2" class="inventoryTopRightCell">AAALAC<asp:CheckBox ID="ckAAALAC" runat="server" TabIndex="4" />
                         &nbsp;&nbsp;&nbsp;BSL<asp:CheckBox ID="ckBSL" runat="server" TabIndex="5" />&nbsp;&nbsp;&nbsp;TJC<asp:CheckBox ID="ckTJC" runat="server" TabIndex="6" /></td>
                 </tr>
@@ -109,7 +107,6 @@
                     <td class="inventoryTopRightCellBtm">
                         <asp:TextBox ID="txtWRNum" runat="server" MaxLength="50" TabIndex="10"></asp:TextBox></td>
                 </tr>
-
             </table>
             <table id="inputTable" cellspacing="0" cellpadding="2" width="100%" border="0" style="font-size: .75em">
                 <tr>
@@ -122,7 +119,6 @@
                         <asp:Label ID="lbVolts" CssClass="tableLabel" runat="server" Text="VOLTS"></asp:Label></td>
                     <td width="35%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtVolts" runat="server" MaxLength="20" TabIndex="17" /></td>
-
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
@@ -134,7 +130,6 @@
                         <asp:Label ID="lbManufacturer" CssClass="tableLabel" runat="server" Text="Manufacturer"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtManufacturer" runat="server" MaxLength="50" TabIndex="18" /></td>
-
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
@@ -146,7 +141,6 @@
                         <asp:Label ID="lbKVA" CssClass="tableLabel" runat="server" Text="KVA"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtKVA" runat="server" MaxLength="20" TabIndex="19" /></td>
-
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
@@ -158,7 +152,6 @@
                         <asp:Label ID="lbVoltsSecondary" CssClass="tableLabel" runat="server" Text="Volts Secondary"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtVoltsSecondary" runat="server" MaxLength="20" TabIndex="20" /></td>
-
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
@@ -170,7 +163,6 @@
                         <asp:Label ID="Label3" CssClass="tableLabel" runat="server" Text="W"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtW" runat="server" MaxLength="6" TabIndex="21" /></td>
-
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
@@ -182,31 +174,24 @@
                         <asp:Label ID="Label5" CssClass="tableLabel" runat="server" Text="CKTS Used"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtCKTSUsed" runat="server" MaxLength="6" TabIndex="22" /></td>
-
                 </tr>
-
-                  <tr>
+                <tr>
                     <td>
                         <asp:Label ID="Label2" CssClass="tableLabel" runat="server" Text="Attachments"></asp:Label></td>
-                    <td colspan="4">
-                        Attachment List:
+                    <td colspan="4">Attachment List:
                         <br />
-                         <asp:Button ID="attachmentClick" runat="server" Text="Add New Attachment" />
+                        <asp:Button ID="attachmentClick" runat="server" Text="Add New Attachment" />
                     </td>
-                    
-
                 </tr>
-            
                 <tr>
-                    <td >
+                    <td>
                         <br />
-                       <b> Comments</b>
+                        <b>Comments</b>
                     </td>
                     <td colspan="4">
                         <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="23"></asp:TextBox>
                         <br />
                     </td>
-
                 </tr>
                 <tr>
                     <td align="center"></td>
@@ -218,13 +203,10 @@
                 </tr>
             </table>
 
-            <%--<asp:HiddenField ID="attachmentClick" runat="server" />--%>
-            
-
             <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="attachmentClick"
                 BehaviorID="psrAtt" PopupControlID="Panel2" BackgroundCssClass="modal" DropShadow="true" OkControlID="CloseButton" />
 
-            <asp:Panel ID="Panel2" runat="server" Style="width: 500px; background: white; border: 2px black solid; display: none; text-align: left;">
+            <asp:Panel ID="Panel2" runat="server" Style="width: 600px; background: white; border: 2px black solid; display: none; text-align: left;">
                 <ctrlAtt:mngAttachment ID="mngAttachment" runat="server" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
                 <br />
                 <br />

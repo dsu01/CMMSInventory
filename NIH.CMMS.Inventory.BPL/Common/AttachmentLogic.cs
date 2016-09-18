@@ -89,7 +89,7 @@ namespace NIH.CMMS.Inventory.BPL.Common
                 InvAttachmentSysID = (int)row["ID"],
                 InvEquipSysID = (int)row["InvEquipmentID"],
                 FileName = (string)row["FileName"],
-                FileType = (string)row["ContentType"],
+                FileType = row["ContentType"] != DBNull.Value ? (string)row["ContentType"] : null,
                 FileData = (byte[])row["Data"],
                 CreatedOn = (DateTime)row["CreatedOn"],
                 CreatedBy = (string)row["CreatedBy"],

@@ -14,7 +14,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        LoadData();
     }
     public bool AutoLoad { get; set; }
 
@@ -47,8 +47,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
     /// <returns></returns>
     public bool LoadData()
     {
-        ClearFields();
-
+        ShowAttachments();
 
         return true;
     }
@@ -60,7 +59,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
         var fileName = Server.HtmlEncode(attachmentFileUpload.FileName);
         var extension = System.IO.Path.GetExtension(fileName).ToLower();
-        var attachmentTitle = txtAttTitle.Text.Trim();
+        var attachmentTitle = txtAttachmentTitle.Text.Trim();
 
         //both file name and Title are reqried
         //if (txtHidAttID.Text != "-1")
@@ -74,7 +73,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         {
             InvEquipSysID = this.ParentEquipmentID,
             IsActive = true,
-            Title = txtAttTitle.Text,
+            Title = txtAttachmentTitle.Text,
             CreatedOn = DateTime.Now,
             CreatedBy = Page.User.Identity.Name,
             UpdatedBy = Page.User.Identity.Name,
@@ -181,7 +180,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
         //if (incAtt != null)
         //{
-        //    if (e.CommandName == "Editing")
+        //    if (e.CommandName == "Opening")
         //    {
         //        #region "show existing attachment information"
         //        txtHidAttID.Text = incAtt.Key.ToString();
@@ -235,7 +234,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
     protected void btnSaveAttachment_OnClick(object sender, EventArgs e)
     {
         var fileName = Server.HtmlEncode(attachmentFileUpload.FileName);
-        if (string.IsNullOrEmpty(fileName) || string.IsNullOrEmpty(txtAttTitle.Text))
+        if (string.IsNullOrEmpty(fileName) || string.IsNullOrEmpty(txtAttachmentTitle.Text))
         {
             lbAddAttachmentError.Visible = true;
             lbAddAttachmentError.Text = "Please select an Attachment ";
@@ -244,7 +243,8 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
         if (SaveData())
         {
-            ShowAttachments();
+            LoadData();
+
             ClearFields();
         }
 
@@ -263,7 +263,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
     //            if (dtApproved >= dtCreated)
     //            {
-    //                ((LinkButton)e.Row.FindControl("btnEditAttachment")).Visible = false;
+    //                ((LinkButton)e.Row.FindControl("btnOpenAttachment")).Visible = false;
     //                //((LinkButton)e.Row.FindControl("btnDeleteAttachment")).Visible = false;
     //            }
     //        }
@@ -279,28 +279,23 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
     /// </summary>
     private void ShowAttachments()
     {
-        //AttachmentCollection attList = AttachmentLogic.GetAllRptAttachments(source, sourceID);
+        var list = AttachmentLogic.GetEquipmentAttachments(this.ParentEquipmentID);
 
-        //if (attList != null)
-        //{
-        //    pnlExtAttachment.Visible = true;
-        //    gvExtAttachment.DataSource = attList;
-        //    gvExtAttachment.DataBind();
-        //}
-        //else
-        //{ pnlExtAttachment.Visible = false; }
+        if (list != null)
+        {
+            pnlExtAttachment.Visible = true;
+            gvExtAttachment.DataSource = list;
+            gvExtAttachment.DataBind();
+        }
+        else
+        { pnlExtAttachment.Visible = false; }
     }
 
     #endregion
 
     private void ClearFields()
     {
-        //txtHidAttID.Text = "-1";
-        //txtHidAttFileName.Text = "";
-        //txtHidAttFileName.Visible = false;
-        //lbHidExistFile.Visible = false;
-
-        txtAttTitle = null;
+        txtAttachmentTitle.Text = null;
     }
 
     private Control FindControlRecursive(Control Root, string Id)
