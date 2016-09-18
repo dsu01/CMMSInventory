@@ -8,7 +8,7 @@ namespace NIH.CMMS.Inventory.BPL.Common
 {
     public class AttachmentLogic
     {
-        //public static AttachmentCollection GetAllRptAttachments(int source, int sourceID)
+        //public static AttachmentCollection GetAllRptAttachme nts(int source, int sourceID)
         //{
         //    AttachmentCollection seaAttCol = null;
         //    DataSet ds = Attachment_db.GetAttachment(source, sourceID, -1);
