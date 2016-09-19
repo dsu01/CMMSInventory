@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Common\Attachment.cs" />
     <Compile Include="Common\AttachmentCollection.cs" />
+    <Compile Include="Common\CategoryCollection.cs" />
     <Compile Include="Common\InventorySearchCriteria.cs" />
     <Compile Include="Common\ValidationResult.cs" />
     <Compile Include="Facility\EquipmentDet.cs" />

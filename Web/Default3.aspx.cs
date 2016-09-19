@@ -27,14 +27,10 @@ public partial class Default3 : System.Web.UI.Page
             rblstType.DataSource = dtType;
             rblstType.DataBind();        
 
-            DataSet dtBuilding = GeneralLookUp.GetSearchBuildingList(); 
-            drplstBuilding.DataSource = dtBuilding;
-            drplstBuilding.DataBind();
-            ListItem item = new ListItem();
-            item.Text = "All";
-            item.Value = "-1";            
-            drplstBuilding.Items.Add(item);
-            lbSelectedBuildingValue.Text = "None";
+            DataSet dtBuilding = GeneralLookUp.GetSearchBuildingList();
+            lbBuilding.DataSource = dtBuilding;
+            lbBuilding.DataBind();
+           
             #endregion
 
             #region Show Previous Search Values
@@ -50,30 +46,30 @@ public partial class Default3 : System.Web.UI.Page
                     txtWRNum.Text = crit.wrnum;
                 else
                 {
-                if (crit.buildingIds != null)
-                {
-                    //show current selection
-                    lbSelectedBuildingValue.Text = crit.buildingDescs; 
-                    Utils.CheckCheckboxListFromListString(drplstBuilding, crit.buildingIds);
-                }
-                    
-                
-                    
-               // if (crit.componentIds != null)
-                    //Utils.CheckCheckboxListFromListString(ckbxlstComponent, crit.componentIds);
-               if (!string.IsNullOrEmpty(crit.typeId))
-               {
-                   rblstType.SelectedValue = crit.typeId;
-                   ShowSelection(crit.typeId); 
-                   if (crit.systemIds != null)
+                    if (crit.selBuildings != null)
+                    {
+                        //show current selection
+                        // lbSelectedBuildingValue.Text = crit.buildingDescs; 
+                        // Utils.CheckCheckboxListFromListString(drplstBuilding, crit.buildingIds);
+                        lbExtBuilding.DataSource = crit.selBuildings;
+                        lbExtBuilding.DataBind();
+                    }
+               
+                   if (!string.IsNullOrEmpty(crit.typeId))
                    {
-                       lbSelectedSystemValue.Text = crit.systemDescs;
-                       Utils.CheckCheckboxListFromListString(drplstSystem, crit.systemIds);
+                       rblstType.SelectedValue = crit.typeId;
+                       ShowSelection(crit.typeId); 
+                       if (crit.selSystems != null)
+                       {
+                            // lbSelectedSystemValue.Text = crit.systemDescs;
+                            // Utils.CheckCheckboxListFromListString(drplstSystem, crit.systemIds);
+                            lbExtSystems.DataSource = crit.selSystems;
+                            lbExtSystems.DataBind();
+                        }
                    }
-               }
                     
-                radioSelect.SelectedValue = crit.flagAssigned.ToString();
-            }          
+                    radioSelect.SelectedValue = crit.flagAssigned.ToString();
+                }          
             }          
 
             #endregion
@@ -101,37 +97,9 @@ public partial class Default3 : System.Web.UI.Page
             DataSet resList = GeneralLookUp.GetListByType(val);
             if (resList != null)
             {
-                drplstSystem.DataSource = resList;
-                drplstSystem.DataBind();
-                ListItem item = new ListItem();
-                item.Text = "All";
-                item.Value = "-1";
-                drplstSystem.Items.Add(item);
-                lbSelectedSystemValue.Text = "None";
-                //if (rblstType.SelectedValue.ToLower().Contains("system"))
-                //{
-                //    //DataSet dtSystem = GeneralLookUp.GetSystemList(rblstType.SelectedValue);
-                //    ////get the first 64 system, then use see More ... to get the rest 60-120
-                //    drplstSystem.DataSource = resList;
-                //    drplstSystem.DataBind();
-                //    ListItem item = new ListItem();
-                //    item.Text = "All";
-                //    item.Value = "-1";
-                //    drplstBuilding.Items.Add(item);
-                //    lbSelectedSystemValue.Text = "None";
-                //}
-                ////DataView two
-                //else
-                //{
-                //    //DataSet dtComponent = GeneralLookUp.GetEquipmentList();
-                //    ckbxlstComponent.DataSource = resList;
-                //    ckbxlstComponent.DataBind();
-                //    ListItem item = new ListItem();
-                //    item.Text = "All";
-                //    item.Value = "-1";
-                //    drplstBuilding.Items.Add(item);
-                //    lbSelectedEquipmentValue.Text = "None";
-                //}
+                lbSystems.DataSource = resList;
+                lbSystems.DataBind();
+                 
             }
     }
 
@@ -141,14 +109,14 @@ public partial class Default3 : System.Web.UI.Page
         {
             SearchCriteria crit = SearchCriteria.NewInstance;
 
-            crit.buildingIds = Utils.GetCatCollectionString(Utils.GetSubTypeCollection(drplstBuilding));
-            crit.buildingDescs = Utils.GetListStringFromCheckboxList(drplstBuilding);       
+            crit.selBuildings = Utils.GetSelItemCollection(lbExtBuilding);
+           // crit.buildingDescs = Utils.GetListStringFromCheckboxList(drplstBuilding);       
             if (!string.IsNullOrEmpty(rblstType.SelectedValue))
                 crit.typeId = rblstType.SelectedValue;
             //crit.componentIds = Utils.GetListStringFromCheckboxList(ckbxlstComponent);
            
-            crit.systemIds = Utils.GetCatCollectionString(Utils.GetSubTypeCollection(drplstSystem));
-            crit.systemDescs = Utils.GetListStringFromCheckboxList(drplstSystem);            
+            crit.selSystems = Utils.GetSelItemCollection(lbExtSystems);
+            //crit.systemDescs = Utils.GetListStringFromCheckboxList(drplstSystem);            
             crit.flagAssigned = Convert.ToInt32(radioSelect.SelectedValue);
             crit.facnum = string.Empty;
             crit.wrnum = string.Empty;
@@ -160,8 +128,8 @@ public partial class Default3 : System.Web.UI.Page
 
     protected void btnReset_Click(object sender, EventArgs e)
     {
-        Utils.UnCheckTypeCollection(drplstBuilding);
-        Utils.UnCheckTypeCollection(drplstSystem);
+        lbExtSystems.Items.Clear();
+        lbExtBuilding.Items.Clear();
         rblstType.SelectedIndex = -1;
         radioSelect.SelectedValue = "1"; //default unassigned
         SearchCriteria.Instance = null;
@@ -194,57 +162,135 @@ public partial class Default3 : System.Web.UI.Page
         }
     }
 
-    protected void cklstSystemSelectedIndexChangd(object sender, EventArgs e)
-    {
-        lbSelectedSystemValue.Text = string.Empty;
-        //implement logic for user selection
-        for (int i = 0; i < drplstSystem.Items.Count; i++)
-        {
+    //protected void cklstSystemSelectedIndexChangd(object sender, EventArgs e)
+    //{
+    //    lbSelectedSystemValue.Text = string.Empty;
+    //    //implement logic for user selection
+    //    for (int i = 0; i < drplstSystem.Items.Count; i++)
+    //    {
 
-            if (drplstSystem.Items[i].Selected)
+    //        if (drplstSystem.Items[i].Selected)
+    //        {
+    //            if (drplstSystem.Items[i].Text.ToLower() == "all")
+    //            {
+    //                //check all 
+    //                CheckAll(drplstSystem);
+    //                lbSelectedSystemValue.Text = "All";
+    //                return;
+    //            }
+    //            else
+    //                lbSelectedSystemValue.Text += drplstSystem.Items[i].Text + "; ";
+    //        }
+    //    }
+
+    //    //remove the ;
+    //    if (lbSelectedSystemValue.Text.Length > 1)
+    //        lbSelectedSystemValue.Text = lbSelectedSystemValue.Text.Substring(0, lbSelectedSystemValue.Text.Length - 2);
+    //}
+
+  
+    protected void btnSelectSystem_Click(object sender, EventArgs e)
+    {
+
+        //get the selected functions from left listbox and add it into rightside box       
+        foreach (ListItem item in lbSystems.Items)
+        {
+            if (item.Selected)
             {
-                if (drplstSystem.Items[i].Text.ToLower() == "all")
+                item.Selected = false;
+                if (!lbExtSystems.Items.Contains(item))
                 {
-                    //check all 
-                    CheckAll(drplstSystem);
-                    lbSelectedSystemValue.Text = "All";
-                    return;
+                    lbExtSystems.Items.Add(item);
                 }
-                else
-                    lbSelectedSystemValue.Text += drplstSystem.Items[i].Text + "; ";
+            }
+        }
+    }
+
+    protected void btnRemoveSystem_Click(object sender, EventArgs e)
+    {
+        List<ListItem> selitems = new List<ListItem>();
+        foreach (ListItem item in lbExtSystems.Items)
+        {
+            //if items are not removed, add into arraylist and bind it later
+            if (!item.Selected)
+            {
+                selitems.Add(item);
+            }
+        }
+        lbExtSystems.Items.Clear();
+        lbExtSystems.Items.AddRange(selitems.ToArray());
+    }
+
+    protected void btnAddAllSystem_Click(object sender, EventArgs e)
+    {
+        //get the selected functions from left listbox and add it into rightside box       
+        foreach (ListItem item in lbSystems.Items)
+        {
+            //if (!drplstSelectedStudents.Items.Contains(item))
+            if (lbExtSystems.Items.FindByValue(item.Value) == null)
+            {
+                lbExtSystems.Items.Add(item);
             }
         }
 
-        //remove the ;
-        if (lbSelectedSystemValue.Text.Length > 1)
-            lbSelectedSystemValue.Text = lbSelectedSystemValue.Text.Substring(0, lbSelectedSystemValue.Text.Length - 2);
+        //Todo:add means change status to approved. if user is on wait list, status changed
     }
-
-    protected void cklstBuildingSelectedIndexChangd(object sender, EventArgs e)
+    protected void btnRemoveAllBuilding_Click(object sender, EventArgs e)
     {
-        lbSelectedBuildingValue.Text = string.Empty;
-        //implement logic for user selection
-        for (int i = 0; i < drplstBuilding.Items.Count; i++)
+        lbExtBuilding.Items.Clear();
+   
+    }
+    protected void btnAddAllBuilding_Click(object sender, EventArgs e)
+    {
+        //get the selected functions from left listbox and add it into rightside box       
+        foreach (ListItem item in lbBuilding.Items)
         {
-            if (drplstBuilding.Items[i].Selected)
+            //if (!drplstSelectedStudents.Items.Contains(item))
+            if (lbExtBuilding.Items.FindByValue(item.Value) == null)
             {
-                if (drplstBuilding.Items[i].Text.ToLower() == "all")
-                {
-                    //check all 
-                    CheckAll(drplstBuilding);
-                    lbSelectedBuildingValue.Text = "All";
-                    return;
-                }
-                else             
-                    lbSelectedBuildingValue.Text += drplstBuilding.Items[i].Text + "; ";
+                lbExtBuilding.Items.Add(item);
             }
         }
 
-        //remove the ;
-        if (lbSelectedBuildingValue.Text.Length > 1)
-            lbSelectedBuildingValue.Text = lbSelectedBuildingValue.Text.Substring(0, lbSelectedBuildingValue.Text.Length - 2);
+        //Todo:add means change status to approved. if user is on wait list, status changed
+    }
+    protected void btnRemoveAllSystem_Click(object sender, EventArgs e)
+    {
+        lbExtSystems.Items.Clear();
+
+    }
+    /// <summary>
+    protected void btnSelectBuilding_Click(object sender, EventArgs e)
+    {
+
+        //get the selected functions from left listbox and add it into rightside box       
+        foreach (ListItem item in lbBuilding.Items)
+        {
+            if (item.Selected)
+            {
+                item.Selected = false;
+                if (!lbExtBuilding.Items.Contains(item))
+                {
+                    lbExtBuilding.Items.Add(item);
+                }
+            }
+        }
     }
 
+    protected void btnRemoveBuilding_Click(object sender, EventArgs e)
+    {
+        List<ListItem> selitems = new List<ListItem>();
+        foreach (ListItem item in lbExtBuilding.Items)
+        {
+            //if items are not removed, add into arraylist and bind it later
+            if (!item.Selected)
+            {
+                selitems.Add(item);
+            }
+        }
+        lbExtBuilding.Items.Clear();
+        lbExtBuilding.Items.AddRange(selitems.ToArray());
+    }
     private void CheckAll(CheckBoxList lst)
     {
         for (int i = 0; i < lst.Items.Count; i++)

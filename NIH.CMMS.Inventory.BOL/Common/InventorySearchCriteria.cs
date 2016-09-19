@@ -58,6 +58,8 @@ namespace NIH.CMMS.Inventory.BOL.Common
         }
 
         //all public fields added for crosspagepostback
+        public CategoryCollection selSystems;
+        public CategoryCollection selBuildings;
         public string systemIds;
         public string systemDescs;
         public string componentIds;

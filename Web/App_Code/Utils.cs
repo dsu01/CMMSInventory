@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.IO;
 using iTextSharp.text.pdf;
 using NIH.CMMS.Inventory.BOL.People;
-using System.Collections;
+using NIH.CMMS.Inventory.BOL.Common;
 
 namespace NIH.CMMS.Inventory.Web
 {
@@ -504,6 +504,26 @@ namespace NIH.CMMS.Inventory.Web
 
         }
 
+        public static CategoryCollection GetSelItemCollection(ListBox lbitem)
+        {
+            CategoryCollection catColSubType = new CategoryCollection();
+            for (int i = 0; i < lbitem.Items.Count; i++)
+            {
+                if (lbitem.Items[i].Selected)
+                {
+                     //add them into collection
+                     catColSubType.Add(new Category(int.Parse(lbitem.Items[i].Value), lbitem.Items[i].Text));
+
+                }
+            }
+
+            if (catColSubType.Count > 0)
+            { return catColSubType; }
+            else
+            { return null; }
+
+        }
+
         /// <summary>
         /// Check user selected sub types for a checkbox list.
         /// </summary>
@@ -906,80 +926,5 @@ namespace NIH.CMMS.Inventory.Web
         }
     }
 
-    public class CategoryCollection : CollectionBase
-    {
-        public CategoryCollection()
-        {
-        }
-
-        public Category Item(int index)
-        {
-            return (Category)List[index];
-        }
-
-        public int Add(Category details)
-        {
-            return List.Add(details);
-        }
-
-    }
-
-    public class Category : NameValue
-    {
-        ArrayList _subCategory;
-
-        public Category(int key, string description)
-            : base(key, description)
-        {
-        }
-
-        public ArrayList SubCategory
-        {
-            get { return _subCategory; }
-            set
-            {
-                _subCategory = value;
-            }
-        }
-
-        public bool hasSubCategories()
-        {
-            return ((_subCategory != null) || (_subCategory.Count == 0)) ? false : true;
-        }
-    }
-
-    public class NameValue
-    {
-
-        int _key;
-        string _description;
-
-        public NameValue()
-        {
-        }
-
-        public NameValue(int key, string description)
-        {
-            _key = key;
-            _description = description;
-        }
-
-        public int Key
-        {
-            get { return _key; }
-            set
-            {
-                _key = value;
-            }
-        }
-
-        public string Description
-        {
-            get { return _description; }
-            set
-            {
-                _description = value;
-            }
-        }
-    }
+  
 }
