@@ -52,7 +52,6 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         return true;
     }
 
-    #region " Attachment/Photos Section -- event handling "
     public bool SaveData()
     {
         bool saved = false;
@@ -176,54 +175,44 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
     /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
     protected void gvExtAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
     {
-        //IncidentAttachments incAtt = IncAttachmentLogic.GetAttachment(Convert.ToInt32(e.CommandArgument.ToString()));
+        var id = Convert.ToInt32((string)e.CommandArgument);
+        if (id <= 0)    // should never happen
+            return;
 
-        //if (incAtt != null)
-        //{
-        //    if (e.CommandName == "Opening")
-        //    {
-        //        #region "show existing attachment information"
-        //        txtHidAttID.Text = incAtt.Key.ToString();
-        //        rlElePoliceRpt.SelectedValue = incAtt.ReportFiled.ToString();
-        //        // drplstEleAttaCatagory.SelectedValue = incAtt.FileType;
-        //        //fuEleFileUpload.FileName is readonly;
-        //        txtEleAttTitle.Text = incAtt.Title;
-        //        txtHidAttFileName.Visible = true;
-        //        lbHidExistFile.Visible = true;
-        //        txtHidAttFileName.Text = incAtt.OriginalFileName;
-        //        #endregion
-        //    }
-        //    else // if command == delete
-        //    {
-        //        #region "Delete attachment using attachment object"
-        //        String result = IncAttachmentLogic.DeleteAttachment(incAtt);
+        var attachment = AttachmentLogic.GetAttachment(id);
+        if (attachment == null)
+        {
+            Utils.ShowPopUpMsg("Cannot load attachment.", this.Page);
+            return;
+        }
 
-        //        if (result == ApplicationConstants.NO_ERROR_USP_EXECUTION)
-        //        {
-        //            //Physically delete the file
-        //            //File.Delete(PATH + incAtt.FileLocation);
-        //            //repopulate the existing initiator list
-        //            ShowAttachments();
-        //            //clean up the values if there is any
-        //            //drplstEleAttaCatagory.SelectedIndex = 0;
-        //            ClearFields();
+        if (e.CommandName == "Open")
+        {
+            DisplayContent(attachment);
+        }
+        else // if command == delete
+        {
+            var result = AttachmentLogic.DeleteAttachment(id);
 
-        //        }
-        //        else
-        //        {
-        //            //handle error
-        //            WebUtils.ShowPopUpMsg("Cannot delete attachment.", this.Page);
-        //        }
-        //        #endregion
-        //    }
-        //}
-        //else
-        //{
-        //    //handle error
-        //    WebUtils.ShowPopUpMsg("Error. No attachment found.", this.Page);
-        //}
+            //if (result == ApplicationConstants.NO_ERROR_USP_EXECUTION)
+            //{
+            //    //Physically delete the file
+            //    //File.Delete(PATH + incAtt.FileLocation);
+            //    //repopulate the existing initiator list
+            //    ShowAttachments();
+            //    //clean up the values if there is any
+            //    //drplstEleAttaCatagory.SelectedIndex = 0;
+            //    ClearFields();
 
-        //if (ModalExtender != null) ModalExtender.Show();
+            //}
+            //else
+            //{
+            //    //handle error
+            //    Utils.ShowPopUpMsg("Cannot delete attachment.", this.Page);
+            //}
+        }
+
+        if (ModalExtender != null) ModalExtender.Show();
     }
 
     /// <summary>
@@ -251,29 +240,6 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         if (ModalExtender != null) ModalExtender.Show();
     }
 
-    //sirs-1163 allow to delete
-    //protected void gvExtAttachment_RowDataBound(object sender, GridViewRowEventArgs e)
-    //{
-    //    if (e.Row.RowType == DataControlRowType.DataRow)
-    //    {
-    //        if (ViewState["ApprovedDate"] != null)
-    //        {
-    //            DateTime dtApproved = (DateTime)ViewState["ApprovedDate"];
-    //            DateTime dtCreated = Convert.ToDateTime(e.Row.Cells[4].Text);
-
-    //            if (dtApproved >= dtCreated)
-    //            {
-    //                ((LinkButton)e.Row.FindControl("btnOpenAttachment")).Visible = false;
-    //                //((LinkButton)e.Row.FindControl("btnDeleteAttachment")).Visible = false;
-    //            }
-    //        }
-    //    }
-    //}
-    #endregion
-
-    #region "Private methods"
-    #region " Show Existing Attachment/Photos Section "
-
     /// <summary>
     /// Shows the ext attachment list from querystring incident id.
     /// </summary>
@@ -291,7 +257,21 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         { pnlExtAttachment.Visible = false; }
     }
 
-    #endregion
+    private void DisplayContent(Attachment attachment)
+    {
+        var data = attachment.FileData;
+        if (data == null || data.Length == 0)
+            return;
+
+        Response.Clear();
+        Response.ClearContent();
+        Response.ContentType = "application/pdf";
+        Response.AddHeader("content-disposition", "attachment;filename=" + attachment.FileName);
+        Response.Charset = "";
+        Response.Cache.SetCacheability(HttpCacheability.NoCache);
+        Response.BinaryWrite(data);
+        Response.End();
+    }
 
     private void ClearFields()
     {
@@ -311,6 +291,4 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         }
         return null;
     }
-
-    #endregion
 }

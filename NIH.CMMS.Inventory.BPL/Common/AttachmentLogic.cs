@@ -14,7 +14,7 @@ namespace NIH.CMMS.Inventory.BPL.Common
             try
             {
                 List<Attachment> col = null;
-                DataSet ds = Attachment_db.GetAttachment(equipmentSysId);
+                DataSet ds = Attachment_db.GetEquipmentAttachmentList(equipmentSysId);
 
                 if (ds != null)
                 {

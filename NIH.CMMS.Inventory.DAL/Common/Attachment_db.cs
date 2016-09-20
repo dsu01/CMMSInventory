@@ -21,8 +21,8 @@ namespace NIH.CMMS.Inventory.DAL.Common
         public static DataSet GetAttachment(int attachmentSysID)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@equipmentSysId", attachmentSysID));
-            return DBCommands.GetData("spn_Inv_GetEquipmentAttachmentList", sqlParams);
+            sqlParams.Add(new SqlParameter("@attachmentSysId", attachmentSysID));
+            return DBCommands.GetData("spn_Inv_GetEquipmentAttachmentByID", sqlParams);
         }
 
         public static ValidationResult DeleteAttachment(int attachmentSysId)

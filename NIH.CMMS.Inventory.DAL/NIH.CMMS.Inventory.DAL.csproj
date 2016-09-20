@@ -71,6 +71,7 @@
     <Content Include="Scripts\alterInvEquipmentTable.sql" />
     <Content Include="Scripts\CreateAttachmentTable08212016.sql" />
     <Content Include="Scripts\spn_inv_deleteEquipmentAttachment.sql" />
+    <Content Include="Scripts\spn_Inv_GetEquipmentAttachmentByID.sql" />
     <Content Include="Scripts\spn_inv_updateEquipmentAttachment.sql" />
     <Content Include="Scripts\updatedSps.sql" />
   </ItemGroup>

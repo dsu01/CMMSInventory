@@ -70,7 +70,7 @@
                                 <Columns>
                                     <asp:TemplateField HeaderText="Open" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
                                         <ItemTemplate>
-                                            <asp:LinkButton CommandName="Opening" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnOpenAttachment" Text="<img src='/Image/edit.gif' alt='Open' />" runat="server"></asp:LinkButton>
+                                            <asp:LinkButton CommandName="Open" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnOpenAttachment" Text="<img src='/Image/edit.gif' alt='Open' />" runat="server"></asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
