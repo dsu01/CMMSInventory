@@ -65,17 +65,17 @@
                     <tr>
                         <td colspan="2">
                             <br />
-                            <asp:GridView ID="gvExtAttachment" SkinID="VerticalLineGV" runat="server" AutoGenerateColumns="false" GridLines="None"
+                            <asp:GridView ID="gvExtAttachment" SkinID=NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                                 OnRowCommand="gvExtAttachment_onRowCommand">
                                 <Columns>
                                     <asp:TemplateField HeaderText="Open" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
                                         <ItemTemplate>
-                                            <asp:LinkButton CommandName="Open" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnOpenAttachment" Text="<img src='/Image/edit.gif' alt='Open' />" runat="server"></asp:LinkButton>
+                                            <asp:LinkButton CommandName="Open" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnOpenAttachment" Text="<img src='/Image/btn_edit.gif' alt='Open' />" runat="server"></asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
                                         <ItemTemplate>
-                                            <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnDeleteAttachment" Text="<img src='/Image/delete.gif' alt='Delete' />" runat="server" OnClientClick="return confirm('OK to Delete?');"></asp:LinkButton>
+                                            <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnDeleteAttachment" Text="<img src='/Image/btn_delete.png' alt='Delete' />" runat="server" OnClientClick="return confirm('OK to Delete?');"></asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />

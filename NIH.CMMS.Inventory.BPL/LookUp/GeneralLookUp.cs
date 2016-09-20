@@ -54,6 +54,11 @@ namespace NIH.CMMS.Inventory.BPL.LookUp
             //get data from 
             return DBCommands.GetData("spn_Inv_GetTypeList", null);
         }
+        public static DataSet GetSystemEquipmentList()
+        {
+            //get data from 
+            return DBCommands.GetData("spn_Inv_GetSystemEquipmentList", null);
+        }
 
         public static DataSet GetEletricalTypeOrUse()
         {

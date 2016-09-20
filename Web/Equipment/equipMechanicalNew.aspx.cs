@@ -29,9 +29,14 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
             string facNum = string.Empty;
             string wrNum = string.Empty;
             int equipID = 0;
-            DataSet dtSystem = GeneralLookUp.GetMechanicalSystemList();
+            //DataSet dtSystem = GeneralLookUp.GetMechanicalSystemList();
+            //drplstSystem.DataSource = dtSystem;
+            //drplstSystem.DataBind();
+
+            DataSet dtSystem = GeneralLookUp.GetSystemEquipmentList();
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
+           
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
@@ -186,7 +191,17 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
             {
                 #region "Load facility detail"
                 drplstSystem.SelectedValue = existingFac.FacSystem;
-                drplstBuilding.SelectedValue = existingFac.FacBuilding;
+                    if (existingFac.FacilityGroup.Contains("Eletrical"))
+                    {
+                        inputTableElectrical.Visible = true;
+                        inputTableMachanical.Visible = false;
+                    }
+                    else
+                    {
+                        inputTableElectrical.Visible = false;
+                        inputTableMachanical.Visible = true;
+                    }
+            drplstBuilding.SelectedValue = existingFac.FacBuilding;
                 txtFunction.Text = existingFac.FacFunction;
                 txtFloor.Text = existingFac.FacFloor;
                 txtLocation.Text = existingFac.FacLocation;
