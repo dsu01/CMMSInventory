@@ -58,30 +58,20 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
         var fileName = Server.HtmlEncode(attachmentFileUpload.FileName);
         var extension = System.IO.Path.GetExtension(fileName).ToLower();
-        var attachmentTitle = txtAttachmentTitle.Text.Trim();
-
-        //both file name and Title are reqried
-        //if (txtHidAttID.Text != "-1")
-        //{
-        //    //if it is an update, need to delete old one and insert new one
-        //    //attDetail = facility_logic.GetAttachment(Convert.ToInt32(txtHidFacAttID.Text));
-        //}
-        //else { attDetail = new Attachment(); }
 
         var attachment = new Attachment()
         {
             InvEquipSysID = this.ParentEquipmentID,
             IsActive = true,
-            Title = txtAttachmentTitle.Text,
+            Title = txtAttachmentTitle.Text.Trim(),
+            FileName = fileName,
+            FileType = extension,
             CreatedOn = DateTime.Now,
             CreatedBy = Page.User.Identity.Name,
             UpdatedBy = Page.User.Identity.Name,
         };
         if (attachment.InvEquipSysID >= 0)
         {
-            //common things to update
-            //attDetail.InvFacID = txtFacilityID.Text.Trim();
-
             //if (txtHidAttID.Text != "-1" && attachmentFileUpload.FileName == string.Empty)
             //{
             //    //if only update the Title, no need to save file          
@@ -89,13 +79,10 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
             //}
             //else
             {
-                //if it is new attachment or Update to a new attachment
                 var fs = attachmentFileUpload.PostedFile.InputStream;
                 var br = new BinaryReader(fs);
                 Byte[] bytes = br.ReadBytes((Int32)fs.Length);
-
                 attachment.FileData = bytes;
-                attachment.FileName = fileName;
 
                 //if (!Utils.IsAllowedExtension(extension))
                 //{
@@ -115,12 +102,6 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
                 }
                 else
                 {
-                    //if (txtHidFacAttID.Text != "-1")
-                    //{
-                    //    //if it is an update to Title and File, need to delete old one and insert new one
-                    //    //System.IO.File.Delete(savePath + attDetail.FileLocation);
-                    //}
-
                     //try
                     //{
                     //    fuEleFileUpload.SaveAs(savePath);
@@ -134,9 +115,6 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
                     //    if (txtHidAttID.Text != "-1")
                     //    { IncAttachmentLogic.DeleteAttachment(attDetail); }
                     //    return false;
-
-                    //}
-                    //}
                 }
 
                 // Call the SaveAs method to save the uploaded file to the specified path. 
@@ -264,8 +242,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
             return;
 
         Response.Clear();
-        Response.ClearContent();
-        Response.ContentType = "application/pdf";
+        Response.ContentType = string.Format("application/{0}", attachment.FileType);
         Response.AddHeader("content-disposition", "attachment;filename=" + attachment.FileName);
         Response.Charset = "";
         Response.Cache.SetCacheability(HttpCacheability.NoCache);
