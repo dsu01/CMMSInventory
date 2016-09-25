@@ -83,8 +83,20 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         #endregion
 
         #region "load detail info"
-        txtEquipmentID.Text = details.ElectricalOther;
-        txtTypeOrUse.Text = details.TypeOrUse;
+        txtElectricalOther.Text = details.ElectricalOther;
+
+            txtInventoryBy.Text = details.InventoryBy;
+            txtModelNum.Text = details.ModelNo;
+            txtSerialNum.Text = details.SerialNo;
+            txtSize.Text = details.Size;
+
+            if (details.InstalledDate != DateTime.MinValue)
+                txtInstalledDate.Text = details.InstalledDate.ToShortDateString();
+            if (details.InventoryDate != DateTime.MinValue)
+                txtInventoryDate.Text = details.InventoryDate.ToShortDateString();
+
+
+            txtTypeOrUse.Text = details.TypeOrUse;
         txtManufacturer.Text = details.Manufacturer;
         txtVolts.Text = details.Volts;
         txtAMP.Text = details.AMP;
@@ -107,6 +119,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         }
         else
         {
+            //call spn_inv_AddElectricalEquipment_NewSite
             ValidationResult vr = SaveFacilityDetails();
             if (vr.Success)
             {
@@ -141,7 +154,14 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             txtComments.Text = string.Empty;
             txtFacilityID.Text = string.Empty;
 
-            txtEquipmentID.Text = string.Empty;
+            txtInventoryBy.Text = string.Empty;
+            txtInventoryDate.Text = string.Empty;
+            txtModelNum.Text = string.Empty;
+            txtSize.Text = string.Empty;
+            txtSerialNum.Text = string.Empty;
+            txtInstalledDate.Text = string.Empty;
+            txtElectricalOther.Text = string.Empty;
+
             txtTypeOrUse.Text = string.Empty;
             txtManufacturer.Text = string.Empty;
             txtVolts.Text = string.Empty;
@@ -174,7 +194,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         details.FacID = txtFacilityID.Text.Trim();
       
             details.UserName = loginUsr.LaborName;
-        details.ElectricalOther = txtEquipmentID.Text.Trim();
+        details.ElectricalOther = txtElectricalOther.Text.Trim();
         details.TypeOrUse = txtTypeOrUse.Text.Trim();
         details.Manufacturer = txtManufacturer.Text.Trim();
         details.Volts = txtVolts.Text.Trim();
@@ -186,6 +206,19 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         details.W = txtW.Text.Trim();
         details.CktsNum = txtCKTSNum.Text.Trim();
         details.CktsUsed = txtCKTSUsed.Text.Trim();
+
+        details.ModelNo = txtModelNum.Text.Trim();
+
+        details.SerialNo = txtSerialNum.Text.Trim();
+        details.Size = txtSize.Text.Trim();
+     
+        if (!string.IsNullOrEmpty(txtInstalledDate.Text.Trim()))
+            details.InstalledDate = Convert.ToDateTime(txtInstalledDate.Text.Trim());
+        if (!string.IsNullOrEmpty(txtInventoryDate.Text.Trim()))
+            details.InventoryDate = Convert.ToDateTime(txtInventoryDate.Text.Trim());
+
+        details.ElectricalOther = txtElectricalOther.Text.Trim();
+        details.InventoryBy = txtInventoryBy.Text.Trim();
 
         ValidationResult vr = facility_logic.UpdateElectrialEquipment(details);
         txtFacilityNum.Text = details.FacNum;
