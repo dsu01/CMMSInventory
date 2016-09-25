@@ -68,16 +68,15 @@
                                      <tr>
                                        <td class="leftLabel">Type:</td>
                                             <td align="left" class="text7">                                            
-                                             <asp:RadioButtonList ID="rblstType" runat="server" RepeatDirection="Horizontal" DataTextField="SystemGroup" OnSelectedIndexChanged="rblstType_SelectedIndexChanged" AutoPostBack="true" />
-                                       </td>
-                                    </tr>
-                                     <asp:Panel ID="pnlSelection" runat="server" Visible="false">
-                               <%--     <tr>
-                                         <td></td>
-                                         <td style="color:darkgreen; font-size:.8em;">(current seleted values: <asp:Label ID="lbSelectedSystemValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>)
+                                             <asp:RadioButtonList ID="rblstType" runat="server" RepeatDirection="Horizontal" OnSelectedIndexChanged="rblstType_SelectedIndexChanged" AutoPostBack="true" >
+                                                 <asp:ListItem Text="All" Value="0"></asp:ListItem>
+                                                  <asp:ListItem Text="Mechanical" Value="1"></asp:ListItem>
+                                                  <asp:ListItem Text="Electrical" Value="2"></asp:ListItem>
+                                             </asp:RadioButtonList>
+                                       <asp:RequiredFieldValidator ID="rqType" runat="server" ControlToValidate="rblstType" Display="Dynamic" ErrorMessage="Please select a Type" InitialValue="-1"></asp:RequiredFieldValidator>
                                          </td>
-                                     </tr>--%>
-                                   
+                                    </tr>
+                                 
                                      <tr>    				    
 				                        <td class="leftLabel">Selection:</td>
 				                        <td class="text7">
@@ -87,7 +86,7 @@
 					                                <table width="500">
 						                                <tr>
 							                                <td width="300">
-								                                <asp:ListBox ID="lbSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "SystemTitle" DataValueField = "ID"></asp:ListBox>
+								                                <asp:ListBox ID="lbSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "ID"></asp:ListBox>
 							                                </td>
 							   
 							                                 <td  width="90" align="center">
@@ -102,7 +101,7 @@
                                                                 OnClick="btnRemoveAllSystem_Click" />
                                                              </td>
 							                                <td width="300">
-								                                <asp:ListBox ID="lbExtSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "SystemTitle" DataValueField = "ID"></asp:ListBox>
+								                                <asp:ListBox ID="lbExtSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "ID"></asp:ListBox>
 							                                </td>
 						                                </tr>
 					                                </table>
@@ -110,20 +109,7 @@
                                                 </asp:UpdatePanel>
 				                        </td>
 			                        </tr>
-                                 <%--  <tr>
-                                         <td></td>
-                                         <td class="errortext">seletec equipment values: <asp:Label ID="lbSelectedEquipmentValue" runat="server" Text="Air Dryer, Air Handling Unit"></asp:Label>
-                                         </td>
-                                    </tr>
-                                     <tr>
-                                        <td class="leftLabel">Equipment:</td>
-                                        <td align="left" class="text7">                                   
-                                             <asp:Panel ID="pnlEquipment" runat="server" style="max-height:150px;" ScrollBars="Auto">                           
-                                            <asp:CheckBoxList ID="ckbxlstComponent" runat="server" DataTextField="SystemTitle"  DataValueField="ID" RepeatDirection="Horizontal" RepeatColumns="8" />
-                                         </asp:Panel>     
-                                       </td>
-                                    </tr>--%>
-                                     </asp:Panel>
+                            
                                     <%--  <tr>
                                          <td></td>
                                          <td style="color:darkgreen; font-size:.8em;">(current seleted building: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>)

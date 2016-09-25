@@ -33,6 +33,7 @@ namespace NIH.CMMS.Inventory.BPL.LookUp
         }
         public static DataSet GetListByType(string type)
         {
+            //1 is mechenical 2 is electrical
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             SqlParameter sptype = new SqlParameter("@SystemGroup", type);
             sqlParams.Add(sptype);
@@ -49,11 +50,11 @@ namespace NIH.CMMS.Inventory.BPL.LookUp
             return DBCommands.GetData("spn_Inv_GetSystemList_Mechanical", null);
         }
 
-        public static DataSet GetTypeList()
-        {
-            //get data from 
-            return DBCommands.GetData("spn_Inv_GetTypeList", null);
-        }
+        //public static DataSet GetTypeList()
+        //{
+        //    //get data from 
+        //    return DBCommands.GetData("spn_Inv_GetTypeList", null);
+        //}
         public static DataSet GetSystemEquipmentList()
         {
             //get data from 

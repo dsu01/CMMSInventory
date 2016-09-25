@@ -23,9 +23,9 @@ public partial class Default3 : System.Web.UI.Page
             { Response.Redirect("~/Login.aspx"); }
 
             #region Load checkbox list values
-            DataSet dtType = GeneralLookUp.GetTypeList();
-            rblstType.DataSource = dtType;
-            rblstType.DataBind();        
+            //DataSet dtType = GeneralLookUp.GetTypeList();
+            //rblstType.DataSource = dtType;
+            //rblstType.DataBind();        
 
             DataSet dtBuilding = GeneralLookUp.GetSearchBuildingList();
             lbBuilding.DataSource = dtBuilding;
@@ -89,18 +89,26 @@ public partial class Default3 : System.Web.UI.Page
 
     private void ShowSelection(string val)
     { 
-            pnlSelection.Visible = true;
+           
             //filter the other two checkboxes list depends on this value
             //if Systemgroup contains System, then it is system,
             //only system can be qualified as parent
             //otherwise if Equipment
-            DataSet resList = GeneralLookUp.GetListByType(val);
+        if (val != "0")
+        {
+            DataSet resList = null;
+            if (val == "1")
+                resList = GeneralLookUp.GetListByType("Machenical");
+            else if (val =="2")
+               resList = GeneralLookUp.GetListByType("Electrical");
             if (resList != null)
             {
                 lbSystems.DataSource = resList;
                 lbSystems.DataBind();
                  
             }
+        }
+            
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
