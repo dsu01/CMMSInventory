@@ -35,20 +35,20 @@ namespace NIH.CMMS.Inventory.BPL.LookUp
         {
             //1 is mechenical 2 is electrical
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            SqlParameter sptype = new SqlParameter("@SystemGroup", type);
+            SqlParameter sptype = new SqlParameter("@SearchIndex", type);
             sqlParams.Add(sptype);
-            return DBCommands.GetData("spn_Inv_GetListByType_Search", sqlParams);
+            return DBCommands.GetData("spn_Inv_GetSystem_Search_newSite", sqlParams);
         }
-        public static DataSet GetEletricalSystemList()
-        {
-            //get data from 
-            return DBCommands.GetData("spn_Inv_GetSystemList_Electrical", null);
-        }
-        public static DataSet GetMechanicalSystemList()
-        {
-            //get data from 
-            return DBCommands.GetData("spn_Inv_GetSystemList_Mechanical", null);
-        }
+        //public static DataSet GetEletricalSystemList()
+        //{
+        //    //get data from 
+        //    return DBCommands.GetData("spn_Inv_GetSystemList_Electrical", null);
+        //}
+        //public static DataSet GetMechanicalSystemList()
+        //{
+        //    //get data from 
+        //    return DBCommands.GetData("spn_Inv_GetSystemList_Mechanical", null);
+        //}
 
         //public static DataSet GetTypeList()
         //{
@@ -61,16 +61,33 @@ namespace NIH.CMMS.Inventory.BPL.LookUp
             return DBCommands.GetData("spn_Inv_GetSystemEquipmentList", null);
         }
 
+        //for Electrical equipment system dropdown
         public static DataSet GetEletricalTypeOrUse()
         {
             //get data from 
             return DBCommands.GetData("spn_Inv_GetSystemEquipmentList_Electrical", null);
         }
+
+        //for Mechanical equipment system dropdown
         public static DataSet GetMechanicalTypeOrUse()
         {
             //get data from 
             return DBCommands.GetData("spn_Inv_GetSystemEquipmentList_Mechanical", null);
         }
+
+        public static DataSet GetEletricalSystemList()
+        {
+            //get data from 
+            return DBCommands.GetData("spn_Inv_GetSystemList_Electrical_newsite", null);
+        }
+
+        //for Mechanical equipment system dropdown
+        public static DataSet GetMechanicalSystemList()
+        {
+            //get data from 
+            return DBCommands.GetData("spn_Inv_GetSystemList_Mechanical_newSite", null);
+        }
+
         public static DataSet GetSearchBuildingList()
         {
             //get data from 

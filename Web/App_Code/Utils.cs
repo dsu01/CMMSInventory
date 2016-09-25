@@ -508,13 +508,10 @@ namespace NIH.CMMS.Inventory.Web
         {
             CategoryCollection catColSubType = new CategoryCollection();
             for (int i = 0; i < lbitem.Items.Count; i++)
-            {
-                if (lbitem.Items[i].Selected)
-                {
-                     //add them into collection
-                     catColSubType.Add(new Category(int.Parse(lbitem.Items[i].Value), lbitem.Items[i].Text));
-
-                }
+            {                
+                //add them into collection
+                catColSubType.Add(new Category(int.Parse(lbitem.Items[i].Value), lbitem.Items[i].Text));
+                               
             }
 
             if (catColSubType.Count > 0)
@@ -522,6 +519,28 @@ namespace NIH.CMMS.Inventory.Web
             else
             { return null; }
 
+        }
+        public static String GetStringDescFromListBox(ListBox lbitem)
+        {
+            String value = string.Empty;
+            for (int i = 0; i < lbitem.Items.Count; i++)
+            {
+               
+                //add them into string
+                value += lbitem.Items[i].Text + "; ";
+                
+                //chop of extra comma
+                if (value.Length > 0)
+                {
+                    value = value.Substring(0, value.Length - 2);
+                }
+                else
+                {
+                    value = string.Empty;
+                }
+            }
+
+            return value;
         }
 
         /// <summary>

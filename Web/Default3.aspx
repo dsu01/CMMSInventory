@@ -73,7 +73,7 @@
                                                   <asp:ListItem Text="Mechanical" Value="1"></asp:ListItem>
                                                   <asp:ListItem Text="Electrical" Value="2"></asp:ListItem>
                                              </asp:RadioButtonList>
-                                       <asp:RequiredFieldValidator ID="rqType" runat="server" ControlToValidate="rblstType" Display="Dynamic" ErrorMessage="Please select a Type" InitialValue="-1"></asp:RequiredFieldValidator>
+                                       <asp:RequiredFieldValidator ID="rqType" runat="server" ControlToValidate="rblstType" Display="Dynamic" ErrorMessage="Please select a Type" InitialValue=""></asp:RequiredFieldValidator>
                                          </td>
                                     </tr>
                                  
@@ -86,7 +86,7 @@
 					                                <table width="500">
 						                                <tr>
 							                                <td width="300">
-								                                <asp:ListBox ID="lbSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "ID"></asp:ListBox>
+								                                <asp:ListBox ID="lbSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                </td>
 							   
 							                                 <td  width="90" align="center">
@@ -101,7 +101,7 @@
                                                                 OnClick="btnRemoveAllSystem_Click" />
                                                              </td>
 							                                <td width="300">
-								                                <asp:ListBox ID="lbExtSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "ID"></asp:ListBox>
+								                                <asp:ListBox ID="lbExtSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                </td>
 						                                </tr>
 					                                </table>
@@ -115,7 +115,18 @@
                                          <td style="color:darkgreen; font-size:.8em;">(current seleted building: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>)
                                          </td>                                            
                                     </tr>--%>
-                                        
+                                                
+                                    <tr>   
+						                   
+                                            <td class="leftLabel">Facility# assigned?</td>
+                                            <td align="left" class="text7">
+                                                <asp:RadioButtonList ID="radioSelect" runat="server" RepeatDirection="Horizontal">
+						                        <asp:ListItem Text="Un-Assigned" Value="1" />
+						                        <asp:ListItem Text="Assigned" Value="2" />
+						                        <asp:ListItem Text="All" Value="3" Selected="True" />
+						                     </asp:RadioButtonList>
+						                    </td>
+    						           </tr>       
                                                       
                                      <tr>    				    
 				                        <td class="leftLabel">Building:</td>
@@ -126,7 +137,7 @@
 					                                <table width="500">
 						                                <tr>
 							                                <td width="300">
-								                                <asp:ListBox ID="lbBuilding"  style="width:300px; min-height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Building" DataValueField = "ID"></asp:ListBox>
+								                                <asp:ListBox ID="lbBuilding"  style="width:300px; min-height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                </td>
 							   
 							                                 <td  width="90" align="center">
@@ -141,7 +152,7 @@
                                                                 OnClick="btnRemoveAllBuilding_Click" />
                                                              </td>
 							                                <td width="300">
-								                                <asp:ListBox ID="lbExtBuilding" style="width:300px; min-height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Building" DataValueField = "ID"></asp:ListBox>
+								                                <asp:ListBox ID="lbExtBuilding" style="width:300px; min-height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                </td>
 						                                </tr>
 					                                </table>
@@ -150,18 +161,7 @@
 				                        </td>
 			                        </tr>  
                                     
-                                   
-                                    <tr>   
-						                   
-                                            <td class="leftLabel">Facility# assigned?</td>
-                                            <td align="left" class="text7">
-                                                <asp:RadioButtonList ID="radioSelect" runat="server" RepeatDirection="Horizontal">
-						                        <asp:ListItem Text="Un-Assigned" Value="1" Selected="True" />
-						                        <asp:ListItem Text="Assigned" Value="2" />
-						                        <asp:ListItem Text="All" Value="3" />
-						                     </asp:RadioButtonList>
-						                    </td>
-    						           </tr>                                  
+                                                      
                             </table>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>

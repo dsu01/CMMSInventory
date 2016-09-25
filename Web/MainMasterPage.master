@@ -56,7 +56,8 @@
                                                 <ul>		
                                                   <li><a href="~/Equipment/systemElectrical.aspx" id="A3" runat="server">Add Electrical System</a></li>                                                   
                                                      <li><a id="A6" href="~/Equipment/systemMechanical.aspx" runat="server">Add Mechanical System</a></li>
-                                                    <li><a id="A5" href="~/Equipment/equipMechanicalNew.aspx" runat="server">Add Components</a></li>
+                                                  <li><a href="~/Equipment/equipElectrical.aspx" id="A4" runat="server">Add Electrical Component</a></li>                                                   
+                                                     <li><a id="A5" href="~/Equipment/equipMechanical.aspx" runat="server">Add Mechanical Component</a></li>
                                                  
                                                     
                                                 </ul>

@@ -98,9 +98,9 @@ public partial class SearchResult : System.Web.UI.Page
                         lblExiCrit.Text += " Un-Assigned Facilities";
                     break;
             }
-                if (!string.IsNullOrEmpty(crit.typeId))
-                    lblExiCrit.Text += "&nbsp;, Type: " + crit.typeId;
-                if (!string.IsNullOrEmpty(crit.systemIds))
+                //if (!string.IsNullOrEmpty(crit.typeId))
+                //    lblExiCrit.Text += "&nbsp;, Type: " + crit.typeId;
+                if (!string.IsNullOrEmpty(crit.systemDescs))
                 {
 
                     lblExiCrit.Text += "&nbsp;, Selction: " + crit.systemDescs;

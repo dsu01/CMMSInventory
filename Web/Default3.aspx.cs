@@ -94,13 +94,10 @@ public partial class Default3 : System.Web.UI.Page
             //if Systemgroup contains System, then it is system,
             //only system can be qualified as parent
             //otherwise if Equipment
-        if (val != "0")
+        if (!string.IsNullOrEmpty(val))
         {
-            DataSet resList = null;
-            if (val == "1")
-                resList = GeneralLookUp.GetListByType("Machenical");
-            else if (val =="2")
-               resList = GeneralLookUp.GetListByType("Electrical");
+            DataSet resList = GeneralLookUp.GetListByType(val);
+          
             if (resList != null)
             {
                 lbSystems.DataSource = resList;
@@ -116,15 +113,13 @@ public partial class Default3 : System.Web.UI.Page
         if (Page.IsValid)
         {
             SearchCriteria crit = SearchCriteria.NewInstance;
-
             crit.selBuildings = Utils.GetSelItemCollection(lbExtBuilding);
-           // crit.buildingDescs = Utils.GetListStringFromCheckboxList(drplstBuilding);       
+            crit.buildingDescs = Utils.GetStringDescFromListBox(lbExtBuilding);       
             if (!string.IsNullOrEmpty(rblstType.SelectedValue))
                 crit.typeId = rblstType.SelectedValue;
-            //crit.componentIds = Utils.GetListStringFromCheckboxList(ckbxlstComponent);
-           
+                       
             crit.selSystems = Utils.GetSelItemCollection(lbExtSystems);
-            //crit.systemDescs = Utils.GetListStringFromCheckboxList(drplstSystem);            
+            crit.systemDescs = Utils.GetStringDescFromListBox(lbExtSystems);            
             crit.flagAssigned = Convert.ToInt32(radioSelect.SelectedValue);
             crit.facnum = string.Empty;
             crit.wrnum = string.Empty;
@@ -139,7 +134,7 @@ public partial class Default3 : System.Web.UI.Page
         lbExtSystems.Items.Clear();
         lbExtBuilding.Items.Clear();
         rblstType.SelectedIndex = -1;
-        radioSelect.SelectedValue = "1"; //default unassigned
+        radioSelect.SelectedValue = "3"; //default unassigned
         SearchCriteria.Instance = null;
     }
 
