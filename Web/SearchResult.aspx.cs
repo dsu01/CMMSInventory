@@ -64,14 +64,14 @@ public partial class SearchResult : System.Web.UI.Page
     {
         gvFacilitys.AllowPaging = false;
         GetOrder(DTSearchDetail);
-        Utils.ExportToExcel("InventoryReport", gvFacilitys);
+      //  Utils.ExportToExcel("InventoryReport", gvFacilitys);
     }
 
     protected void btnExportToPDF_OnClick(object sender, EventArgs e)
     {
         gvFacilitys.AllowPaging = false;
         GetOrder(DTSearchDetail);
-        Utils.ExportToPDF("InventoryReport", gvFacilitys, "Inventory Report");
+       // Utils.ExportToPDF("InventoryReport", gvFacilitys, "Inventory Report");
     }
 
     private void RunReport()
@@ -226,15 +226,20 @@ public partial class SearchResult : System.Web.UI.Page
 
             if (lbFacGroup != null && hlFacNum != null && lbFacSystemID != null)
             {
-                if (lbFacGroup.Text.StartsWith("Electrical"))
+                //
+                if (lbFacGroup.Text.ToLower().StartsWith("electrical"))
                 {
-
-                    hlFacNum.NavigateUrl = "~/Equipment/equipElectrical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
+                    if (lbFacGroup.Text.ToLower().StartsWith("system"))
+                        hlFacNum.NavigateUrl = "~/Equipment/systemElectrical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
+                    else
+                        hlFacNum.NavigateUrl = "~/Equipment/equipElectrical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
                 }
                 else
                 {
-
-                    hlFacNum.NavigateUrl = "~/Equipment/equipMechanicalNew.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
+                    if (lbFacGroup.Text.ToLower().StartsWith("system"))
+                        hlFacNum.NavigateUrl = "~/Equipment/systemMechanical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
+                    else
+                        hlFacNum.NavigateUrl = "~/Equipment/equipMechanical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
                 }
             }
 

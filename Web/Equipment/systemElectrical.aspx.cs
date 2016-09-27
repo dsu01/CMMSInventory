@@ -34,7 +34,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             //drplstSystem.DataSource = dtSystem;
             //drplstSystem.DataBind();
 
-            DataSet dtSystem = GeneralLookUp.GetSystemEquipmentList();
+            DataSet dtSystem = GeneralLookUp.GetEletricalSystemList();
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
 

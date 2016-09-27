@@ -114,12 +114,14 @@ public partial class Default3 : System.Web.UI.Page
         {
             SearchCriteria crit = SearchCriteria.NewInstance;
             crit.selBuildings = Utils.GetSelItemCollection(lbExtBuilding);
+            crit.buildingIds = Utils.GetStringIDsFromListBox(lbExtBuilding);
             crit.buildingDescs = Utils.GetStringDescFromListBox(lbExtBuilding);       
             if (!string.IsNullOrEmpty(rblstType.SelectedValue))
                 crit.typeId = rblstType.SelectedValue;
                        
             crit.selSystems = Utils.GetSelItemCollection(lbExtSystems);
-            crit.systemDescs = Utils.GetStringDescFromListBox(lbExtSystems);            
+            crit.systemDescs = Utils.GetStringDescFromListBox(lbExtSystems);
+            crit.systemIds = Utils.GetStringIDsFromListBox(lbExtSystems);
             crit.flagAssigned = Convert.ToInt32(radioSelect.SelectedValue);
             crit.facnum = string.Empty;
             crit.wrnum = string.Empty;

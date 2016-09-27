@@ -18,15 +18,15 @@
                                 <tr>
                                     <td class="leftLabel">
                                         Current Criteria: <asp:Label ID="lblExiCrit" runat="server"></asp:Label>&nbsp;&nbsp;<asp:LinkButton ID="lbModifySearch" CommandName="KeepAlive" runat="server" Visible="false" Text="Modify Criteria >>"
-                                            CssClass="GridViewButtons" OnClick="lbModifySearch_OnClick"></asp:LinkButton>
+                                            CssClass="GridViewButtons" OnClick="lbModifySearch_OnClick" UseSubmitBehavior="false"></asp:LinkButton>
                                         
                                     </td>
                                     <td align="right">
                                         <table id="trExportandPrintButtons" runat="server" visible="false">
                                             <tr>
                                                 <td align="right">
-                                                    <asp:Button ID="btnExportToExcel" runat="Server" Text="Export To Excel" OnClick="btnExportToExcel_OnClick" />
-                                                    <asp:Button ID="btnExportToPDF" runat="Server" Text="Export To PDF" OnClick="btnExportToPDF_OnClick" />
+                                                    <asp:Button ID="btnExportToExcel" runat="Server" Text="Export To Excel" OnClick="btnExportToExcel_OnClick" UseSubmitBehavior="false"/>
+                                                    <asp:Button ID="btnExportToPDF" runat="Server" Text="Export To PDF" OnClick="btnExportToPDF_OnClick" UseSubmitBehavior="false"/>
                                                 </td>
                                             </tr>
                                         </table>

@@ -20,7 +20,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         loginUsr = Utils.CheckSession(this);
         if (!Page.IsPostBack)
         {
-            int facID = 0;
+            
 
             DataSet dtSystem = GeneralLookUp.GetMechanicalSystemList();
             drplstSystem.DataSource = dtSystem;
@@ -28,38 +28,35 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
+                               
 
-            //load existing facility info if facility id is there
             if (Request.QueryString["ParentFacilitySysID"] != null && !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"].ToString()))
             {
+                int facID = 0;
                 bool result = Int32.TryParse(Request.QueryString["ParentFacilitySysID"].ToString(), out facID);
                 if (result)
                 {
-                    Session["ParentFacilitySysID"] = Request.QueryString["ParentFacilitySysID"].ToString();
-                    btnSaveFacility.Text = "Update Facility";
-                    LoadFacilityInfoByID(facID);
+                    btnSaveFacility.Text = "Update Equipment";
+                    LoadFacilityInfo();
                 }
                 else
                 {
                     Response.Redirect("~/Default.aspx");
                 }
-                btnSaveFacility.Text = "Update Facility Information";
             }
-
             //if no facility info, then bottom nothing
             if (string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
             {
-                btnSaveFacility.Text = "Add New Facility";
-
+                btnSaveFacility.Text = "Add New Equipment";
             }
-
+           
         }
     }
 
     protected void btnSaveFacility_Click(object sender, EventArgs e)
     {
 
-        int facID = SaveFacilityDetails(false);
+        int facID = SaveFacilityDetails();
         if (facID > 0)
         {
             //show system generated fac num
@@ -69,16 +66,22 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
     }
     protected void btnCancelFacility_Click(object sender, EventArgs e)
     {
-        // Response.Redirect("~/Default.aspx");
+        if (Request.QueryString["ParentFacilitySysID"] != null && !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"].ToString()))
+        {
+            LoadFacilityInfo();
+        }
+        else
+        {
+            ClearData();
+        }
     }
 
-    private void LoadFacilityInfoByID(int facID)
+    private void LoadFacilityInfo()
     {
-        if (facID > 0)
-        {
-            FacilityDet detail = facility_logic.GetFacilityDetails(facID);
-            LoadFacilityDetail(detail);
-        }
+        FacilityDet details = facility_logic.GetFacilityDetails(Convert.ToInt32(Request.QueryString["ParentFacilitySysID"]));
+          
+        LoadFacilityDetail(details);
+        
 
     }
 
@@ -115,8 +118,8 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             #region "Load from facility table only"
             //txtEquipmentID1.Text = details.EquipID;
             //location is not in facility
-            txtLocation.Text = existingFac.EquipLocation;
-            txtTypeUse.Text = existingFac.TypeOrUse;
+            //txtComLocation.Text = existingFac.EquipLocation;
+            //txtTypeUse.Text = existingFac.TypeOrUse;
             txtManufacturer.Text = existingFac.Manufacturer;
             txtModelNum.Text = existingFac.ModelNo;
             txtSerialNum.Text = existingFac.SerialNo;
@@ -155,7 +158,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
     }
 
-    private int SaveFacilityDetails(bool hasFullInfo)
+    private int SaveFacilityDetails()
     {
         FacilityDet details = new FacilityDet();
         if (!string.IsNullOrEmpty(Session["ParentFacilitySysID"].ToString()))
@@ -192,19 +195,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                 loginUsr = (LoginUser)Session[ApplicationConstants.SESSION_USEROBJLOGINDET];
             else
                 details.UserName = loginUsr.LaborName;
-            ValidationResult vr = facility_logic.UpdateFacility(details, false);
-            if (details.Key > 0 && vr.Success)
-            {
-                Session["ParentFacilityNum"] = details.FacNum;
-                txtFacilityNum.Text = details.FacNum;
-                Session["ParentFacilitySysID"] = details.Key.ToString();
-                txtFacilityID.Text = details.Key.ToString();
-            }
-            else { Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page); }
-
-            #region save new and save a one facility
-            details.EquipID = string.Empty;//that way is saving to facility table
-            details.TypeOrUse = txtTypeUse.Text.Trim();
+           // details.TypeOrUse = txtTypeUse.Text.Trim();
             details.Manufacturer = txtManufacturer.Text.Trim();
             details.ModelNo = txtModelNum.Text.Trim();
             details.SerialNo = txtSerialNum.Text.Trim();
@@ -231,10 +222,24 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
                 details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
             details.PMSchedule = txtPMSchedule.Text.Trim();
+            //ValidationResult vr = facility_logic.UpdateFacility(details, false);
+             ValidationResult vr = new ValidationResult(true, string.Empty);
 
-            vr = facility_logic.UpdateFacility(details, true);
-            #endregion
+            if (string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
+                vr = facility_logic.AddMechanicalEquipment(details);
+            else
+                vr = facility_logic.UpdateMechanicalEquipment(details);
+            
+            if (details.Key > 0 && vr.Success)
+            {
+                Session["ParentFacilityNum"] = details.FacNum;
+                txtFacilityNum.Text = details.FacNum;
+                Session["ParentFacilitySysID"] = details.Key.ToString();
+                txtFacilityID.Text = details.Key.ToString();
+            }
+            else { Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page); }
 
+          
 
         }
 
@@ -242,4 +247,47 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         return details.Key;
     }
 
+    private void ClearData()
+    {
+       
+        drplstSystem.SelectedIndex = -1;
+        txtFunction.Text = string.Empty;
+        drplstBuilding.SelectedIndex = -1;
+        txtFloor.Text = string.Empty;
+        txtLocation.Text = string.Empty;
+        txtWRNum.Text = string.Empty;
+        ckAAALAC.Checked = false;
+        ckBSL.Checked = false;
+        ckTJC.Checked = false;
+        txtComments.Text = string.Empty;
+        txtFacilityID.Text = string.Empty;
+
+       
+        txtModelNum.Text = string.Empty;
+        txtSize.Text = string.Empty;
+        txtSerialNum.Text = string.Empty;
+        txtInstalledDate.Text = string.Empty;
+      
+        //txtTypeOrUse.Text = string.Empty;
+        txtCapacity.Text = string.Empty;
+        txtCapacityHT.Text = string.Empty;
+        txtFuel.Text = string.Empty;
+        txtMotorManu.Text = string.Empty;
+        txtHP.Text = string.Empty;
+        txtMotorType.Text = string.Empty;
+
+        txtMotorSerialNum.Text = string.Empty;
+        txtMotorInstalledDate.Text= string.Empty;
+        txtMotorModel.Text = string.Empty;
+        txtFrame.Text = string.Empty;
+        txtRPM.Text = string.Empty;
+        txtVoltage.Text = string.Empty;
+        txtAmperes.Text = string.Empty;
+        txtPhaseCycle.Text = string.Empty;
+        txtBSLClass.Text = string.Empty;
+        txtTJC.Text = string.Empty;
+        txtPMSchedule.Text = string.Empty;
+
+
+    }
 }

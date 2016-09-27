@@ -99,6 +99,16 @@ namespace NIH.CMMS.Inventory.BPL.Facility
             return facility_db.AddElectricalEquipment(details);
         }
 
+        public static ValidationResult UpdateMechanicalEquipment(FacilityDet details)
+        {
+            return facility_db.UpdateMechanicalEquipment(details);
+        }
+
+        public static ValidationResult AddMechanicalEquipment(FacilityDet details)
+        {
+            return facility_db.AddMechanicalEquipment(details);
+        }
+
         public static ValidationResult UpdateFacilityAdmin(FacilityDet details)
         {
             return facility_db.UpdateFacilityAdmin(details);

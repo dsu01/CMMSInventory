@@ -175,7 +175,8 @@ public partial class _Default : System.Web.UI.Page
         //{ strTitle += " For Group: " + drpWOGroup.SelectedItem.Text; }
 
         //Utils.ExportToPDF("Inventory Search " + DateTime.Now.ToShortDateString(), gvEquips, "Facility Search " + DateTime.Now.ToShortDateString());
-        Utils.ExportToPDFlv("Search Result", ListView1);
+        
+        //Utils.ExportToPDFlv("Search Result", ListView1);
     }
 
     #endregion

@@ -194,7 +194,7 @@
                    <asp:CompareValidator ID="cvInstalledDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:Label ID="lbInventoryDate" CssClass="tableLabel" runat="server" Text="CKTS Used"></asp:Label></td>
+                        <asp:Label ID="lbInventoryDate" CssClass="tableLabel" runat="server" Text="Inventory Date"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtInventoryDate" runat="server" MaxLength="6" TabIndex="22" />
                              <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>

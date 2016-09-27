@@ -61,7 +61,7 @@
                             <asp:TextBox ID="txtWRNum" runat="server" MaxLength="50" TabIndex="10"></asp:TextBox></td>
                     </tr>
                    <tr>
-                    <td width="12%">
+                   <%-- <td width="12%">
                         <asp:Label ID="lbLocation" runat="server" Text="Location"></asp:Label>
                     </td>
                     <td>
@@ -74,36 +74,37 @@
                     <td>
                         <asp:TextBox ID="txtTypeUse" MaxLength="50" runat="server" TabIndex="10" />
                     </td>
-               
-                    <td width="12%">
+               --%>
+                    <td >
                         <asp:Label ID="lbManufacturer" runat="server" Text="Manufacturer"></asp:Label>
                     </td>
-                    <td>
+                    <td >
                         <asp:TextBox ID="txtManufacturer" MaxLength="50" runat="server" TabIndex="11" />
                     </td>
                
-                    <td>
+                    <td >
                         <asp:Label ID="lbModelNum" runat="server" Text="Model No."></asp:Label>
                     </td>
-                    <td>
+                    <td >
                         <asp:TextBox ID="txtModelNum" MaxLength="50" runat="server" TabIndex="12" />
                     </td>
-                </tr>
-                 <tr>
+               
                     <td>
                         <asp:Label ID="lbSerialNum" runat="server" Text="Serial No."></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtSerialNum" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                
-                    <td>
+                         <td>
                         <asp:Label ID="lbSize" runat="server" Text="Size"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtSize" MaxLength="50" runat="server" TabIndex="11" />
                     </td>
-                
+                 </tr>
+                   
+                    <tr>
+                        
                     <td>
                         <asp:Label ID="lbInstalledDate" runat="server" Text="Date Installed"></asp:Label>
                     </td>
@@ -112,15 +113,14 @@
                     
                         <asp:CompareValidator ID="cvInstalledDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
-              
+
                     <td>
                         <asp:Label ID="lbCapacity" runat="server" Text="Capacity"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtCapacity" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
-               <tr>
+               
                     <td>
                         <asp:Label ID="lbCapacityHT" runat="server" Text="Capacity(H/T)"></asp:Label>
                     </td>
@@ -134,7 +134,8 @@
                     <td>
                         <asp:TextBox ID="txtFuel" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                
+                 </tr>
+               <tr>
                     <td>
                         <asp:Label ID="lbMotorManu" runat="server" Text="Motor Mfg'r"></asp:Label>
                     </td>
@@ -148,8 +149,7 @@
                     <td>
                         <asp:TextBox ID="txtHP" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
-               <tr>
+               
                     <td>
                         <asp:Label ID="lbMotorType" runat="server" Text="Type"></asp:Label>
                     </td>
@@ -163,7 +163,8 @@
                     <td>
                         <asp:TextBox ID="txtMotorSerialNum" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                
+                 </tr>
+               <tr>
                     <td>
                         <asp:Label ID="lbMotorInstalledDate" runat="server" Text="Motor Installe"></asp:Label>
                     </td>
@@ -172,15 +173,14 @@
                     <asp:CompareValidator ID="CompareValidator5" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtMotorInstalledDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                    
                          </td>
-                
+                 
                     <td>
                         <asp:Label ID="lbMotorModel" runat="server" Text="Model"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtMotorModel" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
-                 <tr>
+             
                     <td>
                         <asp:Label ID="lbFrame" runat="server" Text="Frame"></asp:Label>
                     </td>
@@ -195,7 +195,8 @@
                         <asp:TextBox ID="txtRPM" MaxLength="50" runat="server" TabIndex="13" />
                     
                          </td>
-               
+                </tr>
+               <tr>
                     <td>
                         <asp:Label ID="lbVoltage" runat="server" Text="Voltage"></asp:Label>
                     </td>
@@ -209,8 +210,7 @@
                     <td>
                         <asp:TextBox ID="txtAmperes" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
-               <tr>
+               
                     <td>
                         <asp:Label ID="lbPhaseCycle" runat="server" Text="Phase-Cycle"></asp:Label>
                     </td>
@@ -225,7 +225,8 @@
                     <td>
                         <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                
+                 </tr>
+               <tr>
                     <td>
                         <asp:Label ID="lbTJC" runat="server" Text="TJC Value"></asp:Label>
                     </td>
@@ -234,14 +235,17 @@
                      <asp:RangeValidator ID="valTJC" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC"></asp:RangeValidator>
                    
                          </td>
-                
+               
                     <td>
                         <asp:Label ID="lbPMSchedule" runat="server" Text="PM Schedule"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
+               
+                  
+                
+                  </tr>
                      <tr>
                         <td>
                             Comments

@@ -124,6 +124,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             if (vr.Success)
             {
                 Utils.ShowPopUpMsg("Equipment is saved.", this.Page);
+                ClearData();
             }
             else
                 Utils.ShowPopUpMsg("Equipment cannot be saved." + vr.Reason, this.Page);
@@ -141,40 +142,48 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         }
         else
         {
-            hidFacSystemID.Value = "-1";
-            drplstSystem.SelectedIndex = -1;
-            txtFunction.Text = string.Empty;
-            drplstBuilding.SelectedIndex = -1;
-            txtFloor.Text = string.Empty;
-            txtLocation.Text = string.Empty;
-            txtWRNum.Text = string.Empty;
-            ckAAALAC.Checked = false;
-            ckBSL.Checked = false;
-            ckTJC.Checked = false;
-            txtComments.Text = string.Empty;
-            txtFacilityID.Text = string.Empty;
-
-            txtInventoryBy.Text = string.Empty;
-            txtInventoryDate.Text = string.Empty;
-            txtModelNum.Text = string.Empty;
-            txtSize.Text = string.Empty;
-            txtSerialNum.Text = string.Empty;
-            txtInstalledDate.Text = string.Empty;
-            txtElectricalOther.Text = string.Empty;
-
-            txtTypeOrUse.Text = string.Empty;
-            txtManufacturer.Text = string.Empty;
-            txtVolts.Text = string.Empty;
-            txtAMP.Text = string.Empty;
-            txtKVA.Text = string.Empty;
-            txtVoltsPrimary.Text = string.Empty;
-            txtVoltsSecondary.Text = string.Empty;
-            txtPH.Text = string.Empty;
-            txtW.Text = string.Empty;
-            txtCKTSNum.Text = string.Empty;
-            txtCKTSUsed.Text = string.Empty;
+            ClearData();
         }
     }
+
+    private void ClearData()
+    {
+        hidFacSystemID.Value = "-1";
+        drplstSystem.SelectedIndex = -1;
+        txtFunction.Text = string.Empty;
+        drplstBuilding.SelectedIndex = -1;
+        txtFloor.Text = string.Empty;
+        txtLocation.Text = string.Empty;
+        txtWRNum.Text = string.Empty;
+        ckAAALAC.Checked = false;
+        ckBSL.Checked = false;
+        ckTJC.Checked = false;
+        txtComments.Text = string.Empty;
+        txtFacilityID.Text = string.Empty;
+
+        txtInventoryBy.Text = string.Empty;
+        txtInventoryDate.Text = string.Empty;
+        txtModelNum.Text = string.Empty;
+        txtSize.Text = string.Empty;
+        txtSerialNum.Text = string.Empty;
+        txtInstalledDate.Text = string.Empty;
+        txtElectricalOther.Text = string.Empty;
+
+        txtTypeOrUse.Text = string.Empty;
+        txtManufacturer.Text = string.Empty;
+        txtVolts.Text = string.Empty;
+        txtAMP.Text = string.Empty;
+        txtKVA.Text = string.Empty;
+        txtVoltsPrimary.Text = string.Empty;
+        txtVoltsSecondary.Text = string.Empty;
+        txtPH.Text = string.Empty;
+        txtW.Text = string.Empty;
+        txtCKTSNum.Text = string.Empty;
+        txtCKTSUsed.Text = string.Empty;
+
+
+    }
+
     private ValidationResult SaveFacilityDetails()
     {
        
@@ -220,7 +229,12 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         details.ElectricalOther = txtElectricalOther.Text.Trim();
         details.InventoryBy = txtInventoryBy.Text.Trim();
 
-        ValidationResult vr = facility_logic.UpdateElectrialEquipment(details);
+        ValidationResult vr = new ValidationResult(true, string.Empty);
+
+        if (hidFacSystemID.Value == "-1")
+            vr = facility_logic.AddElectricalEquipment(details);
+        else
+            vr = facility_logic.UpdateElectrialEquipment(details);
         txtFacilityNum.Text = details.FacNum;
         return vr;
     }
