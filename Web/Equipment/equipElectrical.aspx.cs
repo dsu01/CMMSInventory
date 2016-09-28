@@ -10,18 +10,29 @@ using NIH.CMMS.Inventory.BOL.Common;
 using NIH.CMMS.Inventory.Web;
 using NIH.CMMS.Inventory.BOL.Facility;
 using NIH.CMMS.Inventory.BOL.People;
+using NIH.CMMS.Inventory.BPL.Common;
 using NIH.CMMS.Inventory.BPL.Facility;
 
 public partial class Equipment_equipElectrical : System.Web.UI.Page
 {
     protected LoginUser loginUsr;
+
+    public int EquipmentSysID
+    {
+        get
+        {
+            return !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"])
+                ? Convert.ToInt32(Request.QueryString["ParentFacilitySysID"])
+                : -1;
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         loginUsr = Utils.CheckSession(this);
 
         if (!Page.IsPostBack)
         {
-
             if (loginUsr.Role.ToLower() != "msadmin" && loginUsr.Role.ToLower() != "mssuper")
             { btnFinish.Visible = false; }
 
@@ -33,30 +44,23 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
 
-            if (Request.QueryString["ParentFacilitySysID"] != null && !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"].ToString()))
+            if (EquipmentSysID > 0)
             {
-                int facID = 0;
-                bool result = Int32.TryParse(Request.QueryString["ParentFacilitySysID"].ToString(), out facID);
-                if (result)
-                {
-                    LoadDetails();
-                }
-                else
-                {
-                    Response.Redirect("~/Default.aspx");
-                }
+                LoadDetails();
             }
-
+            else
+            {
+                Response.Redirect("~/Default.aspx");
+            }
         }
-
     }
     private void LoadDetails()
     {
-        FacilityDet details = facility_logic.GetElectrialEquipDetails(Convert.ToInt32(Request.QueryString["ParentFacilitySysID"]));
+        FacilityDet details = facility_logic.GetElectrialEquipDetails(EquipmentSysID);
         if (details != null)
         {
             #region "Load general facility detail"
-            hidFacSystemID.Value = Request.QueryString["ParentFacilitySysID"];
+            hidFacSystemID.Value = EquipmentSysID.ToString();
             drplstSystem.SelectedValue = details.FacSystem;
             drplstBuilding.SelectedValue = details.FacBuilding;
             txtFunction.Text = details.FacFunction;
@@ -108,6 +112,8 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             txtCKTSNum.Text = details.CktsNum;
             txtCKTSUsed.Text = details.CktsUsed;
             #endregion
+
+            LoadAttachments();
         }
     }
 
@@ -136,7 +142,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
     }
     protected void btnReset_Click(object sender, EventArgs e)
     {
-        if (Request.QueryString["ParentFacilitySysID"] != null && !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"].ToString()))
+        if (EquipmentSysID > 0)
         {
             LoadDetails();
         }
@@ -239,4 +245,68 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         return vr;
     }
 
+
+    #region Attachment Details
+
+    private void LoadAttachments()
+    {
+        var list = AttachmentLogic.GetEquipmentAttachments(EquipmentSysID);
+
+        gvExtAttachment.DataSource = list;
+        gvExtAttachment.DataBind();
+    }
+
+    protected void gvExtAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        var id = Convert.ToInt32((string)e.CommandArgument);
+        if (id <= 0)    // should never happen
+            return;
+
+        var attachment = AttachmentLogic.GetAttachment(id);
+        if (attachment == null)
+        {
+            Utils.ShowPopUpMsg("Cannot load attachment", this.Page);
+            return;
+        }
+
+        var deleted = false;
+        if (e.CommandName == "Open")
+        {
+            DisplayAttachmentContent(attachment);
+        }
+        else // if command == delete
+        {
+            var result = AttachmentLogic.DeleteAttachment(id);
+
+            if (result.Success)
+            {
+                deleted = true;
+                Utils.ShowPopUpMsg("Attachment deleted", this.Page);
+            }
+            else
+            {
+                Utils.ShowPopUpMsg("Attachment delete error", this.Page);
+            }
+        }
+
+        if (deleted)
+            LoadAttachments();
+    }
+
+    private void DisplayAttachmentContent(Attachment attachment)
+    {
+        var data = attachment.FileData;
+        if (data == null || data.Length == 0)
+            return;
+
+        Response.Clear();
+        Response.ContentType = string.Format("application/{0}", attachment.FileType);
+        Response.AddHeader("content-disposition", "attachment;filename=" + attachment.FileName);
+        Response.Charset = "";
+        Response.Cache.SetCacheability(HttpCacheability.NoCache);
+        Response.BinaryWrite(data);
+        Response.End();
+    }
+
+    #endregion
 }

@@ -7,16 +7,10 @@
             <asp:TextBox runat="server" ID="txtHidSource" Visible="false" Text="-1"></asp:TextBox>
         </td>--%>
         <td>
-            <p><b>Attachments </b></p>
+            <p><b>Add Attachments </b></p>
             <table width="100%">
                 <tr>
                     <td class="notes" colspan="2">Attach any related documents, e.g., photos and written statements. Acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD, .WAV, .MP3 and .PPT(X).  Enter a Title in order to save the attachment.</td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <br />
-                        <b>New Attachment</b>
-                    </td>
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -48,49 +42,8 @@
                     <td colspan="2">
                         <asp:Button ID="btnSaveAttachment" runat="server" Text="Save Attachment" OnClick="btnSaveAttachment_OnClick" />
                         <asp:Label ID="lbAddAttachmentError" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label>
-                        <br />
                     </td>
                 </tr>
-                <asp:Panel ID="pnlExtAttachment" runat="server">
-                    <tr>
-                        <td class="leftLabel" colspan="2">
-                            <br />
-                            Existing Attachment(s): (Click the
-                            <img src='../Image/btn_delete.png' align='bottom' border='0' alt='Delete' />
-                            to remove)
-				         <br />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <br />
-                            <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
-                                OnRowCommand="gvExtAttachment_onRowCommand">
-                                <Columns>
-                                    <asp:TemplateField HeaderText="Open" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
-                                        <ItemTemplate>
-                                            <asp:LinkButton CommandName="Open" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnOpenAttachment" Text="<img src='/Image/btn_edit.gif' alt='Open' />" runat="server"></asp:LinkButton>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
-                                        <ItemTemplate>
-                                            <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnDeleteAttachment" Text="<img src='/Image/btn_delete.png' alt='Delete' />" runat="server" OnClientClick="return confirm('OK to Delete?');"></asp:LinkButton>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:BoundField HeaderText="Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />
-                                    <%--<asp:TemplateField HeaderText="Name of File" HeaderStyle-HorizontalAlign="left">
-                                        <ItemTemplate>
-                                            <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server" NavigateUrl='<%# "~/Attachments/Incident/" + (string)Eval("FileLocation")%>' Text='<%# (string)Eval("OriginalFileName") %>'></asp:HyperLink>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
-                                    <asp:BoundField HeaderText="File" DataField="FileName" />
-                                    <asp:BoundField HeaderText="Created" DataField="CreatedOn" />
-                                    <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
-                                </Columns>
-                            </asp:GridView>
-                        </td>
-                    </tr>
-                </asp:Panel>
             </table>
         </td>
     </tr>
