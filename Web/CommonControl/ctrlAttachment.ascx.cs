@@ -40,11 +40,6 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         }
     }
 
-    /// <summary>
-    /// Show existing attachment in the list.
-    /// </summary>
-    /// <param name="incidentId">The incident id.</param>
-    /// <returns></returns>
     public bool LoadData()
     {
         ShowAttachments();
@@ -57,7 +52,14 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         bool saved = false;
 
         var fileName = Server.HtmlEncode(attachmentFileUpload.FileName);
-        var extension = System.IO.Path.GetExtension(fileName).ToLower();
+        var extension = System.IO.Path.GetExtension(fileName);
+
+        if (!Utils.IsAllowedExtension(extension))
+        {
+            lblValidationMessage.Visible = true;
+            lblValidationMessage.Text = "Attachments acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .PNG, .VSD and .PPT(X). Please check your file extension";
+            return false;
+        }
 
         var attachment = new Attachment()
         {
@@ -65,66 +67,51 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
             IsActive = true,
             Title = txtAttachmentTitle.Text.Trim(),
             FileName = fileName,
-            FileType = extension,
+            FileType = extension.ToLower(),
             CreatedOn = DateTime.Now,
             CreatedBy = Page.User.Identity.Name,
             UpdatedBy = Page.User.Identity.Name,
         };
+
         if (attachment.InvEquipSysID >= 0)
         {
-            //if (txtHidAttID.Text != "-1" && attachmentFileUpload.FileName == string.Empty)
-            //{
-            //    //if only update the Title, no need to save file          
+            var fs = attachmentFileUpload.PostedFile.InputStream;
+            var br = new BinaryReader(fs);
+            Byte[] bytes = br.ReadBytes((Int32)fs.Length);
+            attachment.FileData = bytes;
 
-            //}
-            //else
+            // .FileType
+
+            if (attachmentFileUpload.PostedFile.ContentLength > 10485760)
             {
-                var fs = attachmentFileUpload.PostedFile.InputStream;
-                var br = new BinaryReader(fs);
-                Byte[] bytes = br.ReadBytes((Int32)fs.Length);
-                attachment.FileData = bytes;
+                lblValidationMessage.Visible = true;
+                lblValidationMessage.Text = "Attachments cannot be greater than 10MB. Please upload another attachment and try again.";
+                return false;
+            }
 
-                //if (!Utils.IsAllowedExtension(extension))
-                //{
-                //    lblValidationError.Visible = true;
-                //    lblValidationError.Text = "Attachments acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD and .PPT(X). Please check your file extension.";
-                //    return false;
-                //}
-
-                // .FileType
-
-                if (attachmentFileUpload.PostedFile.ContentLength > 10485760)
-                {
-                    lblValidationError.Visible = true;
-                    lblValidationError.Text =
-                        "Attachments cannot be greater than 10MB. Please upload another attachment and try again.";
-                    return false;
-                }
-
-                // Call the SaveAs method to save the uploaded file to the specified path. 
-                //if the file fize is greater than 10MB throw an error.
-                var result = AttachmentLogic.UpdateAttachment(attachment);
-                //if (result.Success)
-                if (attachment.InvAttachmentSysID > 0)
-                {
-                    Utils.ShowPopUpMsg("Attachment saved", this.Page);
-                    lblValidationError.Visible = true;
-                    saved = true;
-                    lblValidationError.Text = "Attachment saved.";
-                }
-                else
-                {
-                    //Utils.ShowPopUpMsg("Error Occurred!", this);
-                    lblValidationError.Visible = true;
-                    lblValidationError.Text = "Error Occurred.";
-                }
+            // Call the SaveAs method to save the uploaded file to the specified path. 
+            //if the file fize is greater than 10MB throw an error.
+            var result = AttachmentLogic.UpdateAttachment(attachment);
+            //if (result.Success)
+            if (attachment.InvAttachmentSysID > 0)
+            {
+                Utils.ShowPopUpMsg("Attachment saved", this.Page);
+                lblValidationMessage.Visible = true;
+                saved = true;
+                lblValidationMessage.Text = "Attachment saved.";
+            }
+            else
+            {
+                //Utils.ShowPopUpMsg("Error Occurred!", this);
+                lblValidationMessage.Visible = true;
+                lblValidationMessage.Text = "Error Occurred.";
             }
         }
         else
         {
             //attDetail is null
-            lblValidationError.Visible = true;
-            lblValidationError.Text = "Error Occurred.";
+            lblValidationMessage.Visible = true;
+            lblValidationMessage.Text = "Error Occurred.";
         }
 
         return saved;
@@ -174,11 +161,6 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         if (ModalExtender != null) ModalExtender.Show();
     }
 
-    /// <summary>
-    /// Handles the Click event of the btnAddAnother control, add another attachment
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void btnSaveAttachment_OnClick(object sender, EventArgs e)
     {
         var fileName = Server.HtmlEncode(attachmentFileUpload.FileName);

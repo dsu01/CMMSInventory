@@ -5,7 +5,6 @@
             <asp:TextBox runat="server" ID="txtHidAttID" Visible="false" Text="-1"></asp:TextBox>
             <asp:TextBox runat="server" ID="txtHidSourceID" Visible="false" Text="-1"></asp:TextBox>
             <asp:TextBox runat="server" ID="txtHidSource" Visible="false" Text="-1"></asp:TextBox>
-
         </td>--%>
         <td>
             <p><b>Attachments </b></p>
@@ -21,7 +20,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <asp:Label runat="server" ID="lblValidationError" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
+                        <asp:Label runat="server" ID="lblValidationMessage" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
                 </tr>
                 <tr>
                     <td>Title of Attachment&nbsp;<span class="requiredMark">*</span></td>
