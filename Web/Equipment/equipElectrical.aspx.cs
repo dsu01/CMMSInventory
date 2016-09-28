@@ -21,7 +21,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
         if (!Page.IsPostBack)
         {
-           
+
             if (loginUsr.Role.ToLower() != "msadmin" && loginUsr.Role.ToLower() != "mssuper")
             { btnFinish.Visible = false; }
 
@@ -46,44 +46,44 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
                     Response.Redirect("~/Default.aspx");
                 }
             }
-          
+
         }
-        
+
     }
     private void LoadDetails()
-    {  
-      FacilityDet details = facility_logic.GetElectrialEquipDetails(Convert.ToInt32(Request.QueryString["ParentFacilitySysID"]));
-      if (details != null)
-      {
-        #region "Load general facility detail"
-        hidFacSystemID.Value = Request.QueryString["ParentFacilitySysID"];
-        drplstSystem.SelectedValue = details.FacSystem;
-        drplstBuilding.SelectedValue = details.FacBuilding;
-        txtFunction.Text = details.FacFunction;
-        txtFloor.Text = details.FacFloor;
-        txtLocation.Text = details.FacLocation;
-        txtFacilityID.Text = details.FacID;
-        txtFacilityNum.Text = details.FacNum;
-        //if is active then Green
-        if (details.FacNum.StartsWith("T"))
-        { txtFacilityNum.BackColor = System.Drawing.Color.Aquamarine; }
-        txtWRNum.Text = details.WRNumber;
-        ckAAALAC.Checked = (details.YsnAaalac == 1) ? true : false;
-        ckBSL.Checked = (details.YsnBsl == 1) ? true : false;
-        ckTJC.Checked = (details.YsnTJC == 1) ? true : false;
-        txtComments.Text = details.Comment;
-
-        //disable the save button if not in active status
-        //disable the save button if not in active status
-        if (details.Status.ToLower() != "active")
+    {
+        FacilityDet details = facility_logic.GetElectrialEquipDetails(Convert.ToInt32(Request.QueryString["ParentFacilitySysID"]));
+        if (details != null)
         {
-            contentPanel.Enabled = false;
-            btnFinish.Visible = false;
-        }
-        #endregion
+            #region "Load general facility detail"
+            hidFacSystemID.Value = Request.QueryString["ParentFacilitySysID"];
+            drplstSystem.SelectedValue = details.FacSystem;
+            drplstBuilding.SelectedValue = details.FacBuilding;
+            txtFunction.Text = details.FacFunction;
+            txtFloor.Text = details.FacFloor;
+            txtLocation.Text = details.FacLocation;
+            txtFacilityID.Text = details.FacID;
+            txtFacilityNum.Text = details.FacNum;
+            //if is active then Green
+            if (details.FacNum.StartsWith("T"))
+            { txtFacilityNum.BackColor = System.Drawing.Color.Aquamarine; }
+            txtWRNum.Text = details.WRNumber;
+            ckAAALAC.Checked = (details.YsnAaalac == 1) ? true : false;
+            ckBSL.Checked = (details.YsnBsl == 1) ? true : false;
+            ckTJC.Checked = (details.YsnTJC == 1) ? true : false;
+            txtComments.Text = details.Comment;
 
-        #region "load detail info"
-        txtElectricalOther.Text = details.ElectricalOther;
+            //disable the save button if not in active status
+            //disable the save button if not in active status
+            if (details.Status.ToLower() != "active")
+            {
+                contentPanel.Enabled = false;
+                btnFinish.Visible = false;
+            }
+            #endregion
+
+            #region "load detail info"
+            txtElectricalOther.Text = details.ElectricalOther;
 
             txtInventoryBy.Text = details.InventoryBy;
             txtModelNum.Text = details.ModelNo;
@@ -97,25 +97,25 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
 
             txtTypeOrUse.Text = details.TypeOrUse;
-        txtManufacturer.Text = details.Manufacturer;
-        txtVolts.Text = details.Volts;
-        txtAMP.Text = details.AMP;
-        txtKVA.Text = details.KVA;
-        txtVoltsPrimary.Text = details.VoltsPrimary;
-        txtVoltsSecondary.Text = details.VoltsSecondary;
-        txtPH.Text = details.PH;
-        txtW.Text = details.W;
-        txtCKTSNum.Text = details.CktsNum;
-        txtCKTSUsed.Text = details.CktsUsed;
-        #endregion
-      }
+            txtManufacturer.Text = details.Manufacturer;
+            txtVolts.Text = details.Volts;
+            txtAMP.Text = details.AMP;
+            txtKVA.Text = details.KVA;
+            txtVoltsPrimary.Text = details.VoltsPrimary;
+            txtVoltsSecondary.Text = details.VoltsSecondary;
+            txtPH.Text = details.PH;
+            txtW.Text = details.W;
+            txtCKTSNum.Text = details.CktsNum;
+            txtCKTSUsed.Text = details.CktsUsed;
+            #endregion
+        }
     }
 
     protected void btnFinish_Click(object sender, EventArgs e)
     {
         if (string.IsNullOrEmpty(drplstBuilding.SelectedValue) || string.IsNullOrEmpty(drplstSystem.SelectedValue) || string.IsNullOrEmpty(txtFacilityID.Text.Trim()) || string.IsNullOrEmpty(txtLocation.Text.Trim()))
         {
-            Utils.ShowPopUpMsg("Facility ID, System, Building and Location are required.", this);           
+            Utils.ShowPopUpMsg("Facility ID, System, Building and Location are required.", this);
         }
         else
         {
@@ -131,8 +131,8 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             //after save, show your temp fac# is saved, u can print now, print.css needs line
             //show active or inactive
         }
-        
-        
+
+
     }
     protected void btnReset_Click(object sender, EventArgs e)
     {
@@ -186,8 +186,8 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
     private ValidationResult SaveFacilityDetails()
     {
-       
-        FacilityDet details = new FacilityDet();    
+
+        FacilityDet details = new FacilityDet();
         details.Key = Convert.ToInt32(hidFacSystemID.Value);
         //show not happen when page > 0
         details.FacSystem = drplstSystem.SelectedValue;
@@ -201,8 +201,8 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         details.YsnTJC = ckTJC.Checked ? 1 : 0;
         details.Comment = txtComments.Text.Trim();
         details.FacID = txtFacilityID.Text.Trim();
-      
-            details.UserName = loginUsr.LaborName;
+
+        details.UserName = loginUsr.LaborName;
         details.ElectricalOther = txtElectricalOther.Text.Trim();
         details.TypeOrUse = txtTypeOrUse.Text.Trim();
         details.Manufacturer = txtManufacturer.Text.Trim();
@@ -220,7 +220,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
         details.SerialNo = txtSerialNum.Text.Trim();
         details.Size = txtSize.Text.Trim();
-     
+
         if (!string.IsNullOrEmpty(txtInstalledDate.Text.Trim()))
             details.InstalledDate = Convert.ToDateTime(txtInstalledDate.Text.Trim());
         if (!string.IsNullOrEmpty(txtInventoryDate.Text.Trim()))

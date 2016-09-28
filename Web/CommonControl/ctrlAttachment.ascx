@@ -1,12 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctrlAttachment.ascx.cs" Inherits="CommonControl_ctrlAttachment" %>
 <table>
     <tr>
-        <td>
+        <%--<td>
             <asp:TextBox runat="server" ID="txtHidAttID" Visible="false" Text="-1"></asp:TextBox>
             <asp:TextBox runat="server" ID="txtHidSourceID" Visible="false" Text="-1"></asp:TextBox>
             <asp:TextBox runat="server" ID="txtHidSource" Visible="false" Text="-1"></asp:TextBox>
 
-        </td>
+        </td>--%>
         <td>
             <p><b>Attachments </b></p>
             <table width="100%">
@@ -65,7 +65,7 @@
                     <tr>
                         <td colspan="2">
                             <br />
-                            <asp:GridView ID="gvExtAttachment" SkinID=NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
+                            <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                                 OnRowCommand="gvExtAttachment_onRowCommand">
                                 <Columns>
                                     <asp:TemplateField HeaderText="Open" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">

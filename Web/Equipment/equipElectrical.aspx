@@ -115,14 +115,14 @@
                     <td width="35%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtModelNum" runat="server" MaxLength="50" TabIndex="11" />
                     </td>
-                          <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                    <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbSerialNum" CssClass="tableLabel" runat="server" Text="Serial No."></asp:Label></td>
                     <td width="35%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtSerialNum" runat="server" MaxLength="50" TabIndex="11" />
-                    </td>               
+                    </td>
                 </tr>
                 <tr>
-                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                    <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbSize" CssClass="tableLabel" runat="server" Text="Size"></asp:Label></td>
                     <td width="35%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtSize" runat="server" MaxLength="20" TabIndex="17" /></td>
@@ -186,33 +186,33 @@
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtCKTSUsed" runat="server" MaxLength="6" TabIndex="22" /></td>
                 </tr>
-                  <tr>
+                <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbInstalledDate" CssClass="tableLabel" runat="server" Text="Date Installed"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtInstalledDate" runat="server" MaxLength="6" TabIndex="16" />
-                   <asp:CompareValidator ID="cvInstalledDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                        <asp:CompareValidator ID="cvInstalledDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbInventoryDate" CssClass="tableLabel" runat="server" Text="Inventory Date"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtInventoryDate" runat="server" MaxLength="6" TabIndex="22" />
-                             <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                        <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                 </tr>
-                   <tr>
+                <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbInventoryBy" CssClass="tableLabel" runat="server" Text="Inventory By"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtInventoryBy" runat="server" MaxLength="6" TabIndex="16" />
                     </td>
-                           <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbElectricalOther" CssClass="tableLabel" runat="server" Text="Electrical Other"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtElectricalOther" runat="server" MaxLength="6" TabIndex="22" /></td>
-                       </tr>
-               
-              
+                </tr>
+
+
                 <tr>
                     <td>
                         <asp:Label ID="Label2" CssClass="tableLabel" runat="server" Text="Attachments"></asp:Label></td>
