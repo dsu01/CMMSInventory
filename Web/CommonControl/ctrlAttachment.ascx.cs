@@ -100,22 +100,6 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
                         "Attachments cannot be greater than 10MB. Please upload another attachment and try again.";
                     return false;
                 }
-                else
-                {
-                    //try
-                    //{
-                    //    fuEleFileUpload.SaveAs(savePath);
-                    //}
-                    //catch // if upload file failed.
-                    //{
-                    //    //Utils.ShowPopUpMsg("Error Occurred!", this);
-                    //    lblValidationError.Visible = true;
-                    //    lblValidationError.Text = "Error Occurred!";
-                    //    //if file deleted and it is an update, need to delete that database record also
-                    //    if (txtHidAttID.Text != "-1")
-                    //    { IncAttachmentLogic.DeleteAttachment(attDetail); }
-                    //    return false;
-                }
 
                 // Call the SaveAs method to save the uploaded file to the specified path. 
                 //if the file fize is greater than 10MB throw an error.
@@ -123,7 +107,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
                 //if (result.Success)
                 if (attachment.InvAttachmentSysID > 0)
                 {
-                    Utils.ShowPopUpMsg("Attachment saved!", this.Page);
+                    Utils.ShowPopUpMsg("Attachment saved", this.Page);
                     lblValidationError.Visible = true;
                     saved = true;
                     lblValidationError.Text = "Attachment saved.";
@@ -160,10 +144,11 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         var attachment = AttachmentLogic.GetAttachment(id);
         if (attachment == null)
         {
-            Utils.ShowPopUpMsg("Cannot load attachment.", this.Page);
+            Utils.ShowPopUpMsg("Cannot load attachment", this.Page);
             return;
         }
 
+        var deleted = false;
         if (e.CommandName == "Open")
         {
             DisplayContent(attachment);
@@ -172,23 +157,19 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         {
             var result = AttachmentLogic.DeleteAttachment(id);
 
-            //if (result == ApplicationConstants.NO_ERROR_USP_EXECUTION)
-            //{
-            //    //Physically delete the file
-            //    //File.Delete(PATH + incAtt.FileLocation);
-            //    //repopulate the existing initiator list
-            //    ShowAttachments();
-            //    //clean up the values if there is any
-            //    //drplstEleAttaCatagory.SelectedIndex = 0;
-            //    ClearFields();
-
-            //}
-            //else
-            //{
-            //    //handle error
-            //    Utils.ShowPopUpMsg("Cannot delete attachment.", this.Page);
-            //}
+            if (result.Success)
+            {
+                deleted = true;
+                Utils.ShowPopUpMsg("Attachment deleted", this.Page);
+            }
+            else
+            {
+                Utils.ShowPopUpMsg("Attachment delete error", this.Page);
+            }
         }
+
+        if (deleted)
+            LoadData();
 
         if (ModalExtender != null) ModalExtender.Show();
     }
