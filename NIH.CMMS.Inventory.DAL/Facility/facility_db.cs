@@ -64,113 +64,10 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             DataSet ds = DBCommands.GetData("spn_Inv_GetFacilityDetail", sqlParams);
             if (ds != null && ds.Tables[0] != null && ds.Tables[0].Rows.Count > 0)
             {
-                //populate wr fieds
-                details = new FacilityDet();
-                DataRow row = ds.Tables[0].Rows[0];
-                details.Key = facSystemID;
-                details.FacTempNum = row["Facility#Temp"].ToString();
-                if (row["Facility#"].ToString() != "")
-                { details.FacNum = row["Facility#"].ToString(); }
-                if (row["FacilityFunction"].ToString() != "")
-                { details.FacFunction = row["FacilityFunction"].ToString(); }
-                if (row["Floor"].ToString() != "")
-                { details.FacFloor = row["Floor"].ToString(); }
-                if (row["FacilitySystem"].ToString() != "")
-                { details.FacSystem = row["FacilitySystem"].ToString(); }
-                if (row["FacilityID"].ToString() != "")
-                { details.FacID = row["FacilityID"].ToString(); }
-                if (row["Building"].ToString() != "")
-                { details.FacBuilding = row["Building"].ToString(); }
-                if (row["Status"].ToString() != "")
-                { details.Status = row["Status"].ToString(); }
-
-                if (row["location"].ToString() != "")
-                { details.FacLocation = row["location"].ToString(); }
-                if (row["WorkRequest#"].ToString() != "")
-                { details.WRNumber = row["WorkRequest#"].ToString(); }
-                if (row["BSL"].ToString() != "")
-                { details.YsnBsl = Convert.ToInt32(row["BSL"].ToString()); }
-                if (row["AAALAC"].ToString() != "")
-                { details.YsnAaalac = Convert.ToInt32(row["AAALAC"].ToString()); }
-                if (row["TJC"].ToString() != "")
-                { details.YsnTJC = Convert.ToInt32(row["TJC"].ToString()); }
-                if (row["Comments"].ToString() != "")
-                { details.Comment = row["Comments"].ToString(); }
-
-                if (row["FacilityGroup"].ToString() != "")
-                { details.FacilityGroup = row["FacilityGroup"].ToString(); }
-
-                if (row["TypeorUse"].ToString() != "")
-                { details.TypeOrUse = row["TypeorUse"].ToString(); }
-                if (row["Manufacturer"].ToString() != "")
-                { details.Manufacturer = row["Manufacturer"].ToString(); }
-                if (row["ElectricalOther"].ToString() != "")
-                { details.ElectricalOther = row["ElectricalOther"].ToString(); }
-
-                if (row["Model"].ToString() != "")
-                { details.ModelNo = row["Model"].ToString(); }
-                if (row["SerialNo"].ToString() != "")
-                { details.SerialNo = row["SerialNo"].ToString(); }
-                if (row["Size"].ToString() != "")
-                { details.Size = row["Size"].ToString(); }
-                if (row["InstallDate"].ToString() != "")
-                { details.InstalledDate = Convert.ToDateTime(row["InstallDate"].ToString()); }
-
-
-                //if (row["Capacity"].ToString() != "")
-                //{ details.Capacity = row["Capacity"].ToString(); }
-                //if (row["CapacityHeadTest"].ToString() != "")
-                //{ details.CapacityHeadTest = row["CapacityHeadTest"].ToString(); }
-                //if (row["FuelRefrigeration"].ToString() != "")
-                //{ details.FuelRefrigeration = row["FuelRefrigeration"].ToString(); }
-                //if (row["MotorManufacturer"].ToString() != "")
-                //{ details.MotorManufacturer = row["MotorManufacturer"].ToString(); }
-                //if (row["HP"].ToString() != "")
-                //{ details.HP = row["HP"].ToString(); }
-
-                //if (row["MotorType"].ToString() != "")
-                //{ details.MotorType = row["MotorType"].ToString(); }
-                //if (row["MotorSerialNo"].ToString() != "")
-                //{ details.MotorSerialNo = row["MotorSerialNo"].ToString(); }
-                //if (row["MotorInstallDate"].ToString() != "")
-                //{ details.MotorInstalledDate = Convert.ToDateTime(row["MotorInstallDate"].ToString()); }
-                //if (row["MotorModel"].ToString() != "")
-                //{ details.MotorModel = row["MotorModel"].ToString(); }
-                //if (row["Frame"].ToString() != "")
-                //{ details.CapacityHeadTest = row["Frame"].ToString(); }
-                //if (row["RPM"].ToString() != "")
-                //{ details.RPM = row["RPM"].ToString(); }
-                //if (row["Voltage"].ToString() != "")
-                //{ details.Voltage = row["Voltage"].ToString(); }
-                //if (row["Amperes"].ToString() != "")
-                //{ details.Amperes = row["Amperes"].ToString(); }
-                //if (row["PhaseCycle"].ToString() != "")
-                //{ details.PhaseCycle = row["PhaseCycle"].ToString(); }
-                //if (row["BSLClassification"].ToString() != "")
-                //{ details.BslClassification = row["BSLClassification"].ToString(); }
-                //if (row["PMSchedule"].ToString() != "")
-                //{ details.PMSchedule = row["PMSchedule"].ToString(); }
-                //if (row["TJCValue"].ToString() != "")
-                //{ details.TJCValue = Convert.ToInt16(row["TJCValue"].ToString()); }
-
-                if (row["VOLTS"].ToString() != "")
-                { details.Volts = row["VOLTS"].ToString(); }
-                if (row["AMP"].ToString() != "")
-                { details.AMP = row["AMP"].ToString(); }
-                if (row["KVA"].ToString() != "")
-                { details.KVA = row["KVA"].ToString(); }
-                if (row["VOLTSprimary"].ToString() != "")
-                { details.VoltsPrimary = row["VOLTSprimary"].ToString(); }
-                if (row["VOLTSSecondary"].ToString() != "")
-                { details.VoltsSecondary = row["VOLTSSecondary"].ToString(); }
-                if (row["PH"].ToString() != "")
-                { details.PH = row["PH"].ToString(); }
-                if (row["W"].ToString() != "")
-                { details.W = row["W"].ToString(); }
-                if (row["NOofCKTS"].ToString() != "")
-                { details.CktsNum = row["NOofCKTS"].ToString(); }
-                if (row["CKTSUsed"].ToString() != "")
-                { details.CktsUsed = row["CKTSUsed"].ToString(); }
+                //populate fieds  
+                return PopulateFacilityDet(ds.Tables[0].Rows[0]);
+                
+                
             }
 
             return details;
@@ -341,23 +238,25 @@ namespace NIH.CMMS.Inventory.DAL.Facility
         private static FacilityDet PopulateFacilityDet(DataRow row)
         {
             FacilityDet details = new FacilityDet();
+            if (row["FacilityID"].ToString() != "")
+            { details.FacID = row["FacilityID"].ToString(); }
+            //details.EquipID = row["FacilityID"].ToString();
 
-            details.EquipID = row["FacilityID"].ToString();
-
-            details.Key = Convert.ToInt32(row["ID"].ToString());
+            details.Key = Convert.ToInt32(row["ID"].ToString());           
             details.FacTempNum = row["Facility#Temp"].ToString();
-            details.FacNum = row["Facility#"].ToString();
-
+            if (row["Facility#"].ToString() != "")
+            { details.FacNum = row["Facility#"].ToString(); }
             if (row["FacilityFunction"].ToString() != "")
             { details.FacFunction = row["FacilityFunction"].ToString(); }
             if (row["Floor"].ToString() != "")
             { details.FacFloor = row["Floor"].ToString(); }
             if (row["FacilitySystem"].ToString() != "")
             { details.FacSystem = row["FacilitySystem"].ToString(); }
-            if (row["FacilityID"].ToString() != "")
-            { details.FacID = row["FacilityID"].ToString(); }
+           
             if (row["Building"].ToString() != "")
             { details.FacBuilding = row["Building"].ToString(); }
+            if (row["Status"].ToString() != "")
+            { details.Status = row["Status"].ToString(); }
 
             if (row["location"].ToString() != "")
             { details.FacLocation = row["location"].ToString(); }
@@ -371,13 +270,17 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             { details.YsnTJC = Convert.ToInt32(row["TJC"].ToString()); }
             if (row["Comments"].ToString() != "")
             { details.Comment = row["Comments"].ToString(); }
-            if (row["Status"].ToString() != "")
-            { details.Status = row["Status"].ToString(); }
+
+            if (row["FacilityGroup"].ToString() != "")
+            { details.FacilityGroup = row["FacilityGroup"].ToString(); }
 
             if (row["TypeorUse"].ToString() != "")
             { details.TypeOrUse = row["TypeorUse"].ToString(); }
             if (row["Manufacturer"].ToString() != "")
             { details.Manufacturer = row["Manufacturer"].ToString(); }
+            if (row["ElectricalOther"].ToString() != "")
+            { details.ElectricalOther = row["ElectricalOther"].ToString(); }
+
             if (row["Model"].ToString() != "")
             { details.ModelNo = row["Model"].ToString(); }
             if (row["SerialNo"].ToString() != "")
@@ -386,6 +289,8 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             { details.Size = row["Size"].ToString(); }
             if (row["InstallDate"].ToString() != "")
             { details.InstalledDate = Convert.ToDateTime(row["InstallDate"].ToString()); }
+
+
             if (row["Capacity"].ToString() != "")
             { details.Capacity = row["Capacity"].ToString(); }
             if (row["CapacityHeadTest"].ToString() != "")
@@ -406,7 +311,7 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             if (row["MotorModel"].ToString() != "")
             { details.MotorModel = row["MotorModel"].ToString(); }
             if (row["Frame"].ToString() != "")
-            { details.Frame = row["Frame"].ToString(); }
+            { details.CapacityHeadTest = row["Frame"].ToString(); }
             if (row["RPM"].ToString() != "")
             { details.RPM = row["RPM"].ToString(); }
             if (row["Voltage"].ToString() != "")
@@ -422,28 +327,29 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             if (row["TJCValue"].ToString() != "")
             { details.TJCValue = Convert.ToInt16(row["TJCValue"].ToString()); }
 
-            if (row["FacilityGroup"].ToString() != "")
-            { details.FacilityGroup = row["FacilityGroup"].ToString(); }
+            if (row["VOLTS"].ToString() != "")
+            { details.Volts = row["VOLTS"].ToString(); }
+            if (row["AMP"].ToString() != "")
+            { details.AMP = row["AMP"].ToString(); }
+            if (row["KVA"].ToString() != "")
+            { details.KVA = row["KVA"].ToString(); }
+            if (row["VOLTSprimary"].ToString() != "")
+            { details.VoltsPrimary = row["VOLTSprimary"].ToString(); }
+            if (row["VOLTSSecondary"].ToString() != "")
+            { details.VoltsSecondary = row["VOLTSSecondary"].ToString(); }
+            if (row["PH"].ToString() != "")
+            { details.PH = row["PH"].ToString(); }
+            if (row["W"].ToString() != "")
+            { details.W = row["W"].ToString(); }
+            if (row["NOofCKTS"].ToString() != "")
+            { details.CktsNum = row["NOofCKTS"].ToString(); }
+            if (row["CKTSUsed"].ToString() != "")
+            { details.CktsUsed = row["CKTSUsed"].ToString(); }
 
-
-            //if (row["VOLTS"].ToString() != "")
-            //{ details.Volts = row["VOLTS"].ToString(); }
-            //if (row["AMP"].ToString() != "")
-            //{ details.AMP = row["AMP"].ToString(); }
-            //if (row["KVA"].ToString() != "")
-            //{ details.KVA = row["KVA"].ToString(); }
-            //if (row["VOLTSprimary"].ToString() != "")
-            //{ details.VoltsPrimary = row["VOLTSprimary"].ToString(); }
-            //if (row["VOLTSSecondary"].ToString() != "")
-            //{ details.VoltsSecondary = row["VOLTSSecondary"].ToString(); }
-            //if (row["PH"].ToString() != "")
-            //{ details.PH = row["PH"].ToString(); }
-            //if (row["W"].ToString() != "")
-            //{ details.W = row["W"].ToString(); }
-            //if (row["NOofCKTS"].ToString() != "")
-            //{ details.CktsNum = row["NOofCKTS"].ToString(); }
-            //if (row["CKTSUsed"].ToString() != "")
-            //{ details.CktsUsed = row["CKTSUsed"].ToString(); }
+            if (row["InventoryBy"].ToString() != "")
+            { details.InventoryBy = row["InventoryBy"].ToString(); }
+            if (row["InventoryDate"].ToString() != "")
+            { details.InventoryDate = Convert.ToDateTime(row["InventoryDate"].ToString()); }
 
             return details;
         }
@@ -571,8 +477,8 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             //update/insert data into database, this is updating invFacility table
             String result = "";
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            SqlParameter paramID = DBCommands.ParameterMaker("@ID", SqlDbType.Int, 10, ParameterDirection.InputOutput, details.Key);
-            sqlParams.Add(paramID);
+            //SqlParameter paramID = DBCommands.ParameterMaker("@ID", SqlDbType.Int, 10, ParameterDirection.InputOutput, details.Key);
+            //sqlParams.Add(paramID);
             sqlParams.Add(new SqlParameter("@FacilityID", details.FacID));
             SqlParameter paramNum = DBCommands.ParameterMaker("@FacilityNo", SqlDbType.VarChar, 50, ParameterDirection.InputOutput, details.FacNum);
             sqlParams.Add(paramNum);
@@ -607,6 +513,10 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             sqlParams.Add(new SqlParameter("@NOofCKTS", String.IsNullOrEmpty(details.CktsNum) ? DBNull.Value : (Object)details.CktsNum));
             sqlParams.Add(new SqlParameter("@CKTSUsed", String.IsNullOrEmpty(details.CktsUsed) ? DBNull.Value : (Object)details.CktsUsed));
 
+            sqlParams.Add(new SqlParameter("@BSLClassification", String.IsNullOrEmpty(details.BslClassification) ? DBNull.Value : (Object)details.BslClassification));
+            sqlParams.Add(new SqlParameter("@TJCValue", details.TJCValue <= 0 ? DBNull.Value : (Object)details.TJCValue));
+            sqlParams.Add(new SqlParameter("@PMSchedule", String.IsNullOrEmpty(details.PMSchedule) ? DBNull.Value : (Object)details.PMSchedule));
+            
             sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
             sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
 
@@ -615,7 +525,7 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             if (vr.Success)
             {
                 //if no error, update id               
-                details.Key = Convert.ToInt32(paramID.Value);
+                //details.Key = Convert.ToInt32(paramID.Value);
                 details.FacNum = paramNum.Value.ToString();
             }
             return vr;
@@ -666,6 +576,10 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             sqlParams.Add(new SqlParameter("@NOofCKTS", String.IsNullOrEmpty(details.CktsNum) ? DBNull.Value : (Object)details.CktsNum));
             sqlParams.Add(new SqlParameter("@CKTSUsed", String.IsNullOrEmpty(details.CktsUsed) ? DBNull.Value : (Object)details.CktsUsed));
 
+            sqlParams.Add(new SqlParameter("@BSLClassification", String.IsNullOrEmpty(details.BslClassification) ? DBNull.Value : (Object)details.BslClassification));
+            sqlParams.Add(new SqlParameter("@TJCValue", details.TJCValue <= 0 ? DBNull.Value : (Object)details.TJCValue));
+            sqlParams.Add(new SqlParameter("@PMSchedule", String.IsNullOrEmpty(details.PMSchedule) ? DBNull.Value : (Object)details.PMSchedule));
+            
             sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
             sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
 

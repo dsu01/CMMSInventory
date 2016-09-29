@@ -75,7 +75,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">System:&nbsp;&nbsp;</font>
+                    <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">Electrical System:&nbsp;&nbsp;</font>
                         <asp:DropDownList ID="drplstSystem" runat="server" SkinID="midDropDown" DataTextField="SystemTitle" DataValueField="SystemTitle" AppendDataBoundItems="true" TabIndex="1">
                             <asp:ListItem Value="">--</asp:ListItem>
                         </asp:DropDownList>
@@ -204,21 +204,46 @@
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbInventoryBy" CssClass="tableLabel" runat="server" Text="Inventory By"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtInventoryBy" runat="server" MaxLength="6" TabIndex="16" />
+                        <asp:TextBox ID="txtInventoryBy" runat="server" MaxLength="50" TabIndex="16" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbElectricalOther" CssClass="tableLabel" runat="server" Text="Electrical Other"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtElectricalOther" runat="server" MaxLength="6" TabIndex="22" /></td>
+                        <asp:TextBox ID="txtElectricalOther" runat="server" MaxLength="200" TabIndex="22" /></td>
                 </tr>
-
+                <tr>
+                      <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:Label ID="lbBSLClass" CssClass="tableLabel" runat="server" Text="BSL Class."></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" TabIndex="13" />
+                    </td>
+                
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:Label ID="lbTJC" runat="server" Text="TJC Value"></asp:Label>
+                    </td>
+                   <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:TextBox ID="txtTJC" MaxLength="50" runat="server" TabIndex="13" />
+                     <asp:RangeValidator ID="valTJC" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC"></asp:RangeValidator>
+                   
+                         </td>
+                </tr>
+               <tr>
+                   <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:Label ID="lbPMSchedule" runat="server" Text="PM Schedule"></asp:Label>
+                    </td>
+                   <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="13" />
+                    </td>
+                   <td colspan="2">Last updated by xxx on xxx</td>
+                </tr>
 
                 <tr>
                     <td>
                         <asp:Label ID="Label2" CssClass="tableLabel" runat="server" Text="Attachments"></asp:Label></td>
                     <td colspan="4">Attachment List:
                         <br />
-                        <asp:Button ID="attachmentClick" runat="server" Text="Add New Attachment" />
+                        <asp:Button ID="attachmentClick" runat="server" Text="Add New Attachment" UseSubmitBehavior="false"/>
                     </td>
                 </tr>
                 <tr>

@@ -27,7 +27,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">System:&nbsp;&nbsp;</font>
+                        <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">Mechanical System:&nbsp;&nbsp;</font>
                             <asp:DropDownList ID="drplstSystem" runat="server" SkinID="midDropDown" DataTextField="SystemTitle" DataValueField="SystemTitle" AppendDataBoundItems="true" TabIndex="1">
                                 <asp:ListItem Value="">--</asp:ListItem>
                             </asp:DropDownList>
@@ -242,7 +242,7 @@
                     <td>
                         <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-               
+                <td colspan="2">Last updated by xxx on xxx</td>
                   
                 
                   </tr>

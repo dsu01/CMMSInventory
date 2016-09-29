@@ -52,7 +52,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
     }
     private void LoadDetails()
     {
-        FacilityDet details = facility_logic.GetElectrialEquipDetails(Convert.ToInt32(Request.QueryString["ParentFacilitySysID"]));
+        FacilityDet details = facility_logic.GetFacilityDetails(Convert.ToInt32(Request.QueryString["ParentFacilitySysID"]));
         if (details != null)
         {
             #region "Load general facility detail"
@@ -107,6 +107,12 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             txtW.Text = details.W;
             txtCKTSNum.Text = details.CktsNum;
             txtCKTSUsed.Text = details.CktsUsed;
+
+            txtBSLClass.Text = details.BslClassification;
+
+            if (details.TJCValue > 0)
+            { txtTJC.Text = details.TJCValue.ToString(); }
+            txtPMSchedule.Text = details.PMSchedule;
             #endregion
         }
     }
@@ -181,7 +187,9 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         txtCKTSNum.Text = string.Empty;
         txtCKTSUsed.Text = string.Empty;
 
-
+        txtPMSchedule.Text = string.Empty;
+        txtTJC.Text = string.Empty;
+        txtBSLClass.Text = string.Empty;
     }
 
     private ValidationResult SaveFacilityDetails()
@@ -228,6 +236,11 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
         details.ElectricalOther = txtElectricalOther.Text.Trim();
         details.InventoryBy = txtInventoryBy.Text.Trim();
+
+        details.BslClassification = txtBSLClass.Text.Trim();
+        if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
+            details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
+        details.PMSchedule = txtPMSchedule.Text.Trim();
 
         ValidationResult vr = new ValidationResult(true, string.Empty);
 
