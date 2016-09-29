@@ -26,19 +26,20 @@ namespace NIH.CMMS.Inventory.Web
     {
         private static string[] AllowedExtensions = new string[]
             {
-                "DOC",
-                "DOCX",
-                "WPD",
-                "XLS",
-                "XLSX",
-                "PDF",
-                "JPG",
-                "DOC",
-                "GIF",
-                "PNG",
-                "VSD",
-                "PPT",
-                "PPTX"
+                ".DOC",
+                ".DOCX",
+                ".WPD",
+                ".XLS",
+                ".XLSX",
+                ".PDF",
+                ".JPG",
+                ".DOC",
+                ".GIF",
+                ".PNG",
+                ".VSD",
+                ".PPT",
+                ".PPTX",
+                ".TXT"
             }
             ;
 

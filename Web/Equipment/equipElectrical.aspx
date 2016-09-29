@@ -236,7 +236,7 @@
                             </Columns>
                         </asp:GridView>
                         <br />
-                        <asp:Button ID="attachmentClick" runat="server" Text="Add New Attachment" />
+                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" />
                     </td>
                 </tr>
                 <tr>
@@ -259,15 +259,15 @@
                 </tr>
             </table>
 
-            <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="attachmentClick"
-                BehaviorID="psrAtt" PopupControlID="Panel2" BackgroundCssClass="modal" DropShadow="true" OkControlID="CloseButton" />
+            <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="btnAddAttachment"
+                BehaviorID="psrAtt" PopupControlID="Panel2" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnClose" />
 
             <asp:Panel ID="Panel2" runat="server" Style="width: 600px; background: white; border: 2px black solid; display: none; text-align: left;">
-                <ctrlAtt:mngAttachment ID="mngAttachment" runat="server" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
+                <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
                 <br />
                 <br />
                 <div align="center">
-                    <asp:Button ID="CloseButton" runat="server" Text="Close" />
+                    <asp:Button ID="btnClose" runat="server" Text="Close" />
                 </div>
                 <br />
             </asp:Panel>

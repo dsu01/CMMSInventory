@@ -16,17 +16,9 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
     {
     }
 
-    public string ModalExtenderID { get; set; }
+    public delegate void AttachmentSavedHandler(bool result);
 
-    ModalPopupExtender ModalExtender
-    {
-        get
-        {
-            if (!String.IsNullOrEmpty(ModalExtenderID))
-                return (ModalPopupExtender)FindControlRecursive(Page, ModalExtenderID);
-            return null;
-        }
-    }
+    public event AttachmentSavedHandler AttachmentSaved;
 
     public int ParentEquipmentID
     {
@@ -43,8 +35,14 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         bool saved = false;
 
         var fileName = Server.HtmlEncode(attachmentFileUpload.FileName);
-        var extension = System.IO.Path.GetExtension(fileName);
+        if (string.IsNullOrEmpty(fileName) || string.IsNullOrEmpty(txtAttachmentTitle.Text))
+        {
+            lblValidationMessage.Visible = true;
+            lblValidationMessage.Text = "Please select a file to upload";
+            return false;
+        }
 
+        var extension = System.IO.Path.GetExtension(fileName);
         if (!Utils.IsAllowedExtension(extension))
         {
             lblValidationMessage.Visible = true;
@@ -110,18 +108,14 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
     protected void btnSaveAttachment_OnClick(object sender, EventArgs e)
     {
-        var fileName = Server.HtmlEncode(attachmentFileUpload.FileName);
-        if (string.IsNullOrEmpty(fileName) || string.IsNullOrEmpty(txtAttachmentTitle.Text))
-        {
-            lbAddAttachmentError.Visible = true;
-            lbAddAttachmentError.Text = "Please select an Attachment ";
-            return;
-        }
-
-        if (SaveData())
+        var saved = SaveData();
+        if (saved)
         {
             ClearFields();
         }
+
+        if (AttachmentSaved != null)
+            AttachmentSaved(saved);
     }
 
     private void ClearFields()

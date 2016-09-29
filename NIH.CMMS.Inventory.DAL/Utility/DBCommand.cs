@@ -169,7 +169,6 @@ namespace NIH.CMMS.Inventory.DAL.Utility
                     catch (Exception ex)
                     {
                         throw;
-                       
                     }
                 }
             }          

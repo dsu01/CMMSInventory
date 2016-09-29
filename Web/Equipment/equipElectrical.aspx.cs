@@ -31,6 +31,8 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
     {
         loginUsr = Utils.CheckSession(this);
 
+        ctrlAddAttachment.AttachmentSaved += CtrlAddAttachment_AttachmentSaved;
+
         if (!Page.IsPostBack)
         {
             if (loginUsr.Role.ToLower() != "msadmin" && loginUsr.Role.ToLower() != "mssuper")
@@ -54,6 +56,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             }
         }
     }
+
     private void LoadDetails()
     {
         FacilityDet details = facility_logic.GetElectrialEquipDetails(EquipmentSysID);
@@ -306,6 +309,19 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         Response.Cache.SetCacheability(HttpCacheability.NoCache);
         Response.BinaryWrite(data);
         Response.End();
+    }
+
+    private void CtrlAddAttachment_AttachmentSaved(bool result)
+    {
+        if (result)  // added
+        {
+            // reload attachment
+            LoadAttachments();
+        }
+        else
+        {
+            mpeAttachment.Show();
+        }
     }
 
     #endregion
