@@ -31,6 +31,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
     {
         loginUsr = Utils.CheckSession(this);
 
+        ctrlAddAttachment.IsEquipmentOrFacility = true;
         ctrlAddAttachment.AttachmentSaved += CtrlAddAttachment_AttachmentSaved;
 
         if (!Page.IsPostBack)

@@ -20,7 +20,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
     public event AttachmentSavedHandler AttachmentSaved;
 
-    public int ParentEquipmentID
+    public int ParentSysID
     {
         get
         {
@@ -29,6 +29,8 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
                 : -1;
         }
     }
+
+    public bool IsEquipmentOrFacility { get; set; }
 
     public bool SaveData()
     {
@@ -52,7 +54,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
         var attachment = new Attachment()
         {
-            InvParentSysID = this.ParentEquipmentID,
+            InvParentSysID = this.ParentSysID,
             IsActive = true,
             Title = txtAttachmentTitle.Text.Trim(),
             FileName = fileName,
@@ -80,7 +82,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
             // Call the SaveAs method to save the uploaded file to the specified path. 
             //if the file fize is greater than 10MB throw an error.
-            var result = AttachmentLogic.UpdateAttachment(attachment, true);
+            var result = AttachmentLogic.UpdateAttachment(attachment, IsEquipmentOrFacility);
             //if (result.Success)
             if (attachment.InvAttachmentSysID > 0)
             {

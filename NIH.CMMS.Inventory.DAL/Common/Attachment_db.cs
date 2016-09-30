@@ -10,12 +10,12 @@ namespace NIH.CMMS.Inventory.DAL.Common
 {
     public class Attachment_db
     {
-        public static DataSet GetAttachmentList(int equipmentSysID, bool isEquipmentOrFacility)
+        public static DataSet GetAttachmentList(int parentSysID, bool isEquipmentOrFacility)
         {
             List<Attachment> list = null;
             var sqlParams = new List<SqlParameter>();
             sqlParams.Add(new SqlParameter("@isEquipmentOrFacility", isEquipmentOrFacility));
-            sqlParams.Add(new SqlParameter("@equipmentSysId", equipmentSysID));
+            sqlParams.Add(new SqlParameter("@parentSysId", parentSysID));
             return DBCommands.GetData("spn_Inv_GetAttachmentList", sqlParams);
         }
 
