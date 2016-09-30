@@ -248,12 +248,11 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         return vr;
     }
 
-
     #region Attachment Details
 
     private void LoadAttachments()
     {
-        var list = AttachmentLogic.GetEquipmentAttachments(EquipmentSysID);
+        var list = AttachmentLogic.GetAttachments(EquipmentSysID, true);
 
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
@@ -265,7 +264,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         if (id <= 0)    // should never happen
             return;
 
-        var attachment = AttachmentLogic.GetAttachment(id);
+        var attachment = AttachmentLogic.GetAttachment(id, true);
         if (attachment == null)
         {
             Utils.ShowPopUpMsg("Cannot load attachment", this.Page);
@@ -279,7 +278,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         }
         else // if command == delete
         {
-            var result = AttachmentLogic.DeleteAttachment(id);
+            var result = AttachmentLogic.DeleteAttachment(id, true);
 
             if (result.Success)
             {

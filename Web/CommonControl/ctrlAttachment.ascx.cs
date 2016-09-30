@@ -52,7 +52,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
         var attachment = new Attachment()
         {
-            InvEquipSysID = this.ParentEquipmentID,
+            InvParentSysID = this.ParentEquipmentID,
             IsActive = true,
             Title = txtAttachmentTitle.Text.Trim(),
             FileName = fileName,
@@ -62,7 +62,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
             UpdatedBy = Page.User.Identity.Name,
         };
 
-        if (attachment.InvEquipSysID >= 0)
+        if (attachment.InvParentSysID >= 0)
         {
             var fs = attachmentFileUpload.PostedFile.InputStream;
             var br = new BinaryReader(fs);
@@ -80,7 +80,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
             // Call the SaveAs method to save the uploaded file to the specified path. 
             //if the file fize is greater than 10MB throw an error.
-            var result = AttachmentLogic.UpdateAttachment(attachment);
+            var result = AttachmentLogic.UpdateAttachment(attachment, true);
             //if (result.Success)
             if (attachment.InvAttachmentSysID > 0)
             {
