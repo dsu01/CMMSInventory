@@ -43,6 +43,26 @@ namespace NIH.CMMS.Inventory.BOL.Facility
 
         private string _userName = string.Empty;
         private int _key = -1;
+
+        public string LastUpdatedBy { get; set; }
+        public DateTime LastUpdatedDate = DateTime.MinValue;
+        public string EquipmentNo { get; set; }
+
+        public string Volts = string.Empty;
+        public string AMP = string.Empty;
+        public string KVA = string.Empty;
+        public string VoltsPrimary = string.Empty;
+        public string VoltsSecondary = string.Empty;
+        public string PH = string.Empty;
+        public string W = string.Empty;
+        public string CktsNum = string.Empty;
+        public string CktsUsed = string.Empty;
+        public string ElectricalOther { get; set; }
+        public string InventoryBy { get; set; }
+        public string Status { get; set; }
+        public DateTime InventoryDate = DateTime.MinValue;
+
+       
         #endregion
 
         #region " Business Properties

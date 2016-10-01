@@ -24,6 +24,24 @@ namespace NIH.CMMS.Inventory.Web
     /// </summary>
     public static class Utils
     {
+        private static string[] AllowedExtensions = new string[]
+            {
+                "DOC",
+                "DOCX",
+                "WPD",
+                "XLS",
+                "XLSX",
+                "PDF",
+                "JPG",
+                "DOC",
+                "GIF",
+                "PNG",
+                "VSD",
+                "PPT",
+                "PPTX"
+            }
+            ;
+
         public static List<string> cells = new List<string>();
 
         #region "Report functions"
@@ -214,7 +232,7 @@ namespace NIH.CMMS.Inventory.Web
         //    HttpContext.Current.Response.End();
 
         //}
-        
+
 
         //public static void ExportToPDF(string fileName, GridView gv, string reportTitle)
         //{
@@ -336,7 +354,7 @@ namespace NIH.CMMS.Inventory.Web
         //        throw ex;
         //    }
         //}
-       // #endregion
+        // #endregion
 
         #region public static List<string> getRowPdfData(Control control)
         public static List<string> getRowPdfData(Control control)
@@ -508,10 +526,10 @@ namespace NIH.CMMS.Inventory.Web
         {
             CategoryCollection catColSubType = new CategoryCollection();
             for (int i = 0; i < lbitem.Items.Count; i++)
-            {                
+            {
                 //add them into collection
                 catColSubType.Add(new Category(int.Parse(lbitem.Items[i].Value), lbitem.Items[i].Text));
-                               
+
             }
 
             if (catColSubType.Count > 0)
@@ -525,11 +543,11 @@ namespace NIH.CMMS.Inventory.Web
             String value = string.Empty;
             for (int i = 0; i < lbitem.Items.Count; i++)
             {
-               
+
                 //add them into string
                 value += lbitem.Items[i].Text + "; ";
-                
-               
+
+
             }
             //chop of extra comma
             if (value.Length > 0)
@@ -552,7 +570,7 @@ namespace NIH.CMMS.Inventory.Web
                 //add them into string
                 value += lbitem.Items[i].Value + ",";
 
-               
+
             }
             //chop of extra comma
             if (value.Length > 0)
@@ -684,7 +702,7 @@ namespace NIH.CMMS.Inventory.Web
             return catCollection;
         }
 
-      
+
         public static String GetStringKeyListFromDataSet(DataSet ds)
         {
             String value = null;
@@ -838,9 +856,9 @@ namespace NIH.CMMS.Inventory.Web
                         }
                         else
                             //add them into collection
-                             value += cblst.Items[i].Text + ",";
+                            value += cblst.Items[i].Text + ",";
                         //value += int.Parse(cblst.Items[i].Value) + ",";
-                       
+
 
                     }
                 }
@@ -924,7 +942,6 @@ namespace NIH.CMMS.Inventory.Web
             return value;
         }
 
-
         /// <summary>
         /// Gets the cat collection description string. (for example, name1,name2)
         /// </summary>
@@ -957,6 +974,10 @@ namespace NIH.CMMS.Inventory.Web
             return value;
         }
 
+        public static bool IsAllowedExtension(string extension)
+        {
+            return string.IsNullOrEmpty(extension) ? false : AllowedExtensions.Any(x => x == extension.ToUpper());
+        }
 
         #endregion
         static Utils()
@@ -966,6 +987,4 @@ namespace NIH.CMMS.Inventory.Web
             //
         }
     }
-
-  
 }

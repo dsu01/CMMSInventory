@@ -74,40 +74,55 @@ namespace NIH.CMMS.Inventory.BPL.Facility
         }
         
 
-        public static ValidationResult UpdateFacility(FacilityDet details, bool fullInfo)
-        {
-            return facility_db.UpdateFacilityDetails(details, fullInfo);
-        }
+        //public static ValidationResult UpdateFacility(FacilityDet details, bool fullInfo)
+        //{
+        //    return facility_db.UpdateFacilityDetails(details, fullInfo);
+        //}
 
         public static ValidationResult UpdateFacAttachment(Attachment details)
         {
             return facility_db.UpdateFacAttachment(details);
         }
 
-        public static ValidationResult UpdateEquipment(EquipmentDet details)
-        {
-            return facility_db.UpdateEquipmentDetails(details);
-        }
+        //public static ValidationResult UpdateEquipment(EquipmentDet details)
+        //{
+        //    return facility_db.UpdateEquipmentDetails(details);
+        //}
 
-        public static ValidationResult UpdateElectrialEquipment(FacilityDet details)
-        {
-            return facility_db.UpdateElectrialEquipment(details);
-        }
+        //public static ValidationResult UpdateElectrialEquipment(FacilityDet details)
+        //{
+        //    return facility_db.UpdateElectrialEquipment(details);
+        //}
 
-        public static ValidationResult AddElectricalEquipment(FacilityDet details)
+        public static ValidationResult AddUpdateElectricalEquipment(FacilityDet details)
         {
-            return facility_db.AddElectricalEquipment(details);
+            return facility_db.AddUpdateElectricalEquipment(details);
         }
+        public static ValidationResult AddElectricalMechanicalSystem(FacilityDet details, bool isElectrical)
+        {
+            return facility_db.AddElectricalMechanicalSystem(details, isElectrical);
+        }
+        public static ValidationResult UpdateElectricalMechanicalSystem(FacilityDet details, bool isAdmin)
+        {
+            return facility_db.UpdateElectricalMechanicalSystem(details, isAdmin);
+        }
+        public static ValidationResult AddUpdateElectricalComponent(EquipmentDet details)
+        {
+            return facility_db.AddUpdateElectricalComponent(details);
+        }
+        public static ValidationResult AddUpdateMechanicalComponent(EquipmentDet details)
+        {
+            return facility_db.AddUpdateMechanicalComponent(details);
+        }
+        //public static ValidationResult UpdateMechanicalEquipment(FacilityDet details)
+        //{
+        //    return facility_db.UpdateMechanicalEquipment(details);
+        //}
 
-        public static ValidationResult UpdateMechanicalEquipment(FacilityDet details)
-        {
-            return facility_db.UpdateMechanicalEquipment(details);
-        }
-
-        public static ValidationResult AddMechanicalEquipment(FacilityDet details)
-        {
-            return facility_db.AddMechanicalEquipment(details);
-        }
+        //public static ValidationResult AddMechanicalEquipment(FacilityDet details)
+        //{
+        //    return facility_db.AddMechanicalEquipment(details);
+        //}
 
         public static ValidationResult UpdateFacilityAdmin(FacilityDet details)
         {

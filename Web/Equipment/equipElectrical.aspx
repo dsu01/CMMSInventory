@@ -215,12 +215,12 @@
                       <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbBSLClass" CssClass="tableLabel" runat="server" Text="BSL Class."></asp:Label>
                     </td>
-                    <td>
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:Label ID="lbTJC" runat="server" Text="TJC Value"></asp:Label>
+                        <asp:Label ID="lbTJC" runat="server" CssClass="tableLabel" Text="TJC Value"></asp:Label>
                     </td>
                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtTJC" MaxLength="50" runat="server" TabIndex="13" />
@@ -230,18 +230,37 @@
                 </tr>
                <tr>
                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:Label ID="lbPMSchedule" runat="server" Text="PM Schedule"></asp:Label>
+                        <asp:Label ID="lbPMSchedule" runat="server" CssClass="tableLabel" Text="PM Schedule"></asp:Label>
                     </td>
                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                   <td colspan="2">Last updated by xxx on xxx</td>
+                   <td colspan="2" style="border-bottom: solid 1px #000; border-right: solid 1px #000;"> <asp:Label ID="lbLastUpdatedBy" CssClass="tableLabel" runat="server" ></asp:Label></td>
                 </tr>
 
                 <tr>
                     <td>
-                        <asp:Label ID="Label2" CssClass="tableLabel" runat="server" Text="Attachments"></asp:Label></td>
-                    <td colspan="4">Attachment List:
+                        <asp:Label ID="Label2" CssClass="tableLabel" runat="server" Text="Attachments" /></td>
+                    <td colspan="4">
+                        <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
+                            OnRowCommand="gvExtAttachment_onRowCommand">
+                            <Columns>
+                                <asp:TemplateField HeaderText="Open" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
+                                    <ItemTemplate>
+                                        <asp:LinkButton CommandName="Open" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnOpenAttachment" Text="<img src='/Image/btn_edit.gif' alt='Open' />" runat="server"></asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
+                                    <ItemTemplate>
+                                        <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnDeleteAttachment" Text="<img src='/Image/btn_delete.png' alt='Delete' />" runat="server" OnClientClick="return confirm('OK to Delete?');"></asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField HeaderText="Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />
+                                <asp:BoundField HeaderText="File" DataField="FileName" />
+                                <asp:BoundField HeaderText="Created" DataField="CreatedOn" />
+                                <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
+                            </Columns>
+                        </asp:GridView>
                         <br />
                         <asp:Button ID="attachmentClick" runat="server" Text="Add New Attachment" UseSubmitBehavior="false"/>
                     </td>

@@ -103,6 +103,8 @@ public partial class Default3 : System.Web.UI.Page
                 lbSystems.DataSource = resList;
                 lbSystems.DataBind();
                  
+                //delete existing systems
+                lbExtSystems.Items.Clear();
             }
         }
             

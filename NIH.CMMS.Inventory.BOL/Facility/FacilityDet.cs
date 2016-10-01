@@ -47,6 +47,10 @@ namespace NIH.CMMS.Inventory.BOL.Facility
         public int FacSystemID { get; set; }
         public string InventoryBy { get; set; }
         public DateTime InventoryDate = DateTime.MinValue;
+
+        public string LastUpdatedBy { get; set; }
+        public DateTime LastUpdatedDate = DateTime.MinValue;
+       
         #endregion
 
         #region " Business Properties
