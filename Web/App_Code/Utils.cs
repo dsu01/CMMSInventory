@@ -979,7 +979,7 @@ namespace NIH.CMMS.Inventory.Web
         {
             return string.IsNullOrEmpty(extension) ? false : AllowedExtensions.Any(x => x == extension.ToUpper());
         }
-
+        
         #endregion
         static Utils()
         {

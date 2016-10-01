@@ -16,21 +16,20 @@ namespace NIH.CMMS.Inventory.Web
     /// Summary description for ApplicationConstants
     /// </summary>
     public static class ApplicationConstants
-    { 
+    {
         static ApplicationConstants()
         {
         }
-    
 
         //Form Fields
         public const string FORM_TXT_OTHER = "Other";
         public const string SESSION_UOBJECT = "UserObject";
-        public const string SESSION_USEROBJLOGINDET = "UserLoginObject";       
+        public const string SESSION_USEROBJLOGINDET = "UserLoginObject";
         public const string lOGIN_ID = "LoginId";
         public const string DBErrorMessage = "Cannot modify the WO information now until the proper procedure is followed.";
         public const string GeneralSuccessMessage = "Update successfully!";
         public const string TYPE = "Trouble Call";
-        
+
     }
 
 }
