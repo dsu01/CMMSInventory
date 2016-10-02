@@ -81,17 +81,11 @@ GO
 SET QUOTED_IDENTIFIER OFF
 GO
 
-
-
 CREATE PROCEDURE [dbo].[spn_Inv_GetTypeList]
 AS
 Select distinct SystemGroup
 from InvFacilitySystem
 Order By SystemGroup ASC
-
-
-
-
 
 GO
 

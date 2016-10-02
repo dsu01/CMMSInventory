@@ -69,10 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\alterInvEquipmentTable.sql" />
+    <Content Include="Scripts\AlterAttachmentTables.sql" />
     <Content Include="Scripts\CreateAttachmentTable08212016.sql" />
-    <Content Include="Scripts\spn_inv_deleteEquipmentAttachment.sql" />
-    <Content Include="Scripts\spn_Inv_GetEquipmentAttachmentByID.sql" />
-    <Content Include="Scripts\spn_inv_updateEquipmentAttachment.sql" />
+    <Content Include="Scripts\spn_inv_deleteAttachment.sql" />
+    <Content Include="Scripts\spn_Inv_GetAttachmentByID.sql" />
+    <Content Include="Scripts\spn_Inv_GetAttachmentList.sql" />
+    <Content Include="Scripts\spn_inv_updateAttachment.sql" />
     <Content Include="Scripts\updatedSps.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

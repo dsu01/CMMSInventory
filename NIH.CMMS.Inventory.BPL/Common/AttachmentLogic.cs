@@ -9,12 +9,12 @@ namespace NIH.CMMS.Inventory.BPL.Common
 {
     public class AttachmentLogic
     {
-        public static List<Attachment> GetEquipmentAttachments(int equipmentSysId)
+        public static List<Attachment> GetAttachments(int equipmentSysId, bool isEquipmentOrFacility)
         {
             try
             {
                 List<Attachment> col = null;
-                DataSet ds = Attachment_db.GetEquipmentAttachmentList(equipmentSysId);
+                DataSet ds = Attachment_db.GetAttachmentList(equipmentSysId, isEquipmentOrFacility);
 
                 if (ds != null)
                 {
@@ -33,12 +33,12 @@ namespace NIH.CMMS.Inventory.BPL.Common
             }
         }
 
-        public static Attachment GetAttachment(int attachmentSysID)
+        public static Attachment GetAttachment(int attachmentSysID, bool isEquipmentOrFacility)
         {
             try
             {
                 Attachment attachment = null;
-                var ds = Attachment_db.GetAttachment(attachmentSysID);
+                var ds = Attachment_db.GetAttachment(attachmentSysID, isEquipmentOrFacility);
 
                 if (ds != null)
                 {
@@ -52,11 +52,11 @@ namespace NIH.CMMS.Inventory.BPL.Common
             }
         }
 
-        public static ValidationResult DeleteAttachment(int attachmentSysID)
+        public static ValidationResult DeleteAttachment(int attachmentSysID, bool isEquipmentOrFacility)
         {
             try
             {
-                return Attachment_db.DeleteAttachment(attachmentSysID);
+                return Attachment_db.DeleteAttachment(attachmentSysID, isEquipmentOrFacility);
             }
             catch (Exception e)
             {
@@ -64,7 +64,7 @@ namespace NIH.CMMS.Inventory.BPL.Common
             }
         }
 
-        public static ValidationResult UpdateAttachment(Attachment details)
+        public static ValidationResult UpdateAttachment(Attachment details, bool isEquipmentOrFacility)
         {
             //var result = ApplicationConstants.NO_ERROR_USP_EXECUTION;
             var result = new ValidationResult(true, "Success");
@@ -72,7 +72,7 @@ namespace NIH.CMMS.Inventory.BPL.Common
             try
             {
                 //insert/update 
-                result = Attachment_db.UpdateAttachment(details);
+                result = Attachment_db.UpdateAttachment(details, isEquipmentOrFacility);
             }
             catch (Exception e)
             {
@@ -87,7 +87,7 @@ namespace NIH.CMMS.Inventory.BPL.Common
             Attachment attachment = new Attachment()
             {
                 InvAttachmentSysID = (int)row["ID"],
-                InvEquipSysID = (int)row["InvEquipmentID"],
+                InvParentSysID = (int)row["InvParentSysID"],
                 FileName = (string)row["FileName"],
                 FileType = row["ContentType"] != DBNull.Value ? (string)row["ContentType"] : null,
                 FileData = (byte[])row["Data"],

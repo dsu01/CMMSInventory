@@ -12,12 +12,13 @@ using NIH.CMMS.Inventory.BOL.Facility;
 using NIH.CMMS.Inventory.BOL.People;
 using NIH.CMMS.Inventory.BPL.Common;
 using NIH.CMMS.Inventory.BPL.Facility;
+using NIH.CMMS.Inventory.Web.Extensions;
 
 public partial class Equipment_equipElectrical : System.Web.UI.Page
 {
     protected LoginUser loginUsr;
 
-    public int EquipmentSysID
+    public int ParentFacilitySysID
     {
         get
         {
@@ -30,6 +31,9 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         loginUsr = Utils.CheckSession(this);
+
+        ctrlAddAttachment.IsEquipmentOrFacility = true;
+        ctrlAddAttachment.AttachmentSaved += CtrlAddAttachment_AttachmentSaved;
 
         if (!Page.IsPostBack)
         {
@@ -44,7 +48,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
 
-            if (EquipmentSysID > 0)
+            if (ParentFacilitySysID >= 0)
             {
                 //New eletrical equipment
                 btnFinish.Text = "Update Equipment";
@@ -59,13 +63,14 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         }
 
     }
+
     private void LoadDetails()
     {
-        FacilityDet details = facility_logic.GetFacilityDetails(EquipmentSysID);
+        FacilityDet details = facility_logic.GetElectrialEquipDetails(ParentFacilitySysID);
         if (details != null)
         {
             #region "Load general facility detail"
-            hidFacSystemID.Value = EquipmentSysID.ToString();
+            hidFacSystemID.Value = ParentFacilitySysID.ToString();
             drplstSystem.SelectedValue = details.FacSystem;
             drplstBuilding.SelectedValue = details.FacBuilding;
             txtFunction.Text = details.FacFunction;
@@ -151,12 +156,10 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             //after save, show your temp fac# is saved, u can print now, print.css needs line
             //show active or inactive
         }
-
-
     }
     protected void btnReset_Click(object sender, EventArgs e)
     {
-        if (EquipmentSysID > 0)
+        if (ParentFacilitySysID >= 0)
         {
             LoadDetails();
         }
@@ -267,12 +270,11 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         return vr;
     }
 
-
     #region Attachment Details
 
     private void LoadAttachments()
     {
-        var list = AttachmentLogic.GetEquipmentAttachments(EquipmentSysID);
+        var list = AttachmentLogic.GetAttachments(ParentFacilitySysID, true);
 
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
@@ -284,7 +286,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         if (id <= 0)    // should never happen
             return;
 
-        var attachment = AttachmentLogic.GetAttachment(id);
+        var attachment = AttachmentLogic.GetAttachment(id, true);
         if (attachment == null)
         {
             Utils.ShowPopUpMsg("Cannot load attachment", this.Page);
@@ -294,11 +296,11 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         var deleted = false;
         if (e.CommandName == "Open")
         {
-            DisplayAttachmentContent(attachment);
+            this.DisplayAttachmentContent(attachment);
         }
         else // if command == delete
         {
-            var result = AttachmentLogic.DeleteAttachment(id);
+            var result = AttachmentLogic.DeleteAttachment(id, true);
 
             if (result.Success)
             {
@@ -315,19 +317,17 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             LoadAttachments();
     }
 
-    private void DisplayAttachmentContent(Attachment attachment)
+    private void CtrlAddAttachment_AttachmentSaved(bool result)
     {
-        var data = attachment.FileData;
-        if (data == null || data.Length == 0)
-            return;
-
-        Response.Clear();
-        Response.ContentType = string.Format("application/{0}", attachment.FileType);
-        Response.AddHeader("content-disposition", "attachment;filename=" + attachment.FileName);
-        Response.Charset = "";
-        Response.Cache.SetCacheability(HttpCacheability.NoCache);
-        Response.BinaryWrite(data);
-        Response.End();
+        if (result)  // added
+        {
+            // reload attachment
+            LoadAttachments();
+        }
+        else
+    {
+            mpeAttachment.Show();
+        }
     }
 
     #endregion

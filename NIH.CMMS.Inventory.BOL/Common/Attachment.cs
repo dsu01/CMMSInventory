@@ -6,7 +6,7 @@ using System.Text;
 namespace NIH.CMMS.Inventory.BOL.Common
 {
     [Serializable]
-    public class Attachment 
+    public class Attachment
     {
         public Attachment()
         {
@@ -25,9 +25,7 @@ namespace NIH.CMMS.Inventory.BOL.Common
 
         public int InvAttachmentSysID { get; set; }
 
-        public string InvEquipID { get; set; }
-
-        public int InvEquipSysID { get; set; }
+        public int InvParentSysID { get; set; }
 
         public string FileName { get; set; }
 

@@ -10,46 +10,57 @@ using NIH.CMMS.Inventory.Web;
 using NIH.CMMS.Inventory.BPL.Facility;
 using NIH.CMMS.Inventory.BOL.People;
 using System.Data;
+using NIH.CMMS.Inventory.BPL.Common;
 using NIH.CMMS.Inventory.BPL.LookUp;
+using NIH.CMMS.Inventory.Web.Extensions;
 
 public partial class Equipment_equipMechanical : System.Web.UI.Page
 {
     protected LoginUser loginUsr;
+
+    public int ParentFacilitySysID
+    {
+        get
+        {
+            return !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"])
+                ? Convert.ToInt32(Request.QueryString["ParentFacilitySysID"])
+                : -1;
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         loginUsr = Utils.CheckSession(this);
+
+        // initialize attachment control
+        ctrlAddAttachment.IsEquipmentOrFacility = false;
+        ctrlAddAttachment.AttachmentSaved += CtrlAddAttachment_AttachmentSaved;
+
         if (!Page.IsPostBack)
         {
-            
-
             DataSet dtSystem = GeneralLookUp.GetMechanicalSystemList();
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
-                               
 
-            if (Request.QueryString["ParentFacilitySysID"] != null && !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"].ToString()))
+            if (ParentFacilitySysID >= 0)
             {
-                int facID = 0;
-                bool result = Int32.TryParse(Request.QueryString["ParentFacilitySysID"].ToString(), out facID);
-                if (result)
-                {
                     btnSaveFacility.Text = "Update Equipment";
                     LoadFacilityInfo();
-                }
-                else
-                {
-                    Response.Redirect("~/Default.aspx");
-                }
             }
+            else
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+
             //if no facility info, then bottom nothing
             if (string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
             {
                 btnSaveFacility.Text = "Add New Equipment";
             }
-           
+
         }
     }
 
@@ -66,7 +77,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
     }
     protected void btnCancelFacility_Click(object sender, EventArgs e)
     {
-        if (Request.QueryString["ParentFacilitySysID"] != null && !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"].ToString()))
+        if (ParentFacilitySysID >= 0)
         {
             LoadFacilityInfo();
         }
@@ -78,11 +89,12 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
     private void LoadFacilityInfo()
     {
-        FacilityDet details = facility_logic.GetFacilityDetails(Convert.ToInt32(Request.QueryString["ParentFacilitySysID"]));
-          
-        LoadFacilityDetail(details);
-        
+        if (ParentFacilitySysID < 0) return;
 
+        var details = facility_logic.GetFacilityDetails(ParentFacilitySysID);
+        LoadFacilityDetail(details);
+
+        LoadAttachments();
     }
 
     private void LoadFacilityDetail(FacilityDet existingFac)
@@ -195,7 +207,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                 loginUsr = (LoginUser)Session[ApplicationConstants.SESSION_USEROBJLOGINDET];
             else
                 details.UserName = loginUsr.LaborName;
-           // details.TypeOrUse = txtTypeUse.Text.Trim();
+            // details.TypeOrUse = txtTypeUse.Text.Trim();
             details.Manufacturer = txtManufacturer.Text.Trim();
             details.ModelNo = txtModelNum.Text.Trim();
             details.SerialNo = txtSerialNum.Text.Trim();
@@ -223,13 +235,13 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                 details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
             details.PMSchedule = txtPMSchedule.Text.Trim();
             //ValidationResult vr = facility_logic.UpdateFacility(details, false);
-             ValidationResult vr = new ValidationResult(true, string.Empty);
+            ValidationResult vr = new ValidationResult(true, string.Empty);
 
             if (string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
                 vr = facility_logic.AddMechanicalEquipment(details);
             else
                 vr = facility_logic.UpdateMechanicalEquipment(details);
-            
+
             if (details.Key > 0 && vr.Success)
             {
                 Session["ParentFacilityNum"] = details.FacNum;
@@ -239,7 +251,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             }
             else { Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page); }
 
-          
+
 
         }
 
@@ -249,7 +261,6 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
     private void ClearData()
     {
-       
         drplstSystem.SelectedIndex = -1;
         txtFunction.Text = string.Empty;
         drplstBuilding.SelectedIndex = -1;
@@ -262,12 +273,11 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         txtComments.Text = string.Empty;
         txtFacilityID.Text = string.Empty;
 
-       
         txtModelNum.Text = string.Empty;
         txtSize.Text = string.Empty;
         txtSerialNum.Text = string.Empty;
         txtInstalledDate.Text = string.Empty;
-      
+
         //txtTypeOrUse.Text = string.Empty;
         txtCapacity.Text = string.Empty;
         txtCapacityHT.Text = string.Empty;
@@ -277,7 +287,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         txtMotorType.Text = string.Empty;
 
         txtMotorSerialNum.Text = string.Empty;
-        txtMotorInstalledDate.Text= string.Empty;
+        txtMotorInstalledDate.Text = string.Empty;
         txtMotorModel.Text = string.Empty;
         txtFrame.Text = string.Empty;
         txtRPM.Text = string.Empty;
@@ -287,7 +297,67 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         txtBSLClass.Text = string.Empty;
         txtTJC.Text = string.Empty;
         txtPMSchedule.Text = string.Empty;
-
-
     }
+
+    #region Attachment Details
+
+    private void LoadAttachments()
+    {
+        var list = AttachmentLogic.GetAttachments(ParentFacilitySysID, false);
+
+        gvExtAttachment.DataSource = list;
+        gvExtAttachment.DataBind();
+    }
+
+    protected void gvExtAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        var id = Convert.ToInt32((string)e.CommandArgument);
+        if (id <= 0)    // should never happen
+            return;
+
+        var attachment = AttachmentLogic.GetAttachment(id, false);
+        if (attachment == null)
+        {
+            Utils.ShowPopUpMsg("Cannot load attachment", this.Page);
+            return;
+        }
+
+        var deleted = false;
+        if (e.CommandName == "Open")
+        {
+            this.DisplayAttachmentContent(attachment);
+        }
+        else // if command == delete
+        {
+            var result = AttachmentLogic.DeleteAttachment(id, false);
+
+            if (result.Success)
+            {
+                deleted = true;
+                Utils.ShowPopUpMsg("Attachment deleted", this.Page);
+            }
+            else
+            {
+                Utils.ShowPopUpMsg("Attachment delete error", this.Page);
+            }
+        }
+
+        if (deleted)
+            LoadAttachments();
+    }
+
+    private void CtrlAddAttachment_AttachmentSaved(bool result)
+    {
+        if (result)  // added
+        {
+            // reload attachment
+            LoadAttachments();
+        }
+        else
+        {
+            mpeAttachment.Show();
+        }
+    }
+
+    #endregion
 }

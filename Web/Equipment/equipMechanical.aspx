@@ -1,11 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MainMasterPage.master" AutoEventWireup="true" CodeFile="equipMechanical.aspx.cs" Inherits="Equipment_equipMechanical" %>
 
+<%@ Register Src="/CommonControl/ctrlAttachment.ascx" TagName="mngAttachment" TagPrefix="ctrlAtt" %>
 <asp:Content ID="headerContent" ContentPlaceHolderID="headerPlaceHolder" runat="server">
-
     <script type="text/javascript" src="../JS/jquery-1.5.1.min.js"></script>
     <script type="text/javascript" src="../JS/jquery-ui-1.8.12.custom.min.js"></script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolderMain" Runat="Server">
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">
     <table style="font-size: 9pt; width: 100%">
         <tr>
             <td align="right">
@@ -75,17 +76,17 @@
                         <asp:TextBox ID="txtTypeUse" MaxLength="50" runat="server" TabIndex="10" />
                     </td>
                --%>
-                    <td >
+                <td>
                         <asp:Label ID="lbManufacturer" runat="server" Text="Manufacturer"></asp:Label>
                     </td>
-                    <td >
+                <td>
                         <asp:TextBox ID="txtManufacturer" MaxLength="50" runat="server" TabIndex="11" />
                     </td>
                
-                    <td >
+                <td>
                         <asp:Label ID="lbModelNum" runat="server" Text="Model No."></asp:Label>
                     </td>
-                    <td >
+                <td>
                         <asp:TextBox ID="txtModelNum" MaxLength="50" runat="server" TabIndex="12" />
                     </td>
                
@@ -247,30 +248,60 @@
                 
                   </tr>
                      <tr>
-                        <td>
-                            Comments
-                        </td>
-                         <td colspan="6">
-                            <asp:TextBox ID="txtComments" runat="server" MaxLength="255" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="36"></asp:TextBox>
+                <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /></td>
+                <td colspan="4">
+                    <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
+                        OnRowCommand="gvExtAttachment_onRowCommand">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Open" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
+                                <ItemTemplate>
+                                    <asp:LinkButton CommandName="Open" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnOpenAttachment" Text="<img src='/Image/btn_edit.gif' alt='Open' />" runat="server"></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
+                                <ItemTemplate>
+                                    <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnDeleteAttachment" Text="<img src='/Image/btn_delete.png' alt='Delete' />" runat="server" OnClientClick="return confirm('OK to Delete?');"></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField HeaderText="Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />
+                            <asp:BoundField HeaderText="File" DataField="FileName" />
+                            <asp:BoundField HeaderText="Created" DataField="CreatedOn" />
+                            <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
+                        </Columns>
+                    </asp:GridView>
                             <br />
+                    <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" />
                         </td>
-
                     </tr>
                        <tr>
-                        <td>Attachments
+                <td>Comments
                         </td>
                          <td colspan="6">
+                    <asp:TextBox ID="txtComments" runat="server" MaxLength="255" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="36"></asp:TextBox>
+                    <br />
                              </td>
-
                     </tr>
                      <tr>  
                          <td colspan="3">&nbsp;</td>
-                            <td><asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" /></td>  
-                            <td><asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
-                                OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');"  /></td>  
-
+                <td>
+                    <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" /></td>
+                <td>
+                    <asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
+                        OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');" /></td>
                         </tr>
                 </table>
-            </asp:Panel>
+        
+        <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="btnAddAttachment"
+            BehaviorID="psrAtt" PopupControlID="panelAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnClose" />
 
+        <asp:Panel ID="panelAttachment" runat="server" Style="width: 600px; background: white; border: 2px black solid; display: none; text-align: left;">
+            <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
+            <br />
+            <br />
+            <div align="center">
+                <asp:Button ID="btnClose" runat="server" Text="Close" />
+            </div>
+            <br />
+        </asp:Panel>
+            </asp:Panel>
 </asp:Content>
