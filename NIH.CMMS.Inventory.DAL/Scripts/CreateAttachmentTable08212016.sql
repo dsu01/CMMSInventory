@@ -9,6 +9,7 @@ CREATE TABLE [dbo].[InvFacilityAttachment](
 	[Data] [varbinary](max) NULL,
 	[CreatedOn] [datetime] NULL,
 	[CreatedBy] [varchar](100) NULL,
+	[Title] [varchar](200) NULL,
 	[IsActive] [bit] NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
