@@ -68,8 +68,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\alterInvEquipmentTable.sql" />
-    <Content Include="Scripts\AlterAttachmentTables.sql" />
+    <Content Include="Scripts\10012016changes.sql" />
     <Content Include="Scripts\CreateAttachmentTable08212016.sql" />
     <Content Include="Scripts\spn_inv_deleteAttachment.sql" />
     <Content Include="Scripts\spn_Inv_GetAttachmentByID.sql" />
