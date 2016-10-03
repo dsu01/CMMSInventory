@@ -92,10 +92,9 @@
                             <td><asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
                                 <asp:Label ID="lbUpdateFacilityMsg" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label>
                             </td>  
-                            <td><asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
-           OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');"  />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button2" runat="server" Text="Go Back to List" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
-           OnClick="btnGoBack_Click"  />
+                            <td<%--><asp:Button ID="btnCancelFacilityChange" runat="server" Text="Reset" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
+           OnClick="btnReset_Click" OnClientClick="return confirm('OK to Cancel?');"  />--%>
+                           
                             </td>  
 
                         </tr>

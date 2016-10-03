@@ -115,15 +115,9 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
             lbUpdateFacilityMsg.Text = "Information Cannot Be Saved.";
 
     }
-    protected void btnCancelFacility_Click(object sender, EventArgs e)
-    {
-         Response.Redirect("~/SearchResult.aspx");
-    }
+  
 
-    protected void btnGoBack_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/SearchResult.aspx");
-    }
+
     protected void btnFinish_Click(object sender, EventArgs e)
     {
        
@@ -419,8 +413,8 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
                     details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
                 details.PMSchedule = txtPMSchedule.Text.Trim();
-                return facility_logic.UpdateEquipment(details);
-
+                // return facility_logic.UpdateEquipment(details);
+                return null;
                 #endregion
             }
             else
@@ -469,7 +463,9 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
                 loginUsr = (LoginUser)Session[ApplicationConstants.SESSION_USEROBJLOGINDET];
             else
                 details.UserName = loginUsr.LaborName;
-            ValidationResult vr = facility_logic.UpdateFacility(details, false);
+            //  ValidationResult vr = facility_logic.UpdateFacility(details, false);
+
+            ValidationResult vr = new ValidationResult(true, string.Empty);
             if (details.Key > 0 && vr.Success)
             {
                 Session["ParentFacilityNum"] = details.FacNum;

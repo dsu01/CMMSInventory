@@ -125,7 +125,7 @@
 			                    Email: <A href='mailto:<%= ConfigurationManager.AppSettings["POCEmail"].ToString()%>?Subject=<%= ConfigurationManager.AppSettings["ApplicationTitle"].ToString()%> Version'><font color="white"><u><%= ConfigurationManager.AppSettings["POCNames"].ToString()%></u></font></A> &nbsp;
 			                   Tel: <%= ConfigurationManager.AppSettings["POCPhone"].ToString()%></div>
                             <div align="center" style="font-size: 11px; padding-top: 8px">                                
-                                Copyright &copy;2015, OD/ORF. All Rights Reserved. </div>
+                                Copyright &copy;2016, OD/ORF. All Rights Reserved. </div>
    </td></tr>
 </table>                                   
                                         

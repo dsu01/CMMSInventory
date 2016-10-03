@@ -49,43 +49,45 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             {
                     btnSaveFacility.Text = "Update Equipment";
                     LoadFacilityInfo();
+                trAttachment.Visible = true;
             }
             else
             {
-                Response.Redirect("~/Default.aspx");
-            }
-
-            //if no facility info, then bottom nothing
-            if (string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
-            {
+                trAttachment.Visible = false;
                 btnSaveFacility.Text = "Add New Equipment";
-            }
 
+            }
+            
         }
     }
 
     protected void btnSaveFacility_Click(object sender, EventArgs e)
     {
-
-        int facID = SaveFacilityDetails();
-        if (facID > 0)
+              
+        if (string.IsNullOrEmpty(drplstBuilding.SelectedValue) || string.IsNullOrEmpty(drplstSystem.SelectedValue) || string.IsNullOrEmpty(txtFacilityID.Text.Trim()) || string.IsNullOrEmpty(txtLocation.Text.Trim()))
         {
-            //show system generated fac num
-        }
-
-
-    }
-    protected void btnCancelFacility_Click(object sender, EventArgs e)
-    {
-        if (ParentFacilitySysID >= 0)
-        {
-            LoadFacilityInfo();
+            Utils.ShowPopUpMsg("Facility ID, System, Building and Location are required.", this);
         }
         else
         {
-            ClearData();
-        }
+            //call spn_inv_AddElectricalEquipment_NewSite
+            ValidationResult vr = SaveFacilityDetails();
+            if (vr.Success)
+            {
+
+                Utils.ShowPopUpMsg("Equipment is saved.", this.Page);
+                //can add attachment now
+                trAttachment.Visible = true;
+            }
+            else
+                Utils.ShowPopUpMsg("Equipment cannot be saved." + vr.Reason, this.Page);
+            //after save, show your temp fac# is saved, u can print now, print.css needs line
+            //show active or inactive
+        }     
+
+
     }
+ 
 
     private void LoadFacilityInfo()
     {
@@ -110,7 +112,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             txtLocation.Text = existingFac.FacLocation;
             txtFacilityID.Text = existingFac.FacID;
             txtFacilityNum.Text = existingFac.FacNum;
-            Session["ParentFacilityNum"] = existingFac.FacNum;
+          //  Session["ParentFacilityNum"] = existingFac.FacNum;
             if (existingFac.FacNum.StartsWith("T"))
             { txtFacilityNum.BackColor = System.Drawing.Color.Aquamarine; }
 
@@ -170,29 +172,11 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
     }
 
-    private int SaveFacilityDetails()
+    private ValidationResult SaveFacilityDetails()
     {
         FacilityDet details = new FacilityDet();
-        if (!string.IsNullOrEmpty(Session["ParentFacilitySysID"].ToString()))
-        {
-            details.Key = Convert.ToInt32(Session["ParentFacilitySysID"].ToString());
-
-        }
-        if (!string.IsNullOrEmpty(Session["ParentFacilityNum"].ToString()))
-        {
-            details.FacNum = Session["ParentFacilityNum"].ToString();
-
-        }
-
-        //if @Building is null or @System is null or @FacilityLocation is null or @FacilityID is null
-        if (string.IsNullOrEmpty(drplstBuilding.SelectedValue) || string.IsNullOrEmpty(drplstSystem.SelectedValue) || string.IsNullOrEmpty(txtFacilityID.Text.Trim()) || string.IsNullOrEmpty(txtLocation.Text.Trim()))
-        {
-            Utils.ShowPopUpMsg("Facility ID, System, Building and Location are required.", this);
-            details.Key = -1;
-        }
-        else
-        {
-            details.FacSystem = drplstSystem.SelectedValue;
+        details.Key = Convert.ToInt32(hidFacSystemID.Value);
+        details.FacSystem = drplstSystem.SelectedValue;
             details.FacFunction = txtFunction.Text.Trim();
             details.FacBuilding = drplstBuilding.SelectedValue;
             details.FacFloor = txtFloor.Text.Trim();
@@ -235,28 +219,18 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                 details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
             details.PMSchedule = txtPMSchedule.Text.Trim();
             //ValidationResult vr = facility_logic.UpdateFacility(details, false);
-            ValidationResult vr = new ValidationResult(true, string.Empty);
-
-            if (string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
-                vr = facility_logic.AddMechanicalEquipment(details);
-            else
-                vr = facility_logic.UpdateMechanicalEquipment(details);
-
+           
+            ValidationResult vr = facility_logic.AddUpdateMechanicalEquipment(details);
+        
             if (details.Key > 0 && vr.Success)
-            {
-                Session["ParentFacilityNum"] = details.FacNum;
-                txtFacilityNum.Text = details.FacNum;
-                Session["ParentFacilitySysID"] = details.Key.ToString();
-                txtFacilityID.Text = details.Key.ToString();
+            {               
+                txtFacilityNum.Text = details.FacNum;            
+              
             }
-            else { Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page); }
+            return vr;
 
 
-
-        }
-
-
-        return details.Key;
+       
     }
 
     private void ClearData()
@@ -297,6 +271,8 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         txtBSLClass.Text = string.Empty;
         txtTJC.Text = string.Empty;
         txtPMSchedule.Text = string.Empty;
+
+        trAttachment.Visible = false;
     }
 
     #region Attachment Details
@@ -344,6 +320,24 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
         if (deleted)
             LoadAttachments();
+    }
+    protected void btnReset_Click(object sender, EventArgs e)
+    {
+        if (ParentFacilitySysID >= 0)
+        {
+            LoadFacilityInfo();
+        }
+        else
+        {
+            ClearData();
+        }
+    }
+
+    protected void btnAddNew_Click(object sender, EventArgs e)
+    {
+        ClearData();
+
+
     }
 
     private void CtrlAddAttachment_AttachmentSaved(bool result)

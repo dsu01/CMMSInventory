@@ -49,15 +49,15 @@
                                                                                               
                                            <ul id="nav">                                            
                                     
-                                              <li><asp:HyperLink ID="hlHome" runat="server" NavigateUrl="~/Default3.aspx" Text="Home"></asp:HyperLink>
+                                              <li><asp:HyperLink ID="hlHome" runat="server" NavigateUrl="~/Default.aspx" Text="Home"></asp:HyperLink>
                                                 
                                               </li>
                                                 <li><asp:HyperLink ID="hlAddNew" runat="server" NavigateUrl="#" Text="Add New"></asp:HyperLink>
                                                 <ul>		
                                                   <li><a href="~/Equipment/systemElectrical.aspx" id="A3" runat="server">Add Electrical System</a></li>                                                   
                                                      <li><a id="A6" href="~/Equipment/systemMechanical.aspx" runat="server">Add Mechanical System</a></li>
-                                                  <li><a href="~/Equipment/equipElectrical.aspx" id="A4" runat="server">Add Electrical Component</a></li>                                                   
-                                                     <li><a id="A5" href="~/Equipment/equipMechanical.aspx" runat="server">Add Mechanical Component</a></li>
+                                                  <li><a href="~/Equipment/equipElectrical.aspx" id="A4" runat="server">Add Electrical Equipment</a></li>                                                   
+                                                     <li><a id="A5" href="~/Equipment/equipMechanical.aspx" runat="server">Add Mechanical Equipment</a></li>
                                                  
                                                     
                                                 </ul>

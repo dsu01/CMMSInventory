@@ -8,7 +8,7 @@ using System.Data;
 using NIH.CMMS.Inventory.BPL.LookUp;
 using NIH.CMMS.Inventory.Web;
 using NIH.CMMS.Inventory.BOL.People;
-using NIH.CMMS.Inventory.BOL.Common;
+
 
 public partial class Default3 : System.Web.UI.Page
 {
@@ -22,288 +22,218 @@ public partial class Default3 : System.Web.UI.Page
             if (HttpContext.Current.Session[ApplicationConstants.SESSION_USEROBJLOGINDET] == null)
             { Response.Redirect("~/Login.aspx"); }
 
-            #region Load checkbox list values
-            //DataSet dtType = GeneralLookUp.GetTypeList();
-            //rblstType.DataSource = dtType;
-            //rblstType.DataBind();        
+            DataSet dtSystem = GeneralLookUp.GetSystemList();
+            drplstSystem.DataSource = dtSystem;
+            drplstSystem.DataBind();
+            DataSet dtBuilding = GeneralLookUp.GetBuildingList();
+            drplstBuilding.DataSource = dtBuilding;
+            drplstBuilding.DataBind();
 
-            DataSet dtBuilding = GeneralLookUp.GetSearchBuildingList();
-            lbBuilding.DataSource = dtBuilding;
-            lbBuilding.DataBind();
-           
-            #endregion
+            //clear session value
+            Session["ParentFacilityNum"] = string.Empty;
+            Session["ParentFacilitySysID"] = string.Empty;
+            Session["PageNumber"] = string.Empty;
+            Session["CurrentFiveEquipments"] = null;
 
-            #region Show Previous Search Values
-            if (!SearchCriteria.KeepAlive) SearchCriteria.Instance = null;
-            else SearchCriteria.KeepAlive = false;
-
-            if (SearchCriteria.Instance != null)
+            //criteria
+            if (Session["DefSeaAssigned"] != null)
+                radioSelect.SelectedValue = Session["DefSeaAssigned"].ToString();
+            if (Session["DefSeaType"] != null)
             {
-                SearchCriteria crit = SearchCriteria.Instance;
-                if (!string.IsNullOrEmpty(crit.facnum))
-                    txtFacilityNum.Text = crit.facnum;
-                else if (!string.IsNullOrEmpty(crit.wrnum))
-                    txtWRNum.Text = crit.wrnum;
+                if (Session["DefSeaType"].ToString() != "")
+                    drplstGroup.SelectedValue = Session["DefSeaType"].ToString();
+            }
+            if (Session["DefSeaBuilding"] != null)
+            {
+                if (Session["DefSeaBuilding"].ToString() != "")
+                    drplstBuilding.SelectedValue = Session["DefSeaBuilding"].ToString();
+            }
+            if (Session["DefSeaSystem"] != null)
+            {
+                if (Session["DefSeaSystem"].ToString() != "")
+                    drplstSystem.SelectedValue = Session["DefSeaSystem"].ToString();
+            }
+            if (Session["DefSeaWRNum"] != null)
+            {
+                if (Session["DefSeaWRNum"].ToString() != "")
+                    txtWRNum.Text = Session["DefSeaWRNum"].ToString();
+            }
+            if (Session["DefSeaFacNum"] != null)
+            {
+                if (Session["DefSeaFacNum"].ToString() != "")
+                    txtFacilityNum.Text = Session["DefSeaFacNum"].ToString();
+            }
+
+
+
+        }
+
+    }
+
+
+    protected void ListView1_ItemDataBound(object sender, ListViewItemEventArgs e)
+    {
+
+        if (e.Item.ItemType == ListViewItemType.DataItem)
+        {
+            // Display the e-mail address in italics.
+            Label lbFacGroup = (Label)e.Item.FindControl("lblHidFacilityGrp");
+            Label lbFacSystemID = (Label)e.Item.FindControl("lblHidFacilityID");
+            //EmailAddressLabel.Font.Italic = true;
+
+            //System.Data.DataRowView rowView = e.Item.DataItem as System.Data.DataRowView;
+            //string currentEmailAddress = rowView["EmailAddress"].ToString();
+            //if (currentEmailAddress == "orlando0@adventure-works.com")
+            //{
+            //    EmailAddressLabel.Font.Bold = true;
+            //}
+
+            HyperLink hlFacNum = (HyperLink)e.Item.FindControl("hlFacNum");
+
+            if (lbFacGroup != null && hlFacNum != null && lbFacSystemID != null)
+            {
+                if (lbFacGroup.Text.StartsWith("Electrical"))
+                {
+
+                    hlFacNum.NavigateUrl = "~/Equipment/equipElectrical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
+                }
                 else
                 {
-                    if (crit.selBuildings != null)
-                    {
-                        //show current selection
-                        // lbSelectedBuildingValue.Text = crit.buildingDescs; 
-                        // Utils.CheckCheckboxListFromListString(drplstBuilding, crit.buildingIds);
-                        lbExtBuilding.DataSource = crit.selBuildings;
-                        lbExtBuilding.DataBind();
-                    }
-               
-                   if (!string.IsNullOrEmpty(crit.typeId))
-                   {
-                       rblstType.SelectedValue = crit.typeId;
-                       ShowSelection(crit.typeId); 
-                       if (crit.selSystems != null)
-                       {
-                            // lbSelectedSystemValue.Text = crit.systemDescs;
-                            // Utils.CheckCheckboxListFromListString(drplstSystem, crit.systemIds);
-                            lbExtSystems.DataSource = crit.selSystems;
-                            lbExtSystems.DataBind();
-                        }
-                   }
-                    
-                    radioSelect.SelectedValue = crit.flagAssigned.ToString();
-                }          
-            }          
 
-            #endregion
-        }
-
-    }
-
-
-    protected void rblstType_SelectedIndexChanged(object sender, EventArgs e)
-    {        
-        if (!string.IsNullOrEmpty(rblstType.SelectedValue))
-        {
-
-            ShowSelection(rblstType.SelectedValue);        
-        } 
-    }
-
-    private void ShowSelection(string val)
-    { 
-           
-            //filter the other two checkboxes list depends on this value
-            //if Systemgroup contains System, then it is system,
-            //only system can be qualified as parent
-            //otherwise if Equipment
-        if (!string.IsNullOrEmpty(val))
-        {
-            DataSet resList = GeneralLookUp.GetListByType(val);
-          
-            if (resList != null)
-            {
-                lbSystems.DataSource = resList;
-                lbSystems.DataBind();
-                 
-                //delete existing systems
-                lbExtSystems.Items.Clear();
+                    hlFacNum.NavigateUrl = "~/Equipment/equipMechanical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
+                }
             }
+
+            //NIHRole = "msSuper" and "msAdmin" can upate facility (can see save current page info button)
+            //NIHRole only "msAdmin" can assign number, change status, 
+            //no, only status for facility now. status for every equipment, inactive use different color 
+            Control actionHeader = ListView1.FindControl("colAction");
+            if (actionHeader != null)
+                if (loginUsr.Role.ToLower() == "msadmin" || loginUsr.Role.ToLower() == "mssuper")
+                { actionHeader.Visible = true; }
+                else
+                { actionHeader.Visible = false; }
+
+
+            HyperLink hlAction = (HyperLink)e.Item.FindControl("hlAction");
+            if (hlAction != null)
+                if (loginUsr.Role.ToLower() == "msadmin" || loginUsr.Role.ToLower() == "mssuper")
+                { hlAction.Visible = true; }
+                else
+                { hlAction.Visible = false; }
+
+
         }
-            
     }
+
+
+    protected void CurrentRowTextBox_OnTextChanged(object sender, EventArgs e)
+    {
+        TextBox t = (TextBox)sender;
+        DataPager pager =
+            (DataPager)ListView1.FindControl("DataPager");
+        pager.SetPageProperties(Convert.ToInt32(t.Text) - 1,
+             pager.PageSize, true);
+    }
+    protected void ListView1_OnSorting(object sender, ListViewSortEventArgs e)
+    {
+        if (String.IsNullOrEmpty(e.SortExpression)) { return; }
+        string direction = "";
+        if (ViewState["SortDirection"] != null)
+            direction = ViewState["SortDirection"].ToString();
+
+        if (direction == "ASC")
+            direction = "DESC";
+        else
+            direction = "ASC";
+
+        ViewState["SortDirection"] = direction;
+
+        string[] sortColumns = e.SortExpression.Split(',');
+        string sortExpression = sortColumns[0] + " " + direction;
+        for (int i = 1; i < sortColumns.Length; i++)
+            sortExpression += ", " + sortColumns[i] + " " + direction;
+        e.SortExpression = sortExpression;
+
+
+    }
+
+    #region protected void btnExportToExcel_OnClick(object sender, EventArgs e)
+
+    protected void btnExportToExcel_OnClick(object sender, EventArgs e)
+    {
+        //     Utils.ExportToExcel("Inventory Result", gvEquips);
+    }
+
+    #endregion
+
+    #region protected void btnExportToPDF_OnClick(object sender, EventArgs e)
+
+    protected void btnExportToPDF_OnClick(object sender, EventArgs e)
+    {
+        //string strTitle = " Active Trouble Calls Due In: " + drpDueHours.SelectedItem.Text;
+        //if (drpWOGroup.SelectedIndex != 0)
+        //{ strTitle += " For Group: " + drpWOGroup.SelectedItem.Text; }
+
+        //Utils.ExportToPDF("Inventory Search " + DateTime.Now.ToShortDateString(), gvEquips, "Facility Search " + DateTime.Now.ToShortDateString());
+
+        //Utils.ExportToPDFlv("Search Result", ListView1);
+    }
+
+    #endregion
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        if (Page.IsValid)
+        //save search criteria to session
+        //type, system, wr#, building, fac#, assigned?
+        if (drplstGroup.SelectedValue != "")
         {
-            SearchCriteria crit = SearchCriteria.NewInstance;
-            crit.selBuildings = Utils.GetSelItemCollection(lbExtBuilding);
-            crit.buildingIds = Utils.GetStringIDsFromListBox(lbExtBuilding);
-            crit.buildingDescs = Utils.GetStringDescFromListBox(lbExtBuilding);       
-            if (!string.IsNullOrEmpty(rblstType.SelectedValue))
-                crit.typeId = rblstType.SelectedValue;
-                       
-            crit.selSystems = Utils.GetSelItemCollection(lbExtSystems);
-            crit.systemDescs = Utils.GetStringDescFromListBox(lbExtSystems);
-            crit.systemIds = Utils.GetStringIDsFromListBox(lbExtSystems);
-            crit.flagAssigned = Convert.ToInt32(radioSelect.SelectedValue);
-            crit.facnum = string.Empty;
-            crit.wrnum = string.Empty;
-            HttpContext.Current.Session["SearchReportSearchCriteria"] = crit;
-            Response.Redirect("SearchResult.aspx");
+            Session["DefSeaType"] = drplstGroup.SelectedValue;
         }
-           
+        else
+        {
+            Session["DefSeaType"] = string.Empty;
+        }
+        if (drplstBuilding.SelectedValue != "")
+        {
+            Session["DefSeaBuilding"] = drplstBuilding.SelectedValue;
+        }
+        else
+        { Session["DefSeaBuilding"] = string.Empty; }
+        if (drplstSystem.SelectedValue != "")
+        {
+            Session["DefSeaSystem"] = drplstSystem.SelectedValue;
+        }
+        else { Session["DefSeaSystem"] = string.Empty; }
+        if (!string.IsNullOrEmpty(txtWRNum.Text.Trim()))
+        {
+            Session["DefSeaWRNum"] = txtWRNum.Text.Trim();
+        }
+        else { Session["DefSeaWRNum"] = string.Empty; }
+        if (!string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
+        {
+            Session["DefSeaFacNum"] = txtFacilityNum.Text.Trim();
+        }
+        else { Session["DefSeaFacNum"] = string.Empty; }
+        Session["DefSeaAssigned"] = radioSelect.SelectedValue;
     }
 
     protected void btnReset_Click(object sender, EventArgs e)
     {
-        lbExtSystems.Items.Clear();
-        lbExtBuilding.Items.Clear();
-        rblstType.SelectedIndex = -1;
-        radioSelect.SelectedValue = "3"; //default unassigned
-        SearchCriteria.Instance = null;
+        radioSelect.SelectedValue = "1";
+        Session["DefSeaAssigned"] = "1";
+        drplstGroup.SelectedValue = string.Empty;
+        Session["DefSeaType"] = string.Empty;
+        drplstBuilding.SelectedValue = string.Empty;
+        Session["DefSeaBuilding"] = string.Empty;
+        drplstSystem.SelectedValue = string.Empty;
+        Session["DefSeaSystem"] = string.Empty;
+        txtWRNum.Text = string.Empty;
+        Session["DefSeaWRNum"] = string.Empty;
+        txtFacilityNum.Text = string.Empty;
+        Session["DefSeaFacNum"] = string.Empty;
     }
-
-    protected void btnSearchByFacNum_Click(object sender, EventArgs e)
-    {
-        if (!string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
-        {
-            SearchCriteria crit = SearchCriteria.NewInstance;
-
-            if (!string.IsNullOrEmpty(txtFacilityNum.Text))
-                crit.facnum = txtFacilityNum.Text.Trim();
-            HttpContext.Current.Session["SearchReportSearchCriteria"] = crit;
-            Response.Redirect("SearchResult.aspx");
-           // Response.Redirect("equipMechanicalNew.aspx?facnum=" + txtFacilityNum.Text.Trim());
-        }
-    }
-    protected void btnSearchByWRNum_Click(object sender, EventArgs e)
-    {
-        if (!string.IsNullOrEmpty(txtWRNum.Text.Trim()))
-        {
-            SearchCriteria crit = SearchCriteria.NewInstance;
-
-            if (!string.IsNullOrEmpty(txtWRNum.Text))
-                crit.wrnum = txtWRNum.Text.Trim();
-            HttpContext.Current.Session["SearchReportSearchCriteria"] = crit;
-            Response.Redirect("SearchResult.aspx");
-            // Response.Redirect("equipMechanicalNew.aspx?facnum=" + txtFacilityNum.Text.Trim());
-        }
-    }
-
-    //protected void cklstSystemSelectedIndexChangd(object sender, EventArgs e)
-    //{
-    //    lbSelectedSystemValue.Text = string.Empty;
-    //    //implement logic for user selection
-    //    for (int i = 0; i < drplstSystem.Items.Count; i++)
-    //    {
-
-    //        if (drplstSystem.Items[i].Selected)
-    //        {
-    //            if (drplstSystem.Items[i].Text.ToLower() == "all")
-    //            {
-    //                //check all 
-    //                CheckAll(drplstSystem);
-    //                lbSelectedSystemValue.Text = "All";
-    //                return;
-    //            }
-    //            else
-    //                lbSelectedSystemValue.Text += drplstSystem.Items[i].Text + "; ";
-    //        }
-    //    }
-
-    //    //remove the ;
-    //    if (lbSelectedSystemValue.Text.Length > 1)
-    //        lbSelectedSystemValue.Text = lbSelectedSystemValue.Text.Substring(0, lbSelectedSystemValue.Text.Length - 2);
-    //}
-
-  
-    protected void btnSelectSystem_Click(object sender, EventArgs e)
-    {
-
-        //get the selected functions from left listbox and add it into rightside box       
-        foreach (ListItem item in lbSystems.Items)
-        {
-            if (item.Selected)
-            {
-                item.Selected = false;
-                if (!lbExtSystems.Items.Contains(item))
-                {
-                    lbExtSystems.Items.Add(item);
-                }
-            }
-        }
-    }
-
-    protected void btnRemoveSystem_Click(object sender, EventArgs e)
-    {
-        List<ListItem> selitems = new List<ListItem>();
-        foreach (ListItem item in lbExtSystems.Items)
-        {
-            //if items are not removed, add into arraylist and bind it later
-            if (!item.Selected)
-            {
-                selitems.Add(item);
-            }
-        }
-        lbExtSystems.Items.Clear();
-        lbExtSystems.Items.AddRange(selitems.ToArray());
-    }
-
-    protected void btnAddAllSystem_Click(object sender, EventArgs e)
-    {
-        //get the selected functions from left listbox and add it into rightside box       
-        foreach (ListItem item in lbSystems.Items)
-        {
-            //if (!drplstSelectedStudents.Items.Contains(item))
-            if (lbExtSystems.Items.FindByValue(item.Value) == null)
-            {
-                lbExtSystems.Items.Add(item);
-            }
-        }
-
-        //Todo:add means change status to approved. if user is on wait list, status changed
-    }
-    protected void btnRemoveAllBuilding_Click(object sender, EventArgs e)
-    {
-        lbExtBuilding.Items.Clear();
-   
-    }
-    protected void btnAddAllBuilding_Click(object sender, EventArgs e)
-    {
-        //get the selected functions from left listbox and add it into rightside box       
-        foreach (ListItem item in lbBuilding.Items)
-        {
-            //if (!drplstSelectedStudents.Items.Contains(item))
-            if (lbExtBuilding.Items.FindByValue(item.Value) == null)
-            {
-                lbExtBuilding.Items.Add(item);
-            }
-        }
-
-        //Todo:add means change status to approved. if user is on wait list, status changed
-    }
-    protected void btnRemoveAllSystem_Click(object sender, EventArgs e)
-    {
-        lbExtSystems.Items.Clear();
-
-    }
-    /// <summary>
-    protected void btnSelectBuilding_Click(object sender, EventArgs e)
-    {
-
-        //get the selected functions from left listbox and add it into rightside box       
-        foreach (ListItem item in lbBuilding.Items)
-        {
-            if (item.Selected)
-            {
-                item.Selected = false;
-                if (!lbExtBuilding.Items.Contains(item))
-                {
-                    lbExtBuilding.Items.Add(item);
-                }
-            }
-        }
-    }
-
-    protected void btnRemoveBuilding_Click(object sender, EventArgs e)
-    {
-        List<ListItem> selitems = new List<ListItem>();
-        foreach (ListItem item in lbExtBuilding.Items)
-        {
-            //if items are not removed, add into arraylist and bind it later
-            if (!item.Selected)
-            {
-                selitems.Add(item);
-            }
-        }
-        lbExtBuilding.Items.Clear();
-        lbExtBuilding.Items.AddRange(selitems.ToArray());
-    }
-    private void CheckAll(CheckBoxList lst)
-    {
-        for (int i = 0; i < lst.Items.Count; i++)
-        {
-            lst.Items[i].Selected = true;
-        }
-    }
-
 }
+
+    
+    

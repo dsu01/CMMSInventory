@@ -247,7 +247,7 @@
                   
                 
                   </tr>
-                     <tr>
+                     <tr id="trAttachment" runat="server">
                 <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /></td>
                 <td colspan="4">
                     <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
@@ -282,12 +282,13 @@
                              </td>
                     </tr>
                      <tr>  
-                         <td colspan="3">&nbsp;</td>
-                <td>
-                    <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" /></td>
-                <td>
-                    <asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
-                        OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');" /></td>
+                         <td>&nbsp;</td>
+                <td colspan="4">
+                    <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
+             
+                              &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
+                <asp:HiddenField ID="hidFacSystemID" runat="server" Value="-1" /> </td>
                         </tr>
                 </table>
         

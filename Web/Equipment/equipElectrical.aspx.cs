@@ -52,12 +52,14 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             {
                 //New eletrical equipment
                 btnFinish.Text = "Update Equipment";
+                trAttachment.Visible = true;
                 LoadDetails();
             }
             else
             {
                 //New eletrical equipment
                 btnFinish.Text = "Add New Equipment";
+                trAttachment.Visible = false;
             }
 
         }
@@ -148,8 +150,10 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             ValidationResult vr = SaveFacilityDetails();
             if (vr.Success)
             {
+               
                 Utils.ShowPopUpMsg("Equipment is saved.", this.Page);
                 //can add attachment now
+                trAttachment.Visible = true;
             }
             else
                 Utils.ShowPopUpMsg("Equipment cannot be saved." + vr.Reason, this.Page);
@@ -168,6 +172,14 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             ClearData();
         }
     }
+
+    protected void btnAddNew_Click(object sender, EventArgs e)
+    {
+        ClearData();
+
+
+    }
+
 
     private void ClearData()
     {
@@ -208,6 +220,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         txtPMSchedule.Text = string.Empty;
         txtTJC.Text = string.Empty;
         txtBSLClass.Text = string.Empty;
+        trAttachment.Visible = false;
     }
 
     private ValidationResult SaveFacilityDetails()
@@ -260,13 +273,9 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
         details.PMSchedule = txtPMSchedule.Text.Trim();
 
-        ValidationResult vr = new ValidationResult(true, string.Empty);
-
-        if (hidFacSystemID.Value == "-1")
-            vr = facility_logic.AddElectricalEquipment(details);
-        else
-            vr = facility_logic.UpdateElectrialEquipment(details);
+        ValidationResult vr = facility_logic.AddUpdateElectricalEquipment(details);
         txtFacilityNum.Text = details.FacNum;
+      
         return vr;
     }
 

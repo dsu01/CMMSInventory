@@ -420,7 +420,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
                     details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
                 details.PMSchedule = txtPMSchedule.Text.Trim();
-                return facility_logic.UpdateEquipment(details);
+                return facility_logic.AddUpdateMechanicalComponent(details);
 
                 #endregion
             }
@@ -470,7 +470,11 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 loginUsr = (LoginUser)Session[ApplicationConstants.SESSION_USEROBJLOGINDET];
             else
                 details.UserName = loginUsr.LaborName;
-            ValidationResult vr = facility_logic.UpdateFacility(details, false);
+            ValidationResult vr = new ValidationResult(true, string.Empty);
+            if (details.Key > 0)
+             vr = facility_logic.UpdateElectricalMechanicalSystem(details, false); 
+            else
+                vr = facility_logic.AddElectricalMechanicalSystem(details, false);
             if (details.Key > 0 && vr.Success)
             {
                 Session["ParentFacilityNum"] = details.FacNum;

@@ -3,321 +3,196 @@
 
 <asp:Content ID="ContentDefault" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 <asp:UpdatePanel runat="server" ID="udpPnlDefault">
-   <Triggers>
-                <asp:PostBackTrigger ControlID="btnExportToExcel" />
-                <asp:PostBackTrigger ControlID="btnExportToPDF" />
-             </Triggers> 
+  
        <ContentTemplate> 
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
+                    <td class="redheading">Quick Search</td>
+                </tr>
+                <tr>
                     <td width="100%" valign="top">
-                        <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#eeeeee">
+                        <asp:UpdatePanel runat="server" ID="udpPnlQuickSearch" UpdateMode="Conditional">
+                            <ContentTemplate> 
+                        <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#d3d3d3">                            
                             <tr>
-                                <td class="redheading">Inventory Advanced Search</td>
-                            </tr>           
-                             <tr>
-                                <td class="footer">* Select one or more criteria, then click the "Search Inventory" button to generate a list of equipment.
-                                </td>
-                             </tr> 
-                             <tr>
-                                <td width="100%" align="center">
-                                <table class="QueryDataTable" cellpadding="3" cellspacing="0">
-                                    <tr bgcolor="">                                             
-                                             <td class="leftLabel">Type:</td>
-                                            <td align="left">                                            
-                                              <asp:DropDownList ID="drplstGroup" runat="server" Width="100%" SkinID="QueryTableDropList" DataTextField="Description" AppendDataBoundItems="true">
-                                                <asp:ListItem Value="">(All)</asp:ListItem> 
-                                                <asp:ListItem Text="Electrical" Value="Electrical"></asp:ListItem>
-                                                <asp:ListItem Text="Mechanical" Value="Mechanical"></asp:ListItem>
-                                                </asp:DropDownList>
-                                               
-                                                </td>
-                                             <td class="leftLabel" width="15%">Building: </td>
-                                                <td align="left" width="35%">                                              
-                                                <asp:DropDownList ID="drplstBuilding" runat="server" Width="100%" DataTextField="Building" DataValueField="Building" SkinID="QueryTableDropList" AppendDataBoundItems="true">
-                                                <asp:ListItem Value="">(All)</asp:ListItem> 
-                                                  </asp:DropDownList>
-                                                <ajaxToolkit:ListSearchExtender ID="ListSearchExtender1" runat="server"
-                                                    TargetControlID="drplstBuilding" PromptCssClass="ListSearchExtenderPrompt">
-                                                </ajaxToolkit:ListSearchExtender>    
-						                    </td>
-                                    </tr>
-                                    <tr>
-                                         <td class="leftLabel" width="15%">System:</td>
-                                              <td align="left" width="35%">
-                                                <asp:DropDownList ID="drplstSystem" runat="server" DataTextField="SystemTitle" DataValueField="SystemTitle" SkinID="QueryTableDropList" AppendDataBoundItems="true">
-			                                        <asp:ListItem Value="">(All)</asp:ListItem>                          
-                                                </asp:DropDownList>
-                                            </td>
-                                           <td class="leftLabel">Facility#:</td>
-                                            <td align="left"><asp:TextBox ID="txtFacilityNum" runat="server" SkinID="MaxTextBox"></asp:TextBox> 
-                                             <ajaxToolkit:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" 
-                                                TargetControlID="txtFacilityNum" 
-                                                WatermarkText="e.g. 03475 or T00005" 
-                                                WatermarkCssClass="watermarked" /> 
-                                            </td>    
-                                     </tr> 
-						             <tr>   
-						                    <td class="leftLabel">NIH Work Request#:</td>
-						                    <td align="left"><asp:TextBox ID="txtWRNum" runat="server" SkinID="MaxTextBox"></asp:TextBox>
+                                <td width="100%">
+                                <div class="cbb">                                
+                                    <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
+                                       <tr> <td class="leftLabel">Facility#:</td>
+                                                <td align="left"><asp:TextBox ID="txtFacilityNum" runat="server" SkinID="MaxTextBox"></asp:TextBox> 
+                                                 <ajaxToolkit:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" 
+                                                    TargetControlID="txtFacilityNum" 
+                                                    WatermarkText="e.g. 03475 or T00005" 
+                                                    WatermarkCssClass="watermarked" /> 
+                                                 <asp:imagebutton id="imgbtnFacNumSearch" runat="server" AlternateText="Find By Facility Number" ImageUrl="~/Image/btn_find.jpg" CausesValidation="false" OnClick="btnSearchByFacNum_Click"></asp:imagebutton>
+                                                
+                                                </td>    
+                                   
+                                            <td class="leftLabel">NIH Work Request#:</td>
+						                        <td align="left"><asp:TextBox ID="txtWRNum" runat="server" SkinID="MaxTextBox"></asp:TextBox>
 						                    
-                                              <ajaxToolkit:TextBoxWatermarkExtender ID="TBWE2" runat="server" 
-                                                TargetControlID="txtWRNum" 
-                                                WatermarkText="e.g. HQC70354" 
-                                                WatermarkCssClass="watermarked" /> 
-                                            </td>
+                                                  <ajaxToolkit:TextBoxWatermarkExtender ID="TBWE2" runat="server" 
+                                                    TargetControlID="txtWRNum" 
+                                                    WatermarkText="e.g. HQC70354" 
+                                                    WatermarkCssClass="watermarked" /> 
+                                                 <asp:imagebutton id="imgbtnWRSearch" runat="server" AlternateText="Find By WR number" ImageUrl="~/Image/btn_find.jpg" CausesValidation="false" OnClick="btnSearchByWRNum_Click"></asp:imagebutton>
+                                                </td>                           
+                                        </tr>                                         
+                                    </table> 
+                                </div> 
+                                </td> 
+                             </tr> 
+                        </table>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                     </td>
+                 </tr> 
+
+                 <tr>
+                     <td class="redheading"><br />Inventory Advanced Search 
+                     </td>
+                 </tr>  
+                 <asp:Panel ID="pnlAdvanceSearch" runat="server">
+                            <%-- <tr>
+                                <td >* Select one or more criteria then click the "Search Inventory" button to generate a list of equipment.
+                                </td>
+                             </tr> --%>
+                         
+                             <tr>
+                                <td width="100%">
+                                
+                                <div class="cbb">
+                                    <asp:UpdatePanel runat="server" ID="udpPnlAdvanceSearch" UpdateMode="Conditional">
+                                        <ContentTemplate> 
+                                 <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
+                                     <tr>
+                                       <td class="leftLabel">Type:</td>
+                                            <td align="left" class="text7">                                            
+                                             <asp:RadioButtonList ID="rblstType" runat="server" RepeatDirection="Horizontal" OnSelectedIndexChanged="rblstType_SelectedIndexChanged" AutoPostBack="true" >
+                                                 <asp:ListItem Text="All" Value="0"></asp:ListItem>
+                                                  <asp:ListItem Text="Mechanical" Value="1"></asp:ListItem>
+                                                  <asp:ListItem Text="Electrical" Value="2"></asp:ListItem>
+                                             </asp:RadioButtonList>
+                                       <asp:RequiredFieldValidator ID="rqType" runat="server" ControlToValidate="rblstType" Display="Dynamic" ErrorMessage="Please select a Type" InitialValue=""></asp:RequiredFieldValidator>
+                                         </td>
+                                    </tr>
+                                 
+                                     <tr>    				    
+				                        <td class="leftLabel">Selection:</td>
+				                        <td class="text7">
+				                         <!-- Only this area is updated on PostBack -->
+                                                <asp:UpdatePanel ID="updatePnl2" runat="server" UpdateMode="conditional">
+                                                    <ContentTemplate>
+					                                <table width="500">
+						                                <tr>
+							                                <td width="300">
+								                                <asp:ListBox ID="lbSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                                </td>
+							   
+							                                 <td  width="90" align="center">
+				                                               
+					                                            <asp:button Text="  add >>" Runat="server" ID="btnSelectSystem" Width="80" CausesValidation="false" OnClick="btnSelectSystem_Click" UseSubmitBehavior="False"></asp:button><br />
+					                                            <br />
+					                                            <asp:button Text=" remove <<" Runat="server" ID="btnRemoveSystem" Width="80" CausesValidation="false" OnClick="btnRemoveSystem_Click" UseSubmitBehavior="False"></asp:button>
+				                                                 <br /><br />
+                                                                 <asp:Button ID="btnSelectAllSystem" runat="server" Text=" add all   >>" CausesValidation="false"
+                                                                OnClick="btnAddAllSystem_Click" /><br /><br />
+                                                                 <asp:Button ID="btnRemoveAllSystem" runat="server" Text=" remove all <<" CausesValidation="false"
+                                                                OnClick="btnRemoveAllSystem_Click" />
+                                                             </td>
+							                                <td width="300">
+								                                <asp:ListBox ID="lbExtSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                                </td>
+						                                </tr>
+					                                </table>
+					                            </ContentTemplate>
+                                                </asp:UpdatePanel>
+				                        </td>
+			                        </tr>
+                            
+                                    <%--  <tr>
+                                         <td></td>
+                                         <td style="color:darkgreen; font-size:.8em;">(current seleted building: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>)
+                                         </td>                                            
+                                    </tr>--%>
+                                                
+                                    <tr>   
+						                   
                                             <td class="leftLabel">Facility# assigned?</td>
                                             <td align="left" class="text7">
                                                 <asp:RadioButtonList ID="radioSelect" runat="server" RepeatDirection="Horizontal">
-						                        <asp:ListItem Text="Un-Assigned" Value="1" Selected="True" />
+						                        <asp:ListItem Text="Un-Assigned" Value="1" />
 						                        <asp:ListItem Text="Assigned" Value="2" />
-						                        <asp:ListItem Text="All" Value="3" />
+						                        <asp:ListItem Text="All" Value="3" Selected="True" />
 						                     </asp:RadioButtonList>
 						                    </td>
-    						           </tr>
-    						           <tr>    
-						                    <td colspan="4" align="center" class="text7">						                     
-						                     <asp:Button runat="server" ID="btnSearch" CssClass="submitGreen" Text="Search Inventory" UseSubmitBehavior="false" OnClick="btnSearch_Click">
-                                            </asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button runat="server" ID="btnReset" CssClass="submitRed" Text="Reset Criteria" UseSubmitBehavior="false" OnClick="btnReset_Click">
-                                            </asp:Button>
-                                              &nbsp;&nbsp;&nbsp;&nbsp;
-						                    </td>    						                
-						              </tr>	
-                                </table>
-                                <hr size="2" style="color:Green" />
-                                <table width="100%">
-                                    <tr class="text7">
-                                        <td align="right">
-                                         <asp:Button ID="btnExportToExcel" CssClass="btnExportToExcel" runat="Server" Text="Export To Excel"  OnClick="btnExportToExcel_OnClick" UseSubmitBehavior="False" CausesValidation="false" />
-                                            <asp:Button ID="btnExportToPDF" CssClass="btnExportToPDF" runat="Server" Text="Export To PDF" OnClick="btnExportToPDF_OnClick" UseSubmitBehavior="False" CausesValidation="false" />
-                
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="100%">
-                                           
-                                    <%--    <asp:GridView id="gvInventory" DataSourceID="odsInventory" DataKeyNames="ID" SkinID="95widthGV" Runat="Server">
-                                                <Columns> 
-                                
-                                     <asp:TemplateField HeaderText="Facility#" ItemStyle-Width="100"> 
-                                           
-                                            <ItemTemplate> 
-                                               <a href='Equipment/EquipmentDet.aspx?ParentFacilitySysID=<%# Eval("ID") %>'>
-                                                <img src='Image/icon_viewupdate.gif' alt='View/Edit' border='0' /><%# Eval("Facility#")%></a>
-                                            </ItemTemplate> 								
-                                        </asp:TemplateField>   
-                                      <asp:BoundField HeaderText = "Facility ID" DataField="FacilityID" />
-                                         <asp:BoundField HeaderText = "Facility Function" DataField="FacilityFunction" />
-                                         
-                                         <asp:BoundField HeaderText = "Facility System" DataField="FacilitySystem" />
-                                         <asp:BoundField HeaderText = "Building" DataField="Building" />
-                                         <asp:BoundField HeaderText = "Location" DataField="location" />
-                                         <asp:BoundField HeaderText = "# of Equipments" DataField="TotalEquipments" ItemStyle-Width="120" />
-                               
-                                  </Columns> 
-                            </asp:GridView>
-                            --%>
-                      
-                             <asp:ListView ID="ListView1" runat="server" DataKeyNames="ID" OnSorting="ListView1_OnSorting" DataSourceID="odsInventory" OnItemDataBound="ListView1_ItemDataBound"> 
-                                  <LayoutTemplate> 
-                                        <table border="1" width="100%" cellpadding="1" cellspacing="1" style="font-size:smaller; text-align:left"> 
-                                            <tr style="background-color:#cccccc">   
-                                               <th align="left"><asp:LinkButton ID="lnkFacility" runat="server" 
-                                                    CommandName="Sort" CommandArgument="Facility#">Facility#</asp:LinkButton></th> 
-                                                 <th align="left"><asp:LinkButton ID="lnkName" runat="server" 
-                                                        CommandName="Sort" CommandArgument="FacilityID">Facility ID</asp:LinkButton></th> 
-                                                 <th align="left"><asp:LinkButton ID="LinkButton1" runat="server" 
-                                                    CommandName="Sort" CommandArgument="FacilityFuction">Facility Function</asp:LinkButton></th> 
-                                                 <th align="left"><asp:LinkButton ID="LinkButton2" runat="server" 
-                                                        CommandName="Sort" CommandArgument="FacilitySystem">Facility System</asp:LinkButton></th> 
-                                                 <th align="left"><asp:LinkButton ID="LinkButton3" runat="server" 
-                                                    CommandName="Sort" CommandArgument="Building">Building</asp:LinkButton></th> 
-                                                 <th align="left"><asp:LinkButton ID="LinkButton4" runat="server" 
-                                                        CommandName="Sort" CommandArgument="Location">Location</asp:LinkButton></th> 
-                                                 <th align="left"><asp:LinkButton ID="LinkButton5" runat="server" 
-                                                        CommandName="Sort" CommandArgument="TotalEquipments"># of Equipments</asp:LinkButton></th> 
-                                                 <th id="colAction" runat="server">Action</th>
-                                            </tr> 
-                                            <tr id="itemPlaceholder" runat="server"></tr> 
-                                        </table> 
-                                         <asp:DataPager runat="server" ID="DataPager" PageSize="20"> 
-                                          <Fields> 
-                                            <asp:TemplatePagerField> 
-                                              <PagerTemplate> 
-                                                &nbsp; 
-                                                <asp:TextBox ID="CurrentRowTextBox" runat="server" SkinID="ShortTextBox" 
-                                                     AutoPostBack="true" 
-                                                     Text="<%# Container.StartRowIndex + 1%>" 
-                                                     Columns="1" 
-                                                     style="text-align:right" 
-                                                     OnTextChanged="CurrentRowTextBox_OnTextChanged" /> 
-                                                <font size="2">to
-                                                <asp:Label ID="PageSizeLabel" runat="server" Font-Bold="true"
-                                                     Text="<%# Container.StartRowIndex + Container.PageSize > Container.TotalRowCount ? Container.TotalRowCount : Container.StartRowIndex + Container.PageSize %>" /> 
-                                                of
-                                                <asp:Label ID="TotalRowsLabel" runat="server" Font-Bold="true"
-                                                     Text="<%# Container.TotalRowCount %>" />  </font>
-                                              </PagerTemplate> 
-                                            </asp:TemplatePagerField> 
-                                            <asp:NextPreviousPagerField ButtonCssClass="text7"
-                                                 ShowFirstPageButton="true" ShowLastPageButton="true" 
-                                                 FirstPageText="|<< " LastPageText=" >>|" 
-                                                 NextPageText=" > " PreviousPageText=" < " /> 
-                                          </Fields> 
-                                        </asp:DataPager> 
-                                    </LayoutTemplate> 
-                                      <ItemTemplate> 
-                                          <tr> 
-                                           <td width="10%">
-                                                                                             
-                                                 <asp:HyperLink ID="hlFacNum" runat="Server" Text='<%# Eval("Facility#") %>'  />  
-                                              
-                                               <asp:Label runat="server" Visible="false" ID="lblHidFacilityGrp" Text='<%#Eval("FacilityGroup")%>'></asp:Label>
-                                               <asp:Label runat="server" Visible="false" ID="lblHidFacilityID" Text='<%#Eval("ID")%>'></asp:Label>
-                                           </td> 
-                                           <td width="10%"><asp:Label runat="server" ID="lblFacID"><%#Eval("FacilityID")%></asp:Label></td>   
-                                           <td width="20%"><asp:Label runat="server" ID="lblFacFunction"><%#Eval("FacilityFunction")%></asp:Label></td> 
-                                           <td width="20%"><asp:Label runat="server" ID="lblFacSystem"><%#Eval("FacilitySystem")%></asp:Label></td> 
-                                           <td width="10%"><asp:Label runat="server" ID="lblBuilding"><%#Eval("Building")%></asp:Label></td>  
-                                           <td width="15%"><asp:Label runat="server" ID="lblLocation"><%#Eval("location")%></asp:Label></td> 
-                                           <td width="10%"><asp:Label runat="server" ID="lblTotalEquipments"><%#Eval("TotalEquipments")%></asp:Label></td>  
-                                           <td>
-                                            <asp:Hyperlink id="hlAction" runat="server" Text='Action'                                    
-                                                    NavigateUrl='<%# String.Format("Admin/AdminAction.aspx?FacId={0}", Eval("ID")) %>'>
-                                                </asp:Hyperlink>
-                                           </td>
-                                          </tr> 
-                                    </ItemTemplate> 
-                                                                            
-                                    <AlternatingItemTemplate> 
-                                      <tr style="background-color:#EFEFEF"> 
-                                            <td width="10%">
-                                                                                             
-                                                 <asp:HyperLink ID="hlFacNum" runat="Server" Text='<%# Eval("Facility#") %>'  />  
-                                              
-                                               <asp:Label runat="server" Visible="false" ID="lblHidFacilityGrp" Text='<%#Eval("FacilityGroup")%>'></asp:Label>
-                                               <asp:Label runat="server" Visible="false" ID="lblHidFacilityID" Text='<%#Eval("ID")%>'></asp:Label>
-                                           </td> 
-                                           <td><asp:Label runat="server" ID="lblFacID"><%#Eval("FacilityID")%></asp:Label></td>   
-                                           <td><asp:Label runat="server" ID="lblFacFunction"><%#Eval("FacilityFunction")%></asp:Label></td> 
-                                           <td><asp:Label runat="server" ID="lblFacSystem"><%#Eval("FacilitySystem")%></asp:Label></td> 
-                                           <td><asp:Label runat="server" ID="lblBuilding"><%#Eval("Building")%></asp:Label></td>  
-                                           <td><asp:Label runat="server" ID="lblLocation"><%#Eval("location")%></asp:Label></td> 
-                                           <td><asp:Label runat="server" ID="lblTotalEquipments"><%#Eval("TotalEquipments")%></asp:Label></td>  
-                                            <td>
-                                            <asp:Hyperlink id="hlAction" runat="server" Text='Action'                                    
-                                                    NavigateUrl='<%# String.Format("Admin/AdminAction.aspx?FacId={0}", Eval("ID")) %>'>
-                                                </asp:Hyperlink>
-                                           </td>
-                                          </tr> 
-                                    </AlternatingItemTemplate> 
-                                    </asp:ListView> 
-
-                            
-                             <asp:ObjectDataSource ID="odsInventory" runat="server" SelectMethod="GetFacilityList"
-                                                TypeName="NIH.CMMS.Inventory.BPL.Facility.facility_logic">
-                                 
-                                    <SelectParameters>
-                                            
-                                           <asp:ControlParameter Type="String"
-                                            Name="system"
-                                            ControlID="drplstSystem" PropertyName="SelectedValue" />                       
-                                           <asp:ControlParameter Type="String"
-                                            Name="building"
-                                            ControlID="drplstBuilding" PropertyName="SelectedValue" />   
-                                            <asp:ControlParameter Type="String"
-                                            Name="group"
-                                            ControlID="drplstGroup" PropertyName="SelectedValue" />  
-                                             <asp:ControlParameter Type="String"
-                                            Name="facNo"
-                                            ControlID="txtFacilityNum" />   
-                                             <asp:ControlParameter Type="String"
-                                            Name="wrnum"
-                                            ControlID="txtWRNum" />
-                                              <asp:ControlParameter Type="String"
-                                            Name="status"
-                                            ControlID="radioSelect" PropertyName="SelectedValue" />   
-                                             
-                                       </SelectParameters>
-                              </asp:ObjectDataSource>
-                              
-                              	<%--<asp:gridview id="gvEquips" Visible="false" runat="server" AutoGenerateColumns="false"	DataSourceID="odsInventory">
-				<Columns>
-				 <asp:TemplateField HeaderText="Facility#"  HeaderStyle-HorizontalAlign="Left" ItemStyle-Width="100" ItemStyle-HorizontalAlign="Left">
-                    <ItemTemplate>
-                     
-                        <asp:Label id="lblFacilityNum" runat="server" text='<%# Eval("Facility#") %>' />
-                    </ItemTemplate>
-                </asp:TemplateField> 
-				
-				<asp:TemplateField HeaderText="Facility ID" ItemStyle-HorizontalAlign="Center">
-					<ItemTemplate>
-					
-						<asp:Label id="lblFacilityID" runat="server" text='<%# Eval("FacilityID") %>' />
-					</ItemTemplate>				
-				</asp:TemplateField>
-				<asp:TemplateField HeaderText="Facility Function" ItemStyle-HorizontalAlign="Center">
-					<ItemTemplate>
-						<asp:Label id="lblFacFunction" runat="server" text='<%# Eval("FacilityFunction") %>' />
-					</ItemTemplate>					
-				</asp:TemplateField>
-				 <asp:TemplateField HeaderText="Facility System" ItemStyle-HorizontalAlign="Center">
-					<ItemTemplate>
-						<asp:Label ID="lblFacSystem" runat="server" Text='<%# Eval("FacilitySystem") %>' />
-						
-					</ItemTemplate>												
-	            </asp:TemplateField>
-				<asp:TemplateField HeaderText="Building" ItemStyle-HorizontalAlign="Center">
-					<ItemTemplate>
-						<asp:Label id="lblBuilding" runat="server" text='<%# Eval("Building") %>' />
-					</ItemTemplate>					
-				</asp:TemplateField>																		
-				<asp:TemplateField HeaderText="Location" ItemStyle-HorizontalAlign="Center">
-					<ItemTemplate>
-						<asp:Label id="lblLocation" runat="server" text='<%# Eval("Location") %>' />
-					</ItemTemplate>					
-				</asp:TemplateField>
-				<asp:TemplateField HeaderText="# of Equipments" ItemStyle-HorizontalAlign="Center">
-					<ItemTemplate>
-						<asp:Label id="lblNumEquip" runat="server" text='<%# Eval("TotalEquipments") %>' />
-					</ItemTemplate>					
-				</asp:TemplateField>
-					
-                                                                                                                                                                                                               
-                  
-					</Columns>
-				</asp:gridview>--%>
-                                        </td>
-                                    </tr>
-                                </table>
-                                
+    						           </tr>       
+                                                      
+                                     <tr>    				    
+				                        <td class="leftLabel">Building:</td>
+				                        <td class="text7">
+				                         <!-- Only this area is updated on PostBack -->
+                                                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="conditional">
+                                                    <ContentTemplate>
+					                                <table width="500">
+						                                <tr>
+							                                <td width="300">
+								                                <asp:ListBox ID="lbBuilding"  style="width:300px; min-height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                                </td>
+							   
+							                                 <td  width="90" align="center">
+				                                               
+					                                            <asp:button Text="  add >>" Runat="server" ID="btnSelectBuilding" Width="80" CausesValidation="false" OnClick="btnSelectBuilding_Click" UseSubmitBehavior="False"></asp:button><br />
+					                                            <br />
+					                                            <asp:button Text=" remove <<" Runat="server" ID="btnRemoveBuilding" Width="80" CausesValidation="false" OnClick="btnRemoveBuilding_Click" UseSubmitBehavior="False"></asp:button>
+				                                              <br /><br />
+                                                                 <asp:Button ID="btnSelectAllBuilding" runat="server" Text=" add all   >>" CausesValidation="false"
+                                                                OnClick="btnAddAllBuilding_Click" /><br /><br />
+                                                                 <asp:Button ID="btnRemoveAllBuilding" runat="server" Text=" remove all <<" CausesValidation="false"
+                                                                OnClick="btnRemoveAllBuilding_Click" />
+                                                             </td>
+							                                <td width="300">
+								                                <asp:ListBox ID="lbExtBuilding" style="width:300px; min-height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                                </td>
+						                                </tr>
+					                                </table>
+					                            </ContentTemplate>
+                                                </asp:UpdatePanel>
+				                        </td>
+			                        </tr>  
+                                    
+                                                      
+                            </table>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                 </div>
                                 </td>
                             </tr>
-                           
                              <tr>
-                                <td colspan="4" align="center" class="text7">  
-                                <asp:UpdateProgress ID="progress1" AssociatedUpdatePanelID="udpPnlDefault"  runat="server">
+                                <td colspan="4" align="center" class="text7"><br /> 
+                                    <asp:Button runat="server" ID="btnSearch" CssClass="submitGreen" Text="Search Inventory" UseSubmitBehavior="false" OnClick="btnSearch_Click">
+                                            </asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button runat="server" ID="btnReset" CssClass="submitRed" Text="Reset Criteria" UseSubmitBehavior="false" OnClick="btnReset_Click" >
+                                            </asp:Button>
+                                              &nbsp;&nbsp;&nbsp;&nbsp;
+                                     <asp:Label ID="test" runat="server"></asp:Label>
+                                    <br /><br />
+                                </td>
+                             </tr>
+                             <tr>
+                                <td colspan="4" align="center">  
+                                <asp:UpdateProgress ID="UpdateProgress1" AssociatedUpdatePanelID="udpPnlAdvanceSearch" runat="server">
                                    <ProgressTemplate>
-                                     <img src="Image/indicator.gif" alt="Please wait..." />&nbsp;Please wait...
-                                      
+                                     <img src="Image/indicator.gif" alt="Please wait..." />&nbsp;Please wait...                                      
 
                                    </ProgressTemplate>
                                 </asp:UpdateProgress>  
+
                                 </td>
-                              </tr>
-                             
-                         </table> 
-                         
-                     </td> 
-            
-                </tr>
-       
-        
-       
-       
-                  
-       
-            </table>
+                              </tr>                             
+                       
+                </asp:Panel>
+         
+                  </table> 
     </ContentTemplate> 
     </asp:UpdatePanel> 
 </asp:Content>

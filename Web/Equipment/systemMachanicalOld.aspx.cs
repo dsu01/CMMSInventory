@@ -737,8 +737,8 @@ public partial class Equipment_systemMachanicalOld : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(txtTJC1.Text.Trim()))
                     details.TJCValue = Convert.ToInt32(txtTJC1.Text.Trim());
                 details.PMSchedule = txtPMSchedule1.Text.Trim();
-                return facility_logic.UpdateEquipment(details);
-
+                //return facility_logic.UpdateEquipment(details);
+                return null;
                 #endregion
             }
             else if (seqNo == 2 && !string.IsNullOrEmpty(txtEquipmentID2.Text.Trim()))
@@ -775,7 +775,8 @@ public partial class Equipment_systemMachanicalOld : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(txtTJC2.Text.Trim()))
                     details.TJCValue = Convert.ToInt32(txtTJC2.Text.Trim());
                 details.PMSchedule = txtPMSchedule2.Text.Trim();
-                return facility_logic.UpdateEquipment(details);
+                //return facility_logic.UpdateEquipment(details);
+                return null;
                 #endregion
             }
             else if (seqNo == 3 && !string.IsNullOrEmpty(txtEquipmentID3.Text.Trim()))
@@ -813,7 +814,8 @@ public partial class Equipment_systemMachanicalOld : System.Web.UI.Page
                     details.TJCValue = Convert.ToInt32(txtTJC3.Text.Trim());
                 details.PMSchedule = txtPMSchedule3.Text.Trim();
                 #endregion
-                return facility_logic.UpdateEquipment(details);
+                // return facility_logic.UpdateEquipment(details);
+                return null;
             }
             else if (seqNo == 4 && !string.IsNullOrEmpty(txtEquipmentID4.Text.Trim()))
             {
@@ -850,7 +852,8 @@ public partial class Equipment_systemMachanicalOld : System.Web.UI.Page
                     details.TJCValue = Convert.ToInt32(txtTJC4.Text.Trim());
                 details.PMSchedule = txtPMSchedule4.Text.Trim();
                 #endregion
-                return facility_logic.UpdateEquipment(details);
+                // return facility_logic.UpdateEquipment(details);
+                return null;
             }
             else
             {
@@ -887,7 +890,8 @@ public partial class Equipment_systemMachanicalOld : System.Web.UI.Page
                     details.TJCValue = Convert.ToInt32(txtTJC5.Text.Trim());
                 details.PMSchedule = txtPMSchedule5.Text.Trim();
                 #endregion
-                return facility_logic.UpdateEquipment(details);
+                // return facility_logic.UpdateEquipment(details);
+                return null;
             }
 
         }
@@ -967,14 +971,14 @@ public partial class Equipment_systemMachanicalOld : System.Web.UI.Page
                         details.TJCValue = Convert.ToInt32(txtTJC1.Text.Trim());
                     details.PMSchedule = txtPMSchedule1.Text.Trim();
 
-                    vr = facility_logic.UpdateFacility(details, true);
+                //    vr = facility_logic.UpdateFacility(details, true);
                     #endregion
                 }
                 else
                 {
                     #region save as parent
                     details.EquipID = "-1";
-                    vr = facility_logic.UpdateFacility(details, false);
+                 //   vr = facility_logic.UpdateFacility(details, false);
                     #endregion
                 }
 
