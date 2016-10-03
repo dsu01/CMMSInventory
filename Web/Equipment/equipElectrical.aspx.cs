@@ -101,13 +101,15 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             #region "load detail info"
             txtElectricalOther.Text = details.ElectricalOther;
 
-            txtInventoryBy.Text = details.InventoryBy;
+         
             txtModelNum.Text = details.ModelNo;
             txtSerialNum.Text = details.SerialNo;
             txtSize.Text = details.Size;
 
             if (details.InstalledDate != DateTime.MinValue)
                 txtInstalledDate.Text = details.InstalledDate.ToShortDateString();
+
+            txtInventoryBy.Text = details.InventoryBy;
             if (details.InventoryDate != DateTime.MinValue)
                 txtInventoryDate.Text = details.InventoryDate.ToShortDateString();
 

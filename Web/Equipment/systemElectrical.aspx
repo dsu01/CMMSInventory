@@ -79,6 +79,20 @@
                         <td class="inventoryTopRightCellBtm">
                             <asp:TextBox ID="txtWRNum" runat="server" MaxLength="50" TabIndex="10"></asp:TextBox></td>
                     </tr>
+                     <tr>
+                            <td class="inventoryTopRightCell" colspan="4" class="inventoryTopLeftCell"> 
+                        <asp:Label ID="lbInventoryDate" runat="server" Text="Inventory Date"></asp:Label></td>
+                    <td>
+                        <asp:TextBox ID="txtInventoryDate" runat="server" MaxLength="6" TabIndex="22" />
+                        <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                    </td>
+                   <td>
+                        <asp:Label ID="lbInventoryBy" runat="server" Text="Inventory By"></asp:Label></td>
+                    <td >
+                        <asp:TextBox ID="txtInventoryBy" runat="server" MaxLength="50" TabIndex="16" />
+                    </td>
+                
+                     </tr>
                        <tr>
                             <td class="inventoryTopRightCell" colspan="8">Comments:
                           

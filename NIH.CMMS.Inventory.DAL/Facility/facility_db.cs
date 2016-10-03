@@ -197,11 +197,11 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             sqlParams.Add(new SqlParameter("@TJC", (Object)details.YsnTJC));
 
             // sqlParams.Add(new SqlParameter("@TypeorUse", String.IsNullOrEmpty(details.TypeOrUse) ? DBNull.Value : (Object)details.TypeOrUse));
-            sqlParams.Add(new SqlParameter("@Manufacturer", String.IsNullOrEmpty(details.Manufacturer) ? DBNull.Value : (Object)details.Manufacturer));
-            sqlParams.Add(new SqlParameter("@ModelNo", String.IsNullOrEmpty(details.ModelNo) ? DBNull.Value : (Object)details.ModelNo));
-            sqlParams.Add(new SqlParameter("@SerialNo", String.IsNullOrEmpty(details.SerialNo) ? DBNull.Value : (Object)details.SerialNo));
-            sqlParams.Add(new SqlParameter("@Size", String.IsNullOrEmpty(details.Size) ? DBNull.Value : (Object)details.Size));
-            sqlParams.Add(new SqlParameter("@InstallDate", details.InstalledDate == DateTime.MinValue ? DBNull.Value : (Object)details.InstalledDate));
+            //sqlParams.Add(new SqlParameter("@Manufacturer", String.IsNullOrEmpty(details.Manufacturer) ? DBNull.Value : (Object)details.Manufacturer));
+            //sqlParams.Add(new SqlParameter("@ModelNo", String.IsNullOrEmpty(details.ModelNo) ? DBNull.Value : (Object)details.ModelNo));
+            //sqlParams.Add(new SqlParameter("@SerialNo", String.IsNullOrEmpty(details.SerialNo) ? DBNull.Value : (Object)details.SerialNo));
+            //sqlParams.Add(new SqlParameter("@Size", String.IsNullOrEmpty(details.Size) ? DBNull.Value : (Object)details.Size));
+            //sqlParams.Add(new SqlParameter("@InstallDate", details.InstalledDate == DateTime.MinValue ? DBNull.Value : (Object)details.InstalledDate));
          
             //sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
             //sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
@@ -218,7 +218,7 @@ namespace NIH.CMMS.Inventory.DAL.Facility
 
         }
 
-        public static ValidationResult UpdateElectricalMechanicalSystem(FacilityDet details, bool isAdmin)
+        public static ValidationResult UpdateElectricalMechanicalSystem(FacilityDet details)
         {
             //update/insert data into database, this is updating invFacility table
             String result = "";
@@ -243,24 +243,16 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             sqlParams.Add(new SqlParameter("@TJC", (Object)details.YsnTJC));
 
             // sqlParams.Add(new SqlParameter("@TypeorUse", String.IsNullOrEmpty(details.TypeOrUse) ? DBNull.Value : (Object)details.TypeOrUse));
-            sqlParams.Add(new SqlParameter("@Manufacturer", String.IsNullOrEmpty(details.Manufacturer) ? DBNull.Value : (Object)details.Manufacturer));
-            sqlParams.Add(new SqlParameter("@ModelNo", String.IsNullOrEmpty(details.ModelNo) ? DBNull.Value : (Object)details.ModelNo));
-            sqlParams.Add(new SqlParameter("@SerialNo", String.IsNullOrEmpty(details.SerialNo) ? DBNull.Value : (Object)details.SerialNo));
-            sqlParams.Add(new SqlParameter("@Size", String.IsNullOrEmpty(details.Size) ? DBNull.Value : (Object)details.Size));
-            sqlParams.Add(new SqlParameter("@InstallDate", details.InstalledDate == DateTime.MinValue ? DBNull.Value : (Object)details.InstalledDate));
-            sqlParams.Add(new SqlParameter("@Status", String.IsNullOrEmpty(details.Status) ? DBNull.Value : (Object)details.Status));
+            //sqlParams.Add(new SqlParameter("@Manufacturer", String.IsNullOrEmpty(details.Manufacturer) ? DBNull.Value : (Object)details.Manufacturer));
+            //sqlParams.Add(new SqlParameter("@ModelNo", String.IsNullOrEmpty(details.ModelNo) ? DBNull.Value : (Object)details.ModelNo));
+            //sqlParams.Add(new SqlParameter("@SerialNo", String.IsNullOrEmpty(details.SerialNo) ? DBNull.Value : (Object)details.SerialNo));
+            //sqlParams.Add(new SqlParameter("@Size", String.IsNullOrEmpty(details.Size) ? DBNull.Value : (Object)details.Size));
+            //sqlParams.Add(new SqlParameter("@InstallDate", details.InstalledDate == DateTime.MinValue ? DBNull.Value : (Object)details.InstalledDate));
+            //sqlParams.Add(new SqlParameter("@Status", String.IsNullOrEmpty(details.Status) ? DBNull.Value : (Object)details.Status));
             //sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
             //sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
            
-               ValidationResult vr = new ValidationResult(true, string.Empty);
-
-               if (isAdmin)
-               {
-                   vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_MechanicalElectrical_System_Update_Admin_NewSite", sqlParams);
-
-               } 
-               else
-                   vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_MechanicalElectrical_System_Update_Regular_NewSite", sqlParams);
+            ValidationResult vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_MechanicalElectrical_System_Update_NewSite", sqlParams);
             if (vr.Success)
             {
                 //if no error, update id               

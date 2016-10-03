@@ -161,6 +161,11 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             txtPhaseCycle.Text = existingFac.PhaseCycle;
             txtBSLClass.Text = existingFac.BslClassification;
 
+            txtInventoryBy.Text = existingFac.InventoryBy;
+            if (existingFac.InventoryDate != DateTime.MinValue)
+                txtInventoryDate.Text = existingFac.InventoryDate.ToShortDateString();
+
+
             if (existingFac.TJCValue > 0)
             { txtTJC.Text = existingFac.TJCValue.ToString(); }
             txtPMSchedule.Text = existingFac.PMSchedule;
@@ -218,9 +223,15 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
                 details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
             details.PMSchedule = txtPMSchedule.Text.Trim();
-            //ValidationResult vr = facility_logic.UpdateFacility(details, false);
-           
-            ValidationResult vr = facility_logic.AddUpdateMechanicalEquipment(details);
+        if (!string.IsNullOrEmpty(txtInventoryDate.Text.Trim()))
+            details.InventoryDate = Convert.ToDateTime(txtInventoryDate.Text.Trim());
+
+       
+        details.InventoryBy = txtInventoryBy.Text.Trim();
+
+        //ValidationResult vr = facility_logic.UpdateFacility(details, false);
+
+        ValidationResult vr = facility_logic.AddUpdateMechanicalEquipment(details);
         
             if (details.Key > 0 && vr.Success)
             {               
@@ -271,7 +282,8 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         txtBSLClass.Text = string.Empty;
         txtTJC.Text = string.Empty;
         txtPMSchedule.Text = string.Empty;
-
+        txtInventoryBy.Text = string.Empty;
+        txtInventoryDate.Text = string.Empty;
         trAttachment.Visible = false;
     }
 

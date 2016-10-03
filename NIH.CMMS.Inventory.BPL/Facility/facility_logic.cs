@@ -106,9 +106,9 @@ namespace NIH.CMMS.Inventory.BPL.Facility
         {
             return facility_db.AddElectricalMechanicalSystem(details, isElectrical);
         }
-        public static ValidationResult UpdateElectricalMechanicalSystem(FacilityDet details, bool isAdmin)
+        public static ValidationResult UpdateElectricalMechanicalSystem(FacilityDet details)
         {
-            return facility_db.UpdateElectricalMechanicalSystem(details, isAdmin);
+            return facility_db.UpdateElectricalMechanicalSystem(details);
         }
         public static ValidationResult AddUpdateElectricalComponent(EquipmentDet details)
         {

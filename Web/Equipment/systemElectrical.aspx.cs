@@ -82,6 +82,8 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                 {
                     Response.Redirect("~/Default.aspx");
                 }
+
+
                 btnSaveFacility.Text = "Update Facility Information";
             }
             //if no facility info, then bottom nothing
@@ -217,6 +219,11 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             ckBSL.Checked = (existingFac.YsnBsl == 1) ? true : false;
             ckTJC.Checked = (existingFac.YsnTJC == 1) ? true : false;
             txtComments.Text = existingFac.Comment;
+
+
+            txtInventoryBy.Text = existingFac.InventoryBy;
+            if (existingFac.InventoryDate != DateTime.MinValue)
+                txtInventoryDate.Text = existingFac.InventoryDate.ToShortDateString();
 
             //disable the save button if not in active status
             if (existingFac.Status.ToLower() != "active")
@@ -470,10 +477,15 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                 loginUsr = (LoginUser)Session[ApplicationConstants.SESSION_USEROBJLOGINDET];
             else
                 details.UserName = loginUsr.LaborName;
-           
+            if (!string.IsNullOrEmpty(txtInventoryDate.Text.Trim()))
+                details.InventoryDate = Convert.ToDateTime(txtInventoryDate.Text.Trim());
+
+
+            details.InventoryBy = txtInventoryBy.Text.Trim();
+
             ValidationResult vr = new ValidationResult(true, string.Empty);
             if (details.Key > 0)
-                vr = facility_logic.UpdateElectricalMechanicalSystem(details, true);
+                vr = facility_logic.UpdateElectricalMechanicalSystem(details);
             else
                 vr = facility_logic.AddElectricalMechanicalSystem(details, true);
             if (details.Key > 0 && vr.Success)

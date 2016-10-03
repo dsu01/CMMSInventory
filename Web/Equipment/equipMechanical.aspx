@@ -243,8 +243,17 @@
                     <td>
                         <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                <td colspan="2">Last updated by xxx on xxx</td>
-                  
+                <td>
+                        <asp:Label ID="lbInventoryDate" runat="server" Text="Inventory Date"></asp:Label></td>
+                    <td>
+                        <asp:TextBox ID="txtInventoryDate" runat="server" MaxLength="6" TabIndex="22" />
+                        <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                    </td>
+                   <td>
+                        <asp:Label ID="lbInventoryBy" runat="server" Text="Inventory By"></asp:Label></td>
+                    <td >
+                        <asp:TextBox ID="txtInventoryBy" runat="server" MaxLength="50" TabIndex="16" />
+                    </td>
                 
                   </tr>
                      <tr id="trAttachment" runat="server">
