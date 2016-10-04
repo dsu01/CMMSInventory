@@ -53,6 +53,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
                 //New eletrical equipment
                 btnFinish.Text = "Update Equipment";
                 trAttachment.Visible = true;
+                drplstBuilding.Enabled = false;
                 LoadDetails();
             }
             else
@@ -60,6 +61,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
                 //New eletrical equipment
                 btnFinish.Text = "Add New Equipment";
                 trAttachment.Visible = false;
+                drplstBuilding.Enabled = true;
             }
 
         }
@@ -229,7 +231,8 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
     {
 
         FacilityDet details = new FacilityDet();
-        details.Key = Convert.ToInt32(hidFacSystemID.Value);
+        details.Key = ParentFacilitySysID;
+        details.FacNum = txtFacilityNum.Text;
         //show not happen when page > 0
         details.FacSystem = drplstSystem.SelectedValue;
         details.FacFunction = txtFunction.Text.Trim();

@@ -18,10 +18,7 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             //update/insert data into database, this is updating invFacility table
             String result = "";
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            SqlParameter paramNum = DBCommands.ParameterMaker("@FacilityNo", SqlDbType.VarChar, 50, ParameterDirection.InputOutput, details.FacNum);
-            sqlParams.Add(paramNum);
-            SqlParameter paramID = DBCommands.ParameterMaker("@ID_table", SqlDbType.Int, 10, ParameterDirection.InputOutput, details.Key);
-            sqlParams.Add(paramID);
+         
 
             sqlParams.Add(new SqlParameter("@FacilityID", details.FacID));          
             sqlParams.Add(new SqlParameter("@UserName", String.IsNullOrEmpty(details.UserName) ? DBNull.Value : (Object)details.UserName));
@@ -63,27 +60,38 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
             sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
 
-            ValidationResult vr = new ValidationResult(true, string.Empty);
+            ValidationResult vr = new ValidationResult(false, string.Empty);
           
             if (details.Key > 0)
-            {               
-        
-                sqlParams.Add(new SqlParameter("@Status", String.IsNullOrEmpty(details.Status) ? DBNull.Value : (Object)details.Status));
-                vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_UpdateElectricalEquipment_NewSite", sqlParams);
+            {
+
+                if (!string.IsNullOrEmpty(details.FacNum) && details.Key > 0)
+                {
+
+                    sqlParams.Add(new SqlParameter("@FacilityNo", (Object)details.FacNum));
+                    sqlParams.Add(new SqlParameter("@ID_table", (Object)details.Key));
+
+                    sqlParams.Add(new SqlParameter("@Status", String.IsNullOrEmpty(details.Status) ? DBNull.Value : (Object)details.Status));
+                    vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_UpdateElectricalEquipment_NewSite", sqlParams);
+
+                }
             }
             else
             {
-               
+
+                SqlParameter paramID = DBCommands.ParameterMaker("@ID_table", SqlDbType.Int, 10, ParameterDirection.InputOutput, details.Key);
+                sqlParams.Add(paramID);
+                SqlParameter paramNum = DBCommands.ParameterMaker("@FacilityNo", SqlDbType.VarChar, 50, ParameterDirection.InputOutput, details.FacNum);
+                sqlParams.Add(paramNum);
                 vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_AddElectricalEquipment_newSite", sqlParams);
-            }
-           
-            
-            if (vr.Success)
-            {
-                //if no error, update id               
-                details.Key = Convert.ToInt32(paramID.Value);
                 details.FacNum = paramNum.Value.ToString();
+                if (vr.Success)
+                {
+                    details.Key = Convert.ToInt32(paramID.Value);
+                    details.FacNum = paramNum.Value.ToString();
+                }
             }
+         
             return vr;
         }
 
@@ -93,10 +101,6 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             String result = "";
             List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-            SqlParameter paramNum = DBCommands.ParameterMaker("@FacilityNo", SqlDbType.VarChar, 50, ParameterDirection.InputOutput, details.FacNum);
-            sqlParams.Add(paramNum);
-            SqlParameter paramID = DBCommands.ParameterMaker("@ID_table", SqlDbType.Int, 10, ParameterDirection.InputOutput, details.Key);
-            sqlParams.Add(paramID);
             sqlParams.Add(new SqlParameter("@FacilityID", details.FacID));
            
             sqlParams.Add(new SqlParameter("@UserName", String.IsNullOrEmpty(details.UserName) ? DBNull.Value : (Object)details.UserName));
@@ -141,29 +145,36 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
             sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
 
-            ValidationResult vr = new ValidationResult(true, string.Empty);
+            ValidationResult vr = new ValidationResult(false, string.Empty);
            
             if (details.Key > 0)
             {
-              
-                //sqlParams.Add(new SqlParameter("@ID_table", details.Key));
-                sqlParams.Add(new SqlParameter("@Status", String.IsNullOrEmpty(details.Status) ? DBNull.Value : (Object)details.Status));
-                vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_UpdateMechanicalEquipment_newSite", sqlParams);
+                if (!string.IsNullOrEmpty(details.FacNum) && details.Key > 0)
+                {
+                    sqlParams.Add(new SqlParameter("@FacilityNo", (Object)details.FacNum));
+                    sqlParams.Add(new SqlParameter("@ID_table", (Object)details.Key));
+
+                    sqlParams.Add(new SqlParameter("@Status", String.IsNullOrEmpty(details.Status) ? DBNull.Value : (Object)details.Status));
+                    vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_UpdateMechanicalEquipment_newSite", sqlParams);
+                }               
             }
             else
             {
-              
+
+                SqlParameter paramID = DBCommands.ParameterMaker("@ID_table", SqlDbType.Int, 10, ParameterDirection.InputOutput, details.Key);
+                sqlParams.Add(paramID);
+                SqlParameter paramNum = DBCommands.ParameterMaker("@FacilityNo", SqlDbType.VarChar, 50, ParameterDirection.InputOutput, details.FacNum);
                 sqlParams.Add(paramNum);
+             
                 vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_AddMechanicalEquipment_NewSite", sqlParams);
-            }
-
-
-            if (vr.Success)
-            {
-                //if no error, update id               
-                details.Key = Convert.ToInt32(paramID.Value);
-                details.FacNum = paramNum.Value.ToString();
-            }
+                if (vr.Success)
+                {
+                    details.Key = Convert.ToInt32(paramID.Value);
+                    details.FacNum = paramNum.Value.ToString();
+                }
+              
+            }            
+         
             return vr;
         }
         
@@ -202,9 +213,9 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             //sqlParams.Add(new SqlParameter("@SerialNo", String.IsNullOrEmpty(details.SerialNo) ? DBNull.Value : (Object)details.SerialNo));
             //sqlParams.Add(new SqlParameter("@Size", String.IsNullOrEmpty(details.Size) ? DBNull.Value : (Object)details.Size));
             //sqlParams.Add(new SqlParameter("@InstallDate", details.InstalledDate == DateTime.MinValue ? DBNull.Value : (Object)details.InstalledDate));
-         
-            //sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
-            //sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
+
+            sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
+            sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
             ValidationResult vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_MechanicalElectrical_System_Add_NewSite", sqlParams);
 
             if (vr.Success)

@@ -267,7 +267,7 @@ public partial class SearchResult : System.Web.UI.Page
     {
         SearchCriteria.KeepAlive = true;
 
-        Response.Redirect("~/Default3.aspx?");
+        Response.Redirect("~/Default.aspx?");
            
     }
 

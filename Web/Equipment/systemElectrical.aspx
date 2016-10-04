@@ -80,15 +80,13 @@
                             <asp:TextBox ID="txtWRNum" runat="server" MaxLength="50" TabIndex="10"></asp:TextBox></td>
                     </tr>
                      <tr>
-                            <td class="inventoryTopRightCell" colspan="4" class="inventoryTopLeftCell"> 
-                        <asp:Label ID="lbInventoryDate" runat="server" Text="Inventory Date"></asp:Label></td>
-                    <td>
-                        <asp:TextBox ID="txtInventoryDate" runat="server" MaxLength="6" TabIndex="22" />
+                            <td colspan="4" class="inventoryTopLeftCell">Inventory Date:
+                       
+                        <asp:TextBox ID="txtInventoryDate" runat="server" SkinID="MaxTextBox" TabIndex="22" />
                         <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
-                    </td>
-                   <td>
-                        <asp:Label ID="lbInventoryBy" runat="server" Text="Inventory By"></asp:Label></td>
-                    <td >
+                   </td>  <td class="inventoryTopRightCell">Inventory By:</td>
+                        <td class="inventoryTopRightCellBtm">
+                        
                         <asp:TextBox ID="txtInventoryBy" runat="server" MaxLength="50" TabIndex="16" />
                     </td>
                 
@@ -522,7 +520,7 @@
                          </tr> 
                                    </table> 
                            </td>
-                           <td width="30%">
+                          <%-- <td width="30%">
                       <table width="100%">
                        <tr>
                            <td></td>
@@ -602,7 +600,7 @@
                    </table>
 
 
-                           </td>
+                           </td>--%>
                        </tr>
                    </table>
                    
@@ -611,83 +609,7 @@
           <ajaxToolkit:TabPanel runat="server" HeaderText="Facility Attachments" ID="TabPanel3">
               <ContentTemplate>  
                    
-                      <table>
-                       <tr>
-                           <td></td>
-                           <td><p><b>Facility Attachments </b> <asp:TextBox runat="server" ID="txtHidFacAttID" Visible="false" Text="-1" ></asp:TextBox></p>
-                               <table width="100%" class="stepTable">
-				             <tr>
-					          <td class="notes" colspan="2">Attach any related documents, e.g., photos and written statements. Acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD, .WAV, .MP3 and .PPT(X).  Enter a Title in order to save the attachment.</td>
-					      </tr>				      
-				        
-                        
-                          <tr><td colspan="2"><br /><b>New Attachment</b>
-					          </td>        														
-				          </tr>
-		                <tr>
-                                <td colspan="2"><asp:Label runat="server" ID="lblFacValidationError" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
-                            </tr>
-				              <tr>
-				                <td >Title of Attachment&nbsp;<span class="requiredMark">*</span></td> 
-    				            
-				                <td><asp:TextBox ID="txtFacAttTitle" runat="server" MaxLength="100" SkinID="longText" />
-				                    
-				                 </td>
-				              </tr>
-				               <tr>
-					             <td >Upload File&nbsp;<span class="requiredMark">*</span></td> 
-    					 
-                                 <td class="text7"><asp:FileUpload ID="fuFacFileUpload" runat="server" Width="350px" />&nbsp;(Max size 10MB)
-                                    <br /><asp:Label runat="server" ID="lbHidExistFacFile" Text="Existing File: " Visible="false" CssClass="errortext"></asp:Label><asp:Label runat="server" ID="txtHidFacAttFileName" Visible="false" CssClass="text7"></asp:Label>
-                                    </td>
-				              </tr>
-    				            <tr><td colspan="2" class="errortext" align="left" style="font-size:xx-small; font-style:italic">* In order to save your Attachment, you must enter Title and upload a File.</td></tr>
-    				            <tr><td colspan="2"><hr /></td></tr>
-                  <tr>
-                        <td colspan="2"><asp:Button ID="btnAddAnotherFacAtt" runat="server" Text="Save Attachment"> </asp:Button> 
-				          <asp:Label ID="lbAddFacAttachmentError" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label> <br />
-                        </td>
-                    </tr>
-		                 <asp:Panel ID="pnlExtFAcAttachment" runat="server">								           
-                            <tr>
-				                <td class="leftLabel" colspan="2"><br />Existing Facility Attachment(s): (Click the <img src='../App_Image/delete.gif' align='bottom' border='0' alt='Delete' /> to remove)
-				         <br /></td>
-				            </tr>
-				            <tr>
-				                    <td colspan="2">
-				                        <br />
-                                      <asp:GridView ID="gvExtFacAttachment" SkinID="VerticalLineGV" runat="server" AutoGenerateColumns="false"  GridLines="None"
-                                        OnRowCommand="gvExtFacAttachment_onRowCommand"> 
-                                        <Columns>              
-                                                                                  	    
-                                            <asp:TemplateField HeaderText="Update" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">	                                                        
-                                                    <ItemTemplate> 
-                                                        <asp:LinkButton CommandName="Editing" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnEditFacAttachment" Text="<img src='../Image/edit.gif' alt='Edit' />"  runat="server"></asp:LinkButton>
-                                                    </ItemTemplate> 								
-                                                </asp:TemplateField> 
-                                                 <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">  
-                                                    <ItemTemplate> 
-                                                        <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnDeleteFacAttachment" Text="<img src='../Image/delete.gif' alt='Delete' />"  runat="server" OnClientClick="return confirm('OK to Delete?');" ></asp:LinkButton>
-                                                    </ItemTemplate> 								
-                                                </asp:TemplateField> 
-                                                   <asp:BoundField HeaderText = "Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />                                                  
-                                                 <asp:TemplateField HeaderText="Name of File"  HeaderStyle-HorizontalAlign="left">  
-                                                    <ItemTemplate> 
-                                                        <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server" NavigateUrl='<%# "~/Attachments/Incident/" + (string)Eval("FileLocation")%>' Text='<%# (string)Eval("OriginalFileName") %>' ></asp:HyperLink>
-                                                    </ItemTemplate> 								
-                                                </asp:TemplateField>  
-                                                 <asp:BoundField HeaderText = "Created On" DataField="CreatedOn" />  
-                                                                                                
-                                         </Columns>
-                                    </asp:GridView>
-				                </td>
-			                </tr>
-      		            </asp:Panel> 
-      		         
-                     </table>
-                           </td>
-                       </tr>
-                   </table>
+                    <table><tr><td>Facility attachments</td></tr></table>
                 </ContentTemplate>  
         </ajaxToolkit:TabPanel>
          <ajaxToolkit:TabPanel runat="server" HeaderText="View All and Print" ID="TabPanel4">

@@ -100,7 +100,11 @@ namespace NIH.CMMS.Inventory.BPL.Facility
         }
         public static ValidationResult AddUpdateMechanicalEquipment(FacilityDet details)
         {
-            return facility_db.AddUpdateElectricalEquipment(details);
+            //if (string.IsNullOrEmpty(details.FacBuilding) || string.IsNullOrEmpty(details.FacSysteme) || string.IsNullOrEmpty(txtFacilityID.Text.Trim()) || string.IsNullOrEmpty(txtLocation.Text.Trim()))
+            //{
+            //    Utils.ShowPopUpMsg("Facility ID, System, Building and Location are required.", this);
+            //}
+            return facility_db.AddUpdateMechanicalEquipment(details);
         }
         public static ValidationResult AddElectricalMechanicalSystem(FacilityDet details, bool isElectrical)
         {

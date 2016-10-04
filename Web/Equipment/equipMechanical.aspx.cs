@@ -50,10 +50,12 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                     btnSaveFacility.Text = "Update Equipment";
                     LoadFacilityInfo();
                 trAttachment.Visible = true;
+                drplstBuilding.Enabled = false;
             }
             else
             {
                 trAttachment.Visible = false;
+                drplstBuilding.Enabled = true;
                 btnSaveFacility.Text = "Add New Equipment";
 
             }
@@ -180,7 +182,8 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
     private ValidationResult SaveFacilityDetails()
     {
         FacilityDet details = new FacilityDet();
-        details.Key = Convert.ToInt32(hidFacSystemID.Value);
+        details.Key = ParentFacilitySysID;
+        details.FacNum = txtFacilityNum.Text;
         details.FacSystem = drplstSystem.SelectedValue;
             details.FacFunction = txtFunction.Text.Trim();
             details.FacBuilding = drplstBuilding.SelectedValue;
@@ -246,6 +249,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
     private void ClearData()
     {
+        txtFacilityNum.Text = string.Empty;
         drplstSystem.SelectedIndex = -1;
         txtFunction.Text = string.Empty;
         drplstBuilding.SelectedIndex = -1;

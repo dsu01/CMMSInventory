@@ -16,12 +16,12 @@
                         <td>
                             <table style="width:98%;">
                                 <tr>
-                                    <td class="leftLabel">
+                                    <td class="leftLabel" width="80%">
                                         Current Criteria: <asp:Label ID="lblExiCrit" runat="server"></asp:Label>&nbsp;&nbsp;<asp:LinkButton ID="lbModifySearch" CommandName="KeepAlive" runat="server" Visible="false" Text="Modify Criteria >>"
                                             CssClass="GridViewButtons" OnClick="lbModifySearch_OnClick" UseSubmitBehavior="false"></asp:LinkButton>
                                         
                                     </td>
-                                    <td align="right">
+                                    <td align="right" width="20%">
                                         <table id="trExportandPrintButtons" runat="server" visible="false">
                                             <tr>
                                                 <td align="right">
