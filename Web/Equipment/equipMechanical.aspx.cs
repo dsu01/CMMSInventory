@@ -289,6 +289,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         txtInventoryBy.Text = string.Empty;
         txtInventoryDate.Text = string.Empty;
         trAttachment.Visible = false;
+        txtManufacturer.Text = string.Empty;
     }
 
     #region Attachment Details

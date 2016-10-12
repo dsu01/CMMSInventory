@@ -261,7 +261,8 @@
                             </Columns>
                         </asp:GridView>
                         <br />
-                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" />
+                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" /> Add default display column, show image
+
                     </td>
                 </tr>
                 <tr>
