@@ -281,7 +281,8 @@
                         <asp:Button ID="btnFinish" runat="server" Text="Save" CssClass="submitGreen" OnClick="btnFinish_Click" TabIndex="24" />
                         &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
                          &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
-                        <asp:HiddenField ID="hidFacSystemID" runat="server" Value="-1" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitGray" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />
+                       <%-- <asp:HiddenField ID="hidFacSystemID" runat="server" Value="-1" />--%>
                     </td>
                 </tr>
             </table>

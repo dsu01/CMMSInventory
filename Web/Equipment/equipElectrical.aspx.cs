@@ -18,7 +18,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 {
     protected LoginUser loginUsr;
 
-    public int ParentFacilitySysID
+    public int ElectricalEquipmentSysID
     {
         get
         {
@@ -37,44 +37,53 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
         if (!Page.IsPostBack)
         {
-            if (loginUsr.Role.ToLower() != "msadmin" && loginUsr.Role.ToLower() != "mssuper")
-            { btnFinish.Visible = false; }
+            //if (loginUsr.Role.ToLower() != "msadmin" && loginUsr.Role.ToLower() != "mssuper")
+            //{ btnFinish.Visible = false; }
 
-            hidFacSystemID.Value = "-1";
-            DataSet dtSystem = GeneralLookUp.GetEletricalSystemList();
+            //hidFacSystemID.Value = "-1";
+            DataSet dtSystem = GeneralLookUp.GetEletricalSystemList();//spn_Inv_GetSystemList_Electrical_newsite
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
 
-            if (ParentFacilitySysID >= 0)
+            if (ElectricalEquipmentSysID >= 0)
             {
-                //New eletrical equipment
+                //Existing eletrical equipment
                 btnFinish.Text = "Update Equipment";
-                trAttachment.Visible = true;
-                drplstBuilding.Enabled = false;
+                trAttachment.Visible = true;               
                 LoadDetails();
+                drplstBuilding.Enabled = false;
+                txtFacilityNum.Enabled = false;
             }
             else
             {
                 //New eletrical equipment
-                btnFinish.Text = "Add New Equipment";
-                trAttachment.Visible = false;
                 drplstBuilding.Enabled = true;
+                txtFacilityNum.Enabled = true;
+                btnFinish.Text = "Add New Equipment";
+                trAttachment.Visible = false;                
             }
 
+
+            if (HttpContext.Current.Session["SearchReportSearchCriteria"] != null && SearchCriteria.Instance != null)
+            {
+                btnBackToList.Visible = true;
+            }
+            else
+                btnBackToList.Visible = false;
         }
 
     }
 
     private void LoadDetails()
     {
-        FacilityDet details = facility_logic.GetElectrialEquipDetails(ParentFacilitySysID);
+        FacilityDet details = facility_logic.GetElectrialEquipDetails(ElectricalEquipmentSysID);
         if (details != null)
         {
             #region "Load general facility detail"
-            hidFacSystemID.Value = ParentFacilitySysID.ToString();
+            //hidFacSystemID.Value = ElectricalEquipmentSysID.ToString();
             drplstSystem.SelectedValue = details.FacSystem;
             drplstBuilding.SelectedValue = details.FacBuilding;
             txtFunction.Text = details.FacFunction;
@@ -91,7 +100,6 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             ckTJC.Checked = (details.YsnTJC == 1) ? true : false;
             txtComments.Text = details.Comment;
 
-            //disable the save button if not in active status
             //disable the save button if not in active status
             if (details.Status.ToLower() != "active")
             {
@@ -167,7 +175,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
     }
     protected void btnReset_Click(object sender, EventArgs e)
     {
-        if (ParentFacilitySysID >= 0)
+        if (ElectricalEquipmentSysID >= 0)
         {
             LoadDetails();
         }
@@ -177,17 +185,24 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         }
     }
 
+    protected void btnBackToList_Click(object sender, EventArgs e)
+    {
+        if (HttpContext.Current.Session["SearchReportSearchCriteria"] != null)
+        {
+            Response.Redirect("/SearchResult.aspx");
+        }
+        
+    }
+
     protected void btnAddNew_Click(object sender, EventArgs e)
     {
         ClearData();
-
-
     }
 
 
     private void ClearData()
     {
-        hidFacSystemID.Value = "-1";
+        //hidFacSystemID.Value = "-1";
         txtFacilityNum.Text = string.Empty;
         drplstSystem.SelectedIndex = -1;
         txtFunction.Text = string.Empty;
@@ -231,7 +246,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
     {
 
         FacilityDet details = new FacilityDet();
-        details.Key = ParentFacilitySysID;
+        details.Key = ElectricalEquipmentSysID;
         details.FacNum = txtFacilityNum.Text;
         //show not happen when page > 0
         details.FacSystem = drplstSystem.SelectedValue;
@@ -288,7 +303,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
     private void LoadAttachments()
     {
-        var list = AttachmentLogic.GetAttachments(ParentFacilitySysID, true);
+        var list = AttachmentLogic.GetAttachments(ElectricalEquipmentSysID, true);
 
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();

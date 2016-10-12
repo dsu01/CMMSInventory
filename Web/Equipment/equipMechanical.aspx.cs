@@ -18,7 +18,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 {
     protected LoginUser loginUsr;
 
-    public int ParentFacilitySysID
+    public int MechanicalEquipmentSysID
     {
         get
         {
@@ -45,20 +45,29 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
 
-            if (ParentFacilitySysID >= 0)
+            if (MechanicalEquipmentSysID >= 0)
             {
-                    btnSaveFacility.Text = "Update Equipment";
-                    LoadFacilityInfo();
+                btnSaveFacility.Text = "Update Equipment";
+                LoadFacilityInfo();
                 trAttachment.Visible = true;
                 drplstBuilding.Enabled = false;
+                txtFacilityNum.Enabled = false;
             }
             else
             {
                 trAttachment.Visible = false;
                 drplstBuilding.Enabled = true;
+                txtFacilityNum.Enabled = true;
                 btnSaveFacility.Text = "Add New Equipment";
 
             }
+
+            if (HttpContext.Current.Session["SearchReportSearchCriteria"] != null && SearchCriteria.Instance != null)
+            {
+                btnBackToList.Visible = true;
+            }
+            else
+                btnBackToList.Visible = false;
             
         }
     }
@@ -93,9 +102,9 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
     private void LoadFacilityInfo()
     {
-        if (ParentFacilitySysID < 0) return;
+        if (MechanicalEquipmentSysID < 0) return;
 
-        var details = facility_logic.GetFacilityDetails(ParentFacilitySysID);
+        var details = facility_logic.GetFacilityDetails(MechanicalEquipmentSysID);
         LoadFacilityDetail(details);
 
         LoadAttachments();
@@ -128,7 +137,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             if (existingFac.Status.ToLower() != "active")
             {
                 //disable all buttons
-                //btnFinish.Visible = false;
+                btnSaveFacility.Visible = false;
             }
 
             #region "Load from facility table only"
@@ -179,10 +188,22 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
     }
 
+    protected void btnReset_Click(object sender, EventArgs e)
+    {
+        if (MechanicalEquipmentSysID >= 0)
+        {
+            LoadFacilityInfo();
+        }
+        else
+        {
+            ClearData();
+        }
+    }
+
     private ValidationResult SaveFacilityDetails()
     {
         FacilityDet details = new FacilityDet();
-        details.Key = ParentFacilitySysID;
+        details.Key = MechanicalEquipmentSysID;
         details.FacNum = txtFacilityNum.Text;
         details.FacSystem = drplstSystem.SelectedValue;
             details.FacFunction = txtFunction.Text.Trim();
@@ -246,7 +267,14 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
        
     }
+    protected void btnBackToList_Click(object sender, EventArgs e)
+    {
+        if (HttpContext.Current.Session["SearchReportSearchCriteria"] != null)
+        {
+            Response.Redirect("/SearchResult.aspx");
+        }
 
+    }
     private void ClearData()
     {
         txtFacilityNum.Text = string.Empty;
@@ -296,7 +324,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
     private void LoadAttachments()
     {
-        var list = AttachmentLogic.GetAttachments(ParentFacilitySysID, false);
+        var list = AttachmentLogic.GetAttachments(MechanicalEquipmentSysID, false);
 
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
@@ -338,17 +366,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         if (deleted)
             LoadAttachments();
     }
-    protected void btnReset_Click(object sender, EventArgs e)
-    {
-        if (ParentFacilitySysID >= 0)
-        {
-            LoadFacilityInfo();
-        }
-        else
-        {
-            ClearData();
-        }
-    }
+  
 
     protected void btnAddNew_Click(object sender, EventArgs e)
     {
