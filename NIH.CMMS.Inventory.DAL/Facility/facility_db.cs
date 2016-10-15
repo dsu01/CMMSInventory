@@ -183,8 +183,14 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             //update/insert data into database, this is updating invFacility table
             String result = "";
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            SqlParameter paramID = DBCommands.ParameterMaker("@ID_table", SqlDbType.Int, 10, ParameterDirection.InputOutput, details.Key);
+            
+            SqlParameter paramID = new SqlParameter("@ID_table", SqlDbType.Int);
+            paramID.Direction = ParameterDirection.Output;
             sqlParams.Add(paramID);
+            SqlParameter paramNum = new SqlParameter("@FacilityNo", SqlDbType.VarChar, 50);
+            paramNum.Direction = ParameterDirection.Output;
+            sqlParams.Add(paramNum);
+
             sqlParams.Add(new SqlParameter("@FacilityID", details.FacID));
           
             if(isElectrical)
@@ -192,8 +198,7 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             else
                 sqlParams.Add(new SqlParameter("@Systemgroup", "Mechanical System"));
 
-            SqlParameter paramNum = DBCommands.ParameterMaker("@FacilityNo", SqlDbType.VarChar, 50, ParameterDirection.InputOutput, details.FacNum);
-            sqlParams.Add(paramNum);
+            
       
             sqlParams.Add(new SqlParameter("@UserName", String.IsNullOrEmpty(details.UserName) ? DBNull.Value : (Object)details.UserName));
             sqlParams.Add(new SqlParameter("@FacilitySystem", details.FacSystem));

@@ -168,7 +168,7 @@ namespace NIH.CMMS.Inventory.DAL.Utility
                     }
                     catch (Exception ex)
                     {
-                        throw;
+                        return new ValidationResult(false, "SQL Error Message " + ex.Message);
                     }
                 }
             }          

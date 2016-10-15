@@ -16,8 +16,8 @@
                         <td>
                             <table style="width:98%;">
                                 <tr>
-                                    <td class="leftLabel" width="80%">
-                                        Current Criteria: <asp:Label ID="lblExiCrit" runat="server"></asp:Label>&nbsp;&nbsp;<asp:LinkButton ID="lbModifySearch" CommandName="KeepAlive" runat="server" Visible="false" Text="Modify Criteria >>"
+                                    <td class="leftLabel" width="80%" style="border:1px;">
+                                        Current Criteria: <asp:Label ID="lblExiCrit" runat="server" CssClass="text7"></asp:Label>&nbsp;&nbsp;<asp:LinkButton ID="lbModifySearch" CommandName="KeepAlive" runat="server" Visible="false" Text="Modify Criteria >>"
                                             CssClass="GridViewButtons" OnClick="lbModifySearch_OnClick" UseSubmitBehavior="false"></asp:LinkButton>
                                         
                                     </td>
