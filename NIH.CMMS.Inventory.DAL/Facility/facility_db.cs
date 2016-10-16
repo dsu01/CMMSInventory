@@ -327,7 +327,7 @@ namespace NIH.CMMS.Inventory.DAL.Facility
               }
               else
               {
-                  SqlParameter paramID = DBCommands.ParameterMaker("@ID_table", SqlDbType.Int, 10, ParameterDirection.InputOutput, details.Key);
+                  SqlParameter paramID = DBCommands.ParameterMaker("@ID_table", SqlDbType.Int, 10, ParameterDirection.Output, details.Key);
                   sqlParams.Add(paramID);
                   sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
                   sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));

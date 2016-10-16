@@ -229,14 +229,14 @@ public partial class SearchResult : System.Web.UI.Page
                 //
                 if (lbFacGroup.Text.ToLower().StartsWith("electrical"))
                 {
-                    if (lbFacGroup.Text.ToLower().StartsWith("system"))
+                    if (lbFacGroup.Text.ToLower().Contains("system"))
                         hlFacNum.NavigateUrl = "~/Equipment/systemElectrical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
                     else
                         hlFacNum.NavigateUrl = "~/Equipment/equipElectrical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
                 }
                 else
                 {
-                    if (lbFacGroup.Text.ToLower().StartsWith("system"))
+                    if (lbFacGroup.Text.ToLower().Contains("system"))
                         hlFacNum.NavigateUrl = "~/Equipment/systemMechanical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;
                     else
                         hlFacNum.NavigateUrl = "~/Equipment/equipMechanical.aspx?ParentFacilitySysID=" + lbFacSystemID.Text;

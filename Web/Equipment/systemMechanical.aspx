@@ -10,7 +10,7 @@
     <script type="text/javascript" src="../JS/jquery-ui-1.8.12.custom.min.js"></script>
 
     <script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {
+       // $(document).ready(function () {
             // $("#date").datepicker({ showOn: 'button', buttonText: "select" });
             //$("#txtInstalledDate1").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'images/icon_cal.png' });
        <%--     $('#<%=txtInstalledDate1.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
@@ -23,7 +23,7 @@
             $('#<%=txtMotorInstalledDate3.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
             $('#<%=txtMotorInstalledDate4.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
             $('#<%=txtMotorInstalledDate5.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });--%>
-        });
+      //  });
 
     </script>
 
@@ -214,34 +214,32 @@
                        <tr>
                            <td width="70%">
                                <table id="inputTable" cellspacing="2" cellpadding="3">
-                                <tr>
-                                        <td colspan="2">                    
+                                <tr class="text8">
+                                        <td colspan="2" class="redheading" >                    
                                             <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />
                                       
-                                           <b> Add/Update Component</b></td>
+                                           Add/Update Component</td>
                                                         <td>&nbsp;&nbsp;&nbsp;&nbsp;  <asp:Button ID="btnAddNewComponent" runat="server" Text="Add Another Component" CssClass="submitGreen" TabIndex="37"
                                             OnClick="btnAddComponent_Click" /></td>
                                                       </tr>
-                                 <tr>
-                                    <td colspan="2" style="font-size: 10px; font-style: italic;">*Equipment ID is required.
-                 
-                                    </td>
-                                </tr>
+                             
                                    <tr>
                                     <td width="25%">
                                         <asp:Label ID="lbEquipment" CssClass="tableLabel" runat="server" Text="Equipment ID *"></asp:Label>
                                     </td>
                                     <td>
                                         <asp:TextBox ID="txtEquipmentID" MaxLength="50" runat="server" TabIndex="8" />
+                                        <asp:RequiredFieldValidator ID="rqvEquipmentID" runat="server" ControlToValidate="txtEquipmentID" Display="Dynamic" ErrorMessage="Equipment ID is required"></asp:RequiredFieldValidator>
                                     </td>              
                                
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:Label ID="lbTypeUse" CssClass="tableLabel" runat="server" Text="Type or Use"></asp:Label>
+                                        <asp:Label ID="lbTypeUse" CssClass="tableLabel" runat="server" Text="Type or Use *"></asp:Label>
                                     </td>
                                     <td>
                                         <asp:TextBox ID="txtTypeUse" MaxLength="50" runat="server" TabIndex="10" />
+                                         <asp:RequiredFieldValidator ID="rqvTypeUse" runat="server" ControlToValidate="txtEquipmentID" Display="Dynamic" ErrorMessage="Type or Use is required"></asp:RequiredFieldValidator>
                                     </td>
                
                                     <td>
@@ -251,9 +249,7 @@
                                         <asp:TextBox ID="txtManufacturer" MaxLength="50" runat="server" TabIndex="11" />
                                     </td>
                                 </tr>
-                               <asp:Panel id="inputTableMachanical" runat="server">
-                                    
-                                 
+                         
                                 <tr>
                                     <td>
                                         <asp:Label ID="lbLocation" CssClass="tableLabel" runat="server" Text="Location"></asp:Label>
@@ -275,6 +271,12 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtSerialNum" MaxLength="50" runat="server" TabIndex="13" />
+                    </td>
+                       <td>
+                        <asp:Label ID="lbMotorType" CssClass="tableLabel" runat="server" Text="Type"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtMotorType" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
                  <tr>
@@ -309,13 +311,22 @@
                         <asp:TextBox ID="txtCapacityHT" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                
+                  
+                </tr>
+                  <tr>
                     <td>
                         <asp:Label ID="lbFuel" CssClass="tableLabel" runat="server" Text="Fual or Refri"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtFuel" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                </tr>
+                        <td>
+                        <asp:Label ID="lbMotorModel" CssClass="tableLabel" runat="server" Text="Model"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtMotorModel" MaxLength="50" runat="server" TabIndex="13" />
+                    </td>
+                 </tr>
                <tr>
                     <td>
                         <asp:Label ID="lbMotorManu" CssClass="tableLabel" runat="server" Text="Motor Mfg'r"></asp:Label>
@@ -331,12 +342,7 @@
                         <asp:TextBox ID="txtHP" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                
-                    <td>
-                        <asp:Label ID="lbMotorType" CssClass="tableLabel" runat="server" Text="Type"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtMotorType" MaxLength="50" runat="server" TabIndex="13" />
-                    </td>
+                  
                 </tr>
                 <tr>
                     <td>
@@ -347,7 +353,7 @@
                     </td>
               
                     <td>
-                        <asp:Label ID="lbMotorInstalledDate" CssClass="tableLabel" runat="server" Text="Motor Installe"></asp:Label>
+                        <asp:Label ID="lbMotorInstalledDate" CssClass="tableLabel" runat="server" Text="Motor Installed Date"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtMotorInstalledDate" MaxLength="50" runat="server" TabIndex="13" />
@@ -355,12 +361,7 @@
                    
                          </td>
               
-                    <td>
-                        <asp:Label ID="lbMotorModel" CssClass="tableLabel" runat="server" Text="Model"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtMotorModel" MaxLength="50" runat="server" TabIndex="13" />
-                    </td>
+                  
                      </tr>
                    <tr>
                     <td>
@@ -369,6 +370,14 @@
                     <td>
                         <asp:TextBox ID="txtFrame" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
+                       <td>
+                        <asp:Label ID="lbTJC" CssClass="tableLabel" runat="server" Text="TJC Value"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtTJC" MaxLength="50" runat="server" TabIndex="13" />
+                     <asp:RangeValidator ID="valTJC" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC"></asp:RangeValidator>
+                   
+                         </td>
                 </tr>
                <tr>
                     <td>
@@ -402,111 +411,25 @@
                     
                          </td>
                
+                  
+                </tr>
+               <tr>
+                     <td>
+                        <asp:Label ID="lbPMSchedule" CssClass="tableLabel" runat="server" Text="PM Schedule"></asp:Label>
+                    </td>
                     <td>
+                        <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="13" />
+                    </td>
+                     <td>
                         <asp:Label ID="lbBSLClass" CssClass="tableLabel" runat="server" Text="BSL Class."></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 </tr>
-               <tr>
-                    <td>
-                        <asp:Label ID="lbTJC" CssClass="tableLabel" runat="server" Text="TJC Value"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtTJC" MaxLength="50" runat="server" TabIndex="13" />
-                     <asp:RangeValidator ID="valTJC" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC"></asp:RangeValidator>
-                   
-                         </td>
-                </tr>
-               <tr>
-                    <td>
-                        <asp:Label ID="lbPMSchedule" CssClass="tableLabel" runat="server" Text="PM Schedule"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="13" />
-                    </td>
-                </tr>
+           
          
-
-            </asp:Panel>
-                               <br />
-                               <asp:Panel id="inputTableElectrical" runat="server">
-                                   
-                                
-                <tr>                  
-                     <td>
-                        <asp:Label ID="lbVOLTSElec" CssClass="tableLabel" runat="server" Text="VOLTS"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtVOLTSElec" MaxLength="50" runat="server" TabIndex="9" />
-                    </td>
-                   
-             
-                    <td>
-                        <asp:Label ID="lbAMPElec" CssClass="tableLabel" runat="server" Text="AMP"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtAMPElec" MaxLength="50" runat="server" TabIndex="12" />
-                    </td>
-             
-                    <td>
-                        <asp:Label ID="lbKVAElec" CssClass="tableLabel" runat="server" Text="KVA"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtKVAElec" MaxLength="50" runat="server" TabIndex="13" />
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                        <asp:Label ID="lbVoltsPrimary" CssClass="tableLabel" runat="server" Text="Volts Primary"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtVoltsPrimary" MaxLength="50" runat="server" TabIndex="11" />
-                    </td>
-               
-                    <td>
-                        <asp:Label ID="lbVoltsSecondary" CssClass="tableLabel" runat="server" Text="Volts Secondary"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtVoltsSecondary" MaxLength="50" runat="server" TabIndex="12" />
-                      </td>
-            
-                    <td>
-                        <asp:Label ID="lbPhElec" CssClass="tableLabel" runat="server" Text="Ph"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtPhElec" MaxLength="50" runat="server" TabIndex="13" />
-                    </td>
-               </tr>
-                 <tr>
-                    <td>
-                        <asp:Label ID="lbWElec" CssClass="tableLabel" runat="server" Text="W"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtWElec" MaxLength="50" runat="server" TabIndex="13" />
-                    </td>
-               
-                    <td>
-                        <asp:Label ID="lbNumOfCKTS" CssClass="tableLabel" runat="server" Text="No. of CKTS."></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtNumOfCKTS" MaxLength="50" runat="server" TabIndex="13" />
-                    </td>
-               
-                    <td>
-                        <asp:Label ID="lbCKTSUsed" CssClass="tableLabel" runat="server" Text="CKTS Used"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtCKTSUsed" MaxLength="50" runat="server" TabIndex="13" />
-                    </td>
-                </tr>
-             
-               
-          
-
-            </asp:Panel>
-
+                           
                              
                               <tr>  
                                 <td align="center" colspan="2">
@@ -519,7 +442,7 @@
                          </tr> 
                                    </table> 
                            </td>
-                          
+                           <td>Attachment Panel</td>
                        </tr>
                    </table>
 

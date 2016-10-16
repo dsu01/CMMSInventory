@@ -22,18 +22,15 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             //Todo: verify logic
-            if (loginUsr.Role.ToLower() == "msadmin" || loginUsr.Role.ToLower() == "mssuper")
-            { btnFinish.Visible = true; }
-            else { btnFinish.Visible = false; }
+            //if (loginUsr.Role.ToLower() == "msadmin" || loginUsr.Role.ToLower() == "mssuper")
+            //{ btnFinish.Visible = true; }
+            //else { btnFinish.Visible = false; }
 
             int facID = 0;
             string facNum = string.Empty;
             string wrNum = string.Empty;
             int equipID = 0;
-            //DataSet dtSystem = GeneralLookUp.GetMechanicalSystemList();
-            //drplstSystem.DataSource = dtSystem;
-            //drplstSystem.DataBind();
-
+       
             DataSet dtSystem = GeneralLookUp.GetEletricalSystemList();
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
@@ -57,15 +54,25 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                     Response.Redirect("~/Default.aspx");
                 }
                 btnSaveFacility.Text = "Update Facility Information";
-               
+
             }
-            else if (Request.QueryString["facnum"] != null && !string.IsNullOrEmpty(Request.QueryString["facnum"].ToString()))
+            else
+            {
+                Session["ParentFacilitySysID"] = null;
+            }
+
+            if (Request.QueryString["facnum"] != null && !string.IsNullOrEmpty(Request.QueryString["facnum"].ToString()))
             {
                 facNum = Request.QueryString["facnum"].ToString();
                 txtFacilityNum.Text = Request.QueryString["facnum"].ToString();
-                LoadFacilityInfoByFacNum(facNum);
+                LoadFacilityInfoByFacNum(facNum);            
             }
-            else if (Request.QueryString["wrnum"] != null && !string.IsNullOrEmpty(Request.QueryString["wrnum"].ToString()))
+            else
+            {
+                Session["ParentFacilityNum"] = null;
+            }
+
+            if (Request.QueryString["wrnum"] != null && !string.IsNullOrEmpty(Request.QueryString["wrnum"].ToString()))
             {
                 wrNum = Request.QueryString["wrnum"].ToString();
                 LoadFacilityInfoByWRNum(wrNum);
@@ -197,16 +204,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
             #region "Load facility detail"
             drplstSystem.SelectedValue = existingFac.FacSystem;
-            if (existingFac.FacilityGroup.Contains("Eletrical"))
-            {
-                inputTableElectrical.Visible = true;
-                inputTableMachanical.Visible = false;
-            }
-            else
-            {
-                inputTableElectrical.Visible = false;
-                inputTableMachanical.Visible = true;
-            }
+         
             drplstBuilding.SelectedValue = existingFac.FacBuilding;
             txtFunction.Text = existingFac.FacFunction;
             txtFloor.Text = existingFac.FacFloor;
@@ -233,93 +231,58 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             {
 
                 //disable all buttons
-                //btnFinish.Visible = false;
+                btnFinish.Visible = false;
             }
 
-            if (existingFac.FacEquipments != null)
-            {
+            //if (existingFac.FacEquipments != null)
+            //{
 
-                EquipmentDet details = existingFac.FacEquipments[0];
-                if (details != null)
-                {
-                    #region "Load the first equipment"
-                    hidEquipmentSysID.Value = details.Key.ToString();
-                    txtEquipmentID.Text = details.EquipID;
-                    //location is not in facility
-                    txtLocation.Text = details.EquipLocation;
-                    txtTypeUse.Text = details.TypeOrUse;
-                    txtManufacturer.Text = details.Manufacturer;
-                    txtModelNum.Text = details.ModelNo;
-                    txtSerialNum.Text = details.SerialNo;
-                    txtSize.Text = details.Size;
+            //    EquipmentDet details = existingFac.FacEquipments[0];
+            //    if (details != null)
+            //    {
+            //        LoadEquipmentDetail(details);
+               
+            //    }
+            //}
+            //else
+            //{
+            //    #region "Load from facility table only"
+            //    //txtEquipmentID1.Text = details.EquipID;
+            //    //location is not in facility
+            //    txtLocation.Text = existingFac.EquipLocation;
+            //    txtTypeUse.Text = existingFac.TypeOrUse;
+            //    txtManufacturer.Text = existingFac.Manufacturer;
+            //    txtModelNum.Text = existingFac.ModelNo;
+            //    txtSerialNum.Text = existingFac.SerialNo;
+            //    txtSize.Text = existingFac.Size;
 
-                    if (details.InstalledDate != DateTime.MinValue)
-                        txtInstalledDate.Text = details.InstalledDate.ToShortDateString();
-                    if (details.MotorInstalledDate != DateTime.MinValue)
-                        txtMotorInstalledDate.Text = details.MotorInstalledDate.ToShortDateString();
+            //    if (existingFac.InstalledDate != DateTime.MinValue)
+            //        txtInstalledDate.Text = existingFac.InstalledDate.ToShortDateString();
+            //    if (existingFac.MotorInstalledDate != DateTime.MinValue)
+            //        txtMotorInstalledDate.Text = existingFac.MotorInstalledDate.ToShortDateString();
 
-                    txtCapacity.Text = details.Capacity;
-                    txtCapacityHT.Text = details.CapacityHeadTest;
-                    txtFuel.Text = details.FuelRefrigeration;
-                    txtMotorManu.Text = details.MotorManufacturer;
-                    txtHP.Text = details.HP;
-                    txtMotorType.Text = details.MotorType;
+            //    txtCapacity.Text = existingFac.Capacity;
+            //    txtCapacityHT.Text = existingFac.CapacityHeadTest;
+            //    txtFuel.Text = existingFac.FuelRefrigeration;
+            //    txtMotorManu.Text = existingFac.MotorManufacturer;
+            //    txtHP.Text = existingFac.HP;
+            //    txtMotorType.Text = existingFac.MotorType;
 
-                    txtMotorSerialNum.Text = details.MotorSerialNo;
+            //    txtMotorSerialNum.Text = existingFac.MotorSerialNo;
 
-                    txtMotorModel.Text = details.MotorModel;
-                    txtFrame.Text = details.Frame;
-                    txtRPM.Text = details.RPM;
-                    txtVoltage.Text = details.Voltage;
-                    txtAmperes.Text = details.Amperes;
-                    txtPhaseCycle.Text = details.PhaseCycle;
-                    txtBSLClass.Text = details.BslClassification;
+            //    txtMotorModel.Text = existingFac.MotorModel;
+            //    txtFrame.Text = existingFac.Frame;
+            //    txtRPM.Text = existingFac.RPM;
+            //    txtVoltage.Text = existingFac.Voltage;
+            //    txtAmperes.Text = existingFac.Amperes;
+            //    txtPhaseCycle.Text = existingFac.PhaseCycle;
+            //    txtBSLClass.Text = existingFac.BslClassification;
 
-                    if (details.TJCValue > 0)
-                    { txtTJC.Text = details.TJCValue.ToString(); }
-                    txtPMSchedule.Text = details.PMSchedule;
-                    #endregion
-                }
-            }
-            else
-            {
-                #region "Load from facility table only"
-                //txtEquipmentID1.Text = details.EquipID;
-                //location is not in facility
-                txtLocation.Text = existingFac.EquipLocation;
-                txtTypeUse.Text = existingFac.TypeOrUse;
-                txtManufacturer.Text = existingFac.Manufacturer;
-                txtModelNum.Text = existingFac.ModelNo;
-                txtSerialNum.Text = existingFac.SerialNo;
-                txtSize.Text = existingFac.Size;
-
-                if (existingFac.InstalledDate != DateTime.MinValue)
-                    txtInstalledDate.Text = existingFac.InstalledDate.ToShortDateString();
-                if (existingFac.MotorInstalledDate != DateTime.MinValue)
-                    txtMotorInstalledDate.Text = existingFac.MotorInstalledDate.ToShortDateString();
-
-                txtCapacity.Text = existingFac.Capacity;
-                txtCapacityHT.Text = existingFac.CapacityHeadTest;
-                txtFuel.Text = existingFac.FuelRefrigeration;
-                txtMotorManu.Text = existingFac.MotorManufacturer;
-                txtHP.Text = existingFac.HP;
-                txtMotorType.Text = existingFac.MotorType;
-
-                txtMotorSerialNum.Text = existingFac.MotorSerialNo;
-
-                txtMotorModel.Text = existingFac.MotorModel;
-                txtFrame.Text = existingFac.Frame;
-                txtRPM.Text = existingFac.RPM;
-                txtVoltage.Text = existingFac.Voltage;
-                txtAmperes.Text = existingFac.Amperes;
-                txtPhaseCycle.Text = existingFac.PhaseCycle;
-                txtBSLClass.Text = existingFac.BslClassification;
-
-                if (existingFac.TJCValue > 0)
-                { txtTJC.Text = existingFac.TJCValue.ToString(); }
-                txtPMSchedule.Text = existingFac.PMSchedule;
-                #endregion
-            }
+            //    if (existingFac.TJCValue > 0)
+            //    { txtTJC.Text = existingFac.TJCValue.ToString(); }
+            //    txtPMSchedule.Text = existingFac.PMSchedule;
+            //    #endregion
+            //}
             #endregion
         }
         else
@@ -348,45 +311,48 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
         if (details.InstalledDate != DateTime.MinValue)
             txtInstalledDate.Text = details.InstalledDate.ToShortDateString();
-        if (details.MotorInstalledDate != DateTime.MinValue)
-            txtMotorInstalledDate.Text = details.MotorInstalledDate.ToShortDateString();
 
-        txtCapacity.Text = details.Capacity;
-        txtCapacityHT.Text = details.CapacityHeadTest;
-        txtFuel.Text = details.FuelRefrigeration;
-        txtMotorManu.Text = details.MotorManufacturer;
-        txtHP.Text = details.HP;
-        txtMotorType.Text = details.MotorType;
+        txtElectricalOther.Text = details.ElectricalOther;
 
-        txtMotorSerialNum.Text = details.MotorSerialNo;
+        
+        txtInventoryBy.Text = details.InventoryBy;
+        if (details.InventoryDate != DateTime.MinValue)
+            txtInventoryDate.Text = details.InventoryDate.ToShortDateString();
+        
+    
+        txtManufacturer.Text = details.Manufacturer;
+        txtVolts.Text = details.Volts;
+        txtAMP.Text = details.AMP;
+        txtKVA.Text = details.KVA;
+        txtVoltsPrimary.Text = details.VoltsPrimary;
+        txtVoltsSecondary.Text = details.VoltsSecondary;
+        txtPH.Text = details.PH;
+        txtW.Text = details.W;
+        txtCKTSNum.Text = details.CktsNum;
+        txtCKTSUsed.Text = details.CktsUsed;
 
-        txtMotorModel.Text = details.MotorModel;
-        txtFrame.Text = details.Frame;
-        txtRPM.Text = details.RPM;
-        txtVoltage.Text = details.Voltage;
-        txtAmperes.Text = details.Amperes;
-        txtPhaseCycle.Text = details.PhaseCycle;
         txtBSLClass.Text = details.BslClassification;
 
         if (details.TJCValue > 0)
         { txtTJC.Text = details.TJCValue.ToString(); }
         txtPMSchedule.Text = details.PMSchedule;
+        
 
-        if (loadFacInfo)
-            LoadFacilityInfoByFacNum(details.ParentFacilityNum);
+        //if (loadFacInfo)
+        //    LoadFacilityInfoByFacNum(details.ParentFacilityNum);
         #endregion
 
 
     }
     private ValidationResult SaveEquipmentDetails()
     {
-        if (!string.IsNullOrEmpty(Session["ParentFacilityNum"].ToString()))
+        if (!string.IsNullOrEmpty(txtFacilityNum.Text.ToString()))
         {
             EquipmentDet details = new EquipmentDet();
             //if (id > 0)
             //    details = facility_logic.GetInvEquipmentDetails(id);
 
-            details.ParentFacilityNum = Session["ParentFacilityNum"].ToString();
+            details.ParentFacilityNum = txtFacilityNum.Text.ToString();
             //   details.EquipSequenceNum = PageNumber * 5 + seqNo;
             if (loginUsr != null)
                 details.UserName = loginUsr.LaborName;
@@ -410,26 +376,32 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                 details.Size = txtSize.Text.Trim();
                 if (!string.IsNullOrEmpty(txtInstalledDate.Text.Trim()))
                     details.InstalledDate = Convert.ToDateTime(txtInstalledDate.Text.Trim());
-                details.Capacity = txtCapacity.Text.Trim();
-                details.CapacityHeadTest = txtCapacityHT.Text.Trim();
-                details.FuelRefrigeration = txtFuel.Text.Trim();
-                details.MotorManufacturer = txtMotorManu.Text.Trim();
-                details.HP = txtHP.Text.Trim();
-                details.MotorType = txtMotorType.Text.Trim();
 
-                details.MotorSerialNo = txtMotorSerialNum.Text.Trim();
-                if (!string.IsNullOrEmpty(txtMotorInstalledDate.Text.Trim()))
-                    details.MotorInstalledDate = Convert.ToDateTime(txtMotorInstalledDate.Text.Trim());
-                details.MotorModel = txtMotorModel.Text.Trim();
-                details.Frame = txtFrame.Text.Trim();
-                details.RPM = txtRPM.Text.Trim();
-                details.Voltage = txtVoltage.Text.Trim();
-                details.Amperes = txtAmperes.Text.Trim();
-                details.PhaseCycle = txtPhaseCycle.Text.Trim();
+                details.Volts = txtVolts.Text.Trim();
+                details.AMP = txtAMP.Text.Trim();
+                details.KVA = txtKVA.Text.Trim();
+
+                details.VoltsPrimary = txtVoltsPrimary.Text.Trim();
+                details.VoltsSecondary = txtVoltsSecondary.Text.Trim();
+                details.PH = txtPH.Text.Trim();
+                details.W = txtW.Text.Trim();
+                details.CktsNum = txtCKTSNum.Text.Trim();
+                details.CktsUsed = txtCKTSUsed.Text.Trim();
+                
+
+            
+                if (!string.IsNullOrEmpty(txtInventoryDate.Text.Trim()))
+                    details.InventoryDate = Convert.ToDateTime(txtInventoryDate.Text.Trim());
+
+                details.ElectricalOther = txtElectricalOther.Text.Trim();
+                details.InventoryBy = txtInventoryBy.Text.Trim();
+
                 details.BslClassification = txtBSLClass.Text.Trim();
                 if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
                     details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
                 details.PMSchedule = txtPMSchedule.Text.Trim();
+
+                
                 return facility_logic.AddUpdateElectricalComponent(details);
 
                 #endregion
@@ -498,7 +470,10 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                 Session["ParentFacilitySysID"] = details.Key.ToString();
                 txtFacilityID.Text = details.Key.ToString();
             }
-            else { Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page); }
+            else {
+                Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page);
+                return -1;
+            }
             //if (hasFullInfo)
             //    {
             //        #region save new and save a one facility
@@ -571,20 +546,20 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         txtSerialNum.Text = string.Empty;
         txtSize.Text = string.Empty;
         txtInstalledDate.Text = string.Empty;
-        txtCapacity.Text = string.Empty;
-        txtCapacityHT.Text = string.Empty;
-        txtFuel.Text = string.Empty;
-        txtMotorManu.Text = string.Empty;
-        txtHP.Text = string.Empty;
-        txtMotorType.Text = string.Empty;
-        txtMotorSerialNum.Text = string.Empty;
-        txtMotorInstalledDate.Text = string.Empty;
-        txtMotorModel.Text = string.Empty;
-        txtFrame.Text = string.Empty;
-        txtRPM.Text = string.Empty;
-        txtVoltage.Text = string.Empty;
-        txtAmperes.Text = string.Empty;
-        txtPhaseCycle.Text = string.Empty;
+        //txtCapacity.Text = string.Empty;
+        //txtCapacityHT.Text = string.Empty;
+        //txtFuel.Text = string.Empty;
+        //txtMotorManu.Text = string.Empty;
+        //txtHP.Text = string.Empty;
+        //txtMotorType.Text = string.Empty;
+        //txtMotorSerialNum.Text = string.Empty;
+        //txtMotorInstalledDate.Text = string.Empty;
+        //txtMotorModel.Text = string.Empty;
+        //txtFrame.Text = string.Empty;
+        //txtRPM.Text = string.Empty;
+        //txtVoltage.Text = string.Empty;
+        //txtAmperes.Text = string.Empty;
+        //txtPhaseCycle.Text = string.Empty;
         txtBSLClass.Text = string.Empty;
         txtTJC.Text = string.Empty;
         txtPMSchedule.Text = string.Empty;

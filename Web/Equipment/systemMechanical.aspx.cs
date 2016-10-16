@@ -58,13 +58,22 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 }
                 btnSaveFacility.Text = "Update Facility Information";
             }
-            else if (Request.QueryString["facnum"] != null && !string.IsNullOrEmpty(Request.QueryString["facnum"].ToString()))
+            else {
+                Session["ParentFacilitySysID"] = null;
+            }           
+
+            if (Request.QueryString["facnum"] != null && !string.IsNullOrEmpty(Request.QueryString["facnum"].ToString()))
             {
                 facNum = Request.QueryString["facnum"].ToString();
                 txtFacilityNum.Text = Request.QueryString["facnum"].ToString();
                 LoadFacilityInfoByFacNum(facNum);
             }
-            else if (Request.QueryString["wrnum"] != null && !string.IsNullOrEmpty(Request.QueryString["wrnum"].ToString()))
+            else
+            {
+                Session["ParentFacilityNum"] = null;
+            }
+
+            if (Request.QueryString["wrnum"] != null && !string.IsNullOrEmpty(Request.QueryString["wrnum"].ToString()))
             {
                 wrNum = Request.QueryString["wrnum"].ToString();
                 LoadFacilityInfoByWRNum(wrNum);
@@ -96,6 +105,8 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
     }
     protected void btnSaveFacility_Click(object sender, EventArgs e)
     {
+
+        //show component panel if not there yet
         if (string.IsNullOrEmpty(txtFacilityNum.Text))
         {
             //if first time, after saving the tab should be 1
@@ -103,11 +114,12 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
         }
         else
             TabContainer1.ActiveTabIndex = 0;
+
         int facID = SaveFacilityDetails(true);
         if (facID > 0)
-        {
+        {   
             lbUpdateFacilityMsg.Text = "Information Saved.";
-            //show component panel if not there yet
+          
             if (!DetailInfoPanel.Visible)
                 DetailInfoPanel.Visible = true;
             btnSaveFacility.Text = "Update Facility";
@@ -193,16 +205,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
             drplstBuilding.Enabled = false;
             #region "Load facility detail"
             drplstSystem.SelectedValue = existingFac.FacSystem;
-            if (existingFac.FacilityGroup.Contains("Eletrical"))
-            {
-                inputTableElectrical.Visible = true;
-                inputTableMachanical.Visible = false;
-            }
-            else
-            {
-                inputTableElectrical.Visible = false;
-                inputTableMachanical.Visible = true;
-            }
+           
             drplstBuilding.SelectedValue = existingFac.FacBuilding;
             txtFunction.Text = existingFac.FacFunction;
             txtFloor.Text = existingFac.FacFloor;
@@ -375,13 +378,13 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
     }
     private ValidationResult SaveEquipmentDetails()
     {
-        if (!string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"]))
+        if (!string.IsNullOrEmpty(txtFacilityNum.Text.ToString()))
         {
             EquipmentDet details = new EquipmentDet();
             //if (id > 0)
             //    details = facility_logic.GetInvEquipmentDetails(id);
 
-            details.ParentFacilityNum = Session["ParentFacilityNum"].ToString();
+            details.ParentFacilityNum = txtFacilityNum.Text.ToString();
             //   details.EquipSequenceNum = PageNumber * 5 + seqNo;
             if (loginUsr != null)
                 details.UserName = loginUsr.LaborName;
@@ -494,7 +497,10 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 Session["ParentFacilitySysID"] = details.Key.ToString();
                 txtFacilityID.Text = details.Key.ToString();
             }
-            else { Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page); }
+            else {
+                Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page);
+                return -1;
+            }
             //if (hasFullInfo)
             //    {
             //        #region save new and save a one facility
