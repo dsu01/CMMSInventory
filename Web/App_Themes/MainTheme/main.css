@@ -262,12 +262,21 @@ td.baseLSide {
 	
 }
 
-.ReportQueryTable 
-{	width:100%;	
+.QueryDataTable 
+{	width:98%;	
  	padding:5px;
  	border:solid 1px #A0A0D0;
- 	background-color:#eeeeee; 		
+ 	background-color:White 		
 	
+}
+
+.attachmentTable 
+{	width:98%;	
+ 	padding:5px;
+    margin: 5px; 
+ 	background-color:#eeeeee; 		
+	font-size:.9em;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
 }
 
 .tblInsideTab

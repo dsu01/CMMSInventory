@@ -11,7 +11,8 @@
     <script type="text/javascript" src="../JS/jquery-ui-1.8.12.custom.min.js"></script>
 
     <script type="text/javascript" charset="utf-8">
-       // $(document).ready(function () {
+        $(document).ready(function () {
+              $('#<%=txtInventoryDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
             // $("#date").datepicker({ showOn: 'button', buttonText: "select" });
             //$("#txtInstalledDate1").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'images/icon_cal.png' });
        <%--     $('#<%=txtInstalledDate1.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
@@ -24,7 +25,7 @@
             $('#<%=txtMotorInstalledDate3.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
             $('#<%=txtMotorInstalledDate4.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
             $('#<%=txtMotorInstalledDate5.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });--%>
-       // });
+        });
 
     </script>
 
@@ -82,7 +83,7 @@
                      <tr>
                             <td colspan="4" class="inventoryTopLeftCell">Inventory Date:
                        
-                        <asp:TextBox ID="txtInventoryDate" runat="server" SkinID="MaxTextBox" TabIndex="22" />
+                        <asp:TextBox ID="txtInventoryDate" runat="server" SkinID="MidTextBox" TabIndex="22" />
                         <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                    </td>  <td class="inventoryTopRightCell">Inventory By:</td>
                         <td class="inventoryTopRightCellBtm">
@@ -104,7 +105,7 @@
                             <td><asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
                                 <asp:Label ID="lbUpdateFacilityMsg" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label>
                             </td>  
-                            <td><asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
+                            <td><asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false"
            OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');"  />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button2" runat="server" Text="Go Back to List" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
            OnClick="btnGoBack_Click"  />

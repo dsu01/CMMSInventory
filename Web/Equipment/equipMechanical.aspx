@@ -2,8 +2,20 @@
 
 <%@ Register Src="/CommonControl/ctrlAttachment.ascx" TagName="mngAttachment" TagPrefix="ctrlAtt" %>
 <asp:Content ID="headerContent" ContentPlaceHolderID="headerPlaceHolder" runat="server">
+   <link href="../CSS/jquery-ui-1.8.12.custom.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../JS/jquery-1.5.1.min.js"></script>
     <script type="text/javascript" src="../JS/jquery-ui-1.8.12.custom.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            
+            $('#<%=txtInventoryDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+            $('#<%=txtInstalledDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+              $('#<%=txtMotorInstalledDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+            
+        });
+
+  </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">
@@ -167,7 +179,7 @@
                  </tr>
                <tr>
                     <td>
-                        <asp:Label ID="lbMotorInstalledDate" runat="server" Text="Motor Installe"></asp:Label>
+                        <asp:Label ID="lbMotorInstalledDate" runat="server" Text="Motor Installed Date"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtMotorInstalledDate" MaxLength="50" runat="server" TabIndex="13" />
@@ -305,7 +317,7 @@
         <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="btnAddAttachment"
             BehaviorID="psrAtt" PopupControlID="panelAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnClose" />
 
-        <asp:Panel ID="panelAttachment" runat="server" Style="width: 600px; background: white; border: 2px black solid; display: none; text-align: left;">
+        <asp:Panel ID="panelAttachment" runat="server" Style="width: 750px; background: white; border: 2px black solid; display: none; text-align: left;">
             <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
             <br />
             <br />

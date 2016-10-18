@@ -31,6 +31,10 @@
                 },
                 minLength: 2
             });
+
+            $('#<%=txtInventoryDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+              $('#<%=txtInstalledDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+            
         });
 
         //$(document).scannerDetection({
@@ -261,7 +265,7 @@
                             </Columns>
                         </asp:GridView>
                         <br />
-                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" /> Add default display column, show image
+                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" /> Later add default display column, show image
 
                     </td>
                 </tr>
@@ -290,7 +294,7 @@
             <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="btnAddAttachment"
                 BehaviorID="psrAtt" PopupControlID="panelAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnClose" />
 
-            <asp:Panel ID="panelAttachment" runat="server" Style="width: 600px; background: white; border: 2px black solid; display: none; text-align: left;">
+            <asp:Panel ID="panelAttachment" runat="server" Style="width:750px; background: white; border: 2px black solid; display: none; text-align: left;">
                 <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
                 <br />
                 <br />

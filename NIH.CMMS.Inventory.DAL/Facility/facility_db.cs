@@ -242,10 +242,8 @@ namespace NIH.CMMS.Inventory.DAL.Facility
         
             sqlParams.Add(new SqlParameter("@ID_table", details.Key));
             sqlParams.Add(new SqlParameter("@FacilityID", details.FacID));
-
-            SqlParameter paramNum = DBCommands.ParameterMaker("@FacilityNo", SqlDbType.VarChar, 50, ParameterDirection.InputOutput, details.FacNum);
-            sqlParams.Add(paramNum);
-
+           
+            sqlParams.Add(new SqlParameter("@FacilityNo", details.FacNum));
             sqlParams.Add(new SqlParameter("@UserName", String.IsNullOrEmpty(details.UserName) ? DBNull.Value : (Object)details.UserName));
             sqlParams.Add(new SqlParameter("@FacilitySystem", details.FacSystem));
             sqlParams.Add(new SqlParameter("@Building", details.FacBuilding));
@@ -264,17 +262,17 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             //sqlParams.Add(new SqlParameter("@SerialNo", String.IsNullOrEmpty(details.SerialNo) ? DBNull.Value : (Object)details.SerialNo));
             //sqlParams.Add(new SqlParameter("@Size", String.IsNullOrEmpty(details.Size) ? DBNull.Value : (Object)details.Size));
             //sqlParams.Add(new SqlParameter("@InstallDate", details.InstalledDate == DateTime.MinValue ? DBNull.Value : (Object)details.InstalledDate));
-            //sqlParams.Add(new SqlParameter("@Status", String.IsNullOrEmpty(details.Status) ? DBNull.Value : (Object)details.Status));
-            //sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
-            //sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
-           
+            sqlParams.Add(new SqlParameter("@Status", "Active"));
+            sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
+            sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
+
             ValidationResult vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_MechanicalElectrical_System_Update_NewSite", sqlParams);
-            if (vr.Success)
-            {
-                //if no error, update id               
+            //if (vr.Success)
+            //{
+            //    //if no error, update id               
                 
-                details.FacNum = paramNum.Value.ToString();
-            }
+            //    details.FacNum = paramNum.Value.ToString();
+            //}
             return vr;
         }
 

@@ -10,11 +10,11 @@
     <script type="text/javascript" src="../JS/jquery-ui-1.8.12.custom.min.js"></script>
 
     <script type="text/javascript" charset="utf-8">
-       // $(document).ready(function () {
-            // $("#date").datepicker({ showOn: 'button', buttonText: "select" });
-            //$("#txtInstalledDate1").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'images/icon_cal.png' });
-       <%--     $('#<%=txtInstalledDate1.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
-            $('#<%=txtInstalledDate2.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+        $(document).ready(function () {
+            // $("#txtInventoryDate").datepicker({ showOn: 'button', buttonText: "select" });
+           // $("#txtInventoryDate").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'images/icon_cal.png' });
+            $('#<%=txtInventoryDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+         <%--   $('#<%=txtInstalledDate2.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
             $('#<%=txtInstalledDate3.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
             $('#<%=txtInstalledDate4.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
             $('#<%=txtInstalledDate5.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
@@ -23,7 +23,7 @@
             $('#<%=txtMotorInstalledDate3.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
             $('#<%=txtMotorInstalledDate4.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
             $('#<%=txtMotorInstalledDate5.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });--%>
-      //  });
+        });
 
     </script>
 
@@ -81,7 +81,7 @@
                    <tr>
                             <td colspan="4" class="inventoryTopLeftCell">Inventory Date:
                        
-                        <asp:TextBox ID="txtInventoryDate" runat="server" SkinID="MaxTextBox" TabIndex="22" />
+                        <asp:TextBox ID="txtInventoryDate" runat="server" SkinID="MidTextBox" TabIndex="22" />
                         <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                    </td>  <td class="inventoryTopRightCell">Inventory By:</td>
                         <td class="inventoryTopRightCellBtm">
@@ -447,9 +447,9 @@
                    </table>
 
 
-                           </td>
+                           <%--</td>
                        </tr>
-                   </table>
+                   </table>--%>
                    
                 </ContentTemplate>  
         </ajaxToolkit:TabPanel>

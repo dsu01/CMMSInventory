@@ -244,7 +244,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                     hidEquipmentSysID.Value = details.Key.ToString();
                     txtEquipmentID.Text = details.EquipID;
                     //location is not in facility
-                    txtLocation.Text = details.EquipLocation;
+                    txtComLocation.Text = details.EquipLocation;
                     txtTypeUse.Text = details.TypeOrUse;
                     txtManufacturer.Text = details.Manufacturer;
                     txtModelNum.Text = details.ModelNo;
@@ -284,7 +284,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 #region "Load from facility table only"
                 //txtEquipmentID1.Text = details.EquipID;
                 //location is not in facility
-                txtLocation.Text = existingFac.EquipLocation;
+                txtComLocation.Text = existingFac.EquipLocation;
                 txtTypeUse.Text = existingFac.TypeOrUse;
                 txtManufacturer.Text = existingFac.Manufacturer;
                 txtModelNum.Text = existingFac.ModelNo;
@@ -463,6 +463,8 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
         }
         else
         {
+            if (!string.IsNullOrEmpty(txtFacilityNum.Text))
+                details.FacNum = txtFacilityNum.Text;
             details.FacSystem = drplstSystem.SelectedValue;
             details.FacFunction = txtFunction.Text.Trim();
             details.FacBuilding = drplstBuilding.SelectedValue;

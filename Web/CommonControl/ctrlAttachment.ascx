@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctrlAttachment.ascx.cs" Inherits="CommonControl_ctrlAttachment" %>
-<table>
+<table class="attachmentTable">
     <tr>
         <td>
-            <p><b>Add Attachments </b></p>
+            <p class="redheading">Add Attachments </p>
             <table width="100%">
                 <tr>
                     <td class="notes" colspan="2">Attach any related documents, e.g., photos and written statements. Acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD, .WAV, .MP3 and .PPT(X).  Enter a Title in order to save the attachment.</td>
@@ -12,13 +12,13 @@
                         <asp:Label runat="server" ID="lblValidationMessage" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
                 </tr>
                 <tr>
-                    <td>Title of Attachment&nbsp;<span class="requiredMark">*</span></td>
+                    <td><b>Title of Attachment&nbsp;<span class="requiredMark">*</span></b></td>
                     <td>
                         <asp:TextBox ID="txtAttachmentTitle" runat="server" MaxLength="100" SkinID="longText" />
                     </td>
                 </tr>
                 <tr>
-                    <td>Upload File&nbsp;<span class="requiredMark">*</span></td>
+                    <td><b>Upload File&nbsp;<span class="requiredMark">*</span></b></td>
                     <td class="text7">
                         <asp:FileUpload ID="attachmentFileUpload" runat="server" Width="350px" />&nbsp;(Max size 10MB)
                                     <br />

@@ -437,6 +437,8 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         }
         else
         {
+            if (!string.IsNullOrEmpty(txtFacilityNum.Text))
+                details.FacNum = txtFacilityNum.Text;
             details.FacSystem = drplstSystem.SelectedValue;
             details.FacFunction = txtFunction.Text.Trim();
             details.FacBuilding = drplstBuilding.SelectedValue;
