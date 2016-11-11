@@ -119,7 +119,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
         if (facID > 0)
         {   
             lbUpdateFacilityMsg.Text = "Information Saved.";
-          
+            drplstBuilding.Enabled = false; // cannot change building info again
             if (!DetailInfoPanel.Visible)
                 DetailInfoPanel.Visible = true;
             btnSaveFacility.Text = "Update Facility";
@@ -160,6 +160,13 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
         ClearEquipmentDetails();
 
     }
+
+    protected void btnAddNew_Click(object sender, EventArgs e)
+    {
+        TabContainer1.ActiveTabIndex = 1;
+
+    }
+
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         // Response.Redirect("~/Default.aspx");

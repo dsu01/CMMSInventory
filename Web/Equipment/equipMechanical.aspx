@@ -47,7 +47,7 @@
                             <asp:RequiredFieldValidator ID="rqSystem" runat="server" ControlToValidate="drplstSystem" Display="Dynamic" ErrorMessage="System is required" InitialValue=""></asp:RequiredFieldValidator>
                         </td>
                         <td class="inventoryTopRightCell"><font color="#BA3516">Facility ID:</font></td>
-                        <td class="inventoryTopRightCell">
+                        <td class="inventoryTopRightCell" colspan="3">
                             <asp:TextBox ID="txtFacilityID" runat="server" MaxLength="50" TabIndex="2"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rqvFacilityID" runat="server" ControlToValidate="txtFacilityID" Display="Dynamic" ErrorMessage="Facility ID is required"></asp:RequiredFieldValidator>
                         </td>
@@ -67,7 +67,7 @@
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rqBuilding" runat="server" ControlToValidate="drplstBuilding" Display="Dynamic" ErrorMessage="Building is required" InitialValue=""></asp:RequiredFieldValidator>
 
-                            Floor:<asp:TextBox ID="txtFloor" runat="server" MaxLength="10" SkinID="ShortInputTextBox" TabIndex="8"></asp:TextBox><font color="#BA3516">Location:</font><asp:TextBox ID="txtLocation" runat="server" SkinID="ShortInputTextBox" MaxLength="50" TabIndex="9"></asp:TextBox>
+                            Floor: <asp:TextBox ID="txtFloor" runat="server" MaxLength="10" SkinID="ShortInputTextBox" TabIndex="8"></asp:TextBox><font color="#BA3516"> Location: </font><asp:TextBox ID="txtLocation" runat="server" SkinID="ShortInputTextBox" MaxLength="50" TabIndex="9"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rqvLocation" runat="server" ControlToValidate="txtLocation" Display="Dynamic" ErrorMessage="Location is required"></asp:RequiredFieldValidator></td>
                         <td class="inventoryTopRightCell">Work Request#:</td>
                         <td class="inventoryTopRightCellBtm" colspan="3">
@@ -88,30 +88,30 @@
                         <asp:TextBox ID="txtTypeUse" MaxLength="50" runat="server" TabIndex="10" />
                     </td>
                --%>
-                <td>
+                <td width="12%">
                         <asp:Label ID="lbManufacturer" runat="server" Text="Manufacturer"></asp:Label>
                     </td>
-                <td>
+                <td width="12%">
                         <asp:TextBox ID="txtManufacturer" MaxLength="50" runat="server" TabIndex="11" />
                     </td>
                
-                <td>
+                <td width="12%">
                         <asp:Label ID="lbModelNum" runat="server" Text="Model No."></asp:Label>
                     </td>
-                <td>
+                <td width="12%">
                         <asp:TextBox ID="txtModelNum" MaxLength="50" runat="server" TabIndex="12" />
                     </td>
                
-                    <td>
+                    <td width="12%">
                         <asp:Label ID="lbSerialNum" runat="server" Text="Serial No."></asp:Label>
                     </td>
-                    <td>
+                    <td width="12%">
                         <asp:TextBox ID="txtSerialNum" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
-                         <td>
+                    <td width="12%">
                         <asp:Label ID="lbSize" runat="server" Text="Size"></asp:Label>
                     </td>
-                    <td>
+                    <td width="12%">
                         <asp:TextBox ID="txtSize" MaxLength="50" runat="server" TabIndex="11" />
                     </td>
                  </tr>

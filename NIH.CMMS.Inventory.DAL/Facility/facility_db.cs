@@ -712,7 +712,7 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             if (row["MotorModel"].ToString() != "")
             { details.MotorModel = row["MotorModel"].ToString(); }
             if (row["Frame"].ToString() != "")
-            { details.CapacityHeadTest = row["Frame"].ToString(); }
+            { details.Frame = row["Frame"].ToString(); }
             if (row["RPM"].ToString() != "")
             { details.RPM = row["RPM"].ToString(); }
             if (row["Voltage"].ToString() != "")

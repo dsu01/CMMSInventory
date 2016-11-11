@@ -117,6 +117,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         if (facID > 0)
         {
             lbUpdateFacilityMsg.Text = "Information Saved.";
+            drplstBuilding.Enabled = false; // cannot change building info again
             //show component panel if not there yet
             if (!DetailInfoPanel.Visible)
                 DetailInfoPanel.Visible = true;
@@ -156,6 +157,13 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         txtEquipmentID.Text = string.Empty;
         //clear all existing info
         ClearEquipmentDetails();
+
+    }
+
+
+    protected void btnAddNew_Click(object sender, EventArgs e)
+    {
+        TabContainer1.ActiveTabIndex = 1;
 
     }
     protected void btnCancel_Click(object sender, EventArgs e)

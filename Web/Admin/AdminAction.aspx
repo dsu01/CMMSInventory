@@ -69,6 +69,7 @@
          <asp:HiddenField ID="hidFacSystemID" runat="server" Value="-1" />   
          <asp:Button runat="server" ID="btnSave" CssClass="submitGreen" Text="Save Change" OnClientClick="return confirm('Are you sure that you want to save the change?');" OnClick="btnFinish_Click" />
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button runat="server" ID="submitRed" CssClass="submitRed" Text="Reset" />
+              &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitGray" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />
         <br /></td>        
     </tr>
    

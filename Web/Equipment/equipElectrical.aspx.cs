@@ -124,7 +124,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
                 txtInventoryDate.Text = details.InventoryDate.ToShortDateString();
 
 
-            txtTypeOrUse.Text = details.TypeOrUse;
+          //  txtTypeOrUse.Text = details.TypeOrUse;
             txtManufacturer.Text = details.Manufacturer;
             txtVolts.Text = details.Volts;
             txtAMP.Text = details.AMP;
@@ -224,7 +224,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         txtInstalledDate.Text = string.Empty;
         txtElectricalOther.Text = string.Empty;
 
-        txtTypeOrUse.Text = string.Empty;
+       // txtTypeOrUse.Text = string.Empty;
         txtManufacturer.Text = string.Empty;
         txtVolts.Text = string.Empty;
         txtAMP.Text = string.Empty;
@@ -263,7 +263,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
         details.UserName = loginUsr.LaborName;
         details.ElectricalOther = txtElectricalOther.Text.Trim();
-        details.TypeOrUse = txtTypeOrUse.Text.Trim();
+        //details.TypeOrUse = txtTypeOrUse.Text.Trim();
         details.Manufacturer = txtManufacturer.Text.Trim();
         details.Volts = txtVolts.Text.Trim();
         details.AMP = txtAMP.Text.Trim();
@@ -360,4 +360,27 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
     }
 
     #endregion
+
+//       $('#<%=txtTypeOrUse.ClientID%>').autocomplete({
+//        source: function(request, response) {
+//                    $.ajax({
+//                url: "../WebService/GetTypeOrUseList.asmx/GetList",
+//                        data: "{}",
+//                        dataType: "json",
+//                        type: "POST",
+//                        contentType: "application/json; charset=utf-8",
+//                        dataFilter: function(data) { return data; },
+//                        success: function(data) {
+//                    var datafromServer = data.d.split(":");
+//                    return { value: datafromServer }
+//                },
+//                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+//                    alert(textStatus);
+//                }
+//            });
+//        },
+//                minLength: 2
+//            });
+
+
 }

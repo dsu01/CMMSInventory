@@ -1044,14 +1044,15 @@ border:1px solid #000;
 
 /* All menu links on hover or focus */
 #nav a:hover, #nav a:focus, #subMenusContainer a:hover, #subMenusContainer a:focus, #nav a.mainMenuParentBtnFocused, #subMenusContainer a.subMenuParentBtnFocused{
-	background-color:#F6C739 ;
+	background-color:#F6C739;
 	color:#FFF;
+     margin-top:10px;
 }
 
 /* All ULs and OLs */
 #nav, #nav ul, #nav ol, #subMenusContainer ul, #subMenusContainer ol { 
 	padding: 0;
-	margin: 0;
+	
 	list-style: none;
 	line-height: 2em;
    
@@ -1062,7 +1063,8 @@ border:1px solid #000;
 	/*border around submenu goes here*/	 
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
-	 background-color: lightgreen;
+   
+	 background-color: #007866;
 	border:1px solid #CCCCCC;
 	left:0;
 }

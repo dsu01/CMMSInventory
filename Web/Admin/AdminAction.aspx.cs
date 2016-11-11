@@ -90,7 +90,16 @@ public partial class Admin_AdminAction : System.Web.UI.Page
         
     }
 
-     private ValidationResult SaveFacilityDetails()
+    protected void btnBackToList_Click(object sender, EventArgs e)
+    {
+        if (HttpContext.Current.Session["SearchReportSearchCriteria"] != null)
+        {
+            Response.Redirect("/SearchResult.aspx");
+        }
+
+    }
+
+    private ValidationResult SaveFacilityDetails()
      {
          FacilityDet details = new FacilityDet();
          details.Key = Convert.ToInt32(hidFacSystemID.Value);

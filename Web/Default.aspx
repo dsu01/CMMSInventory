@@ -18,8 +18,7 @@
                                 <td width="100%">
                                 <div class="cbb">                                
                                     <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
-                                       <tr> <td class="leftLabel">Facility#:</td>
-                                                <td align="left"><asp:TextBox ID="txtFacilityNum" runat="server" SkinID="MaxTextBox"></asp:TextBox> 
+                                       <tr> <td class="leftLabel">Facility#:&nbsp;&nbsp;<asp:TextBox ID="txtFacilityNum" runat="server" SkinID="MaxTextBox"></asp:TextBox> 
                                                  <ajaxToolkit:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" 
                                                     TargetControlID="txtFacilityNum" 
                                                     WatermarkText="e.g. 03475 or T00005" 
@@ -28,8 +27,7 @@
                                                 
                                                 </td>    
                                    
-                                            <td class="leftLabel">NIH Work Request#:</td>
-						                        <td align="left"><asp:TextBox ID="txtWRNum" runat="server" SkinID="MaxTextBox"></asp:TextBox>
+                                            <td class="leftLabel">NIH Work Request#:&nbsp;&nbsp;<asp:TextBox ID="txtWRNum" runat="server" SkinID="MaxTextBox"></asp:TextBox>
 						                    
                                                   <ajaxToolkit:TextBoxWatermarkExtender ID="TBWE2" runat="server" 
                                                     TargetControlID="txtWRNum" 
@@ -53,18 +51,13 @@
                      </td>
                  </tr>  
                  <asp:Panel ID="pnlAdvanceSearch" runat="server">
-                            <%-- <tr>
-                                <td >* Select one or more criteria then click the "Search Inventory" button to generate a list of equipment.
-                                </td>
-                             </tr> --%>
-                         
                              <tr>
                                 <td width="100%">
                                 
                                 <div class="cbb">
                                     <asp:UpdatePanel runat="server" ID="udpPnlAdvanceSearch" UpdateMode="Conditional">
                                         <ContentTemplate> 
-                                 <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
+                                             <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
                                      <tr>
                                        <td class="leftLabel">Type:</td>
                                             <td align="left" class="text7">                                            
@@ -86,7 +79,7 @@
 					                                <table width="500">
 						                                <tr>
 							                                <td width="300">
-								                                <asp:ListBox ID="lbSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+								                                <asp:ListBox ID="lbSystems" style="width:300px; height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                </td>
 							   
 							                                 <td  width="90" align="center">
@@ -101,7 +94,7 @@
                                                                 OnClick="btnRemoveAllSystem_Click" />
                                                              </td>
 							                                <td width="300">
-								                                <asp:ListBox ID="lbExtSystems" style="width:300px; min-height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+								                                <asp:ListBox ID="lbExtSystems" style="width:300px; height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                </td>
 						                                </tr>
 					                                </table>
@@ -137,7 +130,7 @@
 					                                <table width="500">
 						                                <tr>
 							                                <td width="300">
-								                                <asp:ListBox ID="lbBuilding"  style="width:300px; min-height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+								                                <asp:ListBox ID="lbBuilding"  style="width:300px; height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                </td>
 							   
 							                                 <td  width="90" align="center">
@@ -152,7 +145,7 @@
                                                                 OnClick="btnRemoveAllBuilding_Click" />
                                                              </td>
 							                                <td width="300">
-								                                <asp:ListBox ID="lbExtBuilding" style="width:300px; min-height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+								                                <asp:ListBox ID="lbExtBuilding" style="width:300px; height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                </td>
 						                                </tr>
 					                                </table>
@@ -160,7 +153,16 @@
                                                 </asp:UpdatePanel>
 				                        </td>
 			                        </tr>  
-                                    
+                                      <tr><td>&nbsp;</td>
+                                        <td class="text7"><br /> 
+                                            <asp:Button runat="server" ID="btnSearch" CssClass="submitGreen" Text="Search Inventory" UseSubmitBehavior="false" OnClick="btnSearch_Click">
+                                                    </asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button runat="server" ID="btnReset" CssClass="submitRed" Text="Reset Criteria" UseSubmitBehavior="false" OnClick="btnReset_Click" >
+                                                    </asp:Button>
+                                                      &nbsp;&nbsp;&nbsp;&nbsp;
+                                             <asp:Label ID="test" runat="server"></asp:Label>
+                                            <br /><br />
+                                        </td>
+                             </tr>
                                                       
                             </table>
                                         </ContentTemplate>
@@ -168,18 +170,9 @@
                                  </div>
                                 </td>
                             </tr>
+                           
                              <tr>
-                                <td colspan="4" align="center" class="text7"><br /> 
-                                    <asp:Button runat="server" ID="btnSearch" CssClass="submitGreen" Text="Search Inventory" UseSubmitBehavior="false" OnClick="btnSearch_Click">
-                                            </asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button runat="server" ID="btnReset" CssClass="submitRed" Text="Reset Criteria" UseSubmitBehavior="false" OnClick="btnReset_Click" >
-                                            </asp:Button>
-                                              &nbsp;&nbsp;&nbsp;&nbsp;
-                                     <asp:Label ID="test" runat="server"></asp:Label>
-                                    <br /><br />
-                                </td>
-                             </tr>
-                             <tr>
-                                <td colspan="4" align="center">  
+                                <td align="center">  
                                 <asp:UpdateProgress ID="UpdateProgress1" AssociatedUpdatePanelID="udpPnlAdvanceSearch" runat="server">
                                    <ProgressTemplate>
                                      <img src="Image/indicator.gif" alt="Please wait..." />&nbsp;Please wait...                                      
@@ -192,7 +185,7 @@
                        
                 </asp:Panel>
          
-                  </table> 
+              </table> 
     </ContentTemplate> 
     </asp:UpdatePanel> 
 </asp:Content>

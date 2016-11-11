@@ -45,7 +45,7 @@
                                          
                                              <a href="http://orfweb.od.nih.gov/safety/Pages/default.aspx" target="_blank">
                                              <asp:Image ID="Image3" runat="server" ImageUrl="~/Image/SafetyFirstLogo.jpg" BorderColor="Yellow" BorderWidth="1" AlternateText="Safety First" />
-                                             </a>&nbsp;&nbsp;
+                                             </a>&nbsp;&nbsp;<br />
                                                                                               
                                            <ul id="nav">                                            
                                     

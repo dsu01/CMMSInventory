@@ -117,8 +117,11 @@
     <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0">
         <ajaxToolkit:TabPanel runat="server" HeaderText="List Of Components" ID="TabPanel1">
            <ContentTemplate>                 
-                     <table border="1" width="100%" cellpadding="1" cellspacing="1" style="font-size:smaller; text-align:left">
-                      
+                     <table border="0" width="100%" cellpadding="1" cellspacing="1" style="font-size:smaller; text-align:left">
+                         <tr>
+                             <td>&nbsp;&nbsp;&nbsp;&nbsp;  <asp:Button ID="btnAddComponent" runat="server" Text="Add New Component" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false"
+                              OnClick="btnAddNew_Click" /><br /><br /></td>
+                        </tr>
                         <tr>
 			                <td colspan="2" align="left">			     
 				                 <asp:GridView ID="gv_Components" SkinID="gvRegPagingSorting" runat="server" DataSourceID="odsComponents" DataKeyNames="Key" OnRowDataBound="gv_Components_OnRowDataBound" OnRowCommand="gv_Components_onRowCommand"> 	               
@@ -219,8 +222,7 @@
                                             <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />
                                       
                                            Add/Update Component</td>
-                                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;  <asp:Button ID="btnAddNewComponent" runat="server" Text="Add Another Component" CssClass="submitGreen" TabIndex="37"
-                                            OnClick="btnAddComponent_Click" /></td>
+                                                  
                                                       </tr>
                              
                                    <tr>
@@ -437,6 +439,8 @@
                                 OnClick="btnFinish_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
                OnClick="btnCancel_Click" OnClientClick="return confirm('OK to Cancel?');" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;  <asp:Button ID="btnAddNewComponent" runat="server" Text="Add Another Component" CssClass="submitYellow" 
+                                            OnClick="btnAddComponent_Click" />
                                    </td>  
                         
                          </tr> 
