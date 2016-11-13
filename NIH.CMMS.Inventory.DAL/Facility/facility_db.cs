@@ -568,7 +568,27 @@ namespace NIH.CMMS.Inventory.DAL.Facility
             if (row["TJCValue"].ToString() != "")
             { details.TJCValue = Convert.ToInt16(row["TJCValue"].ToString()); }
 
+            if (row["VOLTS"].ToString() != "")
+            { details.Volts = row["VOLTS"].ToString(); }
+            if (row["AMP"].ToString() != "")
+            { details.AMP = row["AMP"].ToString(); }
+            if (row["KVA"].ToString() != "")
+            { details.KVA = row["KVA"].ToString(); }
+            if (row["VOLTSprimary"].ToString() != "")
+            { details.VoltsPrimary = row["VOLTSprimary"].ToString(); }
+            if (row["VOLTSSecondary"].ToString() != "")
+            { details.VoltsSecondary = row["VOLTSSecondary"].ToString(); }
+            if (row["PH"].ToString() != "")
+            { details.PH = row["PH"].ToString(); }
+            if (row["W"].ToString() != "")
+            { details.W = row["W"].ToString(); }
+            if (row["NOofCKTS"].ToString() != "")
+            { details.CktsNum = row["NOofCKTS"].ToString(); }
+            if (row["CKTSUsed"].ToString() != "")
+            { details.CktsUsed = row["CKTSUsed"].ToString(); }
 
+            if (row["ElectricalOther"].ToString() != "")
+            { details.ElectricalOther = row["ElectricalOther"].ToString(); }
             if (row["InputBy"].ToString() != "")
             { details.LastUpdatedBy = row["InputBy"].ToString(); }
             if (row["InputDate"].ToString() != "")

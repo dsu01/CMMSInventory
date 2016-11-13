@@ -9,6 +9,7 @@ namespace NIH.CMMS.Inventory.BPL.Common
 {
     public class AttachmentLogic
     {
+        //isEquipmentOrFacility = true if is equipment attachment
         public static List<Attachment> GetAttachments(int equipmentSysId, bool isEquipmentOrFacility)
         {
             try

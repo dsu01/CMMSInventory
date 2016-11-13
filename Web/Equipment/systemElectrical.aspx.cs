@@ -11,11 +11,23 @@ using NIH.CMMS.Inventory.BPL.Facility;
 using NIH.CMMS.Inventory.BOL.People;
 using System.Data;
 using NIH.CMMS.Inventory.BPL.LookUp;
-using System.IO;
+using NIH.CMMS.Inventory.BPL.Common;
+using NIH.CMMS.Inventory.Web.Extensions;
 
 public partial class Equipment_systemElectrical : System.Web.UI.Page
 {
     protected LoginUser loginUsr;
+
+    public int ElectricalFacilitySysID
+    {
+        get
+        {
+            return !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"])
+                ? Convert.ToInt32(Request.QueryString["ParentFacilitySysID"])
+                : -1;
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         loginUsr = Utils.CheckSession(this);
@@ -570,6 +582,17 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         //txtVoltage.Text = string.Empty;
         //txtAmperes.Text = string.Empty;
         //txtPhaseCycle.Text = string.Empty;
+        txtElectricalOther.Text = string.Empty;
+        txtVolts.Text = string.Empty;
+        txtAMP.Text = string.Empty;
+        txtKVA.Text = string.Empty;
+        txtVoltsPrimary.Text = string.Empty;
+        txtVoltsSecondary.Text = string.Empty;
+        txtPH.Text = string.Empty;
+        txtW.Text = string.Empty;
+        txtCKTSNum.Text = string.Empty;
+        txtCKTSUsed.Text = string.Empty;
+
         txtBSLClass.Text = string.Empty;
         txtTJC.Text = string.Empty;
         txtPMSchedule.Text = string.Empty;
@@ -615,6 +638,69 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
         }
     }
+
+    #region Attachment Details
+
+    private void LoadFacilityAttachments()
+    {
+        var list = AttachmentLogic.GetAttachments(ElectricalFacilitySysID, false);
+
+        gvExtAttachment.DataSource = list;
+        gvExtAttachment.DataBind();
+    }
+
+    protected void gvExtAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        var id = Convert.ToInt32((string)e.CommandArgument);
+        if (id <= 0)    // should never happen
+            return;
+
+        var attachment = AttachmentLogic.GetAttachment(id, true);
+        if (attachment == null)
+        {
+            Utils.ShowPopUpMsg("Cannot load attachment", this.Page);
+            return;
+        }
+
+        var deleted = false;
+        if (e.CommandName == "Open")
+        {
+            this.DisplayAttachmentContent(attachment);
+        }
+        else // if command == delete
+        {
+            var result = AttachmentLogic.DeleteAttachment(id, true);
+
+            if (result.Success)
+            {
+                deleted = true;
+                Utils.ShowPopUpMsg("Attachment deleted", this.Page);
+            }
+            else
+            {
+                Utils.ShowPopUpMsg("Attachment delete error", this.Page);
+            }
+        }
+
+        if (deleted)
+            LoadFacilityAttachments();
+    }
+
+    private void CtrlAddAttachment_AttachmentSaved(bool result)
+    {
+        if (result)  // added
+        {
+            // reload attachment
+            LoadFacilityAttachments();
+        }
+        else
+        {
+            mpeAttachment.Show();
+        }
+    }
+
+    #endregion
+
 
     //#region " Attachment/Photos Section -- event handling "
     //public bool SaveData(int incidentId)
@@ -836,6 +922,6 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
     //    //if (ModalExtender != null) ModalExtender.Show();
     //}
 
-   
+
     //#endregion
 }

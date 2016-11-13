@@ -1,5 +1,6 @@
 ﻿
 <%@ Page Title="" Language="C#" MasterPageFile="~/MainMasterPage.master" AutoEventWireup="true" CodeFile="systemElectrical.aspx.cs" Inherits="Equipment_systemElectrical" %>
+<%@ Register Src="/CommonControl/ctrlAttachment.ascx" TagName="mngAttachment" TagPrefix="ctrlAtt" %>
 <asp:Content ID="headerContent" ContentPlaceHolderID="headerPlaceHolder" runat="server">
 
     <script type="text/javascript" src="../JS/jquery-1.5.1.min.js"></script>
@@ -131,12 +132,12 @@
 	                                 <Columns>   
                                             <asp:TemplateField HeaderText="View/Edit" ItemStyle-Width="30">	                                                        
                                                     <ItemTemplate> 
-                                                        <asp:LinkButton CommandName="Editing" CommandArgument='<%# Eval("Key").ToString()%>' ID="btnEditAgency" Text="<img src='../Image/btn_edit.gif' alt='Edit' />"  runat="server" CausesValidation="false"></asp:LinkButton>
+                                                        <asp:LinkButton CommandName="Editing" CommandArgument='<%# Eval("Key").ToString()%>' ID="btnEditAgency" Text="<img src='../Image/btn_edit.gif' alt='Edit' border='0' />"  runat="server" CausesValidation="false"></asp:LinkButton>
                                                     </ItemTemplate> 								
                                                 </asp:TemplateField> 
                                                  <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30">                                                                    
                                                     <ItemTemplate> 
-                                                        <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnDeleteAgency" Text="<img src='../Image/btn_delete.png' alt='Delete' />"  runat="server" OnClientClick="return confirm('OK to Delete?');" CausesValidation="false"></asp:LinkButton>
+                                                        <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("Key").ToString() %>' ID="btnDeleteAgency" Text="<img src='../Image/btn_delete.png' alt='Delete' border='0' />"  runat="server" OnClientClick="return confirm('OK to Delete?');" CausesValidation="false"></asp:LinkButton>
                                                     </ItemTemplate> 								
                                                 </asp:TemplateField>   
                                         
@@ -222,21 +223,23 @@
                                <table id="inputTable" cellspacing="2" cellpadding="3">
                                 <tr class="text8">
                                         <td colspan="2" class="redheading">                    
-                                            <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />
-                                      
-                                           Add/Update Component</td>
-                                                     
-                                                      </tr>
+                                            <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />                                      
+                                           Add/Update Component
+                                        </td>
+                                    <td width="25%">&nbsp;</td>           
+                                   <td width="25%">&nbsp;</td>   
+                                 </tr>
                               
-                                   <tr>
+                                  <tr>
                                     <td width="25%">
                                         <asp:Label ID="lbEquipment" CssClass="tableLabel" runat="server" Text="Equipment ID *"></asp:Label>
                                     </td>
-                                    <td>
+                                    <td width="25%">
                                         <asp:TextBox ID="txtEquipmentID" MaxLength="50" runat="server" TabIndex="8" />
                                      <asp:RequiredFieldValidator ID="rqvEquipmentID" runat="server" ControlToValidate="txtEquipmentID" Display="Dynamic" ErrorMessage="Equipment ID is required"></asp:RequiredFieldValidator>
-                                    </td>            
-                               
+                                    </td> 
+                                   <td width="25%">&nbsp;</td>           
+                                   <td width="25%">&nbsp;</td>    
                                 </tr>
                                 <tr>
                                     <td>
@@ -409,7 +412,7 @@
 
                              
                               <tr>  
-                                <td align="center" colspan="2">
+                                <td align="center" colspan="4">
                                  <asp:Button ID="btnFinish" runat="server" Text="Save Component Information" CssClass="submitGreen" TabIndex="37"
                                 OnClick="btnFinish_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
@@ -421,18 +424,53 @@
                          </tr> 
                                    </table> 
                            </td>
-                          <td width="30%">
+                           <td width="30%">
                               <table width="100%">
-                               <tr>
-                                 <td>Attachments</td>
-                               </tr>
-                           </table>
+                                    <tr id="trAttachment" runat="server">
+                                    <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
+                                        <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
+                                            OnRowCommand="gvExtAttachment_onRowCommand">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="Open" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton CommandName="Open" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnOpenAttachment" Text="<img src='/Image/btn_edit.gif' alt='Open' />" runat="server"></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnDeleteAttachment" Text="<img src='/Image/btn_delete.png' alt='Delete' />" runat="server" OnClientClick="return confirm('OK to Delete?');"></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:BoundField HeaderText="Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />
+                                                <asp:BoundField HeaderText="File" DataField="FileName" />
+                                                <asp:BoundField HeaderText="Created" DataField="CreatedOn" />
+                                                <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
+                                            </Columns>
+                                        </asp:GridView>
+                                        <br />
+                                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" /> Later add default display column, show image
+
+                                    </td>
+                                </tr>
+
+                              </table>
 
 
                            </td>
                        </tr>
                    </table>
-                   
+                    <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="btnAddAttachment"
+                BehaviorID="psrAtt" PopupControlID="panelAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnClose" />
+
+            <asp:Panel ID="panelAttachment" runat="server" Style="width:750px; background: white; border: 2px black solid; display: none; text-align: left;">
+                <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
+                <br />
+                <br />
+                <div align="center">
+                    <asp:Button ID="btnClose" runat="server" Text="Close" />
+                </div>
+                <br />
+            </asp:Panel>
                 </ContentTemplate>  
         </ajaxToolkit:TabPanel>
           <ajaxToolkit:TabPanel runat="server" HeaderText="Facility Attachments" ID="TabPanel3">
@@ -726,6 +764,8 @@
                 </ContentTemplate>  
         </ajaxToolkit:TabPanel>
      </ajaxToolkit:TabContainer>
+
+      
    </asp:Panel>
    
 </asp:Content>
