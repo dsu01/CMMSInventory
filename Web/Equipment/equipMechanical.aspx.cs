@@ -33,7 +33,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         loginUsr = Utils.CheckSession(this);
 
         // initialize attachment control
-        ctrlAddAttachment.IsEquipmentOrFacility = false;
+        ctrlAddAttachment.ParentSysID = !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"]) ? Request.QueryString["ParentFacilitySysID"] : "-1";
         ctrlAddAttachment.AttachmentSaved += CtrlAddAttachment_AttachmentSaved;
 
         if (!Page.IsPostBack)

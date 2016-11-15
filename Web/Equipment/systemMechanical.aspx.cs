@@ -97,6 +97,8 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
             if (string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
             {
                 btnSaveFacility.Text = "Add New Facility";
+                //hidFacilitySysid.Value = "-1";
+                //trFacilityAttachment.Visible = false;
                 DetailInfoPanel.Visible = false;
             }
             else

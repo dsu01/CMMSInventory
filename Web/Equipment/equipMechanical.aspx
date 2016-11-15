@@ -318,7 +318,7 @@
             BehaviorID="psrAtt" PopupControlID="panelAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnClose" />
 
         <asp:Panel ID="panelAttachment" runat="server" Style="width: 750px; background: white; border: 2px black solid; display: none; text-align: left;">
-            <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
+            <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" IsEquipmentOrFacility="false" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
             <br />
             <br />
             <div align="center">

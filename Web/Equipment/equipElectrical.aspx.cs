@@ -31,8 +31,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         loginUsr = Utils.CheckSession(this);
-
-        ctrlAddAttachment.IsEquipmentOrFacility = true;
+        ctrlAddAttachment.ParentSysID = !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"]) ? Request.QueryString["ParentFacilitySysID"] : "-1";
         ctrlAddAttachment.AttachmentSaved += CtrlAddAttachment_AttachmentSaved;
 
         if (!Page.IsPostBack)
@@ -56,6 +55,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
                 LoadDetails();
                 drplstBuilding.Enabled = false;
                 txtFacilityNum.Enabled = false;
+
             }
             else
             {

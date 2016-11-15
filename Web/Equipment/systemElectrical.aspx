@@ -13,7 +13,9 @@
 
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
-              $('#<%=txtInventoryDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+            $('#<%=txtInventoryDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+            $('#<%=txtInstalledDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+            
             // $("#date").datepicker({ showOn: 'button', buttonText: "select" });
             //$("#txtInstalledDate1").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'images/icon_cal.png' });
        <%--     $('#<%=txtInstalledDate1.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
@@ -93,6 +95,33 @@
                     </td>
                 
                      </tr>
+                     <tr id="trFacilityAttachment" runat="server">
+                        <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /></td>
+                        <td colspan="4">
+                            <asp:GridView ID="gvExtFacilityAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
+                                OnRowCommand="gvExtFacilityAttachment_onRowCommand">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Open" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
+                                        <ItemTemplate>
+                                            <asp:LinkButton CommandName="Open" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnOpenAttachment" Text="<img src='/Image/btn_edit.gif' alt='Open' />" runat="server"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
+                                        <ItemTemplate>
+                                            <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnDeleteAttachment" Text="<img src='/Image/btn_delete.png' alt='Delete' />" runat="server" OnClientClick="return confirm('OK to Delete?');"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField HeaderText="Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />
+                                    <asp:BoundField HeaderText="File" DataField="FileName" />
+                                    <asp:BoundField HeaderText="Created" DataField="CreatedOn" />
+                                    <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
+                                </Columns>
+                            </asp:GridView>
+                            <br />
+                            <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New Attachment" CausesValidation="false" />
+
+                        </td>
+                    </tr>
                        <tr>
                             <td class="inventoryTopRightCell" colspan="8">Comments:
                           
@@ -114,6 +143,19 @@
 
                         </tr>
                 </table>
+
+            <ajaxToolkit:ModalPopupExtender ID="mpeFacilityAttachment" runat="server" TargetControlID="btnAddFacilityAttachment"
+                BehaviorID="psrFacilityAtt" PopupControlID="panelFacilityAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnFacilityAttClose" />
+
+            <asp:Panel ID="panelFacilityAttachment" runat="server" Style="width:750px; background: white; border: 2px black solid; display: none; text-align: left;">
+                <ctrlAtt:mngAttachment ID="ctrlAddFacilityAttachment" IsEquipmentOrFacility="true" ParentSysID="43" runat="server" ModalExtenderID="mpeFacilityAttachment" SectionHeaderText="Facility Attachments" AutoLoad="True" />
+                <br />
+                <br />
+                <div align="center">
+                    <asp:Button ID="btnFacilityAttClose" runat="server" Text="Close" />
+                </div>
+                <br />
+            </asp:Panel>
             </asp:Panel>
 
   <asp:Panel runat="server" ID="DetailInfoPanel" style="margin-top: 20px; font-size:1.2em; ">
@@ -223,7 +265,8 @@
                                <table id="inputTable" cellspacing="2" cellpadding="3">
                                 <tr class="text8">
                                         <td colspan="2" class="redheading">                    
-                                            <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />                                      
+                                            <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />
+                                            <asp:HiddenField ID="hidFacilitySysid" runat="server" Value="-1" />                                      
                                            Add/Update Component
                                         </td>
                                     <td width="25%">&nbsp;</td>           
@@ -448,7 +491,7 @@
                                             </Columns>
                                         </asp:GridView>
                                         <br />
-                                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" /> Later add default display column, show image
+                                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CausesValidation="false" /> 
 
                                     </td>
                                 </tr>
@@ -463,7 +506,7 @@
                 BehaviorID="psrAtt" PopupControlID="panelAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnClose" />
 
             <asp:Panel ID="panelAttachment" runat="server" Style="width:750px; background: white; border: 2px black solid; display: none; text-align: left;">
-                <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
+                <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" IsEquipmentOrFacility="true" ParentSysID="43" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
                 <br />
                 <br />
                 <div align="center">
@@ -472,13 +515,7 @@
                 <br />
             </asp:Panel>
                 </ContentTemplate>  
-        </ajaxToolkit:TabPanel>
-          <ajaxToolkit:TabPanel runat="server" HeaderText="Facility Attachments" ID="TabPanel3">
-              <ContentTemplate>  
-                   
-                    <table><tr><td>Facility attachments</td></tr></table>
-                </ContentTemplate>  
-        </ajaxToolkit:TabPanel>
+        </ajaxToolkit:TabPanel>      
          <ajaxToolkit:TabPanel runat="server" HeaderText="View All and Print" ID="TabPanel4">
               <ContentTemplate>  
                    

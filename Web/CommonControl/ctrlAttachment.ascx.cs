@@ -20,16 +20,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
     public event AttachmentSavedHandler AttachmentSaved;
 
-    public int ParentSysID
-    {
-        get
-        {
-            return !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"])
-                ? Convert.ToInt32(Request.QueryString["ParentFacilitySysID"])
-                : -1;
-        }
-    }
-
+    public string ParentSysID { get; set; }
     public bool IsEquipmentOrFacility { get; set; }
 
     public bool SaveData()
@@ -54,7 +45,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 
         var attachment = new Attachment()
         {
-            InvParentSysID = this.ParentSysID,
+            InvParentSysID = Convert.ToInt32(this.ParentSysID),
             IsActive = true,
             Title = txtAttachmentTitle.Text.Trim(),
             FileName = fileName,
@@ -64,7 +55,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
             UpdatedBy = Page.User.Identity.Name,
         };
 
-        if (attachment.InvParentSysID >= 0)
+        if (attachment.InvParentSysID > 0)
         {
             var fs = attachmentFileUpload.PostedFile.InputStream;
             var br = new BinaryReader(fs);
@@ -102,7 +93,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         {
             //attDetail is null
             lblValidationMessage.Visible = true;
-            lblValidationMessage.Text = "Error Occurred.";
+            lblValidationMessage.Text = "Error Occurred. Missing Facility or Equipment ID";
         }
 
         return saved;
@@ -139,3 +130,13 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
         return null;
     }
 }
+
+//public int ParentSysID
+//{
+//    get
+//    {
+//        return !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"])
+//            ? Convert.ToInt32(Request.QueryString["ParentFacilitySysID"])
+//            : -1;
+//    }
+//}

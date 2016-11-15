@@ -22,15 +22,27 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
     {
         get
         {
-            return !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"])
-                ? Convert.ToInt32(Request.QueryString["ParentFacilitySysID"])
-                : -1;
+            return !string.IsNullOrEmpty(hidFacilitySysid.Value)
+                ? Convert.ToInt32(hidFacilitySysid.Value)
+                : -1;          
         }
     }
 
+    public int ElectricalEquipmentSysID
+    {
+        get
+        {
+            return !string.IsNullOrEmpty(hidEquipmentSysID.Value)
+                ? Convert.ToInt32(hidEquipmentSysID.Value)
+                : -1;
+        }
+    }
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         loginUsr = Utils.CheckSession(this);
+        ctrlAddAttachment.AttachmentSaved += CtrlAddAttachment_AttachmentSaved;
+        ctrlAddFacilityAttachment.AttachmentSaved += CtrlAddFacilityAttachment_AttachmentSaved;
         if (!Page.IsPostBack)
         {
             //Todo: verify logic
@@ -58,7 +70,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                 if (result)
                 {
                     Session["ParentFacilitySysID"] = Request.QueryString["ParentFacilitySysID"].ToString();
-
+                    hidFacilitySysid.Value = facID.ToString();
                     LoadFacilityInfoByID(facID);
                 }
                 else
@@ -110,10 +122,14 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             if (string.IsNullOrEmpty(txtFacilityNum.Text.Trim()))
             {
                 btnSaveFacility.Text = "Add New Facility";
+                hidFacilitySysid.Value = "-1";
+                trFacilityAttachment.Visible = false;
                 DetailInfoPanel.Visible = false;
             }
             else
                 DetailInfoPanel.Visible = true;
+
+            ctrlAddFacilityAttachment.ParentSysID = "443";
         }
     }
     protected void btnSaveFacility_Click(object sender, EventArgs e)
@@ -231,6 +247,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             txtLocation.Text = existingFac.FacLocation;
             txtFacilityID.Text = existingFac.FacID;
             txtFacilityNum.Text = existingFac.FacNum;
+            hidFacilitySysid.Value = existingFac.Key.ToString();
             Session["ParentFacilityNum"] = existingFac.FacNum;
             if (existingFac.FacNum.StartsWith("T"))
             { txtFacilityNum.BackColor = System.Drawing.Color.Aquamarine; }
@@ -639,11 +656,11 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         }
     }
 
-    #region Attachment Details
+    #region Equipment Attachment Details
 
-    private void LoadFacilityAttachments()
+    private void LoadEquipmentAttachments()
     {
-        var list = AttachmentLogic.GetAttachments(ElectricalFacilitySysID, false);
+        var list = AttachmentLogic.GetAttachments(ElectricalEquipmentSysID, true);
 
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
@@ -683,10 +700,72 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         }
 
         if (deleted)
-            LoadFacilityAttachments();
+            LoadEquipmentAttachments();
     }
 
     private void CtrlAddAttachment_AttachmentSaved(bool result)
+    {
+        if (result)  // added
+        {
+            // reload attachment
+            LoadEquipmentAttachments();
+        }
+        else
+        {
+            mpeAttachment.Show();
+        }
+    }
+
+    #endregion
+
+    #region Facility Attachment Details
+
+    private void LoadFacilityAttachments()
+    {
+        var list = AttachmentLogic.GetAttachments(ElectricalFacilitySysID, false);
+
+        gvExtFacilityAttachment.DataSource = list;
+        gvExtFacilityAttachment.DataBind();
+    }
+
+    protected void gvExtFacilityAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        var id = Convert.ToInt32((string)e.CommandArgument);
+        if (id <= 0)    // should never happen
+            return;
+
+        var attachment = AttachmentLogic.GetAttachment(id, false);
+        if (attachment == null)
+        {
+            Utils.ShowPopUpMsg("Cannot load attachment", this.Page);
+            return;
+        }
+
+        var deleted = false;
+        if (e.CommandName == "Open")
+        {
+            this.DisplayAttachmentContent(attachment);
+        }
+        else // if command == delete
+        {
+            var result = AttachmentLogic.DeleteAttachment(id, false);
+
+            if (result.Success)
+            {
+                deleted = true;
+                Utils.ShowPopUpMsg("Facility Attachment deleted", this.Page);
+            }
+            else
+            {
+                Utils.ShowPopUpMsg("Facility Attachment delete error", this.Page);
+            }
+        }
+
+        if (deleted)
+            LoadFacilityAttachments();
+    }
+
+    private void CtrlAddFacilityAttachment_AttachmentSaved(bool result)
     {
         if (result)  // added
         {
@@ -695,7 +774,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         }
         else
         {
-            mpeAttachment.Show();
+            mpeFacilityAttachment.Show();
         }
     }
 
