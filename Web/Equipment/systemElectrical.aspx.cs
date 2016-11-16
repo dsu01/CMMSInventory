@@ -660,7 +660,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
     private void LoadEquipmentAttachments()
     {
-        var list = AttachmentLogic.GetAttachments(ElectricalEquipmentSysID, true);
+        var list = AttachmentLogic.GetAttachments(ElectricalEquipmentSysID, false);
 
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();

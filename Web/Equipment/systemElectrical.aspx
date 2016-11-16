@@ -148,7 +148,7 @@
                 BehaviorID="psrFacilityAtt" PopupControlID="panelFacilityAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnFacilityAttClose" />
 
             <asp:Panel ID="panelFacilityAttachment" runat="server" Style="width:750px; background: white; border: 2px black solid; display: none; text-align: left;">
-                <ctrlAtt:mngAttachment ID="ctrlAddFacilityAttachment" IsEquipmentOrFacility="true" ParentSysID="43" runat="server" ModalExtenderID="mpeFacilityAttachment" SectionHeaderText="Facility Attachments" AutoLoad="True" />
+                <ctrlAtt:mngAttachment ID="ctrlAddFacilityAttachment" IsEquipmentOrFacility="false" ParentSysID="43" runat="server" ModalExtenderID="mpeFacilityAttachment" SectionHeaderText="Facility Attachments" AutoLoad="True" />
                 <br />
                 <br />
                 <div align="center">
@@ -506,7 +506,7 @@
                 BehaviorID="psrAtt" PopupControlID="panelAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnClose" />
 
             <asp:Panel ID="panelAttachment" runat="server" Style="width:750px; background: white; border: 2px black solid; display: none; text-align: left;">
-                <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" IsEquipmentOrFacility="true" ParentSysID="43" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
+                <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" IsEquipmentOrFacility="false" ParentSysID="43" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
                 <br />
                 <br />
                 <div align="center">

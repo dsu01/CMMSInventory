@@ -324,7 +324,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
     private void LoadAttachments()
     {
-        var list = AttachmentLogic.GetAttachments(MechanicalEquipmentSysID, false);
+        var list = AttachmentLogic.GetAttachments(MechanicalEquipmentSysID, true);
 
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
