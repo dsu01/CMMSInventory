@@ -24,7 +24,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         {
             return !string.IsNullOrEmpty(hidFacilitySysid.Value)
                 ? Convert.ToInt32(hidFacilitySysid.Value)
-                : -1;          
+                : -1;
         }
     }
 
@@ -37,11 +37,11 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                 : -1;
         }
     }
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
         loginUsr = Utils.CheckSession(this);
-        ctrlAddAttachment.AttachmentSaved += CtrlAddAttachment_AttachmentSaved;
+        ctrlAddEquipmentAttachment.AttachmentSaved += CtrlAddEquipmentAttachment_AttachmentSaved;
         ctrlAddFacilityAttachment.AttachmentSaved += CtrlAddFacilityAttachment_AttachmentSaved;
         if (!Page.IsPostBack)
         {
@@ -54,7 +54,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             string facNum = string.Empty;
             string wrNum = string.Empty;
             int equipID = 0;
-       
+
             DataSet dtSystem = GeneralLookUp.GetEletricalSystemList();
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
@@ -89,7 +89,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             {
                 facNum = Request.QueryString["facnum"].ToString();
                 txtFacilityNum.Text = Request.QueryString["facnum"].ToString();
-                LoadFacilityInfoByFacNum(facNum);            
+                LoadFacilityInfoByFacNum(facNum);
             }
             else
             {
@@ -129,7 +129,9 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             else
                 DetailInfoPanel.Visible = true;
 
-            ctrlAddFacilityAttachment.ParentSysID = "443";
+            ctrlAddFacilityAttachment.ParentSysID = ElectricalFacilitySysID.ToString();
+
+            LoadFacilityAttachments();
         }
     }
     protected void btnSaveFacility_Click(object sender, EventArgs e)
@@ -240,7 +242,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
             #region "Load facility detail"
             drplstSystem.SelectedValue = existingFac.FacSystem;
-         
+
             drplstBuilding.SelectedValue = existingFac.FacBuilding;
             txtFunction.Text = existingFac.FacFunction;
             txtFloor.Text = existingFac.FacFloor;
@@ -278,7 +280,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             //    if (details != null)
             //    {
             //        LoadEquipmentDetail(details);
-               
+
             //    }
             //}
             //else
@@ -351,12 +353,12 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
         txtElectricalOther.Text = details.ElectricalOther;
 
-        
+
         txtInventoryBy.Text = details.InventoryBy;
         if (details.InventoryDate != DateTime.MinValue)
             txtInventoryDate.Text = details.InventoryDate.ToShortDateString();
-        
-    
+
+
         txtManufacturer.Text = details.Manufacturer;
         txtVolts.Text = details.Volts;
         txtAMP.Text = details.AMP;
@@ -373,7 +375,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         if (details.TJCValue > 0)
         { txtTJC.Text = details.TJCValue.ToString(); }
         txtPMSchedule.Text = details.PMSchedule;
-        
+
 
         //if (loadFacInfo)
         //    LoadFacilityInfoByFacNum(details.ParentFacilityNum);
@@ -424,9 +426,9 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                 details.W = txtW.Text.Trim();
                 details.CktsNum = txtCKTSNum.Text.Trim();
                 details.CktsUsed = txtCKTSUsed.Text.Trim();
-                
 
-            
+
+
                 if (!string.IsNullOrEmpty(txtInventoryDate.Text.Trim()))
                     details.InventoryDate = Convert.ToDateTime(txtInventoryDate.Text.Trim());
 
@@ -438,7 +440,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                     details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
                 details.PMSchedule = txtPMSchedule.Text.Trim();
 
-                
+
                 return facility_logic.AddUpdateElectricalComponent(details);
 
                 #endregion
@@ -455,12 +457,12 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
     private int SaveFacilityDetails(bool hasFullInfo)
     {
         FacilityDet details = new FacilityDet();
-        if (Session["ParentFacilitySysID"]!=null)
+        if (Session["ParentFacilitySysID"] != null)
         {
             details.Key = Convert.ToInt32(Session["ParentFacilitySysID"].ToString());
 
         }
-        if (Session["ParentFacilityNum"]!=null)
+        if (Session["ParentFacilityNum"] != null)
         {
             details.FacNum = Session["ParentFacilityNum"].ToString();
 
@@ -509,7 +511,8 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                 Session["ParentFacilitySysID"] = details.Key.ToString();
                 txtFacilityID.Text = details.Key.ToString();
             }
-            else {
+            else
+            {
                 Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page);
                 return -1;
             }
@@ -660,7 +663,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
     private void LoadEquipmentAttachments()
     {
-        var list = AttachmentLogic.GetAttachments(ElectricalEquipmentSysID, false);
+        var list = AttachmentLogic.GetAttachments(ElectricalEquipmentSysID, true);
 
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
@@ -703,7 +706,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             LoadEquipmentAttachments();
     }
 
-    private void CtrlAddAttachment_AttachmentSaved(bool result)
+    private void CtrlAddEquipmentAttachment_AttachmentSaved(bool result)
     {
         if (result)  // added
         {
