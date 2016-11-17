@@ -152,7 +152,7 @@
             BehaviorID="psrFacilityAtt" PopupControlID="panelFacilityAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnFacilityAttClose" />
 
         <asp:Panel ID="panelFacilityAttachment" runat="server" Style="width: 750px; background: white; border: 2px black solid; display: none; text-align: left;">
-            <ctrlAtt:mngAttachment ID="ctrlAddFacilityAttachment" IsEquipmentOrFacility="false" runat="server" ModalExtenderID="mpeFacilityAttachment" SectionHeaderText="Facility Attachments" AutoLoad="True" />
+            <ctrlAtt:mngAttachment ID="ctrlAddFacilityAttachment" IsEquipmentOrFacility="false" runat="server" ModalExtenderID="mpeFacilityAttachment" SectionHeaderText="Facility Attachments" AutoLoad="False" />
             <br />
             <br />
             <div align="center">

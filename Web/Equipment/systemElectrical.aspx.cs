@@ -41,8 +41,11 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         loginUsr = Utils.CheckSession(this);
-        ctrlAddEquipmentAttachment.AttachmentSaved += CtrlAddEquipmentAttachment_AttachmentSaved;
+
+        ctrlAddFacilityAttachment.ParentSysID = ElectricalFacilitySysID.ToString();
         ctrlAddFacilityAttachment.AttachmentSaved += CtrlAddFacilityAttachment_AttachmentSaved;
+        ctrlAddEquipmentAttachment.AttachmentSaved += CtrlAddEquipmentAttachment_AttachmentSaved;
+
         if (!Page.IsPostBack)
         {
             //Todo: verify logic
@@ -128,8 +131,6 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             }
             else
                 DetailInfoPanel.Visible = true;
-
-            ctrlAddFacilityAttachment.ParentSysID = ElectricalFacilitySysID.ToString();
 
             LoadFacilityAttachments();
         }
