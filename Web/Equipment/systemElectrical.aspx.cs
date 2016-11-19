@@ -44,6 +44,8 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
         ctrlAddFacilityAttachment.ParentSysID = ElectricalFacilitySysID.ToString();
         ctrlAddFacilityAttachment.AttachmentSaved += CtrlAddFacilityAttachment_AttachmentSaved;
+
+        ctrlAddEquipmentAttachment.ParentSysID = ElectricalEquipmentSysID.ToString();
         ctrlAddEquipmentAttachment.AttachmentSaved += CtrlAddEquipmentAttachment_AttachmentSaved;
 
         if (!Page.IsPostBack)
@@ -188,9 +190,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         txtEquipmentID.Text = string.Empty;
         //clear all existing info
         ClearEquipmentDetails();
-
     }
-
 
     protected void btnAddNew_Click(object sender, EventArgs e)
     {
@@ -354,11 +354,9 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
         txtElectricalOther.Text = details.ElectricalOther;
 
-
         txtInventoryBy.Text = details.InventoryBy;
         if (details.InventoryDate != DateTime.MinValue)
             txtInventoryDate.Text = details.InventoryDate.ToShortDateString();
-
 
         txtManufacturer.Text = details.Manufacturer;
         txtVolts.Text = details.Volts;
@@ -377,12 +375,11 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         { txtTJC.Text = details.TJCValue.ToString(); }
         txtPMSchedule.Text = details.PMSchedule;
 
-
         //if (loadFacInfo)
         //    LoadFacilityInfoByFacNum(details.ParentFacilityNum);
         #endregion
 
-
+        LoadEquipmentAttachments(ElectricalEquipmentSysID);
     }
     private ValidationResult SaveEquipmentDetails()
     {
@@ -618,6 +615,9 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         txtTJC.Text = string.Empty;
         txtPMSchedule.Text = string.Empty;
         #endregion
+
+        // clear attachments
+        trAttachment.Visible = false;
     }
 
     protected void gv_Components_OnRowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
@@ -662,12 +662,13 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
     #region Equipment Attachment Details
 
-    private void LoadEquipmentAttachments()
+    private void LoadEquipmentAttachments(int equipmentSysId)
     {
-        var list = AttachmentLogic.GetAttachments(ElectricalEquipmentSysID, true);
-
+        var list = equipmentSysId > 0 ? AttachmentLogic.GetAttachments(equipmentSysId, true) : null;
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
+
+        trAttachment.Visible = true;
     }
 
     protected void gvExtAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
@@ -704,7 +705,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         }
 
         if (deleted)
-            LoadEquipmentAttachments();
+            LoadEquipmentAttachments(ElectricalEquipmentSysID);
     }
 
     private void CtrlAddEquipmentAttachment_AttachmentSaved(bool result)
@@ -712,7 +713,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         if (result)  // added
         {
             // reload attachment
-            LoadEquipmentAttachments();
+            LoadEquipmentAttachments(ElectricalEquipmentSysID);
         }
         else
         {

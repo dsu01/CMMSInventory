@@ -236,7 +236,6 @@
                                                 <asp:Label ID="lblSize" runat="server" Text='<%# Server.HtmlEncode((string)Eval("Size"))%>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-
                                     </Columns>
                                 </asp:GridView>
                                 <asp:ObjectDataSource ID="odsComponents" runat="server" SelectMethod="GetEquipmentsList" TypeName="NIH.CMMS.Inventory.BPL.Facility.facility_logic">
@@ -244,9 +243,6 @@
                                         <asp:ControlParameter Type="String" Name="parentFacNum" ControlID="txtFacilityNum" />
                                     </SelectParameters>
                                 </asp:ObjectDataSource>
-
-
-
                             </td>
                         </tr>
                     </table>
@@ -455,24 +451,16 @@
                                             <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="13" />
                                         </td>
                                     </tr>
-
-
-
-
-
-
-
                                     <tr>
                                         <td align="center" colspan="4">
                                             <asp:Button ID="btnFinish" runat="server" Text="Save Component Information" CssClass="submitGreen" TabIndex="37"
                                                 OnClick="btnFinish_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
-           <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
-               OnClick="btnCancel_Click" OnClientClick="return confirm('OK to Cancel?');" />
+                                               <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
+                                                   OnClick="btnCancel_Click" OnClientClick="return confirm('OK to Cancel?');" />
                                             &nbsp;&nbsp;&nbsp;&nbsp; 
                                             <asp:Button ID="btnAddNewComponent" runat="server" Text="Add Another Component" CssClass="submitYellow" TabIndex="37"
                                                 OnClick="btnAddComponent_Click" />
                                         </td>
-
                                     </tr>
                                 </table>
                             </td>
