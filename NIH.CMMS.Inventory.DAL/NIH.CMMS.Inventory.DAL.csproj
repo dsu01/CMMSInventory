@@ -74,6 +74,7 @@
     <Content Include="Scripts\spn_Inv_GetAttachmentByID.sql" />
     <Content Include="Scripts\spn_Inv_GetAttachmentList.sql" />
     <Content Include="Scripts\spn_inv_updateAttachment.sql" />
+    <Content Include="Scripts\update01032017.sql" />
     <Content Include="Scripts\updatedSps.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

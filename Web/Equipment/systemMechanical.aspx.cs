@@ -125,6 +125,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
             if (!DetailInfoPanel.Visible)
                 DetailInfoPanel.Visible = true;
             btnSaveFacility.Text = "Update Facility";
+            //trFacilityAttachment.Visible = true;
         }
         else
             lbUpdateFacilityMsg.Text = "Information Cannot Be Saved.";

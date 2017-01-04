@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <asp:Button ID="btnSaveAttachment" runat="server" Text="Save Attachment" OnClick="btnSaveAttachment_OnClick" />
+                        <asp:Button ID="btnSaveAttachment" runat="server" Text="Save Attachment" OnClick="btnSaveAttachment_OnClick" UseSubmitBehavior="false" CausesValidation="false" />
                         <%--<asp:Label ID="lbAddAttachmentError" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label>--%>
                     </td>
                 </tr>
