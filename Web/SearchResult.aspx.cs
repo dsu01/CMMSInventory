@@ -280,12 +280,12 @@ public partial class SearchResult : System.Web.UI.Page
        
         if (eqList != null)
         {
-            sTemp.Append("<table class='popupTableView' style='width:532px;height:100%;background-color:darkgray'>");
+            sTemp.Append("<table class='popupTableView' style='width:100%;min-height:100%;background-color:lightgray; margin: 10px;'>");
             
             sTemp.Append("<tr><td colspan='2' align='center'><b>Equipments List:</b></td></tr>");
             foreach (EquipmentDet det in eqList)
             {
-                sTemp.Append("<tr><td width='20%' class='leftLabel' align='right'><b>Equipment ID:</b></td><td align='left' class='text7'><a href='Equipment/equipMechanicalNew.aspx?equipID=" + det.Key + "'>" + det.EquipID + "</a></td></tr>");
+                sTemp.Append("<tr><td width='20%' class='leftLabel' align='right'><b>Equipment ID:</b></td><td align='left' class='text7'><a href='Equipment/systemElectrical.aspx?equipID=" + det.Key + "'>" + det.EquipID + "</a></td></tr>");
                 sTemp.Append("<tr><td class='leftLabel' align='right'><b>Location:</b></td><td align='left' class='text7'>" + det.EquipLocation+ "</td></tr>");
                 sTemp.Append("<tr><td class='leftLabel' align='right'><b>Type or Use:</b></td><td align='left' class='text7'>" + det.TypeOrUse + "</td></tr>");
                 sTemp.Append("<tr><td class='leftLabel' align='right'><b>Manufacturer and Model:</b></td><td align='left' class='text7'>" + det.Manufacturer + " " + det.ModelNo + "</td></tr>");

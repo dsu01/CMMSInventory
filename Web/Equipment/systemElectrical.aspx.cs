@@ -195,6 +195,12 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
     protected void btnAddNew_Click(object sender, EventArgs e)
     {
         TabContainer1.ActiveTabIndex = 1;
+        //if already previous component info exist, delete them
+        if (ElectricalEquipmentSysID > 0 && txtEquipmentID.Text != "")
+        {
+            ClearEquipmentDetails();
+        }
+            
 
     }
     protected void btnCancel_Click(object sender, EventArgs e)
@@ -338,6 +344,13 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
     private void LoadEquipmentDetail(int id, bool loadFacInfo)
     {
         EquipmentDet details = facility_logic.GetInvEquipmentDetails(id);
+
+        if (ElectricalFacilitySysID < 0 && !string.IsNullOrEmpty(details.ParentFacilityNum))
+        {         
+            txtFacilityNum.Text = details.ParentFacilityNum.ToString();
+            LoadFacilityInfoByFacNum(details.ParentFacilityNum);
+        }
+
         #region "Load the first equipment"
         hidEquipmentSysID.Value = details.Key.ToString();
         txtEquipmentID.Text = details.EquipID;

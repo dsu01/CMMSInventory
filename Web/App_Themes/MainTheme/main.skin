@@ -86,7 +86,7 @@
                                                                           
 </asp:GridView>
 
-<asp:GridView CssClass="GridView" SkinID=NoPagingSortingGV" runat="server" AllowSorting="false" AllowPaging="false" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="4" CellSpacing="1" GridLines="none" AutoGenerateColumns="False" emptydatatext='<img src="Image/icon_nodata.gif" border="0" />' >
+<asp:GridView CssClass="GridView" SkinID="NoPagingSortingGV" runat="server" AllowSorting="false" AllowPaging="false" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="4" CellSpacing="1" GridLines="none" AutoGenerateColumns="False" emptydatatext='<img src="../../Image/icon_nodata.gif" border="0" />' >
    <SelectedRowStyle BackColor="#A0A0D0" Font-Bold="True" ForeColor="White" />
    <HeaderStyle CssClass="GridViewHeader" />
   <AlternatingRowStyle BackColor="#efefef" CssClass="GridViewText" />
