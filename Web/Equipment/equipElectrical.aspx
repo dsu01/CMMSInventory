@@ -90,7 +90,7 @@
                         <asp:TextBox ID="txtWRNum" runat="server" MaxLength="50" TabIndex="10"></asp:TextBox></td>
                 </tr>
             </table>
-            <table id="inputTable" cellspacing="0" cellpadding="2" width="100%" border="0" style="font-size: .75em">
+            <table id="inputTable" cellspacing="0" cellpadding="2" width="100%" border="0" >
                 <tr>
                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbModelNum" CssClass="tableLabel" runat="server" Text="Model No."></asp:Label></td>

@@ -89,27 +89,27 @@
                     </td>
                --%>
                 <td width="12%">
-                        <asp:Label ID="lbManufacturer" runat="server" Text="Manufacturer"></asp:Label>
+                        <asp:Label ID="lbManufacturer" runat="server" Text="Manufacturer" CssClass="tableLabel"></asp:Label>
                     </td>
                 <td width="12%">
                         <asp:TextBox ID="txtManufacturer" MaxLength="50" runat="server" TabIndex="11" />
                     </td>
                
                 <td width="12%">
-                        <asp:Label ID="lbModelNum" runat="server" Text="Model No."></asp:Label>
+                        <asp:Label ID="lbModelNum" runat="server" Text="Model No." CssClass="tableLabel"></asp:Label>
                     </td>
                 <td width="12%">
                         <asp:TextBox ID="txtModelNum" MaxLength="50" runat="server" TabIndex="12" />
                     </td>
                
                     <td width="12%">
-                        <asp:Label ID="lbSerialNum" runat="server" Text="Serial No."></asp:Label>
+                        <asp:Label ID="lbSerialNum" runat="server" Text="Serial No." CssClass="tableLabel"></asp:Label>
                     </td>
                     <td width="12%">
                         <asp:TextBox ID="txtSerialNum" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                     <td width="12%">
-                        <asp:Label ID="lbSize" runat="server" Text="Size"></asp:Label>
+                        <asp:Label ID="lbSize" runat="server" Text="Size" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td width="12%">
                         <asp:TextBox ID="txtSize" MaxLength="50" runat="server" TabIndex="11" />
@@ -119,7 +119,7 @@
                     <tr>
                         
                     <td>
-                        <asp:Label ID="lbInstalledDate" runat="server" Text="Date Installed"></asp:Label>
+                        <asp:Label ID="lbInstalledDate" runat="server" Text="Date Installed" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtInstalledDate" MaxLength="50" runat="server" TabIndex="12" />
@@ -128,21 +128,21 @@
                     </td>
 
                     <td>
-                        <asp:Label ID="lbCapacity" runat="server" Text="Capacity"></asp:Label>
+                        <asp:Label ID="lbCapacity" runat="server" Text="Capacity" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtCapacity" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                
                     <td>
-                        <asp:Label ID="lbCapacityHT" runat="server" Text="Capacity(H/T)"></asp:Label>
+                        <asp:Label ID="lbCapacityHT" runat="server" Text="Capacity(H/T)" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtCapacityHT" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                
                     <td>
-                        <asp:Label ID="lbFuel" runat="server" Text="Fual or Refri"></asp:Label>
+                        <asp:Label ID="lbFuel" runat="server" Text="Fual or Refri" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtFuel" MaxLength="50" runat="server" TabIndex="13" />
@@ -150,28 +150,28 @@
                  </tr>
                <tr>
                     <td>
-                        <asp:Label ID="lbMotorManu" runat="server" Text="Motor Mfg'r"></asp:Label>
+                        <asp:Label ID="lbMotorManu" runat="server" Text="Motor Mfg'r" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtMotorManu" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 
                     <td>
-                        <asp:Label ID="lbHP" runat="server" Text="H.P."></asp:Label>
+                        <asp:Label ID="lbHP" runat="server" Text="H.P." CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtHP" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                
                     <td>
-                        <asp:Label ID="lbMotorType" runat="server" Text="Type"></asp:Label>
+                        <asp:Label ID="lbMotorType" runat="server" Text="Type" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtMotorType" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                
                     <td>
-                        <asp:Label ID="lbMotorSerialNum" runat="server" Text="Serial No."></asp:Label>
+                        <asp:Label ID="lbMotorSerialNum" runat="server" Text="Serial No." CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtMotorSerialNum" MaxLength="50" runat="server" TabIndex="13" />
@@ -179,7 +179,7 @@
                  </tr>
                <tr>
                     <td>
-                        <asp:Label ID="lbMotorInstalledDate" runat="server" Text="Motor Installed Date"></asp:Label>
+                        <asp:Label ID="lbMotorInstalledDate" runat="server" Text="Motor Installed Date" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtMotorInstalledDate" MaxLength="50" runat="server" TabIndex="13" />
@@ -188,21 +188,21 @@
                          </td>
                  
                     <td>
-                        <asp:Label ID="lbMotorModel" runat="server" Text="Model"></asp:Label>
+                        <asp:Label ID="lbMotorModel" runat="server" Text="Model" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtMotorModel" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
              
                     <td>
-                        <asp:Label ID="lbFrame" runat="server" Text="Frame"></asp:Label>
+                        <asp:Label ID="lbFrame" runat="server" Text="Frame" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtFrame" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                
                     <td>
-                        <asp:Label ID="lbRPM" runat="server" Text="R.P.M."></asp:Label>
+                        <asp:Label ID="lbRPM" runat="server" Text="R.P.M." CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtRPM" MaxLength="50" runat="server" TabIndex="13" />
@@ -211,21 +211,21 @@
                 </tr>
                <tr>
                     <td>
-                        <asp:Label ID="lbVoltage" runat="server" Text="Voltage"></asp:Label>
+                        <asp:Label ID="lbVoltage" runat="server" Text="Voltage" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtVoltage" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 
                     <td>
-                        <asp:Label ID="lbAmperes" runat="server" Text="Amperes"></asp:Label>
+                        <asp:Label ID="lbAmperes" runat="server" Text="Amperes" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtAmperes" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                
                     <td>
-                        <asp:Label ID="lbPhaseCycle" runat="server" Text="Phase-Cycle"></asp:Label>
+                        <asp:Label ID="lbPhaseCycle" runat="server" Text="Phase-Cycle" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtPhaseCycle" MaxLength="50" runat="server" TabIndex="13" />
@@ -233,7 +233,7 @@
                          </td>
              
                     <td>
-                        <asp:Label ID="lbBSLClass" runat="server" Text="BSL Class."></asp:Label>
+                        <asp:Label ID="lbBSLClass" runat="server" Text="BSL Class." CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" TabIndex="13" />
@@ -241,7 +241,7 @@
                  </tr>
                <tr>
                     <td>
-                        <asp:Label ID="lbTJC" runat="server" Text="TJC Value"></asp:Label>
+                        <asp:Label ID="lbTJC" runat="server" Text="TJC Value" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtTJC" MaxLength="50" runat="server" TabIndex="13" />
@@ -250,19 +250,19 @@
                          </td>
                
                     <td>
-                        <asp:Label ID="lbPMSchedule" runat="server" Text="PM Schedule"></asp:Label>
+                        <asp:Label ID="lbPMSchedule" runat="server" Text="PM Schedule" CssClass="tableLabel"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="13" />
                     </td>
                 <td>
-                        <asp:Label ID="lbInventoryDate" runat="server" Text="Inventory Date"></asp:Label></td>
+                        <asp:Label ID="lbInventoryDate" runat="server" Text="Inventory Date" CssClass="tableLabel"></asp:Label></td>
                     <td>
                         <asp:TextBox ID="txtInventoryDate" runat="server" MaxLength="6" TabIndex="22" />
                         <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                    <td>
-                        <asp:Label ID="lbInventoryBy" runat="server" Text="Inventory By"></asp:Label></td>
+                        <asp:Label ID="lbInventoryBy" runat="server" Text="Inventory By" CssClass="tableLabel"></asp:Label></td>
                     <td >
                         <asp:TextBox ID="txtInventoryBy" runat="server" MaxLength="50" TabIndex="16" />
                     </td>
@@ -295,7 +295,7 @@
                         </td>
                     </tr>
                        <tr>
-                <td>Comments
+                <td class="tableLabel">Comments
                         </td>
                          <td colspan="6">
                     <asp:TextBox ID="txtComments" runat="server" MaxLength="255" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="36"></asp:TextBox>

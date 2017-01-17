@@ -75,6 +75,17 @@ public partial class _Default : System.Web.UI.Page
             #endregion
         }
 
+        //Todo:
+
+        //1.link on the top--add new and forms
+        //2.search button bigger, all change to blinker button on the right, handle enter key
+        //3.Add default image option, and show it on search result page
+        //3a.show picture on detail page!!
+        //4.first time component info tab should have no attachments
+        //5.Print function
+        //6.better spy glass
+        //7.print equipment button move to Text "inventory card"
+
     }
 
 
