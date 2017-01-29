@@ -99,7 +99,7 @@
             <tr id="trFacilityAttachment" runat="server">
                 <td>
                     <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /></td>
-                <td colspan="4">
+                <td colspan="4" width="100%">
                     <asp:GridView ID="gvExtFacilityAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                         OnRowCommand="gvExtFacilityAttachment_onRowCommand">
                         <Columns>
@@ -120,7 +120,7 @@
                         </Columns>
                     </asp:GridView>
                     <br />
-                    <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New Attachment" CausesValidation="false" />
+                    <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New Attachment" CssClass="submitBlue" CausesValidation="false" />
 
                 </td>
             </tr>

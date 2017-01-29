@@ -18,7 +18,7 @@
                                 <td width="100%">
                                 <div class="cbb">                                
                                     <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
-                                       <tr> <td class="leftLabel">Facility#:&nbsp;&nbsp;<asp:TextBox ID="txtFacilityNum" runat="server" SkinID="MaxTextBox"></asp:TextBox> 
+                                       <tr> <td class="leftLabel">Facility#:&nbsp;&nbsp;<asp:TextBox ID="txtFacilityNum" runat="server" SkinID="MaxTextBox" MaxLength="50"></asp:TextBox> 
                                                  <ajaxToolkit:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" 
                                                     TargetControlID="txtFacilityNum" 
                                                     WatermarkText="e.g. 03475 or T00005" 
@@ -27,7 +27,7 @@
                                                 
                                                 </td>    
                                    
-                                            <td class="leftLabel">NIH Work Request#:&nbsp;&nbsp;<asp:TextBox ID="txtWRNum" runat="server" SkinID="MaxTextBox"></asp:TextBox>
+                                            <td class="leftLabel">NIH Work Request#:&nbsp;&nbsp;<asp:TextBox ID="txtWRNum" runat="server" SkinID="MaxTextBox" MaxLength="50"></asp:TextBox>
 						                    
                                                   <ajaxToolkit:TextBoxWatermarkExtender ID="TBWE2" runat="server" 
                                                     TargetControlID="txtWRNum" 

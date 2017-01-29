@@ -7,26 +7,27 @@
                 <tr>
                     <td class="notes" colspan="2">Attach any related documents, e.g., photos and written statements. Acceptable file types are .DOC(X), .WPD, .XLS(X), .PDF, .JPG, .GIF, .VSD, .WAV, .MP3 and .PPT(X).  Enter a Title in order to save the attachment.</td>
                 </tr>
+               
                 <tr>
-                    <td colspan="2">
-                        <asp:Label runat="server" ID="lblValidationMessage" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
+                    <td colspan="2" class="errortext" align="left" style="font-size: x-small; font-style: italic">* In order to save your Attachment, you must enter Title and upload a File.</td>
                 </tr>
                 <tr>
-                    <td><b>Title of Attachment&nbsp;<span class="requiredMark">*</span></b></td>
+                    <td class="text7"><b>Title &nbsp;<span class="requiredMark">*</span></b></td>
                     <td>
                         <asp:TextBox ID="txtAttachmentTitle" runat="server" MaxLength="100" SkinID="longText" />
                     </td>
                 </tr>
                 <tr>
-                    <td><b>Upload File&nbsp;<span class="requiredMark">*</span></b></td>
+                    <td class="text7"><b>Upload File&nbsp;<span class="requiredMark">*</span></b></td>
                     <td class="text7">
-                        <asp:FileUpload ID="attachmentFileUpload" runat="server" Width="350px" />&nbsp;(Max size 10MB)
+                        <asp:FileUpload ID="attachmentFileUpload" runat="server" Width="450px" />&nbsp;(Max size 10MB)
                                     <br />
                         <asp:Label runat="server" ID="lbHidExistFile" Text="Existing File: " Visible="false" CssClass="errortext"></asp:Label><asp:Label runat="server" ID="txtHidFacFileName" Visible="false" CssClass="text7"></asp:Label>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="2" class="errortext" align="left" style="font-size: xx-small; font-style: italic">* In order to save your Attachment, you must enter Title and upload a File.</td>
+              <tr>
+                    <td colspan="2">
+                        <asp:Label runat="server" ID="lblValidationMessage" CssClass="errortext" Visible="false" EnableViewState="false"></asp:Label></td>
                 </tr>
                 <tr>
                     <td colspan="2">

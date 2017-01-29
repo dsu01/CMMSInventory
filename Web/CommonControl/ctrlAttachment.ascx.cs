@@ -14,6 +14,7 @@ public partial class CommonControl_ctrlAttachment : System.Web.UI.UserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        lblValidationMessage.Text = string.Empty;
     }
 
     public delegate void AttachmentSavedHandler(bool result);

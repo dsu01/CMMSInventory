@@ -75,9 +75,9 @@ public partial class _Default : System.Web.UI.Page
             #endregion
         }
 
-        //Todo:
+        //        Todo:
 
-        //1.link on the top--add new and forms
+        //        1.link on the top--add new and forms
         //2.search button bigger, all change to blinker button on the right, handle enter key
         //3.Add default image option, and show it on search result page
         //3a.show picture on detail page!!
@@ -85,6 +85,27 @@ public partial class _Default : System.Web.UI.Page
         //5.Print function
         //6.better spy glass
         //7.print equipment button move to Text "inventory card"
+
+        //        . Add Test
+
+
+        //angular, mvc and ef, DI and mock
+
+//        1.Building list(spn_Inv_GetBuildingList_Search)
+//2.spn_Inv_GetSystem_Search_newSite(SearchIndex)  0(all),1,2
+
+//3.spn_Inv_Search_GetFacilityList(systemids, tpesids, builingids, facnum, wrnum, stuatus)
+
+
+//4.Add Electrical System (spn_inv_MechanicalElectrical_System_Add_NewSite)
+
+//* *****Fix the spy glass window, Print
+//export buttons
+
+
+//attachment error: Error Occurred.Missing Facility or Equipment ID, parent page component error occur
+//"Attachment saved." when second time open
+//Add Electrical syste: T00058
 
     }
 

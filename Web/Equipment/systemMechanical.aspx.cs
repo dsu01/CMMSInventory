@@ -132,7 +132,22 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
             else
                 DetailInfoPanel.Visible = true;
 
-            LoadFacilityAttachments();
+
+            if (SystemFacilitySysID > 0)
+            {
+                LoadFacilityAttachments();
+                trFacilityAttachment.Visible = true;
+            }
+            else
+                trFacilityAttachment.Visible = false;
+
+            if (SystemEquipmentSysID > 0)
+            {
+                LoadEquipmentAttachments(SystemEquipmentSysID);
+                trAttachment.Visible = true;
+            }
+            else
+                trAttachment.Visible = false;
         }
     }
     protected void btnSaveFacility_Click(object sender, EventArgs e)
@@ -547,7 +562,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 Session["ParentFacilityNum"] = details.FacNum;
                 txtFacilityNum.Text = details.FacNum;
                 Session["ParentFacilitySysID"] = details.Key.ToString();
-                txtFacilityID.Text = details.Key.ToString();
+                txtFacilityID.Text = details.FacID.ToString();
                 trFacilityAttachment.Visible = true;
             }
             else {

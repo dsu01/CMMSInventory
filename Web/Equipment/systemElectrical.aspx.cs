@@ -48,6 +48,9 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         ctrlAddEquipmentAttachment.ParentSysID = ElectricalEquipmentSysID.ToString();
         ctrlAddEquipmentAttachment.AttachmentSaved += CtrlAddEquipmentAttachment_AttachmentSaved;
 
+        rqvEquipmentID.Enabled = false;
+        rqvTypeUse.Enabled = false;
+
         if (!Page.IsPostBack)
         {
             //Todo: verify logic
@@ -134,7 +137,24 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             else
                 DetailInfoPanel.Visible = true;
 
-            LoadFacilityAttachments();
+
+
+            if (ElectricalFacilitySysID > 0)
+            {
+                LoadFacilityAttachments();
+                trFacilityAttachment.Visible = true;
+            }
+            else
+                trFacilityAttachment.Visible = false;
+
+            if (ElectricalEquipmentSysID > 0)
+            {
+                LoadEquipmentAttachments(ElectricalEquipmentSysID);
+                trAttachment.Visible = true;
+            }
+            else
+                trAttachment.Visible = false;
+
         }
     }
     protected void btnSaveFacility_Click(object sender, EventArgs e)
@@ -396,6 +416,9 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
     }
     private ValidationResult SaveEquipmentDetails()
     {
+        rqvEquipmentID.Enabled = true;
+        rqvTypeUse.Enabled = true;
+
         if (!string.IsNullOrEmpty(txtFacilityNum.Text.ToString()))
         {
             EquipmentDet details = new EquipmentDet();
@@ -520,7 +543,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                 Session["ParentFacilityNum"] = details.FacNum;
                 txtFacilityNum.Text = details.FacNum;
                 Session["ParentFacilitySysID"] = details.Key.ToString();
-                txtFacilityID.Text = details.Key.ToString();
+                txtFacilityID.Text = details.FacID.ToString();
                 trFacilityAttachment.Visible = true;
             }
             else
