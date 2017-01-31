@@ -118,7 +118,7 @@
 				                </asp:TemplateField>
 					                </Columns>
 				                </asp:gridview>
-                                <asp:Panel ID="Panel1" runat="server" Width="550" Height="200"
+                                <asp:Panel ID="Panel1" runat="server" Width="550" Height="400"
                         Style="display: none;overflow: scroll;"></asp:Panel>
                                </asp:Panel>
                        </td>

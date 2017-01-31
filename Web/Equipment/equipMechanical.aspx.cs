@@ -38,7 +38,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
 
         if (!Page.IsPostBack)
         {
-            DataSet dtSystem = GeneralLookUp.GetMechanicalSystemList();
+            DataSet dtSystem = GeneralLookUp.GetSystemList("Mechanical Equipment"); //spn_Inv_GetSystemList_newsite
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();

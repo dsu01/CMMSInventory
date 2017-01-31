@@ -62,7 +62,7 @@ public partial class Equipment_systemMachanicalOld : System.Web.UI.Page
             Session["FacEquipmentList"] = null;
             Session["PageNumber"] = 0;//the first page is 0
             Session["ParentFacilityNum"] = string.Empty;
-            DataSet dtSystem = GeneralLookUp.GetMechanicalSystemList();
+            DataSet dtSystem = GeneralLookUp.GetSystemList("Mechanical System");
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();

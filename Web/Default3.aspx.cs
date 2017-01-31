@@ -22,7 +22,7 @@ public partial class Default3 : System.Web.UI.Page
             if (HttpContext.Current.Session[ApplicationConstants.SESSION_USEROBJLOGINDET] == null)
             { Response.Redirect("~/Login.aspx"); }
 
-            DataSet dtSystem = GeneralLookUp.GetSystemList();
+            DataSet dtSystem = GeneralLookUp.GetSystemList("Mechanical Equipment");
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();

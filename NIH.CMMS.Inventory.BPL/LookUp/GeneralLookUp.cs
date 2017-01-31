@@ -26,11 +26,11 @@ namespace NIH.CMMS.Inventory.BPL.LookUp
         //    }
         //}
 
-        public static DataSet GetSystemList()
-        {
-            //get data from 
-            return DBCommands.GetData("spn_Inv_GetSystem_Search", null);
-        }
+        //public static DataSet GetSystemList()
+        //{
+        //    //get data from 
+        //    return DBCommands.GetData("spn_Inv_GetSystem_Search", null);
+        //}
         public static DataSet GetListByType(string type)
         {
             //1 is mechenical 2 is electrical
@@ -54,38 +54,39 @@ namespace NIH.CMMS.Inventory.BPL.LookUp
         //{
         //    //get data from 
         //    return DBCommands.GetData("spn_Inv_GetTypeList", null);
+        ////}
+        //public static DataSet GetSystemEquipmentList()
+        //{
+        //    //get data from 
+        //    return DBCommands.GetData("spn_Inv_GetSystemEquipmentList", null);
         //}
-        public static DataSet GetSystemEquipmentList()
-        {
-            //get data from 
-            return DBCommands.GetData("spn_Inv_GetSystemEquipmentList", null);
-        }
 
-        //for Electrical equipment system dropdown
-        public static DataSet GetEletricalTypeOrUse()
-        {
-            //get data from 
-            return DBCommands.GetData("spn_Inv_GetSystemEquipmentList_Electrical", null);
-        }
+        ////for Electrical equipment system dropdown
+        //public static DataSet GetEletricalTypeOrUse()
+        //{
+        //    //get data from 
+        //    return DBCommands.GetData("spn_Inv_GetSystemEquipmentList_Electrical", null);
+        //}
 
-        //for Mechanical equipment system dropdown
-        public static DataSet GetMechanicalTypeOrUse()
-        {
-            //get data from 
-            return DBCommands.GetData("spn_Inv_GetSystemEquipmentList_Mechanical", null);
-        }
+        ////for Mechanical equipment system dropdown
+        //public static DataSet GetMechanicalTypeOrUse()
+        //{
+        //    //get data from 
+        //    return DBCommands.GetData("spn_Inv_GetSystemEquipmentList_Mechanical", null);
+        //}
 
-        public static DataSet GetEletricalSystemList()
-        {
-            //get data from 
-            return DBCommands.GetData("spn_Inv_GetSystemList_Electrical_newsite", null);
-        }
+        //public static DataSet GetEletricalSystemList()
+        //{
+        //    //get data from 
+        //    return DBCommands.GetData("spn_Inv_GetSystemList_Electrical_newsite", null);
+        //}
 
-        //for Mechanical equipment system dropdown
-        public static DataSet GetMechanicalSystemList()
+        public static DataSet GetSystemList(string sysgroup)
         {
-            //get data from 
-            return DBCommands.GetData("spn_Inv_GetSystemList_Mechanical_newSite", null);
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            SqlParameter sptype = new SqlParameter("@SystemGroup", String.IsNullOrEmpty(sysgroup) ? DBNull.Value : (Object)sysgroup);
+            sqlParams.Add(sptype);
+            return DBCommands.GetData("spn_Inv_GetSystemList_newsite", sqlParams);           
         }
 
         public static DataSet GetSearchBuildingList()
@@ -103,52 +104,6 @@ namespace NIH.CMMS.Inventory.BPL.LookUp
             //get data from 
             return DBCommands.GetData("spn_Inv_GetStatusList", null);
         }
-        //public static string GetGroupByBuilding(string building)
-        //{
-        //    List<SqlParameter> sqlParams = new List<SqlParameter>();
-        //    SqlParameter spProperty = new SqlParameter("@getShop_building_HelpDesk", building);
-        //    sqlParams.Add(spProperty);
-        //    return DBCommands.GetStringResult("getShop_building_HelpDesk", sqlParams);
-        //}
-
-      
-
-        //get work location building list by property
-        //public static DataSet BuildingListByProperty(string property)
-        //{
-        //    List<SqlParameter> sqlParams = new List<SqlParameter>();
-        //    SqlParameter spProperty = new SqlParameter("@Property", property);
-        //    sqlParams.Add(spProperty);
-        //    //get data from database
-        //    return DBCommands.GetData("spn_GetBuildingList_Property_HelpDesk", sqlParams);
-        //}
-
-        ////get group list by property
-        //public static DataSet GroupListByProperty(string property)
-        //{
-        //    List<SqlParameter> sqlParams = new List<SqlParameter>();
-        //    SqlParameter spProperty = new SqlParameter("@Property", string.IsNullOrEmpty(property) ? DBNull.Value : (Object)property);
-        //    sqlParams.Add(spProperty);
-        //    //get data from database
-        //    return DBCommands.GetData("spn_GetShop_Property_HelpDesk", sqlParams);
-        //}
-
-        //public static DataSet GetGroupList()
-        //{
-        //    //get data from 
-        //    return DBCommands.GetData("spn_GetShop_HelpDesk", null);
-        //}
-       
-         
-        // public static DataSet GetSearchRequesterList(string fname, string lname, string ins)
-        //{
-        //    List<SqlParameter> sqlParams = new List<SqlParameter>();           
-        //    sqlParams.Add(new SqlParameter("@strFirst", (string.IsNullOrEmpty(fname)) ? DBNull.Value : (Object)fname));
-        //    sqlParams.Add(new SqlParameter("@strLast", (string.IsNullOrEmpty(lname)) ? DBNull.Value : (Object)lname));
-        //    sqlParams.Add(new SqlParameter("@strInstitute", (string.IsNullOrEmpty(ins)) ? DBNull.Value : (Object)ins));
-        //    return DBCommands.GetData("spn_GetRequester_Search_HelpDesk", sqlParams);
-        //}
-        
-       
+             
     }
 }

@@ -75,7 +75,7 @@ public partial class _Default : System.Web.UI.Page
             #endregion
         }
 
-        //        Todo:
+        //        Todo:Later add default display column, show image
 
         //        1.link on the top--add new and forms
         //2.search button bigger, all change to blinker button on the right, handle enter key
@@ -91,21 +91,21 @@ public partial class _Default : System.Web.UI.Page
 
         //angular, mvc and ef, DI and mock
 
-//        1.Building list(spn_Inv_GetBuildingList_Search)
-//2.spn_Inv_GetSystem_Search_newSite(SearchIndex)  0(all),1,2
+        //        1.Building list(spn_Inv_GetBuildingList_Search)
+        //2.spn_Inv_GetSystem_Search_newSite(SearchIndex)  0(all),1,2
 
-//3.spn_Inv_Search_GetFacilityList(systemids, tpesids, builingids, facnum, wrnum, stuatus)
-
-
-//4.Add Electrical System (spn_inv_MechanicalElectrical_System_Add_NewSite)
-
-//* *****Fix the spy glass window, Print
-//export buttons
+        //3.spn_Inv_Search_GetFacilityList(systemids, tpesids, builingids, facnum, wrnum, stuatus)
 
 
-//attachment error: Error Occurred.Missing Facility or Equipment ID, parent page component error occur
-//"Attachment saved." when second time open
-//Add Electrical syste: T00058
+        //4.Add Electrical System (spn_inv_MechanicalElectrical_System_Add_NewSite)
+
+        //* *****Fix the spy glass window, Print
+        //export buttons
+
+
+        //attachment error: Error Occurred.Missing Facility or Equipment ID, parent page component error occur
+        //"Attachment saved." when second time open
+        //Add Electrical syste: T00058
 
     }
 

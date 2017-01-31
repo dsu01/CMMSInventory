@@ -63,7 +63,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
             string wrNum = string.Empty;
             int equipID = 0;
 
-            DataSet dtSystem = GeneralLookUp.GetEletricalSystemList();
+            DataSet dtSystem = GeneralLookUp.GetSystemList("Electrical System");
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
 
@@ -194,9 +194,10 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
         ValidationResult vr = SaveEquipmentDetails();
         if (vr.Success)
-        {
-            ClearEquipmentDetails();
+        {            
+            //ClearEquipmentDetails();
             gv_Components.DataBind();
+            trAttachment.Visible = true;
             Utils.ShowPopUpMsg("Component Saved!", this.Page);
         }
         else
@@ -474,9 +475,12 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                     details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
                 details.PMSchedule = txtPMSchedule.Text.Trim();
 
-
-                return facility_logic.AddUpdateElectricalComponent(details);
-
+                ValidationResult vr = facility_logic.AddUpdateElectricalComponent(details);
+                if (vr.Success)
+                {
+                    hidEquipmentSysID.Value = details.Key.ToString();                  
+                }
+                return vr;
                 #endregion
             }
             else

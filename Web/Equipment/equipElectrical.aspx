@@ -38,10 +38,9 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">
-    <table style="font-size: 9pt; width: 100%">
+    <table style="font-size: 9pt; width: 95%; ">
         <tr>
-
-            <td align="right"><a href='../printFacility.aspx?FacilityNumber=<%= txtFacilityNum.Text %>' target="_blank">
+            <td align="right"><a href='../printEleEquipment.aspx?equipmentSysID=<%= hidEquipmentSysID.Value %>' target="_blank">
                 <img src="../Image/btn_print.gif" border="0" alt="print" /></a>&nbsp;&nbsp;</td>
         </tr>
     </table>
@@ -54,6 +53,7 @@
                     <td class="inventoryTopRightCell" width="15%" valign="baseline">Facility#:</td>
                     <td style="border-bottom: solid 1px #000;" width="25%">
                         <font color="gray">&nbsp;<asp:Label ID="txtFacilityNum" runat="server"></asp:Label></font>
+                        <asp:HiddenField ID="hidEquipmentSysID" runat="server" Value="-1" />
                     </td>
                 </tr>
                 <tr>
@@ -216,14 +216,29 @@
                    
                          </td>
                 </tr>
-               <tr>
+              <tr>
+                    <td class="tableLabel" >
+                        <br />
+                        Comments
+                    </td>
+                    <td colspan="4">
+                        <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="23"></asp:TextBox>
+                        <br />
+                    </td>
+                </tr>
+                  <tr>
                   
-                   <td colspan="2" style="border-bottom: solid 1px #000; border-right: solid 1px #000;"> <asp:Label ID="lbLastUpdatedBy" CssClass="tableLabel" runat="server" ></asp:Label></td>
+                   <td colspan="2" style="border-bottom: solid 1px #000; border-right: solid 1px #000;"> 
+                       <asp:Label ID="lbLastUpdatedBy" CssClass="tableLabel" runat="server" ></asp:Label></td>
                 </tr>
 
                 <tr id="trAttachment" runat="server">
-                    <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /></td>
-                    <td colspan="4">
+                    <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" />
+                          <br /><br />
+                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" /> 
+
+                    </td>
+                    <td colspan="7">
                         <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                             OnRowCommand="gvExtAttachment_onRowCommand">
                             <Columns>
@@ -243,29 +258,18 @@
                                 <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
                             </Columns>
                         </asp:GridView>
-                        <br />
-                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" /> Later add default display column, show image
-
+                        <br /><br />
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <br />
-                        <b>Comments</b>
-                    </td>
-                    <td colspan="4">
-                        <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="23"></asp:TextBox>
-                        <br />
-                    </td>
-                </tr>
+               
                 <tr>
                     <td align="center"></td>
                     <td colspan="4">
                         <asp:Button ID="btnFinish" runat="server" Text="Save" CssClass="submitGreen" OnClick="btnFinish_Click" TabIndex="24" />
                         &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
                          &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
-                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitGray" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />
-                       <%-- <asp:HiddenField ID="hidFacSystemID" runat="server" Value="-1" />--%>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitBlue" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />
+                     
                     </td>
                 </tr>
             </table>

@@ -33,7 +33,7 @@ public partial class Equipment_equipMechanicalNew : System.Web.UI.Page
             //drplstSystem.DataSource = dtSystem;
             //drplstSystem.DataBind();
 
-            DataSet dtSystem = GeneralLookUp.GetSystemEquipmentList();
+            DataSet dtSystem = GeneralLookUp.GetSystemList("Mechanical Equipment");
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
            

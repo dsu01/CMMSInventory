@@ -25,7 +25,7 @@ public class GetTypeOrUseList : System.Web.Services.WebService
         //var fetchEmail = emp.GetEmployeeList()
         //.Where(m => m.Email.ToLower().StartsWith(mail.ToLower()));
         //return fetchEmail.ToList();
-        DataSet ds = NIH.CMMS.Inventory.BPL.LookUp.GeneralLookUp.GetEletricalTypeOrUse();
+        DataSet ds = NIH.CMMS.Inventory.BPL.LookUp.GeneralLookUp.GetSystemList("Electrical Equipment");
         StringBuilder sbTypeOrUse = new StringBuilder();
 
         if (ds != null && ds.Tables[0].Rows.Count > 0)

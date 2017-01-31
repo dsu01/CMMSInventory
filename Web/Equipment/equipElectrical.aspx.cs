@@ -40,7 +40,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             //{ btnFinish.Visible = false; }
 
             //hidFacSystemID.Value = "-1";
-            DataSet dtSystem = GeneralLookUp.GetEletricalSystemList();//spn_Inv_GetSystemList_Electrical_newsite
+            DataSet dtSystem = GeneralLookUp.GetSystemList("Electrical Equipment"); //spn_Inv_GetSystemList_newsite
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();
@@ -55,7 +55,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
                 LoadDetails();
                 drplstBuilding.Enabled = false;
                 txtFacilityNum.Enabled = false;
-
+                hidEquipmentSysID.Value = ElectricalEquipmentSysID.ToString();
             }
             else
             {
@@ -63,7 +63,8 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
                 drplstBuilding.Enabled = true;
                 txtFacilityNum.Enabled = true;
                 btnFinish.Text = "Add New Equipment";
-                trAttachment.Visible = false;                
+                trAttachment.Visible = false;
+                hidEquipmentSysID.Value = string.Empty;
             }
 
 
@@ -79,7 +80,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
     private void LoadDetails()
     {
-        FacilityDet details = facility_logic.GetElectrialEquipDetails(ElectricalEquipmentSysID);
+        FacilityDet details = facility_logic.GetEleMechaEquipDetails(ElectricalEquipmentSysID);
         if (details != null)
         {
             #region "Load general facility detail"

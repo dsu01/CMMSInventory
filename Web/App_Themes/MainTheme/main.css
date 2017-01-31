@@ -782,6 +782,21 @@ dd {/*the small box element*/
 	
 }
 
+.popupTableView
+{
+	width:550px;
+	background-color: #d3d3d3;
+	border-width: 1px;
+	border-style: solid;
+	border-color: Gray;
+	padding: 3px;
+	line-height:15px;
+	vertical-align:top;
+    min-height:400px;
+	
+}
+
+
 .redTitle
 {
 	color: #f30b2c;

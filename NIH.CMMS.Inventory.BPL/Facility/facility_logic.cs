@@ -54,9 +54,9 @@ namespace NIH.CMMS.Inventory.BPL.Facility
 
         }
 
-        public static FacilityDet GetElectrialEquipDetails(int facSystemID)
+        public static FacilityDet GetEleMechaEquipDetails(int facSystemID)
         {
-            return facility_db.GetElectrialEquipDetails(facSystemID);          
+            return facility_db.GetEleMechaEquipDetails(facSystemID);          
 
         }
 

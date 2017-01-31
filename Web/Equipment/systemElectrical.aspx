@@ -35,6 +35,12 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">
     <asp:Panel ID="generalInfoPanel" runat="server">
+         <table style="font-size: 9pt; width: 95%; ">
+        <tr>
+            <td align="right"><a href='../printEleSystem.aspx?equipmentSysID=<%= hidFacilitySysid.Value %>' target="_blank">
+                <img src="../Image/btn_print.gif" border="0" alt="print" /></a>&nbsp;&nbsp;</td>
+        </tr>
+    </table>
         <table cellspacing="0" cellpadding="5" width="100%" border="0">
             <tr>
                 <td id="InventoryCardTitle" colspan="4" class="inventoryTopLeftTitle" width="50%">Equipment Inventory Card</td>
@@ -98,8 +104,10 @@
             </tr>
             <tr id="trFacilityAttachment" runat="server">
                 <td>
-                    <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /></td>
-                <td colspan="4" width="100%">
+                    <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" />
+
+                </td>
+                <td colspan="7">
                     <asp:GridView ID="gvExtFacilityAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                         OnRowCommand="gvExtFacilityAttachment_onRowCommand">
                         <Columns>
@@ -120,7 +128,7 @@
                         </Columns>
                     </asp:GridView>
                     <br />
-                    <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New Attachment" CssClass="submitBlue" CausesValidation="false" />
+                    <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New System Attachment" CssClass="submitBlue" CausesValidation="false" />
 
                 </td>
             </tr>
@@ -225,12 +233,7 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblSerial" runat="server" Text='<%# Server.HtmlEncode((string)Eval("SerialNo"))%>' />
                                             </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Capacity" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="Capacity">
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblCapacity" runat="server" Text='<%# Server.HtmlEncode((string)Eval("Capacity"))%>' />
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
+                                        </asp:TemplateField>                                      
                                         <asp:TemplateField HeaderText="Size" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="Size">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblSize" runat="server" Text='<%# Server.HtmlEncode((string)Eval("Size"))%>' />
@@ -264,7 +267,7 @@
                    <br />--%>
                     <table width="100%">
                         <tr>
-                            <td>
+                            <td width="65%">
                                 <table id="inputTable" cellspacing="2" cellpadding="3">
                                     <tr class="text8">
                                         <td colspan="2" class="redheading">
@@ -454,17 +457,17 @@
                                     <tr>
                                         <td align="center" colspan="4">
                                             <asp:Button ID="btnFinish" runat="server" Text="Save Component Information" CssClass="submitGreen" TabIndex="37"
-                                                OnClick="btnFinish_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                                OnClick="btnFinish_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
                                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
                                                    OnClick="btnCancel_Click" OnClientClick="return confirm('OK to Cancel?');" />
-                                            &nbsp;&nbsp;&nbsp;&nbsp; 
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
                                             <asp:Button ID="btnAddNewComponent" runat="server" Text="Add Another Component" CssClass="submitYellow" TabIndex="37"
                                                 OnClick="btnAddComponent_Click" />
                                         </td>
                                     </tr>
                                 </table>
                             </td>
-                            <td>
+                            <td width="35%">
                                 <table width="100%">
                                     <tr id="trAttachment" runat="server">
                                         <td>
@@ -489,7 +492,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <br />
-                                            <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CausesValidation="false" />
+                                            <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Component Attachment" CssClass="submitBlue" CausesValidation="false" />
 
                                         </td>
                                     </tr>
@@ -514,7 +517,7 @@
                     </asp:Panel>
                 </ContentTemplate>
             </ajaxToolkit:TabPanel>
-            <ajaxToolkit:TabPanel runat="server" HeaderText="View All and Print" ID="TabPanel4">
+            <ajaxToolkit:TabPanel runat="server" HeaderText="View All and Print" ID="TabPanel4" Visible="false">
                 <ContentTemplate>
 
                     <table cellspacing="0" cellpadding="3" width="635" border="0">

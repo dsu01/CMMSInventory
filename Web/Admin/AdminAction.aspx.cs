@@ -25,7 +25,7 @@ public partial class Admin_AdminAction : System.Web.UI.Page
             { Response.Redirect("~/Default.aspx"); }
 
             hidFacSystemID.Value = "-1";
-            DataSet dtSystem = GeneralLookUp.GetSystemList();
+            DataSet dtSystem = GeneralLookUp.GetSystemList(string.Empty);
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();

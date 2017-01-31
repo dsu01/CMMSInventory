@@ -258,7 +258,7 @@
                 <td>
                         <asp:Label ID="lbInventoryDate" runat="server" Text="Inventory Date" CssClass="tableLabel"></asp:Label></td>
                     <td>
-                        <asp:TextBox ID="txtInventoryDate" runat="server" MaxLength="6" TabIndex="22" />
+                        <asp:TextBox ID="txtInventoryDate" runat="server" TabIndex="22" />
                         <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                    <td>

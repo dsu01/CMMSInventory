@@ -49,7 +49,7 @@ public partial class PrintFacility : System.Web.UI.Page
                             lbEletricalComments.Text = existingFac.Comment;
 
                             //it is Electrical, need additional fields
-                            existingFac = facility_logic.GetElectrialEquipDetails(existingFac.Key);
+                            existingFac = facility_logic.GetEleMechaEquipDetails(existingFac.Key);
 
                             lbEquipmentID.Text = existingFac.ElectricalOther;
                             lbTypeOrUse.Text = existingFac.TypeOrUse;

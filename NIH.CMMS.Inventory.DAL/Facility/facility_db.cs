@@ -452,7 +452,7 @@ namespace NIH.CMMS.Inventory.DAL.Facility
                 return null;
         }
 
-        public static FacilityDet GetElectrialEquipDetails(int facSystemID)
+        public static FacilityDet GetEleMechaEquipDetails(int facSystemID)
         {
             FacilityDet details = null;
             List<SqlParameter> sqlParams = new List<SqlParameter>();

@@ -62,7 +62,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
             //drplstSystem.DataSource = dtSystem;
             //drplstSystem.DataBind();
 
-            DataSet dtSystem = GeneralLookUp.GetMechanicalSystemList();
+            DataSet dtSystem = GeneralLookUp.GetSystemList("Mechanical System");
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
 
@@ -191,8 +191,9 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
         ValidationResult vr = SaveEquipmentDetails();
         if (vr.Success)
         {
-            ClearEquipmentDetails();
+            //ClearEquipmentDetails();
             gv_Components.DataBind();
+            trAttachment.Visible = true;
             Utils.ShowPopUpMsg("Component Saved!", this.Page);
         }
         else
@@ -493,8 +494,13 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
                     details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
                 details.PMSchedule = txtPMSchedule.Text.Trim();
-                return facility_logic.AddUpdateMechanicalComponent(details);
-
+              
+                ValidationResult vr = facility_logic.AddUpdateMechanicalComponent(details);
+                if (vr.Success)
+                {
+                    hidEquipmentSysID.Value = details.Key.ToString();
+                }
+                return vr;
                 #endregion
             }
             else
