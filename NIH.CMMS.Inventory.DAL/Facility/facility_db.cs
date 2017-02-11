@@ -329,17 +329,13 @@ namespace NIH.CMMS.Inventory.DAL.Facility
                   sqlParams.Add(paramID);
                   sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
                   sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
-                    vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_AddElectricalComponent_NewSite", sqlParams);
-              }
-
-              
-
-            //if (vr.Success)
-            //{
-            //    //if no error, update id               
-            //    // details.Key = Convert.ToInt32(paramID.Value);
-            //    details.ParentFacilityNum = paramNum.Value.ToString();
-            //}
+                  vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_AddElectricalComponent_NewSite", sqlParams);
+                    if (vr.Success)
+                    {
+                        //if no error, update id               
+                        details.Key = Convert.ToInt32(paramID.Value);
+                    }
+            }          
             return vr;
 
 
@@ -402,6 +398,11 @@ namespace NIH.CMMS.Inventory.DAL.Facility
                 sqlParams.Add(new SqlParameter("@inventoryby", String.IsNullOrEmpty(details.InventoryBy) ? DBNull.Value : (Object)details.InventoryBy));
                 sqlParams.Add(new SqlParameter("@inventoryDate", details.InventoryDate == DateTime.MinValue ? DBNull.Value : (Object)details.InventoryDate));
                 vr = DBCommands.ExecuteNonQueryWithResReturn("spn_inv_AddMechanicalComponent_NewSite", sqlParams);
+                if (vr.Success)
+                {
+                    //if no error, update id               
+                    details.Key = Convert.ToInt32(paramID.Value);
+                }
             }
 
             return vr;

@@ -20,10 +20,10 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
     public int ElectricalEquipmentSysID
     {
-        get
+        get       
         {
-            return !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"])
-                ? Convert.ToInt32(Request.QueryString["ParentFacilitySysID"])
+            return !string.IsNullOrEmpty(hidEquipmentSysID.Value)
+                ? Convert.ToInt32(hidEquipmentSysID.Value)
                 : -1;
         }
     }
@@ -31,7 +31,8 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         loginUsr = Utils.CheckSession(this);
-        ctrlAddAttachment.ParentSysID = !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"]) ? Request.QueryString["ParentFacilitySysID"] : "-1";
+
+        ctrlAddAttachment.ParentSysID = !string.IsNullOrEmpty(hidEquipmentSysID.Value) ? hidEquipmentSysID.Value : "-1";
         ctrlAddAttachment.AttachmentSaved += CtrlAddAttachment_AttachmentSaved;
 
         if (!Page.IsPostBack)
@@ -46,16 +47,26 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
-
-            if (ElectricalEquipmentSysID >= 0)
+                      
+            if (Request.QueryString["ParentFacilitySysID"] != null && !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"].ToString()))
             {
-                //Existing eletrical equipment
-                btnFinish.Text = "Update Equipment";
-                trAttachment.Visible = true;               
-                LoadDetails();
-                drplstBuilding.Enabled = false;
-                txtFacilityNum.Enabled = false;
-                hidEquipmentSysID.Value = ElectricalEquipmentSysID.ToString();
+                int facID;
+                bool result = Int32.TryParse(Request.QueryString["ParentFacilitySysID"].ToString(), out facID);
+                if (result)
+                {
+                    hidEquipmentSysID.Value = facID.ToString();
+                    btnFinish.Text = "Update Equipment";
+                    trAttachment.Visible = true;
+                    LoadDetails();
+                    trAttachment.Visible = true;
+                    drplstBuilding.Enabled = false;
+                    txtFacilityNum.Enabled = false;                   
+                }
+                else
+                {
+                    Response.Redirect("~/Default.aspx");
+                }
+
             }
             else
             {
@@ -203,9 +214,10 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
     private void ClearData()
     {
-        //hidFacSystemID.Value = "-1";
+        hidEquipmentSysID.Value = "-1";
         txtFacilityNum.Text = string.Empty;
         drplstSystem.SelectedIndex = -1;
+        drplstBuilding.Enabled = true;
         txtFunction.Text = string.Empty;
         drplstBuilding.SelectedIndex = -1;
         txtFloor.Text = string.Empty;
@@ -241,6 +253,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         txtTJC.Text = string.Empty;
         txtBSLClass.Text = string.Empty;
         trAttachment.Visible = false;
+        btnFinish.Text = "Add Equipment";
     }
 
     private ValidationResult SaveFacilityDetails()
@@ -293,18 +306,26 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
             details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
         details.PMSchedule = txtPMSchedule.Text.Trim();
+             
 
         ValidationResult vr = facility_logic.AddUpdateElectricalEquipment(details);
-        txtFacilityNum.Text = details.FacNum;
-      
+
+        if (details.Key > 0 && vr.Success)
+        {
+            txtFacilityNum.Text = details.FacNum;
+            hidEquipmentSysID.Value = details.Key.ToString();
+
+
+        }
         return vr;
+
     }
 
     #region Attachment Details
 
     private void LoadAttachments()
     {
-        var list = AttachmentLogic.GetAttachments(ElectricalEquipmentSysID, true);
+        var list = AttachmentLogic.GetAttachments(ElectricalEquipmentSysID, false);
 
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();

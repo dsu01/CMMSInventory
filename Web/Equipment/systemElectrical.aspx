@@ -50,8 +50,8 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">System:&nbsp;&nbsp;</font>
-                    <asp:DropDownList ID="drplstSystem" runat="server" SkinID="midDropDown" DataTextField="SystemTitle" DataValueField="SystemTitle" AppendDataBoundItems="true" TabIndex="1">
+                <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">Electrical System:&nbsp;&nbsp;</font>
+                    <asp:DropDownList ID="drplstSystem" runat="server" SkinID="longDropDown" DataTextField="SystemTitle" DataValueField="SystemTitle" AppendDataBoundItems="true" TabIndex="1">
                         <asp:ListItem Value="">--</asp:ListItem>
                     </asp:DropDownList>
                     <asp:RequiredFieldValidator ID="rqSystem" runat="server" ControlToValidate="drplstSystem" Display="Dynamic" ErrorMessage="System is required" InitialValue=""></asp:RequiredFieldValidator>

@@ -84,9 +84,9 @@ public partial class SearchResult : System.Web.UI.Page
             SearchCriteria crit = SearchCriteria.Instance;
             lblExiCrit.Text = "";
             if (!string.IsNullOrEmpty(crit.facnum))
-                lblExiCrit.Text += "&nbsp;, Facility#: " + crit.facnum;
+                lblExiCrit.Text += "&nbsp; <b>Facility#</b>: " + crit.facnum;
             else if (!string.IsNullOrEmpty(crit.wrnum))
-                lblExiCrit.Text += "&nbsp;, Work Request#: " + crit.wrnum;
+                lblExiCrit.Text += "&nbsp; <b> Work Request#</b>: " + crit.wrnum;
             else
             { 
             switch (crit.flagAssigned)
@@ -106,10 +106,10 @@ public partial class SearchResult : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(crit.systemDescs))
                 {
 
-                    lblExiCrit.Text += "&nbsp;, Selction: " + crit.systemDescs;
+                    lblExiCrit.Text += "&nbsp; <b>Selction:</b> " + crit.systemDescs;
                 }
                 else
-                    lblExiCrit.Text += "&nbsp;, Selection: All ";
+                    lblExiCrit.Text += "&nbsp; <b>Selection:</b> All ";
             //if (!string.IsNullOrEmpty(crit.componentIds))
             //     lblExiCrit.Text += "&nbsp;, Components: " + crit.componentIds;
          
@@ -118,10 +118,10 @@ public partial class SearchResult : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(crit.buildingDescs))
                 {
 
-                    lblExiCrit.Text += "&nbsp;, Buildings: " + crit.buildingDescs;
+                    lblExiCrit.Text += "&nbsp; <b>Buildings</b>: " + crit.buildingDescs;
                 }
                 else
-                    lblExiCrit.Text += "&nbsp;, Buildings: All ";
+                    lblExiCrit.Text += "&nbsp; <b>Buildings</b>: All ";
                
                      
             }

@@ -19,11 +19,11 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
     protected LoginUser loginUsr;
 
     public int MechanicalEquipmentSysID
-    {
+    {      
         get
         {
-            return !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"])
-                ? Convert.ToInt32(Request.QueryString["ParentFacilitySysID"])
+            return !string.IsNullOrEmpty(hidFacSystemID.Value)
+                ? Convert.ToInt32(hidFacSystemID.Value)
                 : -1;
         }
     }
@@ -31,13 +31,13 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         loginUsr = Utils.CheckSession(this);
-
+ 
         // initialize attachment control
-        ctrlAddAttachment.ParentSysID = !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"]) ? Request.QueryString["ParentFacilitySysID"] : "-1";
+        ctrlAddAttachment.ParentSysID = !string.IsNullOrEmpty(hidFacSystemID.Value) ? hidFacSystemID.Value : "-1";
         ctrlAddAttachment.AttachmentSaved += CtrlAddAttachment_AttachmentSaved;
 
         if (!Page.IsPostBack)
-        {
+        {            
             DataSet dtSystem = GeneralLookUp.GetSystemList("Mechanical Equipment"); //spn_Inv_GetSystemList_newsite
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
@@ -45,13 +45,24 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
 
-            if (MechanicalEquipmentSysID >= 0)
+            if (Request.QueryString["ParentFacilitySysID"] != null && !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"].ToString()))
             {
-                btnSaveFacility.Text = "Update Equipment";
-                LoadFacilityInfo();
-                trAttachment.Visible = true;
-                drplstBuilding.Enabled = false;
-                txtFacilityNum.Enabled = false;
+                int facID;
+                bool result = Int32.TryParse(Request.QueryString["ParentFacilitySysID"].ToString(), out facID);
+                if (result)
+                {
+                    hidFacSystemID.Value = facID.ToString();                  
+                    btnSaveFacility.Text = "Update Equipment";
+                    LoadFacilityInfo();
+                    trAttachment.Visible = true;
+                    drplstBuilding.Enabled = false;
+                    txtFacilityNum.Enabled = false;
+                }
+                else
+                {
+                    Response.Redirect("~/Default.aspx");
+                }              
+
             }
             else
             {
@@ -259,8 +270,10 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         
             if (details.Key > 0 && vr.Success)
             {               
-                txtFacilityNum.Text = details.FacNum;            
-              
+                txtFacilityNum.Text = details.FacNum;
+                hidFacSystemID.Value = details.Key.ToString();
+
+
             }
             return vr;
 
@@ -277,10 +290,12 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
     }
     private void ClearData()
     {
+        hidFacSystemID.Value = "-1";
         txtFacilityNum.Text = string.Empty;
         drplstSystem.SelectedIndex = -1;
         txtFunction.Text = string.Empty;
         drplstBuilding.SelectedIndex = -1;
+        drplstBuilding.Enabled = true;
         txtFloor.Text = string.Empty;
         txtLocation.Text = string.Empty;
         txtWRNum.Text = string.Empty;
@@ -318,13 +333,14 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         txtInventoryDate.Text = string.Empty;
         trAttachment.Visible = false;
         txtManufacturer.Text = string.Empty;
+        btnSaveFacility.Text = "Add Equipment";
     }
 
     #region Attachment Details
 
     private void LoadAttachments()
     {
-        var list = AttachmentLogic.GetAttachments(MechanicalEquipmentSysID, true);
+        var list = AttachmentLogic.GetAttachments(MechanicalEquipmentSysID, false);
 
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();

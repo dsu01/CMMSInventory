@@ -548,6 +548,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                 txtFacilityNum.Text = details.FacNum;
                 Session["ParentFacilitySysID"] = details.Key.ToString();
                 txtFacilityID.Text = details.FacID.ToString();
+                hidFacilitySysid.Value = details.Key.ToString();
                 trFacilityAttachment.Visible = true;
             }
             else

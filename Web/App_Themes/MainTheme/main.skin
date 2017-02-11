@@ -39,7 +39,7 @@
                 NodeSpacing="0px" VerticalPadding="0px" />
 </asp:TreeView>
 
-<asp:GridView CssClass="GridViewStyle" runat="server" SkinID="gvRegPagingSorting"  AllowSorting="true" AllowPaging="true" PageSize="8" GridLines="None" AutoGenerateColumns="False" Width="100%">
+<asp:GridView CssClass="GridViewStyle" runat="server" SkinID="gvRegPagingSorting"  AllowSorting="true" AllowPaging="true" PageSize="12" GridLines="None" AutoGenerateColumns="False" Width="100%">
    <RowStyle CssClass="RowStyle" Font-size="11px" />
    <PagerStyle CssClass="PagerStyle"  Font-size="11px"/>
    <HeaderStyle CssClass="HeaderStyle"  Font-size="13px"/>

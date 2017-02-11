@@ -81,8 +81,8 @@
 					                                <table >
 						                                <tr>
 							                                <td>
-                                                                <div style="height: 600px; width: 90%; overflow: auto">
-								                                <asp:ListBox ID="lbSystems" style="width:250px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+                                                                <div style="height: 600px; width: 98%; overflow: auto">
+								                                <asp:ListBox ID="lbSystems" style="width:280px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                    </div>
                                                               </td>
 							   
@@ -98,8 +98,8 @@
                                                                 OnClick="btnRemoveAllSystem_Click" />
                                                              </td>
 							                                <td>
-                                                                <div style="height: 600px; width: 90%; overflow: auto">
-								                                <asp:ListBox ID="lbExtSystems" style="width:250px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+                                                                <div style="height: 600px; width: 98%; overflow: auto">
+								                                <asp:ListBox ID="lbExtSystems" style="width:280px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
                                                                 </div>
 							                                </td>
 						                                </tr>
@@ -115,7 +115,7 @@
 					                                <table>
 						                                <tr>
 							                                <td width="200">
-                                                                  <div style="height: 600px; width: 95%; overflow: auto">
+                                                                  <div style="height: 600px; width: 98%; overflow: auto">
 								                                <asp:ListBox ID="lbBuilding"  style="width:200px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                               </div>
                                                               </td>
@@ -131,7 +131,7 @@
                                                                 OnClick="btnRemoveAllBuilding_Click" />
                                                              </td>
 							                                <td width="200">
-                                                                 <div style="height: 600px; width: 95%; overflow: auto">
+                                                                 <div style="height: 600px; width: 98%; overflow: auto">
 								                                <asp:ListBox ID="lbExtBuilding"  style="width:200px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                  </div>
                                                               </td>
@@ -153,7 +153,7 @@
 						                    </td>
     						              
                                    
-                                        <td class="text7"><br /> 
+                                        <td><br /> 
                                             <asp:Button runat="server" ID="btnSearch" CssClass="submitGreen" Text="Search Inventory" UseSubmitBehavior="false" OnClick="btnSearch_Click">
                                                     </asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button runat="server" ID="btnReset" CssClass="submitRed" Text="Reset Criteria" UseSubmitBehavior="false" OnClick="btnReset_Click" >
                                                     </asp:Button>

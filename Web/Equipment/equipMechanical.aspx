@@ -41,7 +41,7 @@
                     </tr>
                     <tr>
                         <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">Mechanical System:&nbsp;&nbsp;</font>
-                            <asp:DropDownList ID="drplstSystem" runat="server" SkinID="midDropDown" DataTextField="SystemTitle" DataValueField="SystemTitle" AppendDataBoundItems="true" TabIndex="1">
+                            <asp:DropDownList ID="drplstSystem" runat="server" SkinID="longDropDown" DataTextField="SystemTitle" DataValueField="SystemTitle" AppendDataBoundItems="true" TabIndex="1">
                                 <asp:ListItem Value="">--</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rqSystem" runat="server" ControlToValidate="drplstSystem" Display="Dynamic" ErrorMessage="System is required" InitialValue=""></asp:RequiredFieldValidator>
@@ -318,7 +318,7 @@
             BehaviorID="psrAtt" PopupControlID="panelAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnClose" />
 
         <asp:Panel ID="panelAttachment" runat="server" Style="width: 750px; background: white; border: 2px black solid; display: none; text-align: left;">
-            <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" IsEquipmentOrFacility="true" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
+            <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" IsEquipmentOrFacility="false" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
             <br />
             <br />
             <div align="center">
