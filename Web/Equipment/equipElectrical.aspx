@@ -181,18 +181,22 @@
                         <asp:TextBox ID="txtInstalledDate" runat="server" TabIndex="25" />
                         <asp:CompareValidator ID="cvInstalledDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:Label ID="lbInventoryDate" CssClass="tableLabel" runat="server" Text="Inventory Date"></asp:Label></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtInventoryDate" runat="server" TabIndex="26" />
-                        <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:Label ID="lbTJC" runat="server" CssClass="tableLabel" Text="TJC Value"></asp:Label>
+                    </td>
+                   <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:TextBox ID="txtTJC" MaxLength="50" runat="server" TabIndex="30" />
+                     <asp:RangeValidator ID="valTJC" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC"></asp:RangeValidator>
+                   
                     </td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:Label ID="lbInventoryBy" CssClass="tableLabel" runat="server" Text="Inventory By"></asp:Label></td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtInventoryBy" runat="server" MaxLength="50" TabIndex="27" />
+                        <asp:Label ID="lbBSLClass" CssClass="tableLabel" runat="server" Text="BSL Class."></asp:Label>
+                    </td>
+                  
+                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" TabIndex="29" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbElectricalOther" CssClass="tableLabel" runat="server" Text="Electrical Other"></asp:Label></td>
@@ -200,21 +204,20 @@
                         <asp:TextBox ID="txtElectricalOther" runat="server" MaxLength="200" TabIndex="28" /></td>
                 </tr>
                 <tr>
-                      <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:Label ID="lbBSLClass" CssClass="tableLabel" runat="server" Text="BSL Class."></asp:Label>
-                    </td>
-                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" TabIndex="29" />
+                     
+                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:Label ID="lbInventoryBy" CssClass="tableLabel" runat="server" Text="Inventory By"></asp:Label></td>
+                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:TextBox ID="txtInventoryBy" runat="server" MaxLength="50" TabIndex="27" />
                     </td>
                 
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:Label ID="lbTJC" runat="server" CssClass="tableLabel" Text="TJC Value"></asp:Label>
+                        <asp:Label ID="lbInventoryDate" CssClass="tableLabel" runat="server" Text="Inventory Date"></asp:Label></td>
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:TextBox ID="txtInventoryDate" runat="server" TabIndex="26" />
+                        <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
-                   <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
-                        <asp:TextBox ID="txtTJC" MaxLength="50" runat="server" TabIndex="30" />
-                     <asp:RangeValidator ID="valTJC" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC"></asp:RangeValidator>
-                   
-                         </td>
+                        
                 </tr>
               <tr>
                     <td class="tableLabel" >

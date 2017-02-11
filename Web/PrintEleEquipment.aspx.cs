@@ -14,6 +14,7 @@ public partial class PrintEleEquipment : System.Web.UI.Page
         if (!IsPostBack)
         {
             int equipID = 0;
+
             if (Request.QueryString["equipmentSysID"] != null && !string.IsNullOrEmpty(Request.QueryString["equipmentSysID"].ToString()))
             {
                 if (Int32.TryParse(Request.QueryString["equipmentSysID"].ToString(), out equipID))
@@ -57,6 +58,7 @@ public partial class PrintEleEquipment : System.Web.UI.Page
                         lbNumCKTS.Text = details.CktsNum;
                         lbCKTSUsed.Text = details.CktsUsed;
 
+                        
                         //txtElectricalOther.Text = details.ElectricalOther;
 
                         //txtModelNum.Text = details.ModelNo;

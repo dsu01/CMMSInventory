@@ -16,7 +16,7 @@
              <div id="displayText" style="display:none"></div>
 	                 <table cellspacing="0" cellpadding="3" width="635" border="0">   
                         <tr style="height:30pt">
-                            <td colspan="4" class="inventoryTopLeftTitle" width="420">Equipment Inventory Card</td>
+                            <td colspan="4" class="inventoryTopLeftTitle" style="border-bottom: solid 1px #000;" width="420">Equipment Inventory Card</td>
                             <td class="inventoryTopRightCell" width="70" valign="baseline">Facility#:</td>
                             <td style="border-bottom: solid 1px #000;" width="130"> 
                              <asp:Label ID="lbFacNum" runat="server" CssClass="text11fix"></asp:Label>        
