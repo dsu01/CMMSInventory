@@ -11,11 +11,11 @@
 		<form id="frmPrintFacility" method="post" runat="server">
 		 <br /><br />  &nbsp;&nbsp; Previous Five <asp:Button Text=" << " ID="btnPreviousFive" runat="server" /> Next Five <asp:Button Text=" >> " ID="btnNextFive" runat="server" />
          &nbsp;&nbsp; <asp:Button ID="btnPrint" CssClass="submitRed" runat="Server" Text="Print Current Page" OnClientClick="Javascript:CallPrint('printGrid','displayText');" UseSubmitBehavior="False" />
-      <br /><br />
+      <br /><br /><asp:Button ID="btnPrintAll" CssClass="submitRed" runat="Server" Text="Print All Pages" OnClientClick="Javascript:CallPrint('printGrid','displayText');" UseSubmitBehavior="False" />
 		<div id="printGrid" style="margin:10px; background-color: white">	
              <div id="displayText" style="display:none"></div>                 
 	 
-                    <table cellspacing="0" cellpadding="3" width="635" border="0">
+                    <table cellspacing="0" cellpadding="3" class="printTable" border="0">
                         <tr style="height: 15pt">
                             <td colspan="4" class="inventoryTopLeftTitle" width="450">Equipment Inventory Card</td>
                             <td class="inventoryTopRightCell" width="70" valign="baseline">Facility#:</td>
@@ -25,7 +25,7 @@
 
                         </tr>
                         <tr style="height: 12pt">
-                            <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">System:&nbsp;&nbsp;</font>
+                            <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">Electrical System:&nbsp;&nbsp;</font>
                                 <span id="lbFacSystem1" class="text11fix">Air Handling Unit</span>
                             </td>
                             <td class="inventoryTopRightCell"><font color="#BA3516">Facility ID:</font></td>
@@ -52,7 +52,7 @@
                                 <input name="lbWRNumber1" type="text" value="asdasdasd" id="lbWRNumber1" class="noBorderTextBoxForPrint" /></td>
                         </tr>
                     </table>
-                    <table width="635" border="0" cellpadding="1" cellspacing="0" class="componentTable">
+                    <table class="printTable" border="0" cellpadding="1" cellspacing="0">
 
                         <tr style="height: 10pt">
                             <td class="leftLabel" width="160">1.Equipment ID:</td>
@@ -403,7 +403,7 @@
 
 
                     </table>
-                    <table width="635" border="0">
+                    <table width="635" class="printTable"border="0">
                         <tr style="height: 18pt">
                             <td class="leftLabel" colspan="2">Comments:<br />
                                 <input name="lbComments1" type="text" value="Test comment information here.Test comment information here.Test comment information here.Test comment information here.Test comment information here.Test comment information here.Test comment information here." id="lbComments1" class="noborderCommentForPrint" />
