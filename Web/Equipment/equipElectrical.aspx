@@ -49,7 +49,7 @@
             <table cellspacing="0" cellpadding="5" width="100%" border="0">
 
                 <tr>
-                    <td colspan="4" class="inventoryTopLeftTitle" width="60%">Equipment Inventory Card</td>
+                    <td colspan="4" class="inventoryTopLeftTitle" width="60%">Electrical Equipment Inventory Card</td>
                     <td class="inventoryTopRightCell" width="15%" valign="baseline">Facility#:</td>
                     <td style="border-bottom: solid 1px #000;" width="25%">
                         <font color="gray">&nbsp;<asp:Label ID="txtFacilityNum" runat="server"></asp:Label></font>

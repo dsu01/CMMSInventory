@@ -63,15 +63,18 @@ public partial class SearchResult : System.Web.UI.Page
     protected void btnExportToExcel_OnClick(object sender, EventArgs e)
     {
         gvFacilitys.AllowPaging = false;
-        GetOrder(DTSearchDetail);
-      //  Utils.ExportToExcel("InventoryReport", gvFacilitys);
+        gvFacilitys.Columns[7].Visible = false;
+        gvFacilitys.Columns[8].Visible = false;
+        //  GetOrder(DTSearchDetail);
+        Utils.ExportToExcel("InventoryReport", gvFacilitys, "InventoryReport", null);
     }
 
     protected void btnExportToPDF_OnClick(object sender, EventArgs e)
     {
         gvFacilitys.AllowPaging = false;
-        GetOrder(DTSearchDetail);
-       // Utils.ExportToPDF("InventoryReport", gvFacilitys, "Inventory Report");
+        gvFacilitys.Columns[7].Visible = false;
+        gvFacilitys.Columns[8].Visible = false;
+        Utils.ExportToPDF("InventoryReport", gvFacilitys, "InventoryReport", null);
     }
 
     private void RunReport()

@@ -59,8 +59,8 @@
                                         <ContentTemplate> 
                                              <table width="100%" cellpadding="3" cellspacing="0" style="background-color:White; border: solid 1px Maroon">
                                      <tr>
-                                       <td class="leftLabel">Type:</td>
-                                            <td align="left" class="text7">                                            
+                                     
+                                            <td align="left" class="leftLabel">                                         
                                              <asp:RadioButtonList ID="rblstType" runat="server" RepeatDirection="Horizontal" OnSelectedIndexChanged="rblstType_SelectedIndexChanged" AutoPostBack="true" >
                                                  <asp:ListItem Text="All" Value="0"></asp:ListItem>
                                                   <asp:ListItem Text="Mechanical" Value="1"></asp:ListItem>
@@ -68,92 +68,91 @@
                                              </asp:RadioButtonList>
                                        <asp:RequiredFieldValidator ID="rqType" runat="server" ControlToValidate="rblstType" Display="Dynamic" ErrorMessage="Please select a Type" InitialValue=""></asp:RequiredFieldValidator>
                                          </td>
+
+                                         <td class="leftLabel"><br />Building:</td>
                                     </tr>
                                  
                                      <tr>    				    
-				                        <td class="leftLabel">Selection:</td>
+				                      
 				                        <td class="text7">
 				                         <!-- Only this area is updated on PostBack -->
                                                 <asp:UpdatePanel ID="updatePnl2" runat="server" UpdateMode="conditional">
                                                     <ContentTemplate>
-					                                <table width="500">
+					                                <table >
 						                                <tr>
-							                                <td width="300">
-								                                <asp:ListBox ID="lbSystems" style="width:300px; height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
-							                                </td>
+							                                <td>
+                                                                <div style="height: 600px; width: 90%; overflow: auto">
+								                                <asp:ListBox ID="lbSystems" style="width:250px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                                    </div>
+                                                              </td>
 							   
-							                                 <td  width="90" align="center">
+							                                 <td align="center" width="100">
 				                                               
-					                                            <asp:button Text="  add >>" Runat="server" ID="btnSelectSystem" Width="80" CausesValidation="false" OnClick="btnSelectSystem_Click" UseSubmitBehavior="False"></asp:button><br />
+					                                            <asp:button Text="add>>" Runat="server" ID="btnSelectSystem" CssClass="text7" Width="50" CausesValidation="false" OnClick="btnSelectSystem_Click" UseSubmitBehavior="False"></asp:button><br />
 					                                            <br />
-					                                            <asp:button Text=" remove <<" Runat="server" ID="btnRemoveSystem" Width="80" CausesValidation="false" OnClick="btnRemoveSystem_Click" UseSubmitBehavior="False"></asp:button>
+					                                            <asp:button Text="remove<<" Runat="server" ID="btnRemoveSystem" CssClass="text7" Width="50" CausesValidation="false" OnClick="btnRemoveSystem_Click" UseSubmitBehavior="False"></asp:button>
 				                                                 <br /><br />
-                                                                 <asp:Button ID="btnSelectAllSystem" runat="server" Text=" add all   >>" CausesValidation="false"
+                                                                 <asp:Button ID="btnSelectAllSystem" runat="server" Text=" add all>>" CausesValidation="false" CssClass="text7"
                                                                 OnClick="btnAddAllSystem_Click" /><br /><br />
-                                                                 <asp:Button ID="btnRemoveAllSystem" runat="server" Text=" remove all <<" CausesValidation="false"
+                                                                 <asp:Button ID="btnRemoveAllSystem" runat="server" Text=" remove all<<" CausesValidation="false" CssClass="text7"
                                                                 OnClick="btnRemoveAllSystem_Click" />
                                                              </td>
-							                                <td width="300">
-								                                <asp:ListBox ID="lbExtSystems" style="width:300px; height:300px" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                                <td>
+                                                                <div style="height: 600px; width: 90%; overflow: auto">
+								                                <asp:ListBox ID="lbExtSystems" style="width:250px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+                                                                </div>
 							                                </td>
 						                                </tr>
 					                                </table>
 					                            </ContentTemplate>
                                                 </asp:UpdatePanel>
-				                        </td>
-			                        </tr>
-                            
-                                    <%--  <tr>
-                                         <td></td>
-                                         <td style="color:darkgreen; font-size:.8em;">(current seleted building: <asp:Label ID="lbSelectedBuildingValue" runat="server"></asp:Label>)
-                                         </td>                                            
-                                    </tr>--%>
-                                                
-                                    <tr>   
-						                   
-                                            <td class="leftLabel">Facility# assigned?</td>
-                                            <td align="left" class="text7">
-                                                <asp:RadioButtonList ID="radioSelect" runat="server" RepeatDirection="Horizontal">
-						                        <asp:ListItem Text="Un-Assigned" Value="1" />
-						                        <asp:ListItem Text="Assigned" Value="2" />
-						                        <asp:ListItem Text="All" Value="3" Selected="True" />
-						                     </asp:RadioButtonList>
-						                    </td>
-    						           </tr>       
-                                                      
-                                     <tr>    				    
-				                        <td class="leftLabel">Building:</td>
+				                        </td>		                        				    
+				                      
 				                        <td class="text7">
 				                         <!-- Only this area is updated on PostBack -->
                                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="conditional">
                                                     <ContentTemplate>
-					                                <table width="500">
+					                                <table>
 						                                <tr>
-							                                <td width="300">
-								                                <asp:ListBox ID="lbBuilding"  style="width:300px; height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
-							                                </td>
-							   
-							                                 <td  width="90" align="center">
+							                                <td width="200">
+                                                                  <div style="height: 600px; width: 95%; overflow: auto">
+								                                <asp:ListBox ID="lbBuilding"  style="width:200px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                               </div>
+                                                              </td>
+							                                  <td align="center">
 				                                               
-					                                            <asp:button Text="  add >>" Runat="server" ID="btnSelectBuilding" Width="80" CausesValidation="false" OnClick="btnSelectBuilding_Click" UseSubmitBehavior="False"></asp:button><br />
+					                                            <asp:button Text="add>>" Runat="server" ID="btnSelectBuilding" CssClass="text7" Width="50" CausesValidation="false" OnClick="btnSelectBuilding_Click" UseSubmitBehavior="False"></asp:button><br />
 					                                            <br />
-					                                            <asp:button Text=" remove <<" Runat="server" ID="btnRemoveBuilding" Width="80" CausesValidation="false" OnClick="btnRemoveBuilding_Click" UseSubmitBehavior="False"></asp:button>
+					                                            <asp:button Text="remove<<" Runat="server" ID="btnRemoveBuilding" CssClass="text7" Width="50" CausesValidation="false" OnClick="btnRemoveBuilding_Click" UseSubmitBehavior="False"></asp:button>
 				                                              <br /><br />
-                                                                 <asp:Button ID="btnSelectAllBuilding" runat="server" Text=" add all   >>" CausesValidation="false"
+                                                                 <asp:Button ID="btnSelectAllBuilding" runat="server" Text=" add all>>" CausesValidation="false" CssClass="text7"
                                                                 OnClick="btnAddAllBuilding_Click" /><br /><br />
-                                                                 <asp:Button ID="btnRemoveAllBuilding" runat="server" Text=" remove all <<" CausesValidation="false"
+                                                                 <asp:Button ID="btnRemoveAllBuilding" runat="server" Text=" remove all<<" CausesValidation="false" CssClass="text7"
                                                                 OnClick="btnRemoveAllBuilding_Click" />
                                                              </td>
-							                                <td width="300">
-								                                <asp:ListBox ID="lbExtBuilding" style="width:300px; height:300px"  SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
-							                                </td>
+							                                <td width="200">
+                                                                 <div style="height: 600px; width: 95%; overflow: auto">
+								                                <asp:ListBox ID="lbExtBuilding"  style="width:200px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                                  </div>
+                                                              </td>
 						                                </tr>
 					                                </table>
 					                            </ContentTemplate>
                                                 </asp:UpdatePanel>
 				                        </td>
 			                        </tr>  
-                                      <tr><td>&nbsp;</td>
+                                     <tr>   
+						                   
+                                            <td class="text7"><br /><b>Facility# assigned?</b>
+                                           
+                                                <asp:RadioButtonList ID="radioSelect" runat="server" RepeatDirection="Horizontal">
+						                        <asp:ListItem Text="Un-Assigned" Value="1" />
+						                        <asp:ListItem Text="Assigned" Value="2" />
+						                        <asp:ListItem Text="All" Value="3" Selected="True" />
+						                     </asp:RadioButtonList>
+						                    </td>
+    						              
+                                   
                                         <td class="text7"><br /> 
                                             <asp:Button runat="server" ID="btnSearch" CssClass="submitGreen" Text="Search Inventory" UseSubmitBehavior="false" OnClick="btnSearch_Click">
                                                     </asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button runat="server" ID="btnReset" CssClass="submitRed" Text="Reset Criteria" UseSubmitBehavior="false" OnClick="btnReset_Click" >

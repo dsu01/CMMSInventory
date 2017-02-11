@@ -34,7 +34,7 @@
   <asp:Panel ID="generalInfoPanel" runat="server">
                 <table cellspacing="0" cellpadding="5" width="100%" border="0">
                     <tr>
-                        <td id="InventoryCardTitle" colspan="4" class="inventoryTopLeftTitle" width="50%">Equipment Inventory Card</td>
+                        <td id="InventoryCardTitle" colspan="4" class="inventoryTopLeftTitle" width="50%">Mechanical Facility Inventory Card</td>
                         <td class="inventoryTopRightCell" width="15%" valign="baseline">Facility#:</td>
                         <td style="border-bottom: solid 1px #000;" width="35%" colspan="3">
                             <font color="gray">&nbsp;<asp:Label ID="txtFacilityNum" runat="server" /></font>

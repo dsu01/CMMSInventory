@@ -27,7 +27,7 @@
                                             <tr>
                                                 <td align="right">
                                                     <asp:Button ID="btnExportToExcel" runat="Server" Text="Export To Excel" OnClick="btnExportToExcel_OnClick" UseSubmitBehavior="false"/>
-                                                    <asp:Button ID="btnExportToPDF" runat="Server" Text="Export To PDF" OnClick="btnExportToPDF_OnClick" UseSubmitBehavior="false"/>
+                                                    <asp:Button ID="btnExportToPDF" Visible="false" runat="Server" Text="Export To PDF" OnClick="btnExportToPDF_OnClick" UseSubmitBehavior="false"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -60,10 +60,42 @@
                                                <asp:Label runat="server" Visible="false" ID="lblHidFacilityID" Text='<%#Eval("ID")%>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField> 
-				                  <asp:TemplateField HeaderText="# of Equipments" ItemStyle-Width="120" ItemStyle-HorizontalAlign="Center">
+				                 
+                                   <asp:TemplateField HeaderText="Building" ItemStyle-HorizontalAlign="Center" SortExpression="Building">
 					                <ItemTemplate>
-						                <asp:Label id="lblNumEquip" runat="server" text='<%# Eval("TotalEquipments") %>' />
-                                        
+						                <asp:Label id="lblBuilding" runat="server" text='<%# Eval("Building") %>' />
+					                </ItemTemplate>					
+				                </asp:TemplateField>   
+				                <asp:TemplateField HeaderText="Facility ID" ItemStyle-HorizontalAlign="Center" SortExpression="FacilityID">
+					                <ItemTemplate>
+					
+						                <asp:Label id="lblFacilityID" runat="server" text='<%# Eval("FacilityID") %>' />
+					                </ItemTemplate>				
+				                </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="Facility System" ItemStyle-HorizontalAlign="Center" SortExpression="FacilitySystem">
+					                <ItemTemplate>
+						                <asp:Label ID="lblFacSystem" runat="server" Text='<%# Eval("FacilitySystem") %>' />
+						
+					                </ItemTemplate>												
+	                            </asp:TemplateField>
+                                
+                                     <asp:TemplateField HeaderText="Location" ItemStyle-HorizontalAlign="Center" SortExpression="Location">
+					                <ItemTemplate>
+						                <asp:Label id="lblLocation" runat="server" text='<%# Eval("Location") %>' />
+					                </ItemTemplate>					
+				                </asp:TemplateField>
+				                <asp:TemplateField HeaderText="Facility Function" ItemStyle-HorizontalAlign="Center" SortExpression="FacilityFunction">
+					                <ItemTemplate>
+						                <asp:Label id="lblFacFunction" runat="server" text='<%# Eval("FacilityFunction") %>' />
+					                </ItemTemplate>					
+				                </asp:TemplateField>
+                                   <asp:TemplateField HeaderText="Components" ItemStyle-HorizontalAlign="Center" SortExpression="TotalEquipments">
+					                <ItemTemplate>
+						                <asp:Label id="lblTotalEquipments" runat="server" text='<%# Eval("TotalEquipments") %>' />
+					                </ItemTemplate>					
+				                </asp:TemplateField>  
+                                      <asp:TemplateField HeaderText="View Components" ItemStyle-Width="120" ItemStyle-HorizontalAlign="Center">
+					                <ItemTemplate>
                                          <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/btn_edit.gif" Width="16" height="16" />
                                             <ajaxToolkit:PopupControlExtender 
                                                 ID="PopupControlExtender1" 
@@ -80,35 +112,7 @@
                                                         
 					                </ItemTemplate>					
 				                </asp:TemplateField>
-                                     
-				                <asp:TemplateField HeaderText="Facility ID" ItemStyle-HorizontalAlign="Center" SortExpression="FacilityID">
-					                <ItemTemplate>
-					
-						                <asp:Label id="lblFacilityID" runat="server" text='<%# Eval("FacilityID") %>' />
-					                </ItemTemplate>				
-				                </asp:TemplateField>
-				                <asp:TemplateField HeaderText="Facility Function" ItemStyle-HorizontalAlign="Center" SortExpression="FacilityFunction">
-					                <ItemTemplate>
-						                <asp:Label id="lblFacFunction" runat="server" text='<%# Eval("FacilityFunction") %>' />
-					                </ItemTemplate>					
-				                </asp:TemplateField>
-				                 <asp:TemplateField HeaderText="Facility System" ItemStyle-HorizontalAlign="Center" SortExpression="FacilitySystem">
-					                <ItemTemplate>
-						                <asp:Label ID="lblFacSystem" runat="server" Text='<%# Eval("FacilitySystem") %>' />
-						
-					                </ItemTemplate>												
-	                            </asp:TemplateField>
-				                <asp:TemplateField HeaderText="Building" ItemStyle-HorizontalAlign="Center" SortExpression="Building">
-					                <ItemTemplate>
-						                <asp:Label id="lblBuilding" runat="server" text='<%# Eval("Building") %>' />
-					                </ItemTemplate>					
-				                </asp:TemplateField>																		
-				                <asp:TemplateField HeaderText="Location" ItemStyle-HorizontalAlign="Center" SortExpression="Location">
-					                <ItemTemplate>
-						                <asp:Label id="lblLocation" runat="server" text='<%# Eval("Location") %>' />
-					                </ItemTemplate>					
-				                </asp:TemplateField>
-				              
+                                 				              
 					             <asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="Center">
 					                <ItemTemplate>
                                             <asp:Hyperlink id="hlAction" runat="server" Text='Action'                                    

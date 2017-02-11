@@ -10,12 +10,13 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Text;
-//using iTextSharp.text;
+using iTextSharp.text;
 using System.Collections.Generic;
 using System.IO;
-//using iTextSharp.text.pdf;
+using iTextSharp.text.pdf;
 using NIH.CMMS.Inventory.BOL.People;
 using NIH.CMMS.Inventory.BOL.Common;
+
 
 namespace NIH.CMMS.Inventory.Web
 {
@@ -24,6 +25,7 @@ namespace NIH.CMMS.Inventory.Web
     /// </summary>
     public static class Utils
     {
+        public static List<Cell> cells = new List<Cell>();
         private static string[] AllowedExtensions = new string[]
             {
                 ".DOC",
@@ -43,10 +45,602 @@ namespace NIH.CMMS.Inventory.Web
             }
             ;
 
-        public static List<string> cells = new List<string>();
+       
 
         #region "Report functions"
+        public static void ExportToExcel(string fileName, GridView gv, string title, Dictionary<string, string> args)
+        {
+            gv.GridLines = GridLines.Both;
 
+            using (StringWriter sw = new StringWriter())
+            {
+                using (HtmlTextWriter htw = new HtmlTextWriter(sw))
+                {
+                    //  Create a table to contain the grid
+                    System.Web.UI.WebControls.Table table = new System.Web.UI.WebControls.Table();
+
+                    //  include the gridline settings
+                    table.GridLines = gv.GridLines;
+
+                    int colCount = 0;
+                    for (int i = 0; i < gv.Columns.Count; i++)
+                    {
+                        DataControlField dcf = gv.Columns[i];
+                        if (!dcf.Visible)
+                        {
+                            gv.HeaderRow.Cells.RemoveAt(gv.Columns.IndexOf(dcf));
+                            gv.FooterRow.Cells.RemoveAt(gv.Columns.IndexOf(dcf));
+                            foreach (GridViewRow dr in gv.Rows)
+                            {
+                                dr.Cells.RemoveAt(gv.Columns.IndexOf(dcf));
+                            }
+                            gv.Columns.Remove(dcf);
+                            i--;
+                        }
+                        else colCount++;
+                    }
+
+
+
+                    int infoRowsCount = 0;
+                    if (args != null && args.Count > 0)
+                    {
+                        table.Rows.Add(new TableRow());
+                        for (int cc = 0; cc < colCount; cc++) table.Rows[0].Cells.AddAt(cc, new TableCell());
+                        infoRowsCount++;
+
+                        if (!String.IsNullOrEmpty(title))
+                        {
+                            table.Rows.Add(new TableRow());
+                            for (int cc = 0; cc < colCount; cc++) table.Rows[1].Cells.AddAt(cc, new TableCell());
+                            table.Rows[1].Cells[0].Text = title;
+                            infoRowsCount++;
+
+                            table.Rows.Add(new TableRow());
+                            for (int cc = 0; cc < colCount; cc++) table.Rows[2].Cells.AddAt(cc, new TableCell());
+                            infoRowsCount++;
+                        }
+
+                        foreach (string arg in args.Keys)
+                        {
+                            table.Rows.Add(new TableRow());
+                            for (int cc = 0; cc < colCount; cc++) table.Rows[3].Cells.AddAt(cc, new TableCell());
+                            table.Rows[3].Cells[0].Text = arg;
+                            table.Rows[3].Cells[1].Text = args[arg].ToString();
+                            infoRowsCount++;
+                        }
+
+                        table.Rows.Add(new TableRow());
+                        for (int cc = 0; cc < colCount; cc++) table.Rows[4].Cells.AddAt(cc, new TableCell());
+                        infoRowsCount++;
+                    }
+
+
+                    //  add the header row to the table
+                    TableRow trHeader = null;
+                    if (gv.HeaderRow != null)
+                    {
+                        PrepareControlForExport(gv.HeaderRow);
+                        table.Rows.Add(gv.HeaderRow);
+                        trHeader = table.Rows[infoRowsCount];
+                    }
+
+                    //  add each of the data rows to the table
+                    foreach (GridViewRow row in gv.Rows)
+                    {
+                        PrepareControlForExport(row);
+                        table.Rows.Add(row);
+                    }
+
+                    //  add the footer row to the table
+                    TableRow trFooter = null;
+                    if (gv.FooterRow != null)
+                    {
+                        PrepareControlForExport(gv.FooterRow);
+                        table.Rows.Add(gv.FooterRow);
+                        trFooter = table.Rows[table.Rows.Count - 1];
+                    }
+
+                    List<int> columnsToRemove = new List<int>();
+                    foreach (TableRow row in table.Rows)
+                    {
+                        if (table.Rows.GetRowIndex(row) < infoRowsCount) continue;
+                        if (row == trHeader || row == trFooter) continue;
+
+                        for (int r = 0; r < row.Cells.Count; r++)
+                        {
+                            LiteralControl ltlCell = null;
+                            foreach (Control ctl in row.Cells[r].Controls)
+                            {
+                                if (ctl is LiteralControl &&
+                                    (ctl as LiteralControl).Text.Trim().StartsWith("<b>"))
+                                    ltlCell = ctl as LiteralControl;
+                            }
+
+                            if (ltlCell != null)
+                            {
+                                if (!columnsToRemove.Contains(r)) columnsToRemove.Add(r);
+
+                                string[] newCols =
+                                    ltlCell.Text.Replace("<br />", "~").Replace("<br/>", "~").Split('~');
+
+                                for (int r2 = 0; r2 < newCols.Length; r2++)
+                                {
+                                    if (String.IsNullOrEmpty(newCols[r2])) continue;
+
+                                    string newCol = newCols[r2];
+                                    string heading = newCol.Substring(0, newCol.IndexOf("</b>") + 4).Replace(":", "").Trim();
+                                    string content = newCol.Substring(newCol.IndexOf("</b>") + 4).Trim();
+
+                                    if (String.IsNullOrEmpty(heading)) continue;
+
+                                    int headerIndex = -1;
+                                    foreach (TableCell tmp in trHeader.Cells)
+                                    {
+                                        foreach (Control ctl in tmp.Controls)
+                                        {
+                                            if (ctl is LiteralControl &&
+                                                (ctl as LiteralControl).Text.Equals(heading))
+                                                headerIndex = trHeader.Cells.GetCellIndex(tmp);
+                                        }
+                                    }
+
+                                    if (headerIndex == -1)
+                                    {
+                                        TableCell newHeader = new TableCell();
+                                        newHeader.Controls.Add(new LiteralControl(heading));
+                                        trHeader.Cells.Add(newHeader);
+                                        headerIndex = trHeader.Cells.GetCellIndex(newHeader);
+
+                                        for (int rc = 0; rc < table.Rows.Count; rc++)
+                                        {
+                                            TableRow testRow = table.Rows[rc];
+                                            if (table.Rows.GetRowIndex(row) < infoRowsCount) continue;
+                                            if (testRow == trHeader || testRow == trFooter) continue;
+                                            if (testRow.Cells.Count < headerIndex)
+                                            {
+                                                for (int i = testRow.Cells.Count; i < headerIndex; i++)
+                                                {
+                                                    testRow.Cells.AddAt(i, new TableCell());
+                                                }
+                                            }
+                                            testRow.Cells.AddAt(headerIndex, new TableCell());
+                                        }
+
+                                        TableCell newFooter = new TableCell();
+                                        newFooter.Controls.Add(new LiteralControl(string.Empty));
+                                        trFooter.Cells.AddAt(headerIndex, newFooter);
+                                    }
+
+                                    row.Cells[headerIndex].Controls.Clear();
+                                    row.Cells[headerIndex].Controls.Add(new LiteralControl(content));
+
+                                }
+                            }
+                        }
+                    }
+                    foreach (int idx in columnsToRemove)
+                    {
+                        foreach (TableRow row in table.Rows)
+                        {
+                            if (row.Cells.Count >= idx) row.Cells.RemoveAt(idx);
+                        }
+                    }
+
+                    try
+                    {
+                        //  render the table into the htmlwriter
+                        table.RenderControl(htw);
+
+                        //  render the htmlwriter into the response
+                        HttpContext.Current.Response.Clear();
+                        HttpContext.Current.Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", fileName + ".xls"));
+                        HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+                        HttpContext.Current.Response.Write(sw.ToString());
+                        HttpContext.Current.Response.Charset = "";
+                        // HttpContext.Current.Response.BufferOutput = false;
+                        HttpContext.Current.Response.Flush();
+
+
+
+                        //    HttpContext.Current.Response.Clear();
+                        //    HttpContext.Current.Response.Buffer = true;
+                        //    HttpContext.Current.Response.Charset = "";
+                        //    HttpContext.Current.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                        //    HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=GridView.xlsx");
+                        //HttpContext.Current.Response.Write(sw.ToString());
+                        //HttpContext.Current.Response.Flush();
+                        //        HttpContext.Current.Response.End();
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        HttpContext.Current.Response.End();
+                    }
+                }
+            }
+        }
+
+        #region private static void PrepareControlForExport(Control control)
+        private static void PrepareControlForExport(Control control)
+        {
+            for (int i = 0; i < control.Controls.Count; i++)
+            {
+                bool recurse = true;
+                Control current = control.Controls[i];
+                if (current.GetType().ToString().Equals("System.Web.UI.WebControls.DataControlLinkButton"))
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
+                }
+                else if (current is LinkButton)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
+                }
+                else if (current is ImageButton)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as ImageButton).AlternateText));
+                }
+                else if (current is HyperLink)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as HyperLink).Text));
+                }
+                else if (current is DropDownList)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as DropDownList).SelectedItem.Text));
+                }
+                else if (current is CheckBox)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as CheckBox).Checked ? "True" : "False"));
+                }
+                else if (current is Label)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as Label).Text));
+                }
+                else if (current is System.Web.UI.WebControls.Literal)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as Literal).Text));
+                }
+                else if (current is System.Web.UI.WebControls.TableCell)
+                {
+                    int idx = (control as GridViewRow).Cells.GetCellIndex((current as TableCell));
+                    GridView gv = (GridView)(control as GridViewRow).NamingContainer;
+
+                    if (gv.Columns[idx].Visible)
+                    {
+                        if (!String.IsNullOrEmpty((current as TableCell).Text))
+                        {
+                            recurse = true;
+                            control.Controls.Remove(current);
+                            TableCell tc = new TableCell();
+                            Literal lit = new Literal();
+                            lit.Text = (current as TableCell).Text;
+                            tc.Controls.Add(lit);
+                            control.Controls.AddAt(idx, tc);
+                            current = tc;
+                        }
+                    }
+                    else
+                    {
+                        recurse = false;
+                        control.Controls.Remove(current);
+                    }
+                }
+
+                if (recurse && current.HasControls())
+                {
+                    PrepareControlForExport(current);
+                }
+            }
+        }
+        #endregion
+
+        #region public static void ExportToPDF(string fileName, GridView gv)
+        public static void ExportToPDF(string fileName, GridView gv)
+        {
+            ExportToPDF(fileName, gv, null, null);
+        }
+        public static void ExportToPDF(string fileName, GridView gv, string title, Dictionary<string, string> args)
+        {
+
+            // initialize cells;
+            cells.Clear();
+            Document doc = new Document(PageSize.LEGAL.Rotate(), 0, 0, 15, 15);
+            StringBuilder strData = new StringBuilder(string.Empty);
+            try
+            {
+                StringWriter sw = new StringWriter();
+                sw.WriteLine(Environment.NewLine);
+                sw.WriteLine(Environment.NewLine);
+                sw.WriteLine(Environment.NewLine);
+                sw.WriteLine(Environment.NewLine);
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                int colCount = 0;
+                for (int i = 0; i < gv.Columns.Count; i++)
+                {
+                    DataControlField dcf = gv.Columns[i];
+                    if (!dcf.Visible)
+                    {
+                        gv.HeaderRow.Cells.RemoveAt(gv.Columns.IndexOf(dcf));
+                        gv.FooterRow.Cells.RemoveAt(gv.Columns.IndexOf(dcf));
+                        foreach (GridViewRow dr in gv.Rows)
+                        {
+                            dr.Cells.RemoveAt(gv.Columns.IndexOf(dcf));
+                        }
+                        gv.Columns.Remove(dcf);
+                        i--;
+                    }
+                    else colCount++;
+                }
+
+                iTextSharp.text.Table table = new iTextSharp.text.Table(colCount);
+
+                table.BorderWidth = 1;
+                table.BorderColor = new Color(0, 0, 255);
+                table.Padding = 4;
+                table.Width = 100;
+
+                List<string> columnHeaders = new List<string>();
+
+                for (int i = 0; i < gv.Columns.Count; i++)
+                {
+                    if (gv.Columns[i].Visible) columnHeaders.Add(gv.Columns[i].HeaderText);
+                }
+
+                if (args != null && args.Count > 0)
+                {
+                    for (int i = 0; i < colCount; i++) table.AddCell(new Cell());
+
+                    table.AddCell(new Cell(title));
+                    for (int i = 0; i < colCount - 1; i++) table.AddCell(new Cell());
+
+                    for (int i = 0; i < colCount; i++) table.AddCell(new Cell());
+
+                    foreach (string arg in args.Keys)
+                    {
+                        table.AddCell(new Cell(arg));
+                        table.AddCell(new Cell(args[arg].ToString()));
+                        for (int i = 0; i < colCount - 2; i++) table.AddCell(new Cell());
+                    }
+
+                    for (int i = 0; i < colCount; i++) table.AddCell(new Cell());
+                }
+
+                // create the *table* header row
+                for (int i = 0; i < columnHeaders.Count; ++i)
+                {
+                    Cell cell = new Cell(columnHeaders[i]);
+                    cell.Header = true;
+                    cell.BackgroundColor = new Color(204, 204, 204);
+                    table.AddCell(cell);
+                }
+                List<Cell> rowList = new List<Cell>();
+                List<Cell> rowListFiltered = new List<Cell>();
+                foreach (GridViewRow row in gv.Rows)
+                {
+                    rowList.Clear();
+                    rowList = getRowPdfData(row);
+
+                    foreach (Cell item in rowList)
+                    {
+                        table.AddCell(item);
+                    }
+                }
+
+                List<Cell> footer = new List<Cell>();
+                //  add the footer row to the table
+                if (gv.FooterRow != null && gv.ShowFooter)
+                {
+                    footer = getRowPdfData(gv.FooterRow);
+                    foreach (Cell item in footer)
+                    {
+                        table.AddCell(item);
+                    }
+                }
+
+                PdfWriter.GetInstance(doc, HttpContext.Current.Response.OutputStream);
+
+                // create document's header; 
+                // set header [1] text [2] font style
+                //HeaderFooter header = new HeaderFooter(
+                //  new Phrase("Report Creation Date " +
+                //    DateTime.UtcNow.ToString("MM-dd-yyyy "),
+                //    new Font(Font.COURIER, 14)
+                //  ),
+                //  false
+                //);
+                //// top & bottom borders on by default 
+                //header.Border = Rectangle.NO_BORDER;
+                //// center header
+                //header.Alignment = 1;
+                //// add header *before* opening document
+                //doc.Header = header;
+
+                doc.Open();
+
+                // report "title"
+                Paragraph p = new Paragraph(" ");
+                p.Alignment = 1;
+                doc.Add(p);
+
+                // add tabular data;    
+
+                doc.Add(table);
+
+                doc.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (doc != null) doc.Close();
+            }
+
+            try
+            {
+                HttpContext.Current.Response.AddHeader("Content-Disposition", String.Format("attachment; filename={0}", fileName + ".pdf"));
+                HttpContext.Current.Response.ContentType = "application/pdf";
+                HttpContext.Current.Response.BufferOutput = false;
+                HttpContext.Current.Response.Flush();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                HttpContext.Current.Response.End();
+            }
+        }
+        #endregion
+
+        #region public static List<string> getRowPdfData(Control control)
+        public static List<Cell> getRowPdfData(Control control)
+        {
+            /*******************************************
+             *  Use this logic flow, in order to
+             *  support multiple controls per column.
+             * *****************************************
+                //GridViewRow dr = (GridViewRow)control;
+                //for (int i = 0; i < control.Controls.Count; i++)
+                //{
+                //    foreach (TableCell tc in dr.Cells)
+                //    {
+                //        foreach (Control current in tc.Controls)
+                //        {
+
+                //        }
+                //    }
+                //}
+             * ****************************************/
+            for (int i = 0; i < control.Controls.Count; i++)
+            {
+                bool recurse = true;
+                Control current = control.Controls[i];
+                if (current.GetType().ToString().Equals("System.Web.UI.WebControls.DataControlLinkButton"))
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
+                    cells.Add(new Cell((current as LinkButton).Text));
+                }
+                else if (current is LinkButton)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
+                    cells.Add(new Cell((current as LinkButton).Text));
+                }
+                else if (current is HyperLink)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as HyperLink).Text));
+                    cells.Add(new Cell((current as HyperLink).Text));
+
+                }
+                else if (current is DropDownList)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as DropDownList).SelectedItem.Text));
+                    cells.Add(new Cell((current as DropDownList).SelectedItem.Text));
+                }
+                else if (current is CheckBox)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as CheckBox).Checked ? "True" : "False"));
+                    cells.Add(new Cell((current as CheckBox).Checked ? "True" : "False"));
+                }
+                else if (current is Label)
+                {
+                    control.Controls.Remove(current);
+                    if ((current as Label).Text.Contains("<b>"))
+                    {
+                        (current as Label).Text = (current as Label).Text.Replace("<b>", "");
+                    }
+                    if ((current as Label).Text.Contains("</b>"))
+                    {
+                        (current as Label).Text = (current as Label).Text.Replace("</b>", "");
+                    }
+                    if ((current as Label).Text.Contains("<br/>"))
+                    {
+                        (current as Label).Text = (current as Label).Text.Replace("<br/>", "\n");
+                    }
+                    control.Controls.AddAt(i, new LiteralControl((current as Label).Text));
+                    cells.Add(new Cell((current as Label).Text));
+                }
+                else if (current is System.Web.UI.WebControls.Image)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as System.Web.UI.WebControls.Image).ToolTip));
+
+                    string imageUrl = (current as System.Web.UI.WebControls.Image).ImageUrl;
+                    if (!String.IsNullOrEmpty(imageUrl))
+                    {
+                        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(new Uri(imageUrl));
+                        img.Alignment = iTextSharp.text.Image.MIDDLE_ALIGN;
+                        cells.Add(new Cell(img));
+                    }
+                    else cells.Add(new Cell(string.Empty));
+                }
+                else if (current is System.Web.UI.WebControls.Literal)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as Literal).Text));
+                    cells.Add(new Cell((current as Literal).Text));
+                }
+                else if (current is System.Web.UI.WebControls.TableCell)
+                {
+                    int idx = (control as GridViewRow).Cells.GetCellIndex((current as TableCell));
+                    GridViewRow gvr = (GridViewRow)control;
+                    GridView gv = (GridView)(gvr).NamingContainer;
+
+                    if (gv.Columns[idx].Visible)
+                    {
+                        if (!String.IsNullOrEmpty((gvr.Cells[idx] as TableCell).Text))
+                        {
+                            recurse = true;
+                            control.Controls.Remove(current);
+                            TableCell tc = new TableCell();
+                            Literal lit = new Literal();
+                            lit.Text = (current as TableCell).Text;
+                            tc.Controls.Add(lit);
+                            control.Controls.AddAt(idx, tc);
+                            //cells.Add(new Cell((current as TableCell).Text));
+                            current = tc;
+                        }
+                    }
+                    else
+                    {
+                        recurse = false;
+                        control.Controls.Remove(current);
+                    }
+                }
+
+                if (recurse && current.HasControls())
+                {
+                    getRowPdfData(current);
+                }
+            }
+
+            return cells;
+        }
+        #endregion
         //#region public static void ExportToExcel(string fileName, GridView gv)
         //public static void ExportToExcel(string fileName, GridView gv)
         //{
@@ -135,6 +729,7 @@ namespace NIH.CMMS.Inventory.Web
         //            control.Controls.AddAt(i, new LiteralControl((current as Label).Text));
         //        }
 
+
         //        if (current.HasControls())
         //        {
         //            PrepareControlForExport(current);
@@ -145,7 +740,7 @@ namespace NIH.CMMS.Inventory.Web
 
         //#region public static void ExportToPDF(string fileName, GridView gv)
         //public static void ExportToPDFlv(string fileName, ListView lv)
-        //{          
+        //{
 
         //    //Create a table
 
@@ -355,69 +950,69 @@ namespace NIH.CMMS.Inventory.Web
         //        throw ex;
         //    }
         //}
-        // #endregion
+        //#endregion
 
-        #region public static List<string> getRowPdfData(Control control)
-        public static List<string> getRowPdfData(Control control)
-        {
+        //#region public static List<string> getRowPdfData(Control control)
+        //public static List<string> getRowPdfData(Control control)
+        //{
 
-            for (int i = 0; i < control.Controls.Count; i++)
-            {
-                Control current = control.Controls[i];
-                if (current is LinkButton)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
-                    cells.Add(((current as LinkButton).Text));
-                }
-                else if (current is HyperLink)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as HyperLink).Text));
-                    cells.Add(((current as HyperLink).Text));
+        //    for (int i = 0; i < control.Controls.Count; i++)
+        //    {
+        //        Control current = control.Controls[i];
+        //        if (current is LinkButton)
+        //        {
+        //            control.Controls.Remove(current);
+        //            control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
+        //            cells.Add(((current as LinkButton).Text));
+        //        }
+        //        else if (current is HyperLink)
+        //        {
+        //            control.Controls.Remove(current);
+        //            control.Controls.AddAt(i, new LiteralControl((current as HyperLink).Text));
+        //            cells.Add(((current as HyperLink).Text));
 
-                }
-                else if (current is DropDownList)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as DropDownList).SelectedItem.Text));
-                    cells.Add(((current as DropDownList).SelectedItem.Text));
-                }
-                else if (current is CheckBox)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as CheckBox).Checked ? "True" : "False"));
-                    cells.Add(((current as CheckBox).Checked ? "True" : "False"));
-                }
-                else if (current is Label)
-                {
-                    control.Controls.Remove(current);
-                    if ((current as Label).Text.Contains("<b>"))
-                    {
-                        (current as Label).Text = (current as Label).Text.Replace("<b>", "");
-                    }
-                    if ((current as Label).Text.Contains("</b>"))
-                    {
-                        (current as Label).Text = (current as Label).Text.Replace("</b>", "");
-                    }
-                    if ((current as Label).Text.Contains("<br/>"))
-                    {
-                        (current as Label).Text = (current as Label).Text.Replace("<br/>", "\n");
-                    }
-                    control.Controls.AddAt(i, new LiteralControl((current as Label).Text));
-                    cells.Add(((current as Label).Text));
-                }
+        //        }
+        //        else if (current is DropDownList)
+        //        {
+        //            control.Controls.Remove(current);
+        //            control.Controls.AddAt(i, new LiteralControl((current as DropDownList).SelectedItem.Text));
+        //            cells.Add(((current as DropDownList).SelectedItem.Text));
+        //        }
+        //        else if (current is CheckBox)
+        //        {
+        //            control.Controls.Remove(current);
+        //            control.Controls.AddAt(i, new LiteralControl((current as CheckBox).Checked ? "True" : "False"));
+        //            cells.Add(((current as CheckBox).Checked ? "True" : "False"));
+        //        }
+        //        else if (current is Label)
+        //        {
+        //            control.Controls.Remove(current);
+        //            if ((current as Label).Text.Contains("<b>"))
+        //            {
+        //                (current as Label).Text = (current as Label).Text.Replace("<b>", "");
+        //            }
+        //            if ((current as Label).Text.Contains("</b>"))
+        //            {
+        //                (current as Label).Text = (current as Label).Text.Replace("</b>", "");
+        //            }
+        //            if ((current as Label).Text.Contains("<br/>"))
+        //            {
+        //                (current as Label).Text = (current as Label).Text.Replace("<br/>", "\n");
+        //            }
+        //            control.Controls.AddAt(i, new LiteralControl((current as Label).Text));
+        //            cells.Add(((current as Label).Text));
+        //        }
 
 
-                if (current.HasControls())
-                {
-                    getRowPdfData(current);
-                }
-            }
+        //        if (current.HasControls())
+        //        {
+        //            getRowPdfData(current);
+        //        }
+        //    }
 
-            return cells;
-        }
-        #endregion
+        //    return cells;
+        //}
+        //#endregion
 
         #endregion
         #region "Show popup"
