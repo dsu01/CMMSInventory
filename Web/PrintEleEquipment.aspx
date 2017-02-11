@@ -12,9 +12,9 @@
             <br /><br />
          &nbsp;&nbsp; <asp:Button ID="btnPrint" CssClass="submitRed" runat="Server" Text="Print Page" OnClientClick="Javascript:CallPrint('printGrid','displayText');" UseSubmitBehavior="False" />
       
-		<div id="printGrid" style="margin:15px">	
+		<div id="printGrid">	
              <div id="displayText" style="display:none"></div>
-	                 <table cellspacing="0" cellpadding="3" width="635" border="0">   
+	                 <table cellspacing="0" cellpadding="3" class="printTable" border="0">   
                         <tr style="height:30pt">
                             <td colspan="4" class="inventoryTopLeftTitle" style="border-bottom: solid 1px #000;" width="420">Equipment Inventory Card</td>
                             <td class="inventoryTopRightCell" width="70" valign="baseline">Facility#:</td>
@@ -50,7 +50,7 @@
                         </tr>
            
                       </table>
-	                 <table width="635" border="0" cellpadding="2" cellspacing="0" class="componentTable">	
+	                 <table class="printTable" border="0" cellpadding="2" cellspacing="0">	
 				            <tr style="height:40pt">
 					            <td class="leftLabel" width="120">Equipment ID (Other):</td>
 					            <td class="text7" width="213">
