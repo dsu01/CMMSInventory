@@ -112,13 +112,21 @@
                 </td>
 
             </tr>
+
             <tr id="trFacilityAttachment" runat="server">
                 <td>
                     <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" />
-                      <br />
+                    <br />
                     <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New System Attachment" CssClass="submitRed" CausesValidation="false" />
-                    <br /><br />
+                    <br />
+                    <br />
                 </td>
+                <td>
+                    <asp:Image ID="imageAttachment" runat="server" alt="" Visible="true" Width="64" />
+                </td>
+            </tr>
+
+            <tr id="tr1" runat="server">
                 <td colspan="6">
                     <asp:GridView ID="gvExtFacilityAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                         OnRowCommand="gvExtFacilityAttachment_onRowCommand">
@@ -139,11 +147,9 @@
                             <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
                         </Columns>
                     </asp:GridView>
-                  
-
                 </td>
-                <td>Show first image</td>
             </tr>
+
             <tr>
                 <td class="inventoryTopRightCell" colspan="8">Comments:
                           
@@ -469,6 +475,11 @@
                             </td>
                             <td width="35%">
                                 <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <asp:Image ID="imageComponentAttachment" runat="server" alt="" Visible="true" Width="64" />
+                                        </td>
+                                    </tr>
                                     <tr id="trAttachment" runat="server">
                                         <td>
                                             <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
@@ -492,14 +503,10 @@
                                                 </Columns>
                                             </asp:GridView>
                                             <br />
-                                            <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Component Attachment" CssClass="submitBlue" CausesValidation="false" />
-
+                                            <asp:Button ID="btnAddAttachment" runat="server" Text="Add Attachment" CssClass="submitBlue" CausesValidation="false" />
                                         </td>
                                     </tr>
-
                                 </table>
-
-
                             </td>
                         </tr>
                     </table>

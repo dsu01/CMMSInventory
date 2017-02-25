@@ -247,7 +247,7 @@
                         <br />
                     </td>
                     <td>
-                        <asp:Image id="imageAttachment" runat="server" src="../Image/btn_email.gif" alt="" visible="true" width="64"/>
+                        <asp:Image id="imageAttachment" runat="server" alt="" visible="true" width="64"/>
                     </td>
                 </tr>
                 

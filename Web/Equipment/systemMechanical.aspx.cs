@@ -718,6 +718,8 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
 
+        this.DisplayAttachmentImage(list, imageComponentAttachment);
+
         trAttachment.Visible = true;
     }
 
@@ -781,6 +783,8 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
 
         gvExtFacilityAttachment.DataSource = list;
         gvExtFacilityAttachment.DataBind();
+
+        this.DisplayAttachmentImage(list, imageAttachment);
     }
 
     protected void gvExtFacilityAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)

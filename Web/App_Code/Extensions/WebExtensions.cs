@@ -30,6 +30,12 @@ namespace NIH.CMMS.Inventory.Web.Extensions
         {
             try
             {
+                if (attachments == null)
+                {
+                    image.Visible = false;
+                    return;
+                }
+
                 var firstImage = attachments.FirstOrDefault(x => IsImage(x));
                 if (firstImage == null || firstImage.FileData == null || firstImage.FileData.Length == 0)
                 {
@@ -57,7 +63,10 @@ namespace NIH.CMMS.Inventory.Web.Extensions
         {
             get
             {
-                return (Attachment x) => x.FileType == ".GIF" || x.FileType == ".JPG" || x.FileType == ".TIF" || x.FileType == ".PNG";
+                return
+                    (Attachment x) =>
+                        x.FileType == ".GIF" || x.FileType == ".JPG" || x.FileType == ".TIF" || x.FileType == ".PNG"
+                        || x.FileType == ".gif" || x.FileType == ".jpg" || x.FileType == ".tif" || x.FileType == ".png";
             }
         }
     }

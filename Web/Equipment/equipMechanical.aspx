@@ -276,38 +276,43 @@
                     <asp:TextBox ID="txtComments" runat="server" MaxLength="255" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="36"></asp:TextBox>
                     
                              </td>
-                    </tr>
-                     <tr id="trAttachment" runat="server">
-                       <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
-                           
-                    <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false"  /><br /><br />
-                       </td>
-                        <td colspan="4">
-                       <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
-                        OnRowCommand="gvExtAttachment_onRowCommand">
-                        <Columns>
-                            <asp:TemplateField HeaderText="Open" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
-                                <ItemTemplate>
-                                    <asp:LinkButton CommandName="Open" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnOpenAttachment" Text="<img src='/Image/btn_edit.gif' alt='Open' />" runat="server"></asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
-                                <ItemTemplate>
-                                    <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnDeleteAttachment" Text="<img src='/Image/btn_delete.png' alt='Delete' />" runat="server" OnClientClick="return confirm('OK to Delete?');"></asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField HeaderText="Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />
-                            <asp:BoundField HeaderText="File" DataField="FileName" />
-                            <asp:BoundField HeaderText="Created" DataField="CreatedOn" />
-                            <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
-                        </Columns>
-                    </asp:GridView>
-                            
+                       </tr>
+
+                    <tr id="trAttachment" runat="server">
+                        <td>
+                            <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
+                            <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" /><br />
+                            <br />
                         </td>
-                        <td>show the first image</td>
+                        <td>
+                            <asp:Image ID="imageAttachment" runat="server" alt="" Visible="true" Width="64" />
+                        </td>
                     </tr>
-                    
-                  
+
+                    <tr id="tr1" runat="server">
+                        <td colspan="4">
+                            <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
+                                OnRowCommand="gvExtAttachment_onRowCommand">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Open" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
+                                        <ItemTemplate>
+                                            <asp:LinkButton CommandName="Open" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnOpenAttachment" Text="<img src='/Image/btn_edit.gif' alt='Open' />" runat="server"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Delete" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
+                                        <ItemTemplate>
+                                            <asp:LinkButton CommandName="Deleting" CommandArgument='<%# Eval("InvAttachmentSysID").ToString() %>' ID="btnDeleteAttachment" Text="<img src='/Image/btn_delete.png' alt='Delete' />" runat="server" OnClientClick="return confirm('OK to Delete?');"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField HeaderText="Title" DataField="Title" HeaderStyle-HorizontalAlign="left" />
+                                    <asp:BoundField HeaderText="File" DataField="FileName" />
+                                    <asp:BoundField HeaderText="Created" DataField="CreatedOn" />
+                                    <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
+                                </Columns>
+                            </asp:GridView>
+                        </td>
+                    </tr>
+
                 </table>
         
         <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="btnAddAttachment"
