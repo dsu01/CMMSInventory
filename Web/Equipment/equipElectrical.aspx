@@ -239,11 +239,19 @@
                        <asp:Label ID="lbLastUpdatedBy" CssClass="tableLabel" runat="server" ></asp:Label></td>
                 </tr>
 
-                <tr id="trAttachment" runat="server">
-                    <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />                         
-                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" UseSubmitBehavior="false" /> 
-                        <br /><br />
+                <tr runat="server">
+                    <td>
+                        <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
+                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" UseSubmitBehavior="false" />
+                        <br />
+                        <br />
                     </td>
+                    <td>
+                        <asp:Image id="imageAttachment" runat="server" src="../Image/btn_email.gif" alt="" visible="true" width="64"/>
+                    </td>
+                </tr>
+                
+                <tr id="trAttachment" runat="server">
                     <td colspan="6">
                         <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                             OnRowCommand="gvExtAttachment_onRowCommand">
@@ -266,10 +274,7 @@
                         </asp:GridView>
                         <br /><br />
                     </td>
-                    <td>show the first image</td>
                 </tr>
-               
-              
             </table>
 
             <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="btnAddAttachment"
