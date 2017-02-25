@@ -119,7 +119,7 @@
                 <td>
                     <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" />
                      <br />
-                    <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" UseSubmitBehavior="false" />
+                    <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" />
                 </td>
                 <td colspan="6">
                     <asp:GridView ID="gvExtFacilityAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"

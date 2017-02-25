@@ -280,7 +280,7 @@
                      <tr id="trAttachment" runat="server">
                        <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
                            
-                    <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" UseSubmitBehavior="false" /><br /><br />
+                    <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false"  /><br /><br />
                        </td>
                         <td colspan="4">
                        <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"

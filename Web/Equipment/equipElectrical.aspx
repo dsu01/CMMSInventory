@@ -242,7 +242,7 @@
                 <tr runat="server">
                     <td>
                         <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
-                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" UseSubmitBehavior="false" />
+                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" />
                         <br />
                         <br />
                     </td>

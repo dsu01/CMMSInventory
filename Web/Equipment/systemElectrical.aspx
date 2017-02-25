@@ -116,7 +116,7 @@
                 <td>
                     <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" />
                       <br />
-                    <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New System Attachment" CssClass="submitRed" CausesValidation="false" UseSubmitBehavior="false" />
+                    <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New System Attachment" CssClass="submitRed" CausesValidation="false" />
                     <br /><br />
                 </td>
                 <td colspan="6">
