@@ -113,8 +113,8 @@
                                                 DynamicControlID="Panel1"
                                                 TargetControlID="Image1"
                                                 PopupControlID="Panel1"
-                                                Position="Right"                                               
-                                                OffsetX="-150"
+                                                Position="Left"                                               
+                                                OffsetX="-450"
                                                 OffsetY="25">
                                             </ajaxToolkit:PopupControlExtender>
                                                         

@@ -19,19 +19,20 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">
-    <table style="font-size: 9pt; width: 100%">
-        <tr>
-            <td align="right">
-                <a href='../printFacility.aspx?FacilityNumber=<%= txtFacilityNum.Text %>' target="_blank">
-                    <img src="../Image/btn_print.gif" border="0" alt="print" /></a>
-                &nbsp;&nbsp;
-            </td>
-        </tr>
-    </table>
-
-        <asp:Panel ID="contentPanel" runat="server">
+           <asp:Panel ID="contentPanel" runat="server">
            
                 <table cellspacing="0" cellpadding="5" width="100%" border="0">
+                       <tr>  
+                         <td colspan="2"><asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitBlue" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;<a href='../printFacility.aspx?FacilityNumber=<%= txtFacilityNum.Text %>' target="_blank">
+                    <img src="../Image/btn_print.gif" border="0" alt="print" /></a>
+                </td>
+                    <td colspan="4" align="right">
+                    <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
+             
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
+                         <asp:HiddenField ID="hidFacSystemID" runat="server" Value="-1" /> </td>
+                        </tr>
                     <tr>
                         <td id="InventoryCardTitle" colspan="4" class="inventoryTopLeftTitle" width="50%">Mechanical Equipment Inventory Card</td>
                         <td class="inventoryTopRightCell" width="15%" valign="baseline">Facility#:</td>
@@ -268,10 +269,21 @@
                     </td>
                 
                   </tr>
+                       <tr>
+                <td class="tableLabel">Comments
+                        </td>
+                         <td colspan="6">
+                    <asp:TextBox ID="txtComments" runat="server" MaxLength="255" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="36"></asp:TextBox>
+                    
+                             </td>
+                    </tr>
                      <tr id="trAttachment" runat="server">
-                <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /></td>
-                <td colspan="4">
-                    <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
+                       <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
+                           
+                    <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" UseSubmitBehavior="false" /><br /><br />
+                       </td>
+                        <td colspan="4">
+                       <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                         OnRowCommand="gvExtAttachment_onRowCommand">
                         <Columns>
                             <asp:TemplateField HeaderText="Open" ItemStyle-Width="30" HeaderStyle-HorizontalAlign="left">
@@ -290,28 +302,12 @@
                             <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
                         </Columns>
                     </asp:GridView>
-                            <br />
-                    <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" />
+                            
                         </td>
+                        <td>show the first image</td>
                     </tr>
-                       <tr>
-                <td class="tableLabel">Comments
-                        </td>
-                         <td colspan="6">
-                    <asp:TextBox ID="txtComments" runat="server" MaxLength="255" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="36"></asp:TextBox>
-                    <br />
-                             </td>
-                    </tr>
-                     <tr>  
-                         <td>&nbsp;</td>
-                <td colspan="4">
-                    <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
-             
-                              &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
-                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
-                     &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitGray" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />
-                <asp:HiddenField ID="hidFacSystemID" runat="server" Value="-1" /> </td>
-                        </tr>
+                    
+                  
                 </table>
         
         <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="btnAddAttachment"

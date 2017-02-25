@@ -52,11 +52,12 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                 if (result)
                 {
                     hidFacSystemID.Value = facID.ToString();                  
-                    btnSaveFacility.Text = "Update Equipment";
+                    btnSaveFacility.Text = "Save Equipment";
                     LoadFacilityInfo();
                     trAttachment.Visible = true;
                     drplstBuilding.Enabled = false;
                     txtFacilityNum.Enabled = false;
+                    btnAddNew.Visible = true;
                 }
                 else
                 {
@@ -69,7 +70,8 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                 trAttachment.Visible = false;
                 drplstBuilding.Enabled = true;
                 txtFacilityNum.Enabled = true;
-                btnSaveFacility.Text = "Add New Equipment";
+                btnSaveFacility.Text = "Add Equipment";
+                btnAddNew.Visible = false;
 
             }
 
@@ -272,7 +274,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             {               
                 txtFacilityNum.Text = details.FacNum;
                 hidFacSystemID.Value = details.Key.ToString();
-
+                btnAddNew.Visible = true;
 
             }
             return vr;
@@ -334,6 +336,8 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         trAttachment.Visible = false;
         txtManufacturer.Text = string.Empty;
         btnSaveFacility.Text = "Add Equipment";
+
+        btnAddNew.Visible = false;
     }
 
     #region Attachment Details

@@ -37,17 +37,21 @@
     </script>
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">
-    <table style="font-size: 9pt; width: 95%; ">
-        <tr>
-            <td align="right"><a href='../printEleEquipment.aspx?equipmentSysID=<%= hidEquipmentSysID.Value %>' target="_blank">
-                <img src="../Image/btn_print.gif" border="0" alt="print" /></a>&nbsp;&nbsp;</td>
-        </tr>
-    </table>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">  
     <div style="padding: 5px">
         <asp:Panel ID="contentPanel" runat="server">
             <table cellspacing="0" cellpadding="5" width="100%" border="0">
-
+                  <tr>
+                    <td align="left" colspan="2"><asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitBlue" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../printEleEquipment.aspx?equipmentSysID=<%= hidEquipmentSysID.Value %>' target="_blank">
+                <img src="../Image/btn_print.gif" border="0" alt="print" /></a></td>
+                    <td colspan="4" align="right">
+                        <asp:Button ID="btnFinish" runat="server" Text="Save" CssClass="submitGreen" OnClick="btnFinish_Click" TabIndex="24" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
+                         &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
+                        
+                     
+                    </td>
+                </tr>
                 <tr>
                     <td colspan="4" class="inventoryTopLeftTitle" width="60%">Electrical Equipment Inventory Card</td>
                     <td class="inventoryTopRightCell" width="15%" valign="baseline">Facility#:</td>
@@ -236,12 +240,11 @@
                 </tr>
 
                 <tr id="trAttachment" runat="server">
-                    <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" />
-                          <br /><br />
-                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" /> 
-
+                    <td><asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />                         
+                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" UseSubmitBehavior="false" /> 
+                        <br /><br />
                     </td>
-                    <td colspan="7">
+                    <td colspan="6">
                         <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                             OnRowCommand="gvExtAttachment_onRowCommand">
                             <Columns>
@@ -263,18 +266,10 @@
                         </asp:GridView>
                         <br /><br />
                     </td>
+                    <td>show the first image</td>
                 </tr>
                
-                <tr>
-                    <td align="center"></td>
-                    <td colspan="4">
-                        <asp:Button ID="btnFinish" runat="server" Text="Save" CssClass="submitGreen" OnClick="btnFinish_Click" TabIndex="24" />
-                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
-                         &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
-                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitBlue" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />
-                     
-                    </td>
-                </tr>
+              
             </table>
 
             <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="btnAddAttachment"

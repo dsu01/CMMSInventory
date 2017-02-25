@@ -74,32 +74,32 @@
                                  
                                      <tr>    				    
 				                      
-				                        <td class="text7">
+				                        <td class="text7" width="60%">
 				                         <!-- Only this area is updated on PostBack -->
                                                 <asp:UpdatePanel ID="updatePnl2" runat="server" UpdateMode="conditional">
                                                     <ContentTemplate>
-					                                <table >
+					                                <table width="100%">
 						                                <tr>
-							                                <td>
-                                                                <div style="height: 600px; width: 98%; overflow: auto">
-								                                <asp:ListBox ID="lbSystems" style="width:280px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                                <td width="45%">
+                                                                <div style="height: 300px; width: 99%; overflow: auto">
+								                                <asp:ListBox ID="lbSystems" style="width:100%; height:300px;" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                    </div>
                                                               </td>
 							   
 							                                 <td align="center" width="100">
 				                                               
-					                                            <asp:button Text="add>>" Runat="server" ID="btnSelectSystem" CssClass="text7" Width="50" CausesValidation="false" OnClick="btnSelectSystem_Click" UseSubmitBehavior="False"></asp:button><br />
-					                                            <br />
-					                                            <asp:button Text="remove<<" Runat="server" ID="btnRemoveSystem" CssClass="text7" Width="50" CausesValidation="false" OnClick="btnRemoveSystem_Click" UseSubmitBehavior="False"></asp:button>
-				                                                 <br /><br />
-                                                                 <asp:Button ID="btnSelectAllSystem" runat="server" Text=" add all>>" CausesValidation="false" CssClass="text7"
-                                                                OnClick="btnAddAllSystem_Click" /><br /><br />
-                                                                 <asp:Button ID="btnRemoveAllSystem" runat="server" Text=" remove all<<" CausesValidation="false" CssClass="text7"
+					                                            <asp:button Text="add >>" Runat="server" ID="btnSelectSystem" CssClass="text8" CausesValidation="false" OnClick="btnSelectSystem_Click" UseSubmitBehavior="False"></asp:button>
+					                                            <br /> <br /><br />
+					                                            <asp:button Text="remove <<" Runat="server" ID="btnRemoveSystem" CssClass="text8" CausesValidation="false" OnClick="btnRemoveSystem_Click" UseSubmitBehavior="False"></asp:button>
+				                                                 <br /> <br /><br /><br /><br />
+                                                                 <asp:Button ID="btnSelectAllSystem" runat="server" Text=" add all>>" CausesValidation="false" CssClass="text8"
+                                                                OnClick="btnAddAllSystem_Click" /><br /> <br /><br />
+                                                                 <asp:Button ID="btnRemoveAllSystem" runat="server" Text=" remove all<<" CausesValidation="false" CssClass="text8"
                                                                 OnClick="btnRemoveAllSystem_Click" />
                                                              </td>
-							                                <td>
-                                                                <div style="height: 600px; width: 98%; overflow: auto">
-								                                <asp:ListBox ID="lbExtSystems" style="width:280px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                                <td width="45%">
+                                                                <div style="height: 300px; width: 99%; overflow: auto">
+								                                <asp:ListBox ID="lbExtSystems" style="width:100%; height:300px;" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
                                                                 </div>
 							                                </td>
 						                                </tr>
@@ -108,31 +108,31 @@
                                                 </asp:UpdatePanel>
 				                        </td>		                        				    
 				                      
-				                        <td class="text7">
+				                        <td class="text7" width="40%">
 				                         <!-- Only this area is updated on PostBack -->
                                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="conditional">
                                                     <ContentTemplate>
-					                                <table>
+					                                <table width="100%">
 						                                <tr>
-							                                <td width="200">
-                                                                  <div style="height: 600px; width: 98%; overflow: auto">
-								                                <asp:ListBox ID="lbBuilding"  style="width:200px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                                <td width="40%">
+                                                                  <div style="height: 300px; width: 100%; overflow: auto">
+								                                <asp:ListBox ID="lbBuilding"  style="width:100%; height:300px; " SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                               </div>
                                                               </td>
 							                                  <td align="center">
 				                                               
-					                                            <asp:button Text="add>>" Runat="server" ID="btnSelectBuilding" CssClass="text7" Width="50" CausesValidation="false" OnClick="btnSelectBuilding_Click" UseSubmitBehavior="False"></asp:button><br />
-					                                            <br />
-					                                            <asp:button Text="remove<<" Runat="server" ID="btnRemoveBuilding" CssClass="text7" Width="50" CausesValidation="false" OnClick="btnRemoveBuilding_Click" UseSubmitBehavior="False"></asp:button>
-				                                              <br /><br />
-                                                                 <asp:Button ID="btnSelectAllBuilding" runat="server" Text=" add all>>" CausesValidation="false" CssClass="text7"
-                                                                OnClick="btnAddAllBuilding_Click" /><br /><br />
-                                                                 <asp:Button ID="btnRemoveAllBuilding" runat="server" Text=" remove all<<" CausesValidation="false" CssClass="text7"
+					                                            <asp:button Text="add >>" Runat="server" ID="btnSelectBuilding" CssClass="text8" CausesValidation="false" OnClick="btnSelectBuilding_Click" UseSubmitBehavior="False"></asp:button>
+					                                            <br /> <br /><br />
+					                                            <asp:button Text="remove <<" Runat="server" ID="btnRemoveBuilding" CssClass="text8" CausesValidation="false" OnClick="btnRemoveBuilding_Click" UseSubmitBehavior="False"></asp:button>
+				                                              <br /> <br /><br /><br /><br />
+                                                                 <asp:Button ID="btnSelectAllBuilding" runat="server" Text=" add all>>" CausesValidation="false" CssClass="text8"
+                                                                OnClick="btnAddAllBuilding_Click" /><br /> <br /><br />
+                                                                 <asp:Button ID="btnRemoveAllBuilding" runat="server" Text=" remove all<<" CausesValidation="false" CssClass="text8"
                                                                 OnClick="btnRemoveAllBuilding_Click" />
                                                              </td>
-							                                <td width="200">
-                                                                 <div style="height: 600px; width: 98%; overflow: auto">
-								                                <asp:ListBox ID="lbExtBuilding"  style="width:200px; height:600px; font-size:.95em" SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
+							                                <td width="40%">
+                                                                 <div style="height: 300px; width: 100%; overflow: auto">
+								                                <asp:ListBox ID="lbExtBuilding"  style="width:100%; height:300px; " SelectionMode="Multiple" Runat="server" DataTextField = "Description" DataValueField = "Key"></asp:ListBox>
 							                                  </div>
                                                               </td>
 						                                </tr>

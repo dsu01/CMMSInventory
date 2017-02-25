@@ -35,13 +35,23 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">
     <asp:Panel ID="generalInfoPanel" runat="server">
-         <table style="font-size: 9pt; width: 95%; ">
-        <tr>
-            <td align="right"><a href='../printEleSystem.aspx?equipmentSysID=<%= hidFacilitySysid.Value %>' target="_blank">
-                <img src="../Image/btn_print.gif" border="0" alt="print" /></a>&nbsp;&nbsp;</td>
-        </tr>
-    </table>
+         
         <table cellspacing="0" cellpadding="5" width="100%" border="0">
+            <tr>
+                 
+                  <td><asp:Button ID="btnBackToList" runat="server" Text="Go Back to List" CssClass="submitBlue" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnGoBack_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a href='../printEleSystem.aspx?equipmentSysID=<%= hidFacilitySysid.Value %>' target="_blank"><img src="../Image/btn_print.gif" border="0" alt="print" /></a>
+                    
+                </td>
+                    <td colspan="5" align="right">
+                     <asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false"
+                        OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
+                    <asp:Label ID="lbUpdateFacilityMsg" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label>
+                </td>
+
+            </tr>
             <tr>
                 <td id="InventoryCardTitle" colspan="4" class="inventoryTopLeftTitle" width="50%">Electrical Facility Inventory Card</td>
                 <td class="inventoryTopRightCell" width="15%" valign="baseline">Facility#:</td>
@@ -105,9 +115,11 @@
             <tr id="trFacilityAttachment" runat="server">
                 <td>
                     <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" />
-
+                      <br />
+                    <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New System Attachment" CssClass="submitRed" CausesValidation="false" UseSubmitBehavior="false" />
+                    <br /><br />
                 </td>
-                <td colspan="7">
+                <td colspan="6">
                     <asp:GridView ID="gvExtFacilityAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                         OnRowCommand="gvExtFacilityAttachment_onRowCommand">
                         <Columns>
@@ -127,10 +139,10 @@
                             <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
                         </Columns>
                     </asp:GridView>
-                    <br />
-                    <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New System Attachment" CssClass="submitBlue" CausesValidation="false" />
+                  
 
                 </td>
+                <td>Show first image</td>
             </tr>
             <tr>
                 <td class="inventoryTopRightCell" colspan="8">Comments:
@@ -141,19 +153,7 @@
                 </td>
 
             </tr>
-            <tr>
-                <td>
-                    <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
-                    <asp:Label ID="lbUpdateFacilityMsg" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label>
-                </td>
-                <td>
-                    <asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false"
-                        OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button2" runat="server" Text="Go Back to List" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false"
-                        OnClick="btnGoBack_Click" />
-                </td>
-
-            </tr>
+         
         </table>
 
         <ajaxToolkit:ModalPopupExtender ID="mpeFacilityAttachment" runat="server" TargetControlID="btnAddFacilityAttachment"

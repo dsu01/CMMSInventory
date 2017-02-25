@@ -15,7 +15,7 @@ using NIH.CMMS.Inventory.BPL.Common;
 using NIH.CMMS.Inventory.Web.Extensions;
 using System.IO;
 
-public partial class Equipment_systemMechanical : System.Web.UI.Page
+public partial class Equipment_systemMechanical2 : System.Web.UI.Page
 {
     protected LoginUser loginUsr;
     public int SystemFacilitySysID
@@ -44,7 +44,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
         ctrlAddFacilityAttachment.ParentSysID = SystemFacilitySysID.ToString();
         ctrlAddFacilityAttachment.AttachmentSaved += CtrlAddFacilityAttachment_AttachmentSaved;
 
-        ctrlAddEquipmentAttachment.ParentSysID =SystemEquipmentSysID.ToString();
+        ctrlAddEquipmentAttachment.ParentSysID = SystemEquipmentSysID.ToString();
         ctrlAddEquipmentAttachment.AttachmentSaved += CtrlAddEquipmentAttachment_AttachmentSaved;
 
         if (!Page.IsPostBack)
@@ -86,9 +86,10 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 }
                 btnSaveFacility.Text = "Update Facility Information";
             }
-            else {
+            else
+            {
                 Session["ParentFacilitySysID"] = null;
-            }           
+            }
 
             if (Request.QueryString["facnum"] != null && !string.IsNullOrEmpty(Request.QueryString["facnum"].ToString()))
             {
@@ -112,7 +113,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 bool result = Int32.TryParse(Request.QueryString["equipID"].ToString(), out equipID);
                 if (result)
                 {
-                   
+                    TabContainer1.ActiveTabIndex = 1;
                     LoadEquipmentDetail(equipID, true);
                 }
                 else
@@ -154,17 +155,17 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
     {
 
         //show component panel if not there yet
-        //if (string.IsNullOrEmpty(txtFacilityNum.Text))
-        //{
-        //    //if first time, after saving the tab should be 1
-        //    TabContainer1.ActiveTabIndex = 1;
-        //}
-        //else
-        //    TabContainer1.ActiveTabIndex = 0;
+        if (string.IsNullOrEmpty(txtFacilityNum.Text))
+        {
+            //if first time, after saving the tab should be 1
+            TabContainer1.ActiveTabIndex = 1;
+        }
+        else
+            TabContainer1.ActiveTabIndex = 0;
 
         int facID = SaveFacilityDetails(true);
         if (facID > 0)
-        {   
+        {
             lbUpdateFacilityMsg.Text = "Information Saved.";
             drplstBuilding.Enabled = false; // cannot change building info again
             if (!DetailInfoPanel.Visible)
@@ -212,7 +213,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
 
     protected void btnAddNew_Click(object sender, EventArgs e)
     {
-        //TabContainer1.ActiveTabIndex = 1;
+        TabContainer1.ActiveTabIndex = 1;
         //if already previous component info exist, delete them
         if (SystemEquipmentSysID > 0 && txtEquipmentID.Text != "")
         {
@@ -265,7 +266,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
             drplstBuilding.Enabled = false;
             #region "Load facility detail"
             drplstSystem.SelectedValue = existingFac.FacSystem;
-           
+
             drplstBuilding.SelectedValue = existingFac.FacBuilding;
             txtFunction.Text = existingFac.FacFunction;
             txtFloor.Text = existingFac.FacFloor;
@@ -281,7 +282,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
             ckBSL.Checked = (existingFac.YsnBsl == 1) ? true : false;
             ckTJC.Checked = (existingFac.YsnTJC == 1) ? true : false;
             txtComments.Text = existingFac.Comment;
-            
+
             txtInventoryBy.Text = existingFac.InventoryBy;
             if (existingFac.InventoryDate != DateTime.MinValue)
                 txtInventoryDate.Text = existingFac.InventoryDate.ToShortDateString();
@@ -494,7 +495,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
                     details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
                 details.PMSchedule = txtPMSchedule.Text.Trim();
-              
+
                 ValidationResult vr = facility_logic.AddUpdateMechanicalComponent(details);
                 if (vr.Success)
                 {
@@ -560,7 +561,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
 
             ValidationResult vr = new ValidationResult(true, string.Empty);
             if (details.Key > 0)
-             vr = facility_logic.UpdateElectricalMechanicalSystem(details); 
+                vr = facility_logic.UpdateElectricalMechanicalSystem(details);
             else
                 vr = facility_logic.AddElectricalMechanicalSystem(details, false);
             if (details.Key > 0 && vr.Success)
@@ -571,7 +572,8 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 txtFacilityID.Text = details.FacID.ToString();
                 trFacilityAttachment.Visible = true;
             }
-            else {
+            else
+            {
                 Utils.ShowPopUpMsg("Error Occurred. Cannot save facility. " + vr.Reason, this.Page);
                 return -1;
             }
@@ -703,7 +705,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
         {
             int Id = Convert.ToInt32(e.CommandArgument.ToString());
             //switch tab to component detail and show component info
-           // TabContainer1.ActiveTabIndex = 1;
+            TabContainer1.ActiveTabIndex = 1;
 
             LoadEquipmentDetail(Id, false);
 
