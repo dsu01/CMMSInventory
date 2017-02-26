@@ -19,7 +19,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
     protected LoginUser loginUsr;
 
     public int MechanicalEquipmentSysID
-    {      
+    {
         get
         {
             return !string.IsNullOrEmpty(hidFacSystemID.Value)
@@ -31,13 +31,13 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         loginUsr = Utils.CheckSession(this);
- 
+
         // initialize attachment control
         ctrlAddAttachment.ParentSysID = !string.IsNullOrEmpty(hidFacSystemID.Value) ? hidFacSystemID.Value : "-1";
         ctrlAddAttachment.AttachmentSaved += CtrlAddAttachment_AttachmentSaved;
 
         if (!Page.IsPostBack)
-        {            
+        {
             DataSet dtSystem = GeneralLookUp.GetSystemList("Mechanical Equipment"); //spn_Inv_GetSystemList_newsite
             drplstSystem.DataSource = dtSystem;
             drplstSystem.DataBind();
@@ -51,7 +51,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                 bool result = Int32.TryParse(Request.QueryString["ParentFacilitySysID"].ToString(), out facID);
                 if (result)
                 {
-                    hidFacSystemID.Value = facID.ToString();                  
+                    hidFacSystemID.Value = facID.ToString();
                     btnSaveFacility.Text = "Save Equipment";
                     LoadFacilityInfo();
                     trAttachment.Visible = true;
@@ -62,7 +62,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                 else
                 {
                     Response.Redirect("~/Default.aspx");
-                }              
+                }
 
             }
             else
@@ -81,13 +81,13 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             }
             else
                 btnBackToList.Visible = false;
-            
+
         }
     }
 
     protected void btnSaveFacility_Click(object sender, EventArgs e)
     {
-              
+
         if (string.IsNullOrEmpty(drplstBuilding.SelectedValue) || string.IsNullOrEmpty(drplstSystem.SelectedValue) || string.IsNullOrEmpty(txtFacilityID.Text.Trim()) || string.IsNullOrEmpty(txtLocation.Text.Trim()))
         {
             Utils.ShowPopUpMsg("Facility ID, System, Building and Location are required.", this);
@@ -107,11 +107,11 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                 Utils.ShowPopUpMsg("Equipment cannot be saved." + vr.Reason, this.Page);
             //after save, show your temp fac# is saved, u can print now, print.css needs line
             //show active or inactive
-        }     
+        }
 
 
     }
- 
+
 
     private void LoadFacilityInfo()
     {
@@ -136,7 +136,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             txtLocation.Text = existingFac.FacLocation;
             txtFacilityID.Text = existingFac.FacID;
             txtFacilityNum.Text = existingFac.FacNum;
-          //  Session["ParentFacilityNum"] = existingFac.FacNum;
+            //  Session["ParentFacilityNum"] = existingFac.FacNum;
             if (existingFac.FacNum.StartsWith("T"))
             { txtFacilityNum.BackColor = System.Drawing.Color.Aquamarine; }
 
@@ -219,68 +219,68 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         details.Key = MechanicalEquipmentSysID;
         details.FacNum = txtFacilityNum.Text;
         details.FacSystem = drplstSystem.SelectedValue;
-            details.FacFunction = txtFunction.Text.Trim();
-            details.FacBuilding = drplstBuilding.SelectedValue;
-            details.FacFloor = txtFloor.Text.Trim();
-            details.FacLocation = txtLocation.Text.Trim();
-            details.FacID = txtFacilityID.Text.Trim();
-            details.WRNumber = txtWRNum.Text.Trim();
-            details.YsnAaalac = ckAAALAC.Checked ? 1 : 0;
-            details.YsnBsl = ckBSL.Checked ? 1 : 0;
-            details.YsnTJC = ckTJC.Checked ? 1 : 0;
-            details.Comment = txtComments.Text.Trim();
-            if (loginUsr == null)
-                loginUsr = (LoginUser)Session[ApplicationConstants.SESSION_USEROBJLOGINDET];
-            else
-                details.UserName = loginUsr.LaborName;
-            // details.TypeOrUse = txtTypeUse.Text.Trim();
-            details.Manufacturer = txtManufacturer.Text.Trim();
-            details.ModelNo = txtModelNum.Text.Trim();
-            details.SerialNo = txtSerialNum.Text.Trim();
-            details.Size = txtSize.Text.Trim();
-            if (!string.IsNullOrEmpty(txtInstalledDate.Text.Trim()))
-                details.InstalledDate = Convert.ToDateTime(txtInstalledDate.Text.Trim());
-            details.Capacity = txtCapacity.Text.Trim();
-            details.CapacityHeadTest = txtCapacityHT.Text.Trim();
-            details.FuelRefrigeration = txtFuel.Text.Trim();
-            details.MotorManufacturer = txtMotorManu.Text.Trim();
-            details.HP = txtHP.Text.Trim();
-            details.MotorType = txtMotorType.Text.Trim();
+        details.FacFunction = txtFunction.Text.Trim();
+        details.FacBuilding = drplstBuilding.SelectedValue;
+        details.FacFloor = txtFloor.Text.Trim();
+        details.FacLocation = txtLocation.Text.Trim();
+        details.FacID = txtFacilityID.Text.Trim();
+        details.WRNumber = txtWRNum.Text.Trim();
+        details.YsnAaalac = ckAAALAC.Checked ? 1 : 0;
+        details.YsnBsl = ckBSL.Checked ? 1 : 0;
+        details.YsnTJC = ckTJC.Checked ? 1 : 0;
+        details.Comment = txtComments.Text.Trim();
+        if (loginUsr == null)
+            loginUsr = (LoginUser)Session[ApplicationConstants.SESSION_USEROBJLOGINDET];
+        else
+            details.UserName = loginUsr.LaborName;
+        // details.TypeOrUse = txtTypeUse.Text.Trim();
+        details.Manufacturer = txtManufacturer.Text.Trim();
+        details.ModelNo = txtModelNum.Text.Trim();
+        details.SerialNo = txtSerialNum.Text.Trim();
+        details.Size = txtSize.Text.Trim();
+        if (!string.IsNullOrEmpty(txtInstalledDate.Text.Trim()))
+            details.InstalledDate = Convert.ToDateTime(txtInstalledDate.Text.Trim());
+        details.Capacity = txtCapacity.Text.Trim();
+        details.CapacityHeadTest = txtCapacityHT.Text.Trim();
+        details.FuelRefrigeration = txtFuel.Text.Trim();
+        details.MotorManufacturer = txtMotorManu.Text.Trim();
+        details.HP = txtHP.Text.Trim();
+        details.MotorType = txtMotorType.Text.Trim();
 
-            details.MotorSerialNo = txtMotorSerialNum.Text.Trim();
-            if (!string.IsNullOrEmpty(txtMotorInstalledDate.Text.Trim()))
-                details.MotorInstalledDate = Convert.ToDateTime(txtMotorInstalledDate.Text.Trim());
-            details.MotorModel = txtMotorModel.Text.Trim();
-            details.Frame = txtFrame.Text.Trim();
-            details.RPM = txtRPM.Text.Trim();
-            details.Voltage = txtVoltage.Text.Trim();
-            details.Amperes = txtAmperes.Text.Trim();
-            details.PhaseCycle = txtPhaseCycle.Text.Trim();
-            details.BslClassification = txtBSLClass.Text.Trim();
-            if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
-                details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
-            details.PMSchedule = txtPMSchedule.Text.Trim();
+        details.MotorSerialNo = txtMotorSerialNum.Text.Trim();
+        if (!string.IsNullOrEmpty(txtMotorInstalledDate.Text.Trim()))
+            details.MotorInstalledDate = Convert.ToDateTime(txtMotorInstalledDate.Text.Trim());
+        details.MotorModel = txtMotorModel.Text.Trim();
+        details.Frame = txtFrame.Text.Trim();
+        details.RPM = txtRPM.Text.Trim();
+        details.Voltage = txtVoltage.Text.Trim();
+        details.Amperes = txtAmperes.Text.Trim();
+        details.PhaseCycle = txtPhaseCycle.Text.Trim();
+        details.BslClassification = txtBSLClass.Text.Trim();
+        if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
+            details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
+        details.PMSchedule = txtPMSchedule.Text.Trim();
         if (!string.IsNullOrEmpty(txtInventoryDate.Text.Trim()))
             details.InventoryDate = Convert.ToDateTime(txtInventoryDate.Text.Trim());
 
-       
+
         details.InventoryBy = txtInventoryBy.Text.Trim();
 
         //ValidationResult vr = facility_logic.UpdateFacility(details, false);
 
         ValidationResult vr = facility_logic.AddUpdateMechanicalEquipment(details);
-        
-            if (details.Key > 0 && vr.Success)
-            {               
-                txtFacilityNum.Text = details.FacNum;
-                hidFacSystemID.Value = details.Key.ToString();
-                btnAddNew.Visible = true;
 
-            }
-            return vr;
+        if (details.Key > 0 && vr.Success)
+        {
+            txtFacilityNum.Text = details.FacNum;
+            hidFacSystemID.Value = details.Key.ToString();
+            btnAddNew.Visible = true;
+
+        }
+        return vr;
 
 
-       
+
     }
     protected void btnBackToList_Click(object sender, EventArgs e)
     {
@@ -349,7 +349,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
 
-        this.DisplayAttachmentImage(list, false, imageAttachment);
+        this.DisplayAttachmentImage(list, false, imageAttachment, imageAttachmentAnchor);
     }
 
     protected void gvExtAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
@@ -388,13 +388,11 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         if (deleted)
             LoadAttachments();
     }
-  
+
 
     protected void btnAddNew_Click(object sender, EventArgs e)
     {
         ClearData();
-
-
     }
 
     private void CtrlAddAttachment_AttachmentSaved(bool result)

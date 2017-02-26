@@ -194,7 +194,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
 
         ValidationResult vr = SaveEquipmentDetails();
         if (vr.Success)
-        {            
+        {
             //ClearEquipmentDetails();
             gv_Components.DataBind();
             trAttachment.Visible = true;
@@ -221,7 +221,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         {
             ClearEquipmentDetails();
         }
-            
+
 
     }
     protected void btnCancel_Click(object sender, EventArgs e)
@@ -367,7 +367,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         EquipmentDet details = facility_logic.GetInvEquipmentDetails(id);
 
         if (ElectricalFacilitySysID < 0 && !string.IsNullOrEmpty(details.ParentFacilityNum))
-        {         
+        {
             txtFacilityNum.Text = details.ParentFacilityNum.ToString();
             LoadFacilityInfoByFacNum(details.ParentFacilityNum);
         }
@@ -478,7 +478,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
                 ValidationResult vr = facility_logic.AddUpdateElectricalComponent(details);
                 if (vr.Success)
                 {
-                    hidEquipmentSysID.Value = details.Key.ToString();                  
+                    hidEquipmentSysID.Value = details.Key.ToString();
                 }
                 return vr;
                 #endregion
@@ -710,7 +710,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
 
-        this.DisplayAttachmentImage(list, true, imageComponentAttachment);
+        this.DisplayAttachmentImage(list, true, imageComponentAttachment, imageComponentAttachmentAnchor);
 
         trAttachment.Visible = true;
     }
@@ -776,7 +776,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         gvExtFacilityAttachment.DataSource = list;
         gvExtFacilityAttachment.DataBind();
 
-        this.DisplayAttachmentImage(list, false, imageAttachment);
+        this.DisplayAttachmentImage(list, false, imageAttachment, imageAttachmentAnchor);
     }
 
     protected void gvExtFacilityAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)

@@ -10,6 +10,7 @@
     <link href="../CSS/jquery-ui-1.8.12.custom.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../JS/jquery-1.5.1.min.js"></script>
     <script type="text/javascript" src="../JS/jquery-ui-1.8.12.custom.min.js"></script>
+    <script type="text/javascript" src="../JS/OpenAttachmentImage.js"></script>
 
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
@@ -35,16 +36,18 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">
     <asp:Panel ID="generalInfoPanel" runat="server">
-         
+
         <table cellspacing="0" cellpadding="5" width="100%" border="0">
             <tr>
-                 
-                  <td><asp:Button ID="btnBackToList" runat="server" Text="Go Back to List" CssClass="submitBlue" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnGoBack_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <a href='../printEleSystem.aspx?equipmentSysID=<%= hidFacilitySysid.Value %>' target="_blank"><img src="../Image/btn_print.gif" border="0" alt="print" /></a>
-                    
+
+                <td>
+                    <asp:Button ID="btnBackToList" runat="server" Text="Go Back to List" CssClass="submitBlue" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnGoBack_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a href='../printEleSystem.aspx?equipmentSysID=<%= hidFacilitySysid.Value %>' target="_blank">
+                          <img src="../Image/btn_print.gif" border="0" alt="print" /></a>
+
                 </td>
-                    <td colspan="5" align="right">
-                     <asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false"
+                <td colspan="5" align="right">
+                    <asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false"
                         OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                      <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
@@ -122,7 +125,9 @@
                     <br />
                 </td>
                 <td>
-                    <asp:Image ID="imageAttachment" runat="server" alt="" Visible="true" Width="64" />
+                    <a id="imageAttachmentAnchor" href="#" runat="server">
+                        <asp:Image ID="imageAttachment" runat="server" Width="64" />
+                    </a>
                 </td>
             </tr>
 
@@ -159,7 +164,7 @@
                 </td>
 
             </tr>
-         
+
         </table>
 
         <ajaxToolkit:ModalPopupExtender ID="mpeFacilityAttachment" runat="server" TargetControlID="btnAddFacilityAttachment"
@@ -239,7 +244,7 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblSerial" runat="server" Text='<%# Server.HtmlEncode((string)Eval("SerialNo"))%>' />
                                             </ItemTemplate>
-                                        </asp:TemplateField>                                      
+                                        </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Size" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150" SortExpression="Size">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblSize" runat="server" Text='<%# Server.HtmlEncode((string)Eval("Size"))%>' />
@@ -477,7 +482,9 @@
                                 <table width="100%">
                                     <tr>
                                         <td>
-                                            <asp:Image ID="imageComponentAttachment" runat="server" alt="" Visible="true" Width="64" />
+                                            <a id="imageComponentAttachmentAnchor" href="#" runat="server">
+                                                <asp:Image ID="imageComponentAttachment" runat="server" Width="64" />
+                                            </a>
                                         </td>
                                     </tr>
                                     <tr id="trAttachment" runat="server">
@@ -931,10 +938,6 @@
                                 Rev.02/2011</td>
                             <td align="right">NIH\ORF\RPMO</td>
                         </tr>
-
-                    </table>
-
-
                 </ContentTemplate>
             </ajaxToolkit:TabPanel>
         </ajaxToolkit:TabContainer>

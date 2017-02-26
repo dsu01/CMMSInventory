@@ -11,6 +11,7 @@
     <link href="../CSS/jquery-ui-1.8.12.custom.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../JS/jquery-1.5.1.min.js"></script>
     <script type="text/javascript" src="../JS/jquery-ui-1.8.12.custom.min.js"></script>
+    <script type="text/javascript" src="../JS/OpenAttachmentImage.js"></script>
 
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
@@ -128,7 +129,9 @@
                     <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" />
                 </td>
                 <td>
-                    <asp:Image ID="imageAttachment" runat="server" alt="" Visible="true" Width="64" />
+                    <a id="imageAttachmentAnchor" href="#" runat="server">
+                        <asp:Image ID="imageAttachment" runat="server" Width="64" />
+                    </a>
                 </td>
             </tr>
 
@@ -481,7 +484,9 @@
                                 <table width="100%">
                                     <tr>
                                         <td>
-                                            <asp:Image ID="imageComponentAttachment" runat="server" alt="" Visible="true" Width="64" />
+                                            <a id="imageComponentAttachmentAnchor" href="#" runat="server">
+                                                <asp:Image ID="imageComponentAttachment" runat="server" Width="64" />
+                                            </a>
                                         </td>
                                     </tr>
                                     <tr id="trAttachment" runat="server">

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using NIH.CMMS.Inventory.BOL.Common;
 
@@ -27,26 +28,30 @@ namespace NIH.CMMS.Inventory.Web.Extensions
             page.Response.End();
         }
 
-        public static void DisplayAttachmentImage(this Page page, List<Attachment> attachments, bool isEquipmentOrFacility, Image image)
+        public static void DisplayAttachmentImage(this Page page, List<Attachment> attachments, bool isEquipmentOrFacility, Image image, HtmlAnchor anchor)
         {
             try
             {
                 if (attachments == null)
                 {
-                    image.Visible = false;
+                    anchor.Visible = false;
                     return;
                 }
 
                 var firstImage = attachments.FirstOrDefault(x => IsImage(x));
                 if (firstImage == null || firstImage.FileData == null || firstImage.FileData.Length == 0)
                 {
-                    image.Visible = false;
+                    anchor.Visible = false;
                     return;
                 }
 
                 image.ImageUrl =  string.Format("~/AttachmentImageHandler.ashx?EquipOrFac={0}&Id={1}&Size={2}",
                             isEquipmentOrFacility? "1" : "0", firstImage.InvAttachmentSysID, "64") ;
-                image.Visible = true;
+                var fullSizeUrl = string.Format("~/AttachmentImageHandler.ashx?EquipOrFac={0}&Id={1}&Size={2}",
+                            isEquipmentOrFacility ? "1" : "0", firstImage.InvAttachmentSysID, "0");
+                anchor.Attributes["onclick"] = string.Format("ShowAttachmentImage('{0}')", fullSizeUrl);
+
+                anchor.Visible = true;
             }
             catch (Exception e)
             {

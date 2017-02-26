@@ -7,15 +7,16 @@
     <script type="text/javascript" src="../JS/jquery-ui-1.8.12.custom.min.js"></script>
     <script type="text/javascript" src="../JS/jquery.scannerdetection.compatibility.js"></script>
     <script type="text/javascript" src="../JS/jquery.scannerdetection.js"></script>
+    <script type="text/javascript" src="../JS/OpenAttachmentImage.js"></script>
 
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
-           
-         
+
+
 
             $('#<%=txtInventoryDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
-              $('#<%=txtInstalledDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
-            
+            $('#<%=txtInstalledDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+
         });
 
         //$(document).scannerDetection({
@@ -32,24 +33,25 @@
         //    onError: function (string) { alert('Error ' + string); }
         //});
 
-     
+
 
     </script>
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">  
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">
     <div style="padding: 5px">
         <asp:Panel ID="contentPanel" runat="server">
             <table cellspacing="0" cellpadding="5" width="100%" border="0">
-                  <tr>
-                    <td align="left" colspan="2"><asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitBlue" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../printEleEquipment.aspx?equipmentSysID=<%= hidEquipmentSysID.Value %>' target="_blank">
-                <img src="../Image/btn_print.gif" border="0" alt="print" /></a></td>
+                <tr>
+                    <td align="left" colspan="2">
+                        <asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitBlue" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../printEleEquipment.aspx?equipmentSysID=<%= hidEquipmentSysID.Value %>' target="_blank">
+                            <img src="../Image/btn_print.gif" border="0" alt="print" /></a></td>
                     <td colspan="4" align="right">
                         <asp:Button ID="btnFinish" runat="server" Text="Save" CssClass="submitGreen" OnClick="btnFinish_Click" TabIndex="24" />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
-                         &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
-                        
-                     
+                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
+
+
                     </td>
                 </tr>
                 <tr>
@@ -86,7 +88,8 @@
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="rqBuilding" runat="server" ControlToValidate="drplstBuilding" Display="Dynamic" ErrorMessage="Building is required" InitialValue=""></asp:RequiredFieldValidator>
 
-                        Floor: <asp:TextBox ID="txtFloor" runat="server" MaxLength="10" SkinID="ShortInputTextBox" TabIndex="8"></asp:TextBox><font color="#BA3516"> Location: </font><asp:TextBox ID="txtLocation" MaxLength="50" runat="server" SkinID="ShortInputTextBox" TabIndex="9"></asp:TextBox>
+                        Floor:
+                        <asp:TextBox ID="txtFloor" runat="server" MaxLength="10" SkinID="ShortInputTextBox" TabIndex="8"></asp:TextBox><font color="#BA3516"> Location: </font><asp:TextBox ID="txtLocation" MaxLength="50" runat="server" SkinID="ShortInputTextBox" TabIndex="9"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rqvLocation" runat="server" ControlToValidate="txtLocation" Display="Dynamic" ErrorMessage="Location is required"></asp:RequiredFieldValidator>
                     </td>
                     <td class="inventoryTopRightCell">Work Request#:</td>
@@ -94,7 +97,7 @@
                         <asp:TextBox ID="txtWRNum" runat="server" MaxLength="50" TabIndex="10"></asp:TextBox></td>
                 </tr>
             </table>
-            <table id="inputTable" cellspacing="0" cellpadding="2" width="100%" border="0" >
+            <table id="inputTable" cellspacing="0" cellpadding="2" width="100%" border="0">
                 <tr>
                     <td width="15%" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbModelNum" CssClass="tableLabel" runat="server" Text="Model No."></asp:Label></td>
@@ -123,10 +126,10 @@
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtTypeOrUse" runat="server" MaxLength="50" TabIndex="31" />
                     </td>--%>
-                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbPMSchedule" runat="server" CssClass="tableLabel" Text="PM Schedule"></asp:Label>
                     </td>
-                   <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtPMSchedule" MaxLength="50" runat="server" TabIndex="15" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
@@ -185,21 +188,21 @@
                         <asp:TextBox ID="txtInstalledDate" runat="server" TabIndex="25" />
                         <asp:CompareValidator ID="cvInstalledDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInstalledDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
-                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbTJC" runat="server" CssClass="tableLabel" Text="TJC Value"></asp:Label>
                     </td>
-                   <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtTJC" MaxLength="50" runat="server" TabIndex="30" />
-                     <asp:RangeValidator ID="valTJC" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC"></asp:RangeValidator>
-                   
+                        <asp:RangeValidator ID="valTJC" runat="server" Type="integer" CssClass="errortext" Display="Dynamic" MinimumValue="1" MaximumValue="5000000" ErrorMessage="Must be an integer." ControlToValidate="txtTJC"></asp:RangeValidator>
+
                     </td>
                 </tr>
                 <tr>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbBSLClass" CssClass="tableLabel" runat="server" Text="BSL Class."></asp:Label>
                     </td>
-                  
-                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtBSLClass" MaxLength="50" runat="server" TabIndex="29" />
                     </td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
@@ -208,23 +211,23 @@
                         <asp:TextBox ID="txtElectricalOther" runat="server" MaxLength="200" TabIndex="28" /></td>
                 </tr>
                 <tr>
-                     
-                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbInventoryBy" CssClass="tableLabel" runat="server" Text="Inventory By"></asp:Label></td>
-                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                    <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtInventoryBy" runat="server" MaxLength="50" TabIndex="27" />
                     </td>
-                
+
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbInventoryDate" CssClass="tableLabel" runat="server" Text="Inventory Date"></asp:Label></td>
                     <td style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:TextBox ID="txtInventoryDate" runat="server" TabIndex="26" />
                         <asp:CompareValidator ID="cvInventoryDate" runat="server" CssClass="errortext" ErrorMessage="Invalid Date format." ControlToValidate="txtInventoryDate" Type="date" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
-                        
+
                 </tr>
-              <tr>
-                    <td class="tableLabel" >
+                <tr>
+                    <td class="tableLabel">
                         <br />
                         Comments
                     </td>
@@ -233,10 +236,10 @@
                         <br />
                     </td>
                 </tr>
-                  <tr>
-                  
-                   <td colspan="2" style="border-bottom: solid 1px #000; border-right: solid 1px #000;"> 
-                       <asp:Label ID="lbLastUpdatedBy" CssClass="tableLabel" runat="server" ></asp:Label></td>
+                <tr>
+
+                    <td colspan="2" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                        <asp:Label ID="lbLastUpdatedBy" CssClass="tableLabel" runat="server"></asp:Label></td>
                 </tr>
 
                 <tr runat="server">
@@ -247,10 +250,12 @@
                         <br />
                     </td>
                     <td>
-                        <asp:Image id="imageAttachment" runat="server" alt="" visible="true" width="64"/>
+                        <a id="imageAttachmentAnchor" href="#" runat="server">
+                            <asp:Image ID="imageAttachment" runat="server" Width="64" />
+                        </a>
                     </td>
                 </tr>
-                
+
                 <tr id="trAttachment" runat="server">
                     <td colspan="6">
                         <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
@@ -272,7 +277,8 @@
                                 <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
                             </Columns>
                         </asp:GridView>
-                        <br /><br />
+                        <br />
+                        <br />
                     </td>
                 </tr>
             </table>
@@ -280,7 +286,7 @@
             <ajaxToolkit:ModalPopupExtender ID="mpeAttachment" runat="server" TargetControlID="btnAddAttachment"
                 BehaviorID="psrAtt" PopupControlID="panelAttachment" BackgroundCssClass="modal" DropShadow="true" OkControlID="btnClose" />
 
-            <asp:Panel ID="panelAttachment" runat="server" Style="width:750px; background: white; border: 2px black solid; display: none; text-align: left;">
+            <asp:Panel ID="panelAttachment" runat="server" Style="width: 750px; background: white; border: 2px black solid; display: none; text-align: left;">
                 <ctrlAtt:mngAttachment ID="ctrlAddAttachment" runat="server" IsEquipmentOrFacility="false" ModalExtenderID="mpeAttachment" SectionHeaderText="Attachments" AutoLoad="True" />
                 <br />
                 <br />

@@ -20,7 +20,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
 
     public int ElectricalEquipmentSysID
     {
-        get       
+        get
         {
             return !string.IsNullOrEmpty(hidEquipmentSysID.Value)
                 ? Convert.ToInt32(hidEquipmentSysID.Value)
@@ -47,7 +47,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             DataSet dtBuilding = GeneralLookUp.GetBuildingList();
             drplstBuilding.DataSource = dtBuilding;
             drplstBuilding.DataBind();
-                      
+
             if (Request.QueryString["ParentFacilitySysID"] != null && !string.IsNullOrEmpty(Request.QueryString["ParentFacilitySysID"].ToString()))
             {
                 int facID;
@@ -125,7 +125,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             #region "load detail info"
             txtElectricalOther.Text = details.ElectricalOther;
 
-         
+
             txtModelNum.Text = details.ModelNo;
             txtSerialNum.Text = details.SerialNo;
             txtSize.Text = details.Size;
@@ -138,7 +138,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
                 txtInventoryDate.Text = details.InventoryDate.ToShortDateString();
 
 
-          //  txtTypeOrUse.Text = details.TypeOrUse;
+            //  txtTypeOrUse.Text = details.TypeOrUse;
             txtManufacturer.Text = details.Manufacturer;
             txtVolts.Text = details.Volts;
             txtAMP.Text = details.AMP;
@@ -176,7 +176,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             ValidationResult vr = SaveFacilityDetails();
             if (vr.Success)
             {
-               
+
                 Utils.ShowPopUpMsg("Equipment is saved.", this.Page);
                 //can add attachment now
                 trAttachment.Visible = true;
@@ -206,7 +206,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         {
             Response.Redirect("/SearchResult.aspx");
         }
-        
+
     }
 
     protected void btnAddNew_Click(object sender, EventArgs e)
@@ -240,7 +240,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         txtInstalledDate.Text = string.Empty;
         txtElectricalOther.Text = string.Empty;
 
-       // txtTypeOrUse.Text = string.Empty;
+        // txtTypeOrUse.Text = string.Empty;
         txtManufacturer.Text = string.Empty;
         txtVolts.Text = string.Empty;
         txtAMP.Text = string.Empty;
@@ -310,7 +310,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         if (!string.IsNullOrEmpty(txtTJC.Text.Trim()))
             details.TJCValue = Convert.ToInt32(txtTJC.Text.Trim());
         details.PMSchedule = txtPMSchedule.Text.Trim();
-             
+
 
         ValidationResult vr = facility_logic.AddUpdateElectricalEquipment(details);
 
@@ -334,7 +334,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
 
-        this.DisplayAttachmentImage(list, false, imageAttachment);
+        this.DisplayAttachmentImage(list, false, imageAttachment, imageAttachmentAnchor);
     }
 
     protected void gvExtAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
@@ -382,33 +382,33 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
             LoadAttachments();
         }
         else
-    {
+        {
             mpeAttachment.Show();
         }
     }
 
     #endregion
 
-//       $('#<%=txtTypeOrUse.ClientID%>').autocomplete({
-//        source: function(request, response) {
-//                    $.ajax({
-//                url: "../WebService/GetTypeOrUseList.asmx/GetList",
-//                        data: "{}",
-//                        dataType: "json",
-//                        type: "POST",
-//                        contentType: "application/json; charset=utf-8",
-//                        dataFilter: function(data) { return data; },
-//                        success: function(data) {
-//                    var datafromServer = data.d.split(":");
-//                    return { value: datafromServer }
-//                },
-//                        error: function(XMLHttpRequest, textStatus, errorThrown) {
-//                    alert(textStatus);
-//                }
-//            });
-//        },
-//                minLength: 2
-//            });
+    //       $('#<%=txtTypeOrUse.ClientID%>').autocomplete({
+    //        source: function(request, response) {
+    //                    $.ajax({
+    //                url: "../WebService/GetTypeOrUseList.asmx/GetList",
+    //                        data: "{}",
+    //                        dataType: "json",
+    //                        type: "POST",
+    //                        contentType: "application/json; charset=utf-8",
+    //                        dataFilter: function(data) { return data; },
+    //                        success: function(data) {
+    //                    var datafromServer = data.d.split(":");
+    //                    return { value: datafromServer }
+    //                },
+    //                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+    //                    alert(textStatus);
+    //                }
+    //            });
+    //        },
+    //                minLength: 2
+    //            });
 
 
 }
