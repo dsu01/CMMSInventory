@@ -334,7 +334,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
 
-        this.DisplayAttachmentImage(list, imageAttachment);
+        this.DisplayAttachmentImage(list, false, imageAttachment);
     }
 
     protected void gvExtAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)

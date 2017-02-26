@@ -11,6 +11,7 @@ namespace NIH.CMMS.Inventory.Web.Extensions
 {
     public static class WebExtensions
     {
+
         public static void DisplayAttachmentContent(this Page page, Attachment attachment)
         {
             var data = attachment.FileData;
@@ -26,7 +27,7 @@ namespace NIH.CMMS.Inventory.Web.Extensions
             page.Response.End();
         }
 
-        public static void DisplayAttachmentImage(this Page page, List<Attachment> attachments, Image image)
+        public static void DisplayAttachmentImage(this Page page, List<Attachment> attachments, bool isEquipmentOrFacility, Image image)
         {
             try
             {
@@ -43,28 +44,13 @@ namespace NIH.CMMS.Inventory.Web.Extensions
                     return;
                 }
 
-                //var folder = page.MapPath("~/ImageTemp");
-                //if (string.IsNullOrEmpty(folder))
-                //    return;
-
-                //var fileName = firstImage.InvAttachmentSysID + firstImage.FileType;
-                //File.WriteAllBytes(Path.Combine(folder, fileName), firstImage.FileData);
-
-                //image.ImageUrl = string.Format("~/ImageTemp/{0}", fileName);
-
-                
-                string contentType = "image/jpeg"; // .. Get it from database
-
-                //image.Src = string.Format("data:{0};base64,{1}",
-                //    contentType, Convert.ToBase64String(firstImage.FileData));
-                string base64String = Convert.ToBase64String(firstImage.FileData, 0, firstImage.FileData.Length);
-                image.ImageUrl = "data:image/png;base64," + base64String;
-
+                image.ImageUrl =  string.Format("~/AttachmentImageHandler.ashx?EquipOrFac={0}&Id={1}&Size={2}",
+                            isEquipmentOrFacility? "1" : "0", firstImage.InvAttachmentSysID, "64") ;
                 image.Visible = true;
             }
             catch (Exception e)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -72,8 +58,7 @@ namespace NIH.CMMS.Inventory.Web.Extensions
         {
             get
             {
-                return
-                    (Attachment x) =>
+                return (Attachment x) =>
                         x.FileType == ".GIF" || x.FileType == ".JPG" || x.FileType == ".TIF" || x.FileType == ".PNG"
                         || x.FileType == ".gif" || x.FileType == ".jpg" || x.FileType == ".tif" || x.FileType == ".png";
             }

@@ -710,7 +710,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
 
-        this.DisplayAttachmentImage(list, imageComponentAttachment);
+        this.DisplayAttachmentImage(list, true, imageComponentAttachment);
 
         trAttachment.Visible = true;
     }
@@ -776,7 +776,7 @@ public partial class Equipment_systemElectrical : System.Web.UI.Page
         gvExtFacilityAttachment.DataSource = list;
         gvExtFacilityAttachment.DataBind();
 
-        this.DisplayAttachmentImage(list, imageAttachment);
+        this.DisplayAttachmentImage(list, false, imageAttachment);
     }
 
     protected void gvExtFacilityAttachment_onRowCommand(object sender, GridViewCommandEventArgs e)
