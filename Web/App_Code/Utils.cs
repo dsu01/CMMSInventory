@@ -45,7 +45,7 @@ namespace NIH.CMMS.Inventory.Web
             }
             ;
 
-       
+
 
         #region "Report functions"
         public static void ExportToExcel(string fileName, GridView gv, string title, Dictionary<string, string> args)
@@ -235,10 +235,9 @@ namespace NIH.CMMS.Inventory.Web
                         //  render the htmlwriter into the response
                         HttpContext.Current.Response.Clear();
                         HttpContext.Current.Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", fileName + ".xls"));
-                        HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+                        HttpContext.Current.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                         HttpContext.Current.Response.Write(sw.ToString());
                         HttpContext.Current.Response.Charset = "";
-                        // HttpContext.Current.Response.BufferOutput = false;
                         HttpContext.Current.Response.Flush();
 
 
@@ -427,25 +426,26 @@ namespace NIH.CMMS.Inventory.Web
                     cell.BackgroundColor = new Color(204, 204, 204);
                     table.AddCell(cell);
                 }
-                List<Cell> rowList = new List<Cell>();
-                List<Cell> rowListFiltered = new List<Cell>();
+
+                // data
                 foreach (GridViewRow row in gv.Rows)
                 {
-                    rowList.Clear();
-                    rowList = getRowPdfData(row);
+                    var rowList = new List<Cell>();
+                    GetRowDataForPdf(row, rowList, false);
 
-                    foreach (Cell item in rowList)
+                    foreach (Cell item in rowList.Take(7))
                     {
                         table.AddCell(item);
                     }
                 }
 
-                List<Cell> footer = new List<Cell>();
+                // footer
                 //  add the footer row to the table
                 if (gv.FooterRow != null && gv.ShowFooter)
                 {
-                    footer = getRowPdfData(gv.FooterRow);
-                    foreach (Cell item in footer)
+                    var footerList = new List<Cell>();
+                    GetRowDataForPdf(gv.FooterRow, footerList, false);
+                    foreach (Cell item in footerList)
                     {
                         table.AddCell(item);
                     }
@@ -512,8 +512,8 @@ namespace NIH.CMMS.Inventory.Web
         }
         #endregion
 
-        #region public static List<string> getRowPdfData(Control control)
-        public static List<Cell> getRowPdfData(Control control)
+        #region public static List<string> GetRowDataForPdf(Control control)
+        private static void GetRowDataForPdf(Control control, List<Cell> cellsToProcess, bool getAtMostOne)
         {
             /*******************************************
              *  Use this logic flow, in order to
@@ -531,40 +531,47 @@ namespace NIH.CMMS.Inventory.Web
                 //    }
                 //}
              * ****************************************/
+
             for (int i = 0; i < control.Controls.Count; i++)
             {
                 bool recurse = true;
+                var foundOne = false;
                 Control current = control.Controls[i];
+
                 if (current.GetType().ToString().Equals("System.Web.UI.WebControls.DataControlLinkButton"))
                 {
                     control.Controls.Remove(current);
                     control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
-                    cells.Add(new Cell((current as LinkButton).Text));
+                    cellsToProcess.Add(new Cell((current as LinkButton).Text));
+                    foundOne = true;
                 }
                 else if (current is LinkButton)
                 {
                     control.Controls.Remove(current);
                     control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
-                    cells.Add(new Cell((current as LinkButton).Text));
+                    cellsToProcess.Add(new Cell((current as LinkButton).Text));
+                    foundOne = true;
                 }
                 else if (current is HyperLink)
                 {
                     control.Controls.Remove(current);
                     control.Controls.AddAt(i, new LiteralControl((current as HyperLink).Text));
-                    cells.Add(new Cell((current as HyperLink).Text));
-
+                    cellsToProcess.Add(new Cell((current as HyperLink).Text));
+                    foundOne = true;
                 }
                 else if (current is DropDownList)
                 {
                     control.Controls.Remove(current);
                     control.Controls.AddAt(i, new LiteralControl((current as DropDownList).SelectedItem.Text));
-                    cells.Add(new Cell((current as DropDownList).SelectedItem.Text));
+                    cellsToProcess.Add(new Cell((current as DropDownList).SelectedItem.Text));
+                    foundOne = true;
                 }
                 else if (current is CheckBox)
                 {
                     control.Controls.Remove(current);
                     control.Controls.AddAt(i, new LiteralControl((current as CheckBox).Checked ? "True" : "False"));
-                    cells.Add(new Cell((current as CheckBox).Checked ? "True" : "False"));
+                    cellsToProcess.Add(new Cell((current as CheckBox).Checked ? "True" : "False"));
+                    foundOne = true;
                 }
                 else if (current is Label)
                 {
@@ -582,7 +589,8 @@ namespace NIH.CMMS.Inventory.Web
                         (current as Label).Text = (current as Label).Text.Replace("<br/>", "\n");
                     }
                     control.Controls.AddAt(i, new LiteralControl((current as Label).Text));
-                    cells.Add(new Cell((current as Label).Text));
+                    cellsToProcess.Add(new Cell((current as Label).Text));
+                    foundOne = true;
                 }
                 else if (current is System.Web.UI.WebControls.Image)
                 {
@@ -594,15 +602,21 @@ namespace NIH.CMMS.Inventory.Web
                     {
                         iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(new Uri(imageUrl));
                         img.Alignment = iTextSharp.text.Image.MIDDLE_ALIGN;
-                        cells.Add(new Cell(img));
+                        cellsToProcess.Add(new Cell(img));
+                        foundOne = true;
                     }
-                    else cells.Add(new Cell(string.Empty));
+                    else
+                    {
+                        cellsToProcess.Add(new Cell(string.Empty));
+                        foundOne = true;
+                    }
                 }
                 else if (current is System.Web.UI.WebControls.Literal)
                 {
                     control.Controls.Remove(current);
                     control.Controls.AddAt(i, new LiteralControl((current as Literal).Text));
-                    cells.Add(new Cell((current as Literal).Text));
+                    cellsToProcess.Add(new Cell((current as Literal).Text));
+                    foundOne = true;
                 }
                 else if (current is System.Web.UI.WebControls.TableCell)
                 {
@@ -621,7 +635,7 @@ namespace NIH.CMMS.Inventory.Web
                             lit.Text = (current as TableCell).Text;
                             tc.Controls.Add(lit);
                             control.Controls.AddAt(idx, tc);
-                            //cells.Add(new Cell((current as TableCell).Text));
+                            //cellsToProcess.Add(new Cell((current as TableCell).Text));
                             current = tc;
                         }
                     }
@@ -632,14 +646,17 @@ namespace NIH.CMMS.Inventory.Web
                     }
                 }
 
-                if (recurse && current.HasControls())
+                if (foundOne && getAtMostOne)  // looking for one total, done
+                    return;
+                else if (foundOne)  // this iteration is success
+                    continue;
+                else if (recurse && current.HasControls())
                 {
-                    getRowPdfData(current);
+                    GetRowDataForPdf(current, cellsToProcess, true);
                 }
             }
-
-            return cells;
         }
+
         #endregion
         //#region public static void ExportToExcel(string fileName, GridView gv)
         //public static void ExportToExcel(string fileName, GridView gv)
@@ -872,7 +889,7 @@ namespace NIH.CMMS.Inventory.Web
         //        foreach (GridViewRow row in gv.Rows)
         //        {
         //            rowList.Clear();
-        //            rowList = getRowPdfData(row);
+        //            rowList = GetRowDataForPdf(row);
 
 
         //            foreach (string item in rowList)
@@ -885,7 +902,7 @@ namespace NIH.CMMS.Inventory.Web
         //        //  add the footer row to the table
         //        if (gv.FooterRow != null && gv.ShowFooter)
         //        {
-        //            footer = getRowPdfData(gv.FooterRow);
+        //            footer = GetRowDataForPdf(gv.FooterRow);
         //            foreach (string item in footer)
         //            {
         //                table.AddCell(item);
@@ -952,8 +969,8 @@ namespace NIH.CMMS.Inventory.Web
         //}
         //#endregion
 
-        //#region public static List<string> getRowPdfData(Control control)
-        //public static List<string> getRowPdfData(Control control)
+        //#region public static List<string> GetRowDataForPdf(Control control)
+        //public static List<string> GetRowDataForPdf(Control control)
         //{
 
         //    for (int i = 0; i < control.Controls.Count; i++)
@@ -1006,7 +1023,7 @@ namespace NIH.CMMS.Inventory.Web
 
         //        if (current.HasControls())
         //        {
-        //            getRowPdfData(current);
+        //            GetRowDataForPdf(current);
         //        }
         //    }
 
@@ -1574,7 +1591,7 @@ namespace NIH.CMMS.Inventory.Web
         {
             return string.IsNullOrEmpty(extension) ? false : AllowedExtensions.Any(x => x == extension.ToUpper());
         }
-        
+
         #endregion
         static Utils()
         {

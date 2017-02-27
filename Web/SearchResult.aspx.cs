@@ -88,19 +88,19 @@ public partial class SearchResult : System.Web.UI.Page
             else if (!string.IsNullOrEmpty(crit.wrnum))
                 lblExiCrit.Text += "&nbsp; <b> Work Request#</b>: " + crit.wrnum;
             else
-            { 
-            switch (crit.flagAssigned)
             {
-                case 2:
+                switch (crit.flagAssigned)
+                {
+                    case 2:
                         lblExiCrit.Text += " Assigned Facilities";
-                    break;
-                case 3:
+                        break;
+                    case 3:
                         lblExiCrit.Text += " Assinged and Un-Assigned Facilities";
-                    break;
-                default:
+                        break;
+                    default:
                         lblExiCrit.Text += " Un-Assigned Facilities";
-                    break;
-            }
+                        break;
+                }
                 //if (!string.IsNullOrEmpty(crit.typeId))
                 //    lblExiCrit.Text += "&nbsp;, Type: " + crit.typeId;
                 if (!string.IsNullOrEmpty(crit.systemDescs))
@@ -110,11 +110,11 @@ public partial class SearchResult : System.Web.UI.Page
                 }
                 else
                     lblExiCrit.Text += "&nbsp; <b>Selection:</b> All ";
-            //if (!string.IsNullOrEmpty(crit.componentIds))
-            //     lblExiCrit.Text += "&nbsp;, Components: " + crit.componentIds;
-         
-            //if (!string.IsNullOrEmpty(crit.systemIds))
-            //     lblExiCrit.Text += "&nbsp;, Systems: " + crit.systemIds;
+                //if (!string.IsNullOrEmpty(crit.componentIds))
+                //     lblExiCrit.Text += "&nbsp;, Components: " + crit.componentIds;
+
+                //if (!string.IsNullOrEmpty(crit.systemIds))
+                //     lblExiCrit.Text += "&nbsp;, Systems: " + crit.systemIds;
                 if (!string.IsNullOrEmpty(crit.buildingDescs))
                 {
 
@@ -122,14 +122,14 @@ public partial class SearchResult : System.Web.UI.Page
                 }
                 else
                     lblExiCrit.Text += "&nbsp; <b>Buildings</b>: All ";
-               
-                     
+
+
             }
-                 
+
             DataSet ds = facility_logic.GetFacilitySearchResult(crit);
-                
+
             lbModifySearch.Visible = true;
-            pnlResults.Visible = true;       
+            pnlResults.Visible = true;
             trExportandPrintButtons.Visible = true;
             if (ds != null)
             {
@@ -210,7 +210,7 @@ public partial class SearchResult : System.Web.UI.Page
                 string OnMouseOutScript = string.Format("$find('{0}').hidePopup();", behaviorID);
 
                 i.Attributes.Add("onmouseover", OnMouseOverScript);
-                
+
             }
             else
             { i.Visible = false; }
@@ -224,7 +224,7 @@ public partial class SearchResult : System.Web.UI.Page
             // Display the e-mail address in italics.
             Label lbFacGroup = (Label)e.Row.FindControl("lblHidFacilityGrp");
             Label lbFacSystemID = (Label)e.Row.FindControl("lblHidFacilityID");
-           
+
             HyperLink hlFacNum = (HyperLink)e.Row.FindControl("hlFacNum");
 
             if (lbFacGroup != null && hlFacNum != null && lbFacSystemID != null)
@@ -271,25 +271,25 @@ public partial class SearchResult : System.Web.UI.Page
         SearchCriteria.KeepAlive = true;
 
         Response.Redirect("~/Default.aspx?");
-           
+
     }
 
     //webservice for popup
     [System.Web.Services.WebMethodAttribute(), System.Web.Script.Services.ScriptMethodAttribute()]
     public static string GetDynamicContent(string contextKey)
     {
-        StringBuilder sTemp = new StringBuilder();      
+        StringBuilder sTemp = new StringBuilder();
         List<EquipmentDet> eqList = facility_logic.GetEquipmentsList(contextKey);
-       
+
         if (eqList != null)
         {
             sTemp.Append("<table class='popupTableView'>");
-            
+
             sTemp.Append("<tr><td></td><td><b>Equipments List:</b><br /><br /></td></tr>");
             foreach (EquipmentDet det in eqList)
             {
                 sTemp.Append("<tr><td width='20%' class='leftLabel' align='right'><b>Equipment ID:</b></td><td align='left' class='text7'><a href='Equipment/systemElectrical.aspx?equipID=" + det.Key + "'>" + det.EquipID + "</a></td></tr>");
-                sTemp.Append("<tr><td class='leftLabel' align='right'><b>Location:</b></td><td align='left' class='text7'>" + det.EquipLocation+ "</td></tr>");
+                sTemp.Append("<tr><td class='leftLabel' align='right'><b>Location:</b></td><td align='left' class='text7'>" + det.EquipLocation + "</td></tr>");
                 sTemp.Append("<tr><td class='leftLabel' align='right'><b>Type or Use:</b></td><td align='left' class='text7'>" + det.TypeOrUse + "</td></tr>");
                 sTemp.Append("<tr><td class='leftLabel' align='right'><b>Manufacturer:</b></td><td align='left' class='text7'>" + det.Manufacturer + "</td></tr>");
                 sTemp.Append("<tr><td class='leftLabel' align='right'><b>Model:</b></td><td align='left' class='text7'>" + det.ModelNo + "</td></tr>");
@@ -297,7 +297,7 @@ public partial class SearchResult : System.Web.UI.Page
                 sTemp.Append("<tr><td class='leftLabel' align='right'><b>InstallDate:</b></td><td align='left' class='text7'>" +
                     det.InstalledDate.ToShortDateString() +
                     "</td></tr>");
-              
+
                 sTemp.Append("<tr><td colspan='2'><hr /></td></tr>");
             }
 

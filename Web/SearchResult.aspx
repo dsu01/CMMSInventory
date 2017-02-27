@@ -28,7 +28,7 @@
                                             <tr>
                                                 <td align="right">
                                                     <asp:Button ID="btnExportToExcel" runat="Server" Text="Export To Excel" OnClick="btnExportToExcel_OnClick" UseSubmitBehavior="false"/>
-                                                    <asp:Button ID="btnExportToPDF" Visible="false" runat="Server" Text="Export To PDF" OnClick="btnExportToPDF_OnClick" UseSubmitBehavior="false"/>
+                                                    <asp:Button ID="btnExportToPDF" runat="Server" Text="Export To PDF" OnClick="btnExportToPDF_OnClick" UseSubmitBehavior="false"/>
                                                 </td>
                                             </tr>
                                         </table>

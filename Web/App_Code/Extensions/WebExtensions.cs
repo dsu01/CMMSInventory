@@ -45,8 +45,8 @@ namespace NIH.CMMS.Inventory.Web.Extensions
                     return;
                 }
 
-                image.ImageUrl =  string.Format("~/AttachmentImageHandler.ashx?EquipOrFac={0}&Id={1}&Size={2}",
-                            isEquipmentOrFacility? "1" : "0", firstImage.InvAttachmentSysID, "64") ;
+                image.ImageUrl = string.Format("~/AttachmentImageHandler.ashx?EquipOrFac={0}&Id={1}&Size={2}",
+                            isEquipmentOrFacility ? "1" : "0", firstImage.InvAttachmentSysID, image.Width.Value.ToString("N0"));
                 var fullSizeUrl = string.Format("~/AttachmentImageHandler.ashx?EquipOrFac={0}&Id={1}&Size={2}",
                             isEquipmentOrFacility ? "1" : "0", firstImage.InvAttachmentSysID, "0");
                 anchor.Attributes["onclick"] = string.Format("ShowAttachmentImage('{0}')", fullSizeUrl);
