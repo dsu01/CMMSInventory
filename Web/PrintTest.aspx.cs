@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using NIH.CMMS.Inventory.BOL.Facility;
 using NIH.CMMS.Inventory.BPL.Facility;
+using System.Text;
+using System.Data;
 
 public partial class PrintTest : System.Web.UI.Page
 {
@@ -15,22 +17,45 @@ public partial class PrintTest : System.Web.UI.Page
         {
             string facNum = string.Empty;
 
-            facNum = "";
+            facNum = "T00027";
 
             FacilityDet existingFac = facility_logic.GetFacilityDetailsByFacNum(facNum);
 
-            //if (existingFac != null)
-            //{
-            //    int numberOfPages = 1;
-            //    if (existingFac.FacEquipments != null)
-            //    {
-            //        numberOfPages = existingFac.FacEquipments.Count/5;
-            //    }
+            if (existingFac != null)
+            {
+                StringBuilder html = new StringBuilder();
+                int numberOfPages = 1;
+                int endCount = 1;
+                int total = existingFac.FacEquipments.Count;
 
-            //    //for i=1 i++ i<numberOfPages
-            //    //{
-            //    //    //generate table for every 5 components
-            //    //}
+                if (existingFac.FacEquipments == null || total == 0)
+                {
+                    numberOfPages = 0;
+                    endCount = 0;
+                }
+                else if (total <= 5)
+                {
+                    numberOfPages = 1;
+                    //printCurrentPage(existingFac, 1, 5, html);
+                }
+                else if (total > 5)
+                {
+                    //numberOfPages = total / 5;
+                    //if (currentPageNum * 5 > total)
+                    //    endCount = total;
+                    //else
+                    //    endCount = currentPageNum * 5;
+
+                    //for (int i = 1; i <= numberOfPages; i++)
+                    //{
+                    //    //generate table for every 5 components
+                    //    printCurrentPage(existingFac, i,endCount, html);
+                    //}
+                }
+              
+                
+                
+            }
             //    #region "show fac detail"
             //   //now need to generate table top part now
             //        if (existingFac.Status.ToLower() == "active")
@@ -1161,6 +1186,127 @@ public partial class PrintTest : System.Web.UI.Page
         }
 
         // }
+    }
+
+    private void printCurrentPage(FacilityDet existingFac, int currentPage, int start, int end, StringBuilder html)
+    {       
+
+        //top part of page
+        html.Append("<div style='page-break-after:always'><table cellspacing='0' cellpadding='3' width='635' border='0'><tr style='height:15pt'>");
+        html.Append("<td colspan='4' class='inventoryTopLeftTitle' width='450'>Equipment Inventory Card</td><td class='inventoryTopRightCell' width='70' valign='baseline'>Facility#:</td>");
+        html.Append("<td style='border-bottom: solid 1px #000;' width='100'>");       
+
+         if (existingFac.Status.ToLower() == "active")
+          { html.Append("<b><font color='green'>" + existingFac.FacNum + "(" + existingFac.Status + ")</font></b>"); }
+           else
+          { html.Append("<b><font color='red'>" + existingFac.FacNum + "(" + existingFac.Status + ")</font></b>"); }
+
+        html.Append("</tr>");
+
+        html.Append("<tr style='height:12pt'><td colspan='4' class='inventoryTopLeftCell'><font color='#BA3516'>System:&nbsp;&nbsp;</font>");
+        html.Append(existingFac.FacSystem); 
+        html.Append("</td>");    
+        html.Append("<td class='inventoryTopRightCell'><font color='#BA3516'>Facility ID:</font></td><td class='inventoryTopRightCellBtm'>");
+        html.Append(existingFac.FacID); 
+        html.Append("</td></tr>");    
+   
+        html.Append("<tr style='height:12pt'><td colspan='4' class='inventoryTopLeftCell'>Function:&nbsp;");
+        html.Append(existingFac.FacFunction); 
+        html.Append("</td>");    
+        html.Append("<td colspan='2' class='inventoryTopRightCell'>AAALAC");
+     
+        if (existingFac.YsnAaalac == 1)
+          { html.Append("Yes"); }
+           else
+          { html.Append("No");  }
+
+        html.Append("&nbsp;BSL");  
+          if (existingFac.YsnBsl == 1)
+          { html.Append("Yes"); }
+           else
+          { html.Append("No");  }
+
+        html.Append("&nbsp;TJC"); 
+        if (existingFac.YsnTJC == 1)
+          { html.Append("Yes"); }
+           else
+          { html.Append("No");  }
+      
+        html.Append("</td></tr>");  
+           
+        html.Append("<tr style='height:12pt'><td colspan='4' class='inventoryTopLeftCell'><font color='#BA3516'>Building:&nbsp;</font>");
+        html.Append(existingFac.FacBuilding); 
+        html.Append("&nbsp;Floor:");  
+        html.Append(existingFac.FacFloor); 
+        html.Append("&nbsp;<font color='#BA3516'>Location:");  
+        html.Append(existingFac.FacLocation); 
+        html.Append("</td>"); 
+   
+        html.Append("<td class='inventoryTopRightCell'>WR#:</td><td class='inventoryTopRightCellBtm'>");
+        html.Append(existingFac.WRNumber); 
+        html.Append("</td></tr></table>");    
+          
+        //component table 5 each,curreny, endcount          
+	   
+		for (int i = currentPage * 5; i <= end; i++)       
+        {
+            //generate table for every 5 components
+           // printFiveComponents(existingFac.FacEquipments, start, end, html);
+        }
+		//bottom part of page
+        html.Append("<table width='635' border='0'><tr style='height:18pt'>");
+        html.Append("<td colspan='2' class='leftLabel'>Comments:<br />");        
+        html.Append(existingFac.Comment);
+        html.Append("</td></tr>"); 
+       	html.Append("<tr style='height:5pt'><td colspan='2'><hr size='2' /></td></tr>"); 	
+		html.Append("<tr style='font-size:x-small;height:8pt'><td align='left'>NIH-1884<br />Rev.02/2011</td><td align='right'>NIH\\ORF\\RPMO</td></tr></table>"); 	
+				
+		PlaceHolder1.Controls.Add(new Literal {Text = html.ToString()});	
+    }
+
+    private void printFiveComponents(List<EquipmentDet> equips, StringBuilder html)
+    {
+        //<table width="635" border="0" cellpadding="1" cellspacing="0" class="componentTable">	
+        //Table start.
+        html.Append("<table style='width: 780px; height:1050px; table-layout: fixed; font-size: 10px;' border = '1'>");
+
+        //Building the Header row.
+        html.Append("<tr height='100'>");
+        //for (int i = 0; i < 8; i++)
+        //{
+        //}
+
+        html.Append("<th style='width: 100px;'>Test Column 1 </th>");
+        html.Append("<th style='width: 100px;'>Test Column 2 </th>");
+        html.Append("<th style='width: 100px;'>Test Column 3 </th>");
+        html.Append("<th style='width: 100px;'>Test Column 4 </th>");
+        html.Append("<th style='width: 100px;'>Test Column 5 </th>");
+        html.Append("<th style='width: 100px;'>Test Column 6 </th>");
+        html.Append("<th style='width: 180px;'>Test Column 7 </th>");
+        html.Append("</tr>");
+
+        ////Building the Data rows.
+        //foreach (DataRow row in dt.Rows)
+        //{
+        //    html.Append("<tr>");
+        //    foreach (DataColumn column in dt.Columns)
+        //    {
+        //        string data = row[column.ColumnName].ToString();
+        //        //if (!string.IsNullOrEmpty(data) && data.Length > 50)
+        //        //{
+        //        //    data = data.Substring(0, 50);
+        //        //}
+        //        column.AutoIncrement = false;
+        //        html.Append("<td>");
+        //        html.Append(data.Substring(0, Math.Min(data.Length, 50)));
+        //        // html.Append(data);
+        //        html.Append("</td>");
+        //    }
+        //    html.Append("</tr>");
+        //}
+
+        //Table end.
+        html.Append("</table>");
     }
 }
 

@@ -15,6 +15,7 @@ using NIH.CMMS.Inventory.BPL.Common;
 using NIH.CMMS.Inventory.Web.Extensions;
 using System.IO;
 
+
 public partial class Equipment_systemMechanical : System.Web.UI.Page
 {
     protected LoginUser loginUsr;
@@ -113,7 +114,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
                 bool result = Int32.TryParse(Request.QueryString["equipID"].ToString(), out equipID);
                 if (result)
                 {
-
+                    TabContainer1.ActiveTabIndex = 1;
                     LoadEquipmentDetail(equipID, true);
                 }
                 else
@@ -155,13 +156,13 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
     {
 
         //show component panel if not there yet
-        //if (string.IsNullOrEmpty(txtFacilityNum.Text))
-        //{
-        //    //if first time, after saving the tab should be 1
-        //    TabContainer1.ActiveTabIndex = 1;
-        //}
-        //else
-        //    TabContainer1.ActiveTabIndex = 0;
+        if (string.IsNullOrEmpty(txtFacilityNum.Text))
+        {
+            //if first time, after saving the tab should be 1
+            TabContainer1.ActiveTabIndex = 1;
+        }
+        else
+            TabContainer1.ActiveTabIndex = 0;
 
         int facID = SaveFacilityDetails(true);
         if (facID > 0)
@@ -213,7 +214,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
 
     protected void btnAddNew_Click(object sender, EventArgs e)
     {
-        //TabContainer1.ActiveTabIndex = 1;
+        TabContainer1.ActiveTabIndex = 1;
         //if already previous component info exist, delete them
         if (SystemEquipmentSysID > 0 && txtEquipmentID.Text != "")
         {
@@ -705,7 +706,7 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
         {
             int Id = Convert.ToInt32(e.CommandArgument.ToString());
             //switch tab to component detail and show component info
-            // TabContainer1.ActiveTabIndex = 1;
+            TabContainer1.ActiveTabIndex = 1;
 
             LoadEquipmentDetail(Id, false);
 
@@ -719,8 +720,6 @@ public partial class Equipment_systemMechanical : System.Web.UI.Page
         var list = equipmentSysId > 0 ? AttachmentLogic.GetAttachments(equipmentSysId, true) : null;
         gvExtAttachment.DataSource = list;
         gvExtAttachment.DataBind();
-
-        this.DisplayAttachmentImage(list, true, imageComponentAttachment, imageComponentAttachmentAnchor);
 
         trAttachment.Visible = true;
     }

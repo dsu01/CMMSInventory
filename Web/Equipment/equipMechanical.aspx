@@ -25,14 +25,14 @@
         <table cellspacing="0" cellpadding="5" width="100%" border="0">
             <tr>
                 <td colspan="2">
-                    <asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitBlue" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;<a href='../printFacility.aspx?FacilityNumber=<%= txtFacilityNum.Text %>' target="_blank">
+                    <asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;<a href='../printFacility.aspx?FacilityNumber=<%= txtFacilityNum.Text %>' target="_blank">
                         <img src="../Image/btn_print.gif" border="0" alt="print" /></a>
                 </td>
                 <td colspan="4" align="right">
                     <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
-
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
                     <asp:HiddenField ID="hidFacSystemID" runat="server" Value="-1" />
                 </td>
             </tr>
@@ -284,19 +284,17 @@
 
             <tr id="trAttachment" runat="server">
                 <td>
-                    <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
-                    <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" /><br />
+                    <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" />
+                </td>
+                <td colspan="6">
+                    <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitGreen" CausesValidation="false" /><br />
                     <br />
                 </td>
-                <td>
-                    <a id="imageAttachmentAnchor" href="#" runat="server">
-                        <asp:Image ID="imageAttachment" runat="server" Width="64" />
-                    </a>
-                </td>
+               
             </tr>
 
             <tr id="tr1" runat="server">
-                <td colspan="4">
+                <td colspan="6">
                     <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                         OnRowCommand="gvExtAttachment_onRowCommand">
                         <Columns>
@@ -316,6 +314,11 @@
                             <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
                         </Columns>
                     </asp:GridView>
+                </td>
+                 <td colspan="2">
+                    <a id="imageAttachmentAnchor" href="#" runat="server">
+                        <asp:Image ID="imageAttachment" runat="server" Width="150" />
+                    </a>
                 </td>
             </tr>
 

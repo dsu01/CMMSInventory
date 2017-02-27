@@ -44,12 +44,12 @@
             <table cellspacing="0" cellpadding="5" width="100%" border="0">
                 <tr>
                     <td align="left" colspan="2">
-                        <asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitBlue" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../printEleEquipment.aspx?equipmentSysID=<%= hidEquipmentSysID.Value %>' target="_blank">
+                        <asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../printEleEquipment.aspx?equipmentSysID=<%= hidEquipmentSysID.Value %>' target="_blank">
                             <img src="../Image/btn_print.gif" border="0" alt="print" /></a></td>
                     <td colspan="4" align="right">
                         <asp:Button ID="btnFinish" runat="server" Text="Save" CssClass="submitGreen" OnClick="btnFinish_Click" TabIndex="24" />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitYellow" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
-                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitRed" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnAddNew" runat="server" Text="Add Another" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnAddNew_Click" />
 
 
                     </td>
@@ -231,33 +231,30 @@
                         <br />
                         Comments
                     </td>
-                    <td colspan="4">
+                    <td colspan="3">
                         <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" Rows="3" Columns="55" TabIndex="23"></asp:TextBox>
                         <br />
                     </td>
                 </tr>
                 <tr>
-
-                    <td colspan="2" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
+                    <td colspan="4" style="border-bottom: solid 1px #000; border-right: solid 1px #000;">
                         <asp:Label ID="lbLastUpdatedBy" CssClass="tableLabel" runat="server"></asp:Label></td>
                 </tr>
 
-                <tr runat="server">
+                <tr id="trAttachment" runat="server">
                     <td>
-                        <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
-                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitRed" CausesValidation="false" />
+                        <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" />
+                     </td>
+                    <td colspan="3">
+                        <asp:Button ID="btnAddAttachment" runat="server" Text="Add New Attachment" CssClass="submitGreen" CausesValidation="false" />
                         <br />
                         <br />
                     </td>
-                    <td>
-                        <a id="imageAttachmentAnchor" href="#" runat="server">
-                            <asp:Image ID="imageAttachment" runat="server" Width="64" />
-                        </a>
-                    </td>
+                  
                 </tr>
 
-                <tr id="trAttachment" runat="server">
-                    <td colspan="6">
+                <tr id="tr1" runat="server">
+                    <td colspan="3">
                         <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                             OnRowCommand="gvExtAttachment_onRowCommand">
                             <Columns>
@@ -279,6 +276,11 @@
                         </asp:GridView>
                         <br />
                         <br />
+                    </td>
+                      <td>
+                        <a id="imageAttachmentAnchor" href="#" runat="server">
+                            <asp:Image ID="imageAttachment" runat="server" Width="150" />
+                        </a>
                     </td>
                 </tr>
             </table>
