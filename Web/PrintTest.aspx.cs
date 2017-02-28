@@ -25,36 +25,43 @@ public partial class PrintTest : System.Web.UI.Page
             {
                 StringBuilder html = new StringBuilder();
                 int numberOfPages = 1;
+                int startCount = 1;
                 int endCount = 1;
-                int total = existingFac.FacEquipments.Count;
+                int equipTotal = 0;
 
-                if (existingFac.FacEquipments == null || total == 0)
+                if (existingFac.FacEquipments != null)
+                    equipTotal = existingFac.FacEquipments.Count;
+
+                if (existingFac.FacEquipments == null || equipTotal == 0)
                 {
                     numberOfPages = 0;
                     endCount = 0;
+                    printCurrentPage(existingFac, 0,0,0, html);
                 }
-                else if (total <= 5)
+                else if (equipTotal <= 5)
                 {
                     numberOfPages = 1;
-                    //printCurrentPage(existingFac, 1, 5, html);
+                    endCount = equipTotal;
+                   // printCurrentPage(existingFac, 1, 1, endCount, html);
                 }
-                else if (total > 5)
+                else if (equipTotal > 5)
                 {
-                    //numberOfPages = total / 5;
-                    //if (currentPageNum * 5 > total)
-                    //    endCount = total;
-                    //else
-                    //    endCount = currentPageNum * 5;
+                    numberOfPages = equipTotal / 5 + 1;                 
 
-                    //for (int i = 1; i <= numberOfPages; i++)
-                    //{
-                    //    //generate table for every 5 components
-                    //    printCurrentPage(existingFac, i,endCount, html);
-                    //}
+                    for (int i = 2; i <= numberOfPages; i++)
+                    {
+                        //generate table for every 5 components
+                        startCount = (i-1) * 5;
+                        if (numberOfPages * 5 > equipTotal)
+                            endCount = equipTotal;
+                        else
+                            endCount = i * 5;
+                       // printCurrentPage(existingFac, i, startCount, endCount, html);
+                    }
                 }
-              
-                
-                
+               
+
+
             }
             //    #region "show fac detail"
             //   //now need to generate table top part now
@@ -1259,7 +1266,7 @@ public partial class PrintTest : System.Web.UI.Page
         html.Append(existingFac.Comment);
         html.Append("</td></tr>"); 
        	html.Append("<tr style='height:5pt'><td colspan='2'><hr size='2' /></td></tr>"); 	
-		html.Append("<tr style='font-size:x-small;height:8pt'><td align='left'>NIH-1884<br />Rev.02/2011</td><td align='right'>NIH\\ORF\\RPMO</td></tr></table>"); 	
+		html.Append("<tr style='font-size:x-small;height:8pt'><td align='left'>NIH-1884<br />Rev.02/2017</td><td align='right'>NIH\\ORF\\RPMO</td></tr></table>"); 	
 				
 		PlaceHolder1.Controls.Add(new Literal {Text = html.ToString()});	
     }
