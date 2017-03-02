@@ -55,6 +55,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                     btnSaveFacility.Text = "Save Equipment";
                     LoadFacilityInfo();
                     trAttachment.Visible = true;
+                    trAttList.Visible = true;
                     drplstBuilding.Enabled = false;
                     txtFacilityNum.Enabled = false;
                     btnAddNew.Visible = true;
@@ -68,6 +69,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
             else
             {
                 trAttachment.Visible = false;
+                trAttList.Visible = false;
                 drplstBuilding.Enabled = true;
                 txtFacilityNum.Enabled = true;
                 btnSaveFacility.Text = "Add Equipment";
@@ -102,6 +104,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
                 Utils.ShowPopUpMsg("Equipment is saved.", this.Page);
                 //can add attachment now
                 trAttachment.Visible = true;
+                trAttList.Visible = true;
             }
             else
                 Utils.ShowPopUpMsg("Equipment cannot be saved." + vr.Reason, this.Page);
@@ -334,6 +337,7 @@ public partial class Equipment_equipMechanical : System.Web.UI.Page
         txtInventoryBy.Text = string.Empty;
         txtInventoryDate.Text = string.Empty;
         trAttachment.Visible = false;
+        trAttList.Visible = false;
         txtManufacturer.Text = string.Empty;
         btnSaveFacility.Text = "Add Equipment";
 

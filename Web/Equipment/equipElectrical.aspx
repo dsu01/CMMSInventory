@@ -5,8 +5,8 @@
     <link href="../CSS/jquery-ui-1.8.12.custom.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../JS/jquery-1.5.1.min.js"></script>
     <script type="text/javascript" src="../JS/jquery-ui-1.8.12.custom.min.js"></script>
-    <script type="text/javascript" src="../JS/jquery.scannerdetection.compatibility.js"></script>
-    <script type="text/javascript" src="../JS/jquery.scannerdetection.js"></script>
+ <%--   <script type="text/javascript" src="../JS/jquery.scannerdetection.compatibility.js"></script>
+    <script type="text/javascript" src="../JS/jquery.scannerdetection.js"></script>--%>
     <script type="text/javascript" src="../JS/OpenAttachmentImage.js"></script>
 
     <script type="text/javascript" charset="utf-8">
@@ -39,13 +39,14 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderMain" runat="Server">
-    <div style="padding: 5px">
+ 
         <asp:Panel ID="contentPanel" runat="server">
             <table cellspacing="0" cellpadding="5" width="100%" border="0">
                 <tr>
                     <td align="left" colspan="2">
-                        <asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../printEleEquipment.aspx?equipmentSysID=<%= hidEquipmentSysID.Value %>' target="_blank">
-                            <img src="../Image/btn_print.gif" border="0" alt="print" /></a></td>
+                        <asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <%--<a href='../printEleEquipment.aspx?equipmentSysID=<%= hidEquipmentSysID.Value %>' target="_blank"><img src="../Image/btn_print.gif" border="0" alt="print" /></a>--%>
+                    </td>
                     <td colspan="4" align="right">
                         <asp:Button ID="btnFinish" runat="server" Text="Save" CssClass="submitGreen" OnClick="btnFinish_Click" TabIndex="24" />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
@@ -253,7 +254,7 @@
                   
                 </tr>
 
-                <tr id="tr1" runat="server">
+                <tr id="trAttList" runat="server">
                     <td colspan="3">
                         <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                             OnRowCommand="gvExtAttachment_onRowCommand">
@@ -298,6 +299,6 @@
                 <br />
             </asp:Panel>
         </asp:Panel>
-    </div>
+   
 </asp:Content>
 
