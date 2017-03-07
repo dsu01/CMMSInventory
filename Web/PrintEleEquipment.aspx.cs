@@ -13,12 +13,13 @@ public partial class PrintEleEquipment : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            int equipID = 0;
-
-            if (Request.QueryString["equipmentSysID"] != null && !string.IsNullOrEmpty(Request.QueryString["equipmentSysID"].ToString()))
-            {
-                if (Int32.TryParse(Request.QueryString["equipmentSysID"].ToString(), out equipID))
-                {
+            int equipID = 0;//T00039
+            equipID = 39;
+           
+            //if (Request.QueryString["equipmentSysID"] != null && !string.IsNullOrEmpty(Request.QueryString["equipmentSysID"].ToString()))
+            //{
+            //    if (Int32.TryParse(Request.QueryString["equipmentSysID"].ToString(), out equipID))
+            //    {
                     FacilityDet details = facility_logic.GetEleMechaEquipDetails(equipID);
                     if (details != null)
                     {
@@ -86,17 +87,17 @@ public partial class PrintEleEquipment : System.Web.UI.Page
                     }
 
                   
-                }              
-                else
-                {
-                    lbFacNum.Text = " No Record Found.";
-                }
+            //    }              
+            //    else
+            //    {
+            //        lbFacNum.Text = " No Record Found.";
+            //    }
 
-            }
-            else
-            {
-                lbFacNum.Text = " No Record Found.";
-            }
+            //}
+            //else
+            //{
+            //    lbFacNum.Text = " No Record Found.";
+            //}
 
         }
     }

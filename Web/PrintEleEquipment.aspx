@@ -6,24 +6,27 @@
 
 		<link href="App_Themes/MainTheme/main.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" language="JavaScript" src="JS/PrintGrid.js"></script>
+   
 </head>
 	<body>
 		<form id="frmPrintEleEquipment" runat="server">
             <br /><br />
-         &nbsp;&nbsp; <asp:Button ID="btnPrint" CssClass="submitRed" runat="Server" Text="Print Page" OnClientClick="Javascript:CallPrint('printGrid','displayText');" UseSubmitBehavior="False" />
-      
-		<div id="printGrid">	
+        &nbsp;&nbsp; <asp:Button ID="btnPrint" CssClass="submitRed" runat="Server" Text="Print Page" OnClientClick="Javascript:CallPrint('printGrid','displayText');" UseSubmitBehavior="False" />
+       <%--  &nbsp;&nbsp; <asp:Button ID="btnPrint" CssClass="submitRed" runat="Server" Text="Print Page" OnClientClick="Javascript:window.print();" UseSubmitBehavior="False" />--%>
+		<div id="printGrid" style="background-color:white;">	
              <div id="displayText" style="display:none"></div>
-	                 <table cellspacing="0" cellpadding="3" class="printTable" border="0">   
-                        <tr style="height:30pt">
-                            <td colspan="4" class="inventoryTopLeftTitle" style="border-bottom: solid 1px #000;" width="420">Equipment Inventory Card</td>
-                            <td class="inventoryTopRightCell" width="70" valign="baseline">Facility#:</td>
-                            <td width="130"> 
-                             <asp:Label ID="lbFacNum" runat="server" CssClass="text11fix"></asp:Label>        
+	                 <table cellspacing="0" cellpadding="3" width="635">   
+                        <tr style="height:30pt; border-bottom: solid 1px #000;">
+                            <td colspan="4" style="width:420px; border-bottom: solid 1px #000; font-weight:bold; text-align: center;">
+                                Electrical Equipment Inventory Card
+
                             </td>
-                
+                            <td class="inventoryTopRightCell" width="100" valign="baseline">Facility#:</td>
+                            <td width="100"> 
+                             <asp:Label ID="lbFacNum" runat="server" CssClass="text11fix"></asp:Label>        
+                            </td>                
                         </tr>
-                        <tr style="height:25pt">
+                        <tr style="height:25pt; border-bottom: solid 1px #000;">
                             <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">System:&nbsp;&nbsp;</font>
                             <asp:Label id="lbFacSystem" Runat="server" CssClass="text11fix">&nbsp;</asp:Label>
                             </td>
@@ -31,7 +34,7 @@
                             <td class="inventoryTopRightCellBtm"><asp:Label id="lbFacFacilityID" Runat="server" CssClass="text11fix">&nbsp;</asp:Label>
                             </td> 
                         </tr>
-                        <tr style="height:25pt">
+                        <tr style="height:25pt; border-bottom: solid 1px #000;">
                             <td colspan="4" class="inventoryTopLeftCell">Function:
                             <asp:Label id="lbFacFunction" CssClass="text11fix" Runat="server"  />
                            </td>
@@ -42,15 +45,15 @@
                         </tr>
                         <tr style="height:25pt">   
                             <td colspan="4" class="inventoryTopLeftCell"><font color="#BA3516">Building:&nbsp;</font>
-                            <asp:TextBox id="lbFacBuilding" Runat="server" SkinID="NoborderShortTextBoxForPrint" />
-                            Floor:<asp:TextBox id="lbFacFloor" Runat="server" SkinID="NoborderShortTextBoxForPrint" />
-                            <font color="#BA3516">Location:</font><asp:TextBox id="lbFacLocation" Runat="server" SkinID="NoborderTextBoxForPrint" /></td>
+                            <asp:Label id="lbFacBuilding" Runat="server" SkinID="NoborderShortTextBoxForPrint" />&nbsp;&nbsp;
+                            Floor:<asp:Label id="lbFacFloor" Runat="server" SkinID="NoborderShortTextBoxForPrint" />&nbsp;&nbsp;
+                            <font color="#BA3516">Location:</font><asp:Label id="lbFacLocation" Runat="server" SkinID="NoborderTextBoxForPrint" /></td>
                             <td class="inventoryTopRightCell">WR#:</td>
-                            <td class="inventoryTopRightCellBtm"><asp:TextBox id="lbWRNumber" Runat="server" SkinID="NoborderShortTextBoxForPrint" /></td>
+                            <td class="inventoryTopRightCellBtm"><asp:Label id="lbWRNumber" Runat="server" SkinID="NoborderShortTextBoxForPrint" /></td>
                         </tr>
            
                       </table>
-	                 <table class="printTable" border="0" cellpadding="2" cellspacing="0">	
+	                 <table width="635" border="1" cellpadding="2" cellspacing="0" class="componentTable">	
 				            <tr style="height:40pt">
 					            <td class="leftLabel" width="120">Equipment ID (Other):</td>
 					            <td class="text7" width="213">
