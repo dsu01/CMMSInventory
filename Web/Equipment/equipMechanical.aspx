@@ -9,8 +9,8 @@
 
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
-
             $('#<%=txtInventoryDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
+           
             $('#<%=txtInstalledDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
             $('#<%=txtMotorInstalledDate.ClientID%>').datepicker({ changeMonth: true, changeYear: true, yearRange: "-31:+0", buttonText: "select" });
 
@@ -25,10 +25,10 @@
         <table cellspacing="0" cellpadding="5" width="100%" border="0">
             <tr>
                 <td colspan="2">
-                    <asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;<a href='../printFacility.aspx?FacilityNumber=<%= txtFacilityNum.Text %>' target="_blank">
-                        <img src="../Image/btn_print.gif" border="0" alt="print" /></a>
+                    <asp:Button ID="btnBackToList" runat="server" Text="Back to Search List" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnBackToList_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
+                  <%--  <a href='../printFacility.aspx?FacilityNumber=<%= txtFacilityNum.Text %>' target="_blank"><img src="../Image/btn_print.gif" border="0" alt="print" /></a>--%>
                 </td>
-                <td colspan="4" align="right">
+                <td colspan="6" align="right">
                     <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnReset_Click" />
@@ -293,7 +293,7 @@
                
             </tr>
 
-            <tr id="tr1" runat="server">
+            <tr id="trAttList" runat="server">
                 <td colspan="6">
                     <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                         OnRowCommand="gvExtAttachment_onRowCommand">

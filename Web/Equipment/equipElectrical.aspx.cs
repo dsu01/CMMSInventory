@@ -58,7 +58,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
                     btnFinish.Text = "Save Equipment";
                     trAttachment.Visible = true;
                     LoadDetails();
-                    trAttachment.Visible = true;
+                    trAttList.Visible = true;
                     drplstBuilding.Enabled = false;
                     txtFacilityNum.Enabled = false;
                     btnAddNew.Visible = true;
@@ -76,6 +76,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
                 txtFacilityNum.Enabled = true;
                 btnFinish.Text = "Add Equipment";
                 trAttachment.Visible = false;
+                trAttList.Visible = false;
                 hidEquipmentSysID.Value = string.Empty;
                 btnAddNew.Visible = false;
             }
@@ -180,6 +181,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
                 Utils.ShowPopUpMsg("Equipment is saved.", this.Page);
                 //can add attachment now
                 trAttachment.Visible = true;
+                trAttList.Visible = true;
                 btnAddNew.Visible = true;
             }
             else
@@ -256,6 +258,7 @@ public partial class Equipment_equipElectrical : System.Web.UI.Page
         txtTJC.Text = string.Empty;
         txtBSLClass.Text = string.Empty;
         trAttachment.Visible = false;
+        trAttList.Visible = false;
         btnFinish.Text = "Add Equipment";
         btnAddNew.Visible = false;
     }

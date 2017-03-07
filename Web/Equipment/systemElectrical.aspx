@@ -42,16 +42,14 @@
 
                 <td>
                     <asp:Button ID="btnBackToList" runat="server" Text="Go Back to List" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnGoBack_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <a href='../printEleSystem.aspx?equipmentSysID=<%= hidFacilitySysid.Value %>' target="_blank">
-                          <img src="../Image/btn_print.gif" border="0" alt="print" /></a>
-
+                      <%--<a href='../printEleSystem.aspx?equipmentSysID=<%= hidFacilitySysid.Value %>' target="_blank"><img src="../Image/btn_print.gif" border="0" alt="print" /></a>--%>
                 </td>
-                <td colspan="5" align="right">
+                <td colspan="5" align="right">                 
+                    
+                     <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
+                    <asp:Label ID="lbUpdateFacilityMsg" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="btnCancelFacilityChange" runat="server" Text="Cancel" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false"
                         OnClick="btnCancelFacility_Click" OnClientClick="return confirm('OK to Cancel?');" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
-                    <asp:Label ID="lbUpdateFacilityMsg" runat="server" EnableViewState="false" CssClass="errortext"></asp:Label>
                 </td>
 
             </tr>
@@ -430,10 +428,10 @@
                                     </tr>
                                 </table>
                             </td>
-                            <td width="35%">
+                            <td width="35%" >
                                 <table width="100%">
                                    
-                                    <tr id="trAttachment" runat="server">
+                                    <tr id="trAttachment" runat="server" Visible="false">
                                         <td>
                                             <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
                                             <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
@@ -465,7 +463,7 @@
                                         </td>
                                     </tr>
                                      <tr>
-                                       <asp:Button ID="btnAddAttachment" runat="server" Text="Add Attachment" CssClass="submitGreen" CausesValidation="false" />
+                                       <asp:Button ID="btnAddAttachment" runat="server" Text="Add Attachment" CssClass="submitGreen" CausesValidation="false" Visible="false" />
                                     </tr>
                                 </table>
                             </td>

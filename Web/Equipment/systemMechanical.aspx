@@ -38,7 +38,7 @@
                 <table cellspacing="0" cellpadding="5" width="100%" border="0">
                         <tr>  
                                <td><asp:Button ID="btnBackToList" runat="server" Text="Go Back to List" CssClass="submitGreen" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnGoBack_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <a href='../printMecSystem.aspx?equipmentSysID=<%= hidFacilitySysid.Value %>' target="_blank"><img src="../Image/btn_print.gif" border="0" alt="print" /></a>
+                    <%--  <a href='../printMecSystem.aspx?equipmentSysID=<%= hidFacilitySysid.Value %>' target="_blank"><img src="../Image/btn_print.gif" border="0" alt="print" /></a>--%>
                     
                 </td>
                     <td colspan="5" align="right"><asp:Button ID="btnSaveFacility" runat="server" CssClass="submitGreen" OnClick="btnSaveFacility_Click" />
@@ -457,7 +457,7 @@
                            </td>
                             <td>
                                 <table width="100%">
-                                    <tr id="trAttachment" runat="server">
+                                    <tr id="trAttachment" runat="server" Visible="false">
                                         <td>
                                             <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
                                             <asp:GridView ID="gvExtAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
@@ -514,8 +514,10 @@
 
                     <tr id="trFacilityAttachment" runat="server">
                     <td>
-                          
-                            <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
+                          <asp:Label CssClass="tableLabel" runat="server" Text="Attachments" /><br />
+                        <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New System Attachment" CausesValidation="false" CssClass="submitGreen" />
+
+                           
                         <asp:GridView ID="gvExtFacilityAttachment" SkinID="NoPagingSortingGV" runat="server" AutoGenerateColumns="false" GridLines="None"
                             OnRowCommand="gvExtFacilityAttachment_onRowCommand">
                             <Columns>
@@ -535,9 +537,7 @@
                                 <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
                             </Columns>
                         </asp:GridView>
-                        <br />
-                        <asp:Button ID="btnAddFacilityAttachment" runat="server" Text="Add New Attachment" CausesValidation="false" CssClass="submitGreen" />
-
+                      
                     </td>
                      <td>
                         <a id="imageAttachmentAnchor" href="#" runat="server">
