@@ -17,7 +17,7 @@ public partial class PrintTest : System.Web.UI.Page
         {
             string facNum = string.Empty;
 
-            facNum = "T00027";
+            facNum = "T00014";
 
             FacilityDet existingFac = facility_logic.GetFacilityDetailsByFacNum(facNum);
 
@@ -32,37 +32,19 @@ public partial class PrintTest : System.Web.UI.Page
                 if (existingFac.FacEquipments != null)
                     equipTotal = existingFac.FacEquipments.Count;
 
-                if (existingFac.FacEquipments == null || equipTotal == 0)
+                for (int i=0; i < 5; i++)
                 {
-                    numberOfPages = 0;
-                    endCount = 0;
-                    printCurrentPage(existingFac, 0,0,0, html);
-                }
-                else if (equipTotal <= 5)
-                {
-                    numberOfPages = 1;
-                    endCount = equipTotal;
-                   // printCurrentPage(existingFac, 1, 1, endCount, html);
-                }
-                else if (equipTotal > 5)
-                {
-                    numberOfPages = equipTotal / 5 + 1;                 
+                    var toContinue = equipTotal > i * 5;
+                    if (!toContinue && i > 0)
+                        break;
 
-                    for (int i = 2; i <= numberOfPages; i++)
-                    {
-                        //generate table for every 5 components
-                        startCount = (i-1) * 5;
-                        if (numberOfPages * 5 > equipTotal)
-                            endCount = equipTotal;
-                        else
-                            endCount = i * 5;
-                       // printCurrentPage(existingFac, i, startCount, endCount, html);
-                    }
+                    var startIndex = i*5;
+                    var endIndex = equipTotal >= (startIndex + 5) ? startIndex + 4 : equipTotal - 1;
+                    printCurrentPage(existingFac, i, startIndex, endIndex, html);
                 }
-               
-
-
             }
+
+
             //    #region "show fac detail"
             //   //now need to generate table top part now
             //        if (existingFac.Status.ToLower() == "active")
@@ -1196,8 +1178,8 @@ public partial class PrintTest : System.Web.UI.Page
     }
 
     private void printCurrentPage(FacilityDet existingFac, int currentPage, int start, int end, StringBuilder html)
-    {       
-
+    {
+        #region "Print top part"
         //top part of page
         html.Append("<div style='page-break-after:always'><table cellspacing='0' cellpadding='3' width='635' border='0'><tr style='height:15pt'>");
         html.Append("<td colspan='4' class='inventoryTopLeftTitle' width='450'>Equipment Inventory Card</td><td class='inventoryTopRightCell' width='70' valign='baseline'>Facility#:</td>");
@@ -1224,7 +1206,7 @@ public partial class PrintTest : System.Web.UI.Page
      
         if (existingFac.YsnAaalac == 1)
           { html.Append("Yes"); }
-           else
+        else
           { html.Append("No");  }
 
         html.Append("&nbsp;BSL");  
@@ -1251,16 +1233,30 @@ public partial class PrintTest : System.Web.UI.Page
    
         html.Append("<td class='inventoryTopRightCell'>WR#:</td><td class='inventoryTopRightCellBtm'>");
         html.Append(existingFac.WRNumber); 
-        html.Append("</td></tr></table>");    
-          
-        //component table 5 each,curreny, endcount          
-	   
-		for (int i = currentPage * 5; i <= end; i++)       
-        {
-            //generate table for every 5 components
-           // printFiveComponents(existingFac.FacEquipments, start, end, html);
-        }
-		//bottom part of page
+        html.Append("</td></tr></table>");
+        #endregion
+        //component table 5 each,curreny, endcount         
+
+        //Table start. 780*1050
+        html.Append("<table style='width: 780px; height:700px; table-layout: fixed; font-size: 10px;' border = '1'>");
+        //Building the Header row.
+        html.Append("<tr height='100'>");
+        html.Append("<td style='width: 100px;'>Equipment ID* </td>");
+        html.Append("<td style='width: 100px;'>&nbsp;</td>");
+        html.Append("<td style='width: 100px;'>&nbsp;</td>");
+        html.Append("<td style='width: 100px;'>&nbsp;</td>");
+        html.Append("<td style='width: 100px;'>&nbsp;</td>");
+        html.Append("<td style='width: 100px;'>&nbsp;</td>");
+        html.Append("</tr>");
+
+        printEquipmentRow(existingFac.FacEquipments, start, end, html);
+        printTypeOfUseRow(existingFac.FacEquipments, start, end, html);
+
+
+
+        //Table end.
+        html.Append("</table>");
+        //bottom part of page
         html.Append("<table width='635' border='0'><tr style='height:18pt'>");
         html.Append("<td colspan='2' class='leftLabel'>Comments:<br />");        
         html.Append(existingFac.Comment);
@@ -1271,49 +1267,52 @@ public partial class PrintTest : System.Web.UI.Page
 		PlaceHolder1.Controls.Add(new Literal {Text = html.ToString()});	
     }
 
-    private void printFiveComponents(List<EquipmentDet> equips, StringBuilder html)
+    private void printEquipmentRow(List<EquipmentDet> equips, int start, int end, StringBuilder html)
     {
-        //<table width="635" border="0" cellpadding="1" cellspacing="0" class="componentTable">	
-        //Table start.
-        html.Append("<table style='width: 780px; height:1050px; table-layout: fixed; font-size: 10px;' border = '1'>");
+        //Building the Data rows. another 24 rows for sure
 
-        //Building the Header row.
         html.Append("<tr height='100'>");
-        //for (int i = 0; i < 8; i++)
-        //{
-        //}
-
-        html.Append("<th style='width: 100px;'>Test Column 1 </th>");
-        html.Append("<th style='width: 100px;'>Test Column 2 </th>");
-        html.Append("<th style='width: 100px;'>Test Column 3 </th>");
-        html.Append("<th style='width: 100px;'>Test Column 4 </th>");
-        html.Append("<th style='width: 100px;'>Test Column 5 </th>");
-        html.Append("<th style='width: 100px;'>Test Column 6 </th>");
-        html.Append("<th style='width: 180px;'>Test Column 7 </th>");
+        html.Append("<td style='width: 100px;'>2. Location </td>");
+        //append location for up to 5 components
+        for (int i = start; i <= end; i++)
+        {
+            html.Append("<td style='width: 100px;'>" + equips[i].EquipLocation + " </td>");
+        }
         html.Append("</tr>");
-
-        ////Building the Data rows.
-        //foreach (DataRow row in dt.Rows)
-        //{
-        //    html.Append("<tr>");
-        //    foreach (DataColumn column in dt.Columns)
-        //    {
-        //        string data = row[column.ColumnName].ToString();
-        //        //if (!string.IsNullOrEmpty(data) && data.Length > 50)
-        //        //{
-        //        //    data = data.Substring(0, 50);
-        //        //}
-        //        column.AutoIncrement = false;
-        //        html.Append("<td>");
-        //        html.Append(data.Substring(0, Math.Min(data.Length, 50)));
-        //        // html.Append(data);
-        //        html.Append("</td>");
-        //    }
-        //    html.Append("</tr>");
-        //}
-
-        //Table end.
-        html.Append("</table>");
     }
+    private void printTypeOfUseRow(List<EquipmentDet> equips, int start, int end, StringBuilder html)
+    {
+        //Building the Data rows. another 24 rows for sure
+
+        html.Append("<tr height='100'>");
+        html.Append("<td style='width: 100px;'>3. Type or Use </td>");
+        //append location for up to 5 components
+        for (int i = start; i <= end; i++)
+        {
+            html.Append("<td style='width: 100px;'>" + equips[i].TypeOrUse + " </td>");
+        }
+        html.Append("</tr>");
+    }
+
+
+
+    //html.Append("<tr>");
+    //foreach (DataColumn column in dt.Columns)
+    //{
+    //    string data = row[column.ColumnName].ToString();
+    //    //if (!string.IsNullOrEmpty(data) && data.Length > 50)
+    //    //{
+    //    //    data = data.Substring(0, 50);
+    //    //}
+    //    column.AutoIncrement = false;
+    //    html.Append("<td>");
+    //    html.Append(data.Substring(0, Math.Min(data.Length, 50)));
+    //    // html.Append(data);
+    //    html.Append("</td>");
+    //}
+    //html.Append("</tr>");
+
+
+
 }
 
